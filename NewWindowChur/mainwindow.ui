@@ -44,18 +44,18 @@
        </property>
       </widget>
      </item>
+     <item row="1" column="1">
+      <widget class="QLineEdit" name="lineEditPass"/>
+     </item>
+     <item row="0" column="1">
+      <widget class="QLineEdit" name="lineEditUser"/>
+     </item>
      <item row="1" column="0">
       <widget class="QLabel" name="label_2">
        <property name="text">
         <string>Password</string>
        </property>
       </widget>
-     </item>
-     <item row="0" column="1">
-      <widget class="QLineEdit" name="lineEditUser"/>
-     </item>
-     <item row="1" column="1">
-      <widget class="QLineEdit" name="lineEditPass"/>
      </item>
     </layout>
    </widget>
@@ -70,25 +70,6 @@
     </property>
     <property name="text">
      <string>Library Login</string>
-    </property>
-   </widget>
-   <widget class="QFrame" name="frame">
-    <property name="geometry">
-     <rect>
-      <x>129</x>
-      <y>99</y>
-      <width>261</width>
-      <height>171</height>
-     </rect>
-    </property>
-    <property name="frameShape">
-     <enum>QFrame::StyledPanel</enum>
-    </property>
-    <property name="frameShadow">
-     <enum>QFrame::Raised</enum>
-    </property>
-    <property name="lineWidth">
-     <number>5</number>
     </property>
    </widget>
   </widget>
