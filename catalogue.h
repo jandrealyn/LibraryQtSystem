@@ -24,6 +24,8 @@ private slots:
 
     void on_yourAccount_logout_clicked();
 
+    void on_checkOutButton_clicked();
+
 private:
     Ui::Catalogue *ui;
 };

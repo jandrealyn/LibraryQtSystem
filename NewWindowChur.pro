@@ -10,6 +10,7 @@ CONFIG += c++11
 
 SOURCES += \
     catalogue.cpp \
+    checkoutscreen.cpp \
     createfiles.cpp \
     dialog.cpp \
     main.cpp \
@@ -17,12 +18,14 @@ SOURCES += \
 
 HEADERS += \
     catalogue.h \
+    checkoutscreen.h \
     createfiles.h \
     dialog.h \
     mainwindow.h
 
 FORMS += \
     catalogue.ui \
+    checkoutscreen.ui \
     dialog.ui \
     mainwindow.ui
 
