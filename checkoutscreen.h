@@ -15,6 +15,9 @@ public:
     explicit CheckOutScreen(QWidget *parent = nullptr);
     ~CheckOutScreen();
 
+private slots:
+    void on_cancel_clicked();
+
 private:
     Ui::CheckOutScreen *ui;
 };

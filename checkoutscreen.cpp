@@ -12,3 +12,8 @@ CheckOutScreen::~CheckOutScreen()
 {
     delete ui;
 }
+
+void CheckOutScreen::on_cancel_clicked()
+{
+    close();
+}

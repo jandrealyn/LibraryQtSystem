@@ -2,6 +2,7 @@
 #define CATALOGUE_H
 
 #include <QDialog>
+#include "checkoutscreen.h"
 
 namespace Ui {
 class Catalogue;
@@ -21,13 +22,13 @@ signals:
     void ClosedMainMenu();
 
 private slots:
-
     void on_yourAccount_logout_clicked();
 
     void on_checkOutButton_clicked();
 
 private:
     Ui::Catalogue *ui;
+    CheckOutScreen* c_ui;
 };
 
 #endif // CATALOGUE_H

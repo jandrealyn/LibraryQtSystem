@@ -44,7 +44,9 @@ Catalogue::Catalogue(QWidget *parent) :
 
     // We have headers in our CSV file, so I use them to set the labels for the table.
     ui->bookCatalogue->setHorizontalHeaderLabels({catalogueData[0], catalogueData[1], catalogueData[2], catalogueData[3], catalogueData[4]});
-    ui->bookCatalogue->horizontalHeader()->setStretchLastSection(true);
+    ui->bookCatalogue->horizontalHeader()->setSectionResizeMode(0, QHeaderView::Interactive);
+    ui->bookCatalogue->horizontalHeader()->setSectionResizeMode(1, QHeaderView::Stretch);
+    ui->bookCatalogue->horizontalHeader()->setSectionResizeMode(2, QHeaderView::Stretch);
 
     // Create the rows of the QTableWidget
     int i = 5;
@@ -60,6 +62,7 @@ Catalogue::Catalogue(QWidget *parent) :
         }
     }
 
+    // Make the items non editable
     ui->bookCatalogue->setEditTriggers(ui->bookCatalogue->NoEditTriggers);
 }
 
@@ -72,5 +75,12 @@ void Catalogue::on_yourAccount_logout_clicked()
 {
     close();
     emit ClosedMainMenu();
+}
+
+
+void Catalogue::on_checkOutButton_clicked()
+{
+    c_ui = new CheckOutScreen(this);
+    c_ui->exec();
 }
 

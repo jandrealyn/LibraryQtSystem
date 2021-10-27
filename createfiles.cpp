@@ -2,8 +2,8 @@
 
 // Defining static variables
 QString CreateFiles::_path = "CSVFiles/";
-QFile CreateFiles::_catalogue(CreateFiles::_path + "catalogue.csv");
-QFile CreateFiles::_members(CreateFiles::_path + "members.csv");
+QFile CreateFiles::_catalogue(_path + "catalogue.csv");
+QFile CreateFiles::_members(_path + "members.csv");
 
 CreateFiles::CreateFiles()
 {
