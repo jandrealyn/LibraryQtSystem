@@ -1,6 +1,7 @@
 #include "mainwindow.h"
 #include "dialog.h"
 #include "ui_mainwindow.h"
+#include "catalogue.h"
 #include "QMessageBox"
 #include "QCheckBox"
 #include <QDebug>
@@ -26,8 +27,10 @@ void MainWindow::on_pushButton_clicked()
     QString pass = ui->lineEditPass->text();
 
     if(user == "test" && pass == "test"){
-        window = new Dialog(this);
-        window->show();
+        hide();
+        _catalogueWindow = new Catalogue(this);
+        _catalogueWindow->show();
+        connect(_catalogueWindow, SIGNAL(ClosedMainMenu()), this, SLOT(MainMenuClosed()));
     }
     else {
         QMessageBox::warning(this, "Login", "Unsucessful, try again.");
@@ -38,3 +41,7 @@ void MainWindow::on_pushButton_clicked()
 
 }
 
+void MainWindow::MainMenuClosed()
+{
+    show();
+}
