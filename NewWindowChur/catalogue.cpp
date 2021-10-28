@@ -51,6 +51,7 @@ Catalogue::Catalogue(QWidget *parent) :
     ui->bookCatalogue->horizontalHeader()->setSectionResizeMode(0, QHeaderView::Interactive);
     ui->bookCatalogue->horizontalHeader()->setSectionResizeMode(1, QHeaderView::Stretch);
     ui->bookCatalogue->horizontalHeader()->setSectionResizeMode(2, QHeaderView::Stretch);
+    ui->bookCatalogue->setSelectionMode(QHeaderView::NoSelection);
 
     // Create the rows of the QTableWidget
     int i = 5;
@@ -71,6 +72,9 @@ Catalogue::Catalogue(QWidget *parent) :
 
     // Make the headers not able to be clicked
     //ui->bookCatalogue->setSelectionModel(QItemSelectionModel::NoUpdate);
+
+    QPixmap img(":/images/yoobee-logo.png");
+    ui->yoobeeLogo->setPixmap(img);
 }
 
 Catalogue::~Catalogue()
@@ -87,7 +91,7 @@ void Catalogue::on_yourAccount_logout_clicked()
 
 void Catalogue::on_checkOutButton_clicked()
 {
-    c_ui = new CheckOutScreen(this);
+    c_ui = new CheckOutScreen(nullptr);
     c_ui->exec();
 }
 
