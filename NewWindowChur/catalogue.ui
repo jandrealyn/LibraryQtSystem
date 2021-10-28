@@ -24,7 +24,17 @@
        <string>Catalogue</string>
       </attribute>
       <layout class="QGridLayout" name="gridLayout_2">
-       <item row="0" column="0">
+       <item row="2" column="0">
+        <widget class="QTableWidget" name="bookCatalogue"/>
+       </item>
+       <item row="2" column="1">
+        <widget class="QPushButton" name="checkOutButton">
+         <property name="text">
+          <string>Check out</string>
+         </property>
+        </widget>
+       </item>
+       <item row="1" column="0">
         <widget class="QLineEdit" name="lineEdit">
          <property name="text">
           <string/>
@@ -34,13 +44,10 @@
          </property>
         </widget>
        </item>
-       <item row="1" column="0">
-        <widget class="QTableWidget" name="bookCatalogue"/>
-       </item>
-       <item row="1" column="1">
-        <widget class="QPushButton" name="checkOutButton">
+       <item row="0" column="0">
+        <widget class="QLabel" name="yoobeeLogo">
          <property name="text">
-          <string>Check out</string>
+          <string>TextLabel</string>
          </property>
         </widget>
        </item>

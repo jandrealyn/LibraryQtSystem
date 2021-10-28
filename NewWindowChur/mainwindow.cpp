@@ -28,8 +28,10 @@ void MainWindow::on_pushButton_clicked()
 
     if(user == "test" && pass == "test"){
         hide();
-        _catalogueWindow = new Catalogue(this);
-        _catalogueWindow->show();
+        // CALL YOUR DIALOG WINDOWS WITH (nullptr) SO THAT THEY HAVE A TASKBAR ICON
+        _catalogueWindow = new Catalogue(nullptr);
+        _catalogueWindow->setWindowFlags(windowFlags() | Qt::WindowMinimizeButtonHint);
+        _catalogueWindow->showMaximized();
         connect(_catalogueWindow, SIGNAL(ClosedMainMenu()), this, SLOT(MainMenuClosed()));
     }
     else {
