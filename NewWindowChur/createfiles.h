@@ -2,6 +2,7 @@
 #define CREATEFILES_H
 #include <QDir>
 #include <QFile>
+#include <QTextStream>
 
 class CreateFiles
 {

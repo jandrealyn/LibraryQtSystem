@@ -1,10 +1,12 @@
 #include "catalogue.h"
 #include "ui_catalogue.h"
 #include "createfiles.h"
+#include <QDialog>
 #include <QFile>
 #include <QMessageBox>
 #include <QTableWidget>
-#include <QVector>
+#include <QStringList>
+#include <QItemSelectionModel>
 
 Catalogue::Catalogue(QWidget *parent) :
     QDialog(parent),
@@ -12,7 +14,7 @@ Catalogue::Catalogue(QWidget *parent) :
 {
     ui->setupUi(this);
 
-    QVector<QString> catalogueData;
+    QStringList catalogueData;
 
     // Read the CSV file and store its data into catalogueData
     if (CreateFiles::_catalogue.open(QIODevice::ReadOnly))
@@ -64,6 +66,9 @@ Catalogue::Catalogue(QWidget *parent) :
 
     // Make the items non editable
     ui->bookCatalogue->setEditTriggers(ui->bookCatalogue->NoEditTriggers);
+
+    // Make the headers not able to be clicked
+    //ui->bookCatalogue->setSelectionModel(QItemSelectionModel::NoUpdate);
 }
 
 Catalogue::~Catalogue()

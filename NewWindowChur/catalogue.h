@@ -1,7 +1,6 @@
 #ifndef CATALOGUE_H
 #define CATALOGUE_H
 
-#include <QDialog>
 #include "checkoutscreen.h"
 
 namespace Ui {

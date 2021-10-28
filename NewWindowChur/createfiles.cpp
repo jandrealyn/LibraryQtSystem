@@ -21,7 +21,10 @@ void CreateFiles::CreateFilesOnStartUp()
         _catalogue.open(QIODevice::WriteOnly | QFile::Text);
         QTextStream catalogue_output(&_catalogue);
         catalogue_output << "BOOK_ID" << "," << "BOOK_NAME" << "," << "AUTHOR" << "," << "COPIES" << "," << "OVERDUE" << "\n";
-        catalogue_output << "1234566" << "," << "A Game of Thrones" << "," << "R. R. Martin" << "," << "2" << "," << "No" << "\n";
+        for (int i = 0; i < 20; i++)
+        {
+            catalogue_output << "123" << "," << "This is a book" << "," << "Author" << "," << "20" << "," << "No" << "\n";
+        }
         _catalogue.close();
 
         _members.open(QIODevice::WriteOnly | QFile::Text);
