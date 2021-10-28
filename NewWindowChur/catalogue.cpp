@@ -8,6 +8,8 @@
 #include <QStringList>
 #include <QItemSelectionModel>
 
+// hi
+
 Catalogue::Catalogue(QWidget *parent) :
     QDialog(parent),
     ui(new Ui::Catalogue)
