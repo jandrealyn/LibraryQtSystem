@@ -7,6 +7,8 @@
 #include <QTableWidget>
 #include <QStringList>
 #include <QItemSelectionModel>
+#include <QFormLayout>
+#include <QLine>
 
 Catalogue::Catalogue(QWidget *parent) :
     QDialog(parent),
@@ -63,14 +65,43 @@ Catalogue::Catalogue(QWidget *parent) :
 
     // TEST
     // horizontal layout
-    ui->scrollArea->setWidgetResizable(true);
-    QHBoxLayout *const layout(new QHBoxLayout(ui->scrollArea));
-    for (int i = 0; i < 3; i++)
-    {
-        QLabel* l = new QLabel(this);
-        layout->addWidget(l);
-        ui->scrollArea->addScrollBarWidget(l, Qt::Alignment(Qt::AlignLeft));
-    }
+    QWidget* testTab = new QWidget(ui->Test);
+
+    QVBoxLayout *rootLayout = new QVBoxLayout(testTab);
+    QHBoxLayout *subLayout1 = new QHBoxLayout();
+    QHBoxLayout *subLayout2 = new QHBoxLayout();
+
+    rootLayout->addLayout(subLayout1);
+    rootLayout->addLayout(subLayout2);
+
+    QPixmap p(":/images/book-cover.png");
+    QLabel* l = new QLabel;
+    l->setPixmap(p.scaled(90, 120));
+
+    QPixmap x(":/images/blue-book.jpg");
+    QLabel* a = new QLabel;
+    a->setPixmap(x.scaled(90, 120));
+
+    QLabel* t = new QLabel;
+    t->setText("my new label");
+    QLabel* b = new QLabel;
+    b->setText("the second label");
+
+    QPushButton* push1 = new QPushButton;
+    push1->setText("this is a push button");
+
+    QPushButton* push2 = new QPushButton;
+    push2->setText("this is a 2nd push button");
+
+    subLayout1->addWidget(l);
+    subLayout1->addWidget(t);
+    subLayout1->addWidget(push1);
+    subLayout1->setContentsMargins(10, 0, 0, 40);
+
+    subLayout2->addWidget(a);
+    subLayout2->addWidget(b);
+    subLayout2->addWidget(push2);
+    subLayout2->setContentsMargins(10, 0, 0, 40);
 }
 
 Catalogue::~Catalogue()
@@ -94,19 +125,40 @@ void Catalogue::on_checkOutButton_clicked()
 
 void Catalogue::on_searchBar_textChanged(const QString &arg1)
 {
-    QStringList catalogueData = CreateFiles::GetFileData("catalogue");
+    QStringList foundData;
 
-    int i = 5;
-    int rowCount = (catalogueData.size() / 5) - 1;
+    if (CreateFiles::_catalogue.open(QIODevice::ReadOnly))
+    {
+        QTextStream in(&CreateFiles::_catalogue);
+        while(!in.atEnd())
+        {
+            QString line = CreateFiles::_catalogue.readLine().replace("\r\n","");
+            if (line.toLower().contains(arg1.toLower()))
+            {
+                foundData.append(line.split(','));
+            }
+        }
+    }
+    CreateFiles::_catalogue.close();
+
+    ui->bookCatalogue->setRowCount(0);
+
+    int b = 0;
+    int rowCount = (foundData.size() / 5) - 1;
     for (int row = 0; row < rowCount; row++)
     {
         ui->bookCatalogue->insertRow(ui->bookCatalogue->rowCount());
         for (int col = 0; col < 5; col++)
         {
-            QTableWidgetItem *item = new QTableWidgetItem(QString(catalogueData[i]));
+            QTableWidgetItem *item = new QTableWidgetItem(QString(foundData[b]));
             ui->bookCatalogue->setItem(row, col, item);
-            i++;
+            b++;
         }
     }
+}
+
+void Catalogue::on_addBook_clicked()
+{
+
 }
 

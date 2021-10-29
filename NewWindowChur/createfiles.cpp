@@ -23,7 +23,15 @@ void CreateFiles::CreateFilesOnStartUp()
         catalogue_output << "BOOK_ID" << "," << "BOOK_NAME" << "," << "AUTHOR" << "," << "COPIES" << "," << "OVERDUE" << "\n";
         for (int i = 0; i < 20; i++)
         {
-            catalogue_output << QString::number(i + 1) << "," << "This is a book" << "," << "Author" << "," << "20" << "," << "No" << "\n";
+            if (i % 2 == 0)
+            {
+                catalogue_output << QString::number(i + 1) << "," << "This is a book" << "," << "Author" << "," << "20" << "," << "No" << "\n";
+            }
+            else
+            {
+                catalogue_output << QString::number(i + 1) << "," << "Cool Book" << "," << "Authorz" << "," << "20" << "," << "No" << "\n";
+            }
+
         }
         _catalogue.close();
 

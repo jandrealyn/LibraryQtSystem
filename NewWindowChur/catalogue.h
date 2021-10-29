@@ -27,6 +27,8 @@ private slots:
 
     void on_searchBar_textChanged(const QString &arg1);
 
+    void on_addBook_clicked();
+
 private:
     Ui::Catalogue *ui;
     CheckOutScreen* c_ui;
