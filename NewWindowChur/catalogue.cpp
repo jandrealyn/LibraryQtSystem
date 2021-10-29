@@ -133,18 +133,26 @@ void Catalogue::on_searchBar_textChanged(const QString &arg1)
         while(!in.atEnd())
         {
             QString line = CreateFiles::_catalogue.readLine().replace("\r\n","");
-            if (line.toLower().contains(arg1.toLower()))
+            if (!line.contains("BOOK"))
             {
-                foundData.append(line.split(','));
+                if (line.toLower().contains(arg1.toLower()))
+                {
+                    foundData.append(line.split(','));
+                }
             }
         }
     }
     CreateFiles::_catalogue.close();
 
+    for (int i = 0; i < foundData.size(); i++)
+    {
+        qDebug() << foundData[i];
+    }
+
     ui->bookCatalogue->setRowCount(0);
 
     int b = 0;
-    int rowCount = (foundData.size() / 5) - 1;
+    int rowCount = (foundData.size() / 5);
     for (int row = 0; row < rowCount; row++)
     {
         ui->bookCatalogue->insertRow(ui->bookCatalogue->rowCount());
