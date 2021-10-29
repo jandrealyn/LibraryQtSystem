@@ -25,9 +25,14 @@ private slots:
 
     void on_checkOutButton_clicked();
 
+    void on_searchBar_textChanged(const QString &arg1);
+
+    void on_addBook_clicked();
+
 private:
     Ui::Catalogue *ui;
     CheckOutScreen* c_ui;
+
 };
 
 #endif // CATALOGUE_H

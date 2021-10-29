@@ -10,6 +10,12 @@
     <height>614</height>
    </rect>
   </property>
+  <property name="sizePolicy">
+   <sizepolicy hsizetype="Preferred" vsizetype="Preferred">
+    <horstretch>0</horstretch>
+    <verstretch>0</verstretch>
+   </sizepolicy>
+  </property>
   <property name="windowTitle">
    <string>Yoobee Library System</string>
   </property>
@@ -17,25 +23,72 @@
    <item row="0" column="0">
     <widget class="QTabWidget" name="tabWidget">
      <property name="currentIndex">
-      <number>0</number>
+      <number>1</number>
      </property>
-     <widget class="QWidget" name="tab">
+     <widget class="QWidget" name="Home">
+      <attribute name="title">
+       <string>Home</string>
+      </attribute>
+      <layout class="QGridLayout" name="gridLayout_3">
+       <item row="2" column="0">
+        <widget class="QTextBrowser" name="textBrowser"/>
+       </item>
+       <item row="1" column="0">
+        <widget class="QLabel" name="label_3">
+         <property name="font">
+          <font>
+           <pointsize>14</pointsize>
+           <weight>75</weight>
+           <bold>true</bold>
+          </font>
+         </property>
+         <property name="text">
+          <string>LATEST NEWS</string>
+         </property>
+        </widget>
+       </item>
+       <item row="0" column="0">
+        <widget class="QLabel" name="yoobeeLogo_2">
+         <property name="text">
+          <string/>
+         </property>
+         <property name="pixmap">
+          <pixmap resource="images.qrc">:/images/yoobee-logo.png</pixmap>
+         </property>
+        </widget>
+       </item>
+       <item row="2" column="1">
+        <widget class="QScrollBar" name="verticalScrollBar">
+         <property name="orientation">
+          <enum>Qt::Vertical</enum>
+         </property>
+        </widget>
+       </item>
+      </layout>
+     </widget>
+     <widget class="QWidget" name="Catalogue">
       <attribute name="title">
        <string>Catalogue</string>
       </attribute>
       <layout class="QGridLayout" name="gridLayout_2">
-       <item row="2" column="0">
-        <widget class="QTableWidget" name="bookCatalogue"/>
-       </item>
-       <item row="2" column="1">
-        <widget class="QPushButton" name="checkOutButton">
+       <item row="0" column="0">
+        <widget class="QLabel" name="yoobeeLogo">
          <property name="text">
-          <string>Check out</string>
+          <string>TextLabel</string>
+         </property>
+        </widget>
+       </item>
+       <item row="2" column="0">
+        <widget class="QTableWidget" name="bookCatalogue">
+         <property name="font">
+          <font>
+           <pointsize>8</pointsize>
+          </font>
          </property>
         </widget>
        </item>
        <item row="1" column="0">
-        <widget class="QLineEdit" name="lineEdit">
+        <widget class="QLineEdit" name="searchBar">
          <property name="text">
           <string/>
          </property>
@@ -44,16 +97,16 @@
          </property>
         </widget>
        </item>
-       <item row="0" column="0">
-        <widget class="QLabel" name="yoobeeLogo">
+       <item row="3" column="0">
+        <widget class="QPushButton" name="addBook">
          <property name="text">
-          <string>TextLabel</string>
+          <string>Add Book</string>
          </property>
         </widget>
        </item>
       </layout>
      </widget>
-     <widget class="QWidget" name="tab_2">
+     <widget class="QWidget" name="Account">
       <attribute name="title">
        <string>Your account</string>
       </attribute>
@@ -113,10 +166,17 @@
        </property>
       </widget>
      </widget>
+     <widget class="QWidget" name="Test">
+      <attribute name="title">
+       <string>Test Page</string>
+      </attribute>
+     </widget>
     </widget>
    </item>
   </layout>
  </widget>
- <resources/>
+ <resources>
+  <include location="images.qrc"/>
+ </resources>
  <connections/>
 </ui>
