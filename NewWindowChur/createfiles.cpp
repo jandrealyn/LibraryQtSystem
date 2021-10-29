@@ -33,3 +33,68 @@ void CreateFiles::CreateFilesOnStartUp()
         _members.close();
     }
 }
+
+//QFile CreateFiles::GetCatalogueData()
+//{
+//    QStringList* catalogueData;
+//    // Read the CSV file and store its data into catalogueData
+//    if (CreateFiles::_catalogue.open(QIODevice::ReadOnly))
+//    {
+//        QTextStream in(&CreateFiles::_catalogue);
+
+//        while (!in.atEnd())
+//        {
+//            // readLine() will also read an endl or \n, so it's important to use replace() to get rid of them.
+//            QString line = CreateFiles::_catalogue.readLine().replace("\r\n","");
+//            catalogueData->append(line.split(','));
+//        }
+//    }
+//    else
+//    {
+//        // Displaying an error to the user if we can't open the catalogue.csv file.
+//        QMessageBox::warning(this, "Can not open \'catalogue.csv\'.", CreateFiles::_catalogue.errorString());
+//    }
+//    CreateFiles::_catalogue.close();
+//}
+
+QStringList CreateFiles::GetFileData(QString file)
+{
+    QStringList fileData;
+
+    if (file == "catalogue")
+    {
+        if (_catalogue.open(QIODevice::ReadOnly))
+        {
+            QTextStream in(&_catalogue);
+            while(!in.atEnd())
+            {
+                QString line = _catalogue.readLine().replace("\r\n","");
+                fileData.append(line.split(','));
+            }
+        }
+        else
+        {
+            return fileData;
+        }
+        _catalogue.close();
+    }
+    else if (file == "members")
+    {
+        if (_members.open(QIODevice::ReadOnly))
+        {
+            QTextStream in(&_members);
+            while(!in.atEnd())
+            {
+                QString line = _members.readLine().replace("\r\n","");
+                fileData.append(line.split(','));
+            }
+        }
+        else
+        {
+            return fileData;
+        }
+        _members.close();
+    }
+
+    return fileData;
+}

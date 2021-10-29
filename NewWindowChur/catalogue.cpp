@@ -8,37 +8,21 @@
 #include <QStringList>
 #include <QItemSelectionModel>
 
-// hi
-
 Catalogue::Catalogue(QWidget *parent) :
     QDialog(parent),
     ui(new Ui::Catalogue)
 {
     ui->setupUi(this);
 
-    QStringList catalogueData;
-
-    // Read the CSV file and store its data into catalogueData
-    if (CreateFiles::_catalogue.open(QIODevice::ReadOnly))
-    {
-        QTextStream in(&CreateFiles::_catalogue);
-
-        while (!in.atEnd())
-        {
-            // readLine() will also read an endl or \n, so it's important to use replace() to get rid of them.
-            QString line = CreateFiles::_catalogue.readLine().replace("\r\n","");
-            catalogueData.append(line.split(','));
-        }
-    }
-    else
-    {
-        // Displaying an error to the user if we can't open the catalogue.csv file.
-        QMessageBox::warning(this, "Can not open \'catalogue.csv\'.", CreateFiles::_catalogue.errorString());
-    }
-    CreateFiles::_catalogue.close();
-
     // Creating a style sheet for when the QTableWidget is populated with data
     ui->bookCatalogue->setStyleSheet("QHeaderView::section { background-color: rgba(254, 222, 255, 0.3) }");
+
+    // Get data from the catalogue file
+    QStringList catalogueData = CreateFiles::GetFileData("catalogue");
+    if (catalogueData.empty())
+    {
+        QMessageBox::warning(this, "Can not open \'catalogue.csv\'.", CreateFiles::_catalogue.errorString());
+    }
 
     // Because we have 5 columns, we insert a column 5 times
     for (int i = 0; i < 5; i++)
@@ -75,6 +59,18 @@ Catalogue::Catalogue(QWidget *parent) :
 
     QPixmap img(":/images/yoobee-logo.png");
     ui->yoobeeLogo->setPixmap(img);
+
+
+    // TEST
+    // horizontal layout
+    ui->scrollArea->setWidgetResizable(true);
+    QHBoxLayout *const layout(new QHBoxLayout(ui->scrollArea));
+    for (int i = 0; i < 3; i++)
+    {
+        QLabel* l = new QLabel(this);
+        layout->addWidget(l);
+        ui->scrollArea->addScrollBarWidget(l, Qt::Alignment(Qt::AlignLeft));
+    }
 }
 
 Catalogue::~Catalogue()
@@ -93,5 +89,24 @@ void Catalogue::on_checkOutButton_clicked()
 {
     c_ui = new CheckOutScreen(nullptr);
     c_ui->exec();
+}
+
+
+void Catalogue::on_searchBar_textChanged(const QString &arg1)
+{
+    QStringList catalogueData = CreateFiles::GetFileData("catalogue");
+
+    int i = 5;
+    int rowCount = (catalogueData.size() / 5) - 1;
+    for (int row = 0; row < rowCount; row++)
+    {
+        ui->bookCatalogue->insertRow(ui->bookCatalogue->rowCount());
+        for (int col = 0; col < 5; col++)
+        {
+            QTableWidgetItem *item = new QTableWidgetItem(QString(catalogueData[i]));
+            ui->bookCatalogue->setItem(row, col, item);
+            i++;
+        }
+    }
 }
 

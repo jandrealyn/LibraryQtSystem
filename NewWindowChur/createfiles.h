@@ -3,6 +3,7 @@
 #include <QDir>
 #include <QFile>
 #include <QTextStream>
+#include <QMessageBox>
 
 class CreateFiles
 {
@@ -17,6 +18,8 @@ public:
     static QFile _overdue;
     static QFile _return;
     static QFile _members;
+
+    static QStringList GetFileData(QString file);
 };
 
 #endif // CREATEFILES_H
