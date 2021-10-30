@@ -47,11 +47,36 @@ Catalogue::Catalogue(QWidget *parent) :
         ui->bookCatalogue->insertRow(ui->bookCatalogue->rowCount());
         for (int col = 0; col < 5; col++)
         {
-            QTableWidgetItem *item = new QTableWidgetItem(QString(catalogueData[i]));
-            ui->bookCatalogue->setItem(row, col, item);
+            if (catalogueData[i].contains(":/images"))
+            {
+                qDebug("contains :/images");
+
+                QWidget* item = new QWidget(ui->bookCatalogue);
+                QString imagePath = catalogueData[i];
+                QPixmap p(imagePath);
+                QLabel* l = new QLabel(item);
+                l->setPixmap(p.scaled(90,120));
+                ui->bookCatalogue->setCellWidget(row, col, item);
+            }
+            else if (catalogueData[i] == "checkoutbtn")
+            {
+                QWidget* item = new QWidget(ui->bookCatalogue);
+                QPushButton* push = new QPushButton(item);
+                push->setText("button");
+                connect(push, SIGNAL(clicked()), this, SLOT(mySlot()));
+                ui->bookCatalogue->setCellWidget(row, col, item);
+            }
+            else
+            {
+                QTableWidgetItem *item = new QTableWidgetItem(QString(catalogueData[i]));
+                ui->bookCatalogue->setItem(row, col, item);
+            }
             i++;
         }
+        ui->bookCatalogue->verticalHeader()->setDefaultSectionSize(120);
+        ui->bookCatalogue->verticalHeader()->sectionResizeMode(QHeaderView::Fixed);
     }
+
 
     // Make the items non editable
     ui->bookCatalogue->setEditTriggers(ui->bookCatalogue->NoEditTriggers);
@@ -158,8 +183,28 @@ void Catalogue::on_searchBar_textChanged(const QString &arg1)
         ui->bookCatalogue->insertRow(ui->bookCatalogue->rowCount());
         for (int col = 0; col < 5; col++)
         {
-            QTableWidgetItem *item = new QTableWidgetItem(QString(foundData[b]));
-            ui->bookCatalogue->setItem(row, col, item);
+            if (foundData[b].contains(":/images"))
+            {
+                qDebug("contains :/images");
+                QString imagePath = foundData[b];
+                QImage *img = new QImage();
+                QTableWidgetItem* item = new QTableWidgetItem;
+                item->setData(Qt::DecorationRole, QPixmap::fromImage(*img));
+
+                ui->bookCatalogue->setItem(row, col, item);
+            }
+            if (foundData[b] == "checkoutbtn")
+            {
+                QWidget* item = new QWidget(ui->bookCatalogue);
+                QPushButton* push1 = new QPushButton(item);
+                push1->setText("button");
+                ui->bookCatalogue->setCellWidget(row, col, item);
+            }
+            else
+            {
+                QTableWidgetItem *item = new QTableWidgetItem(QString(foundData[b]));
+                ui->bookCatalogue->setItem(row, col, item);
+            }
             b++;
         }
     }
@@ -168,5 +213,14 @@ void Catalogue::on_searchBar_textChanged(const QString &arg1)
 void Catalogue::on_addBook_clicked()
 {
 
+}
+
+void Catalogue::mySlot()
+{
+    c_ui = new CheckOutScreen(this);
+    c_ui->show();
+    int asfd = ui->bookCatalogue->currentRow();
+    int f = ui->bookCatalogue->currentColumn();
+    qDebug() << "row: " << asfd << " col: " << f;
 }
 

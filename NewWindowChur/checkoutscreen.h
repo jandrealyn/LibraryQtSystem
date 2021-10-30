@@ -17,6 +17,7 @@ public:
 
 private slots:
     void on_cancel_clicked();
+    void get_Book_Name(QString name);
 
 private:
     Ui::CheckOutScreen *ui;

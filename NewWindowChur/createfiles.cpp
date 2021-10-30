@@ -20,16 +20,16 @@ void CreateFiles::CreateFilesOnStartUp()
         // Create all the files necessary to the directory
         _catalogue.open(QIODevice::WriteOnly | QFile::Text);
         QTextStream catalogue_output(&_catalogue);
-        catalogue_output << "BOOK_ID" << "," << "BOOK_NAME" << "," << "AUTHOR" << "," << "COPIES" << "," << "OVERDUE" << "\n";
+        catalogue_output << "IMAGE" << "," << "BOOK NAME" << "," << "AUTHOR" << "," << "COPIES" << "," << "CHECKOUT" << "\n";
         for (int i = 0; i < 20; i++)
         {
             if (i % 2 == 0)
             {
-                catalogue_output << QString::number(i + 1) << "," << "This is a book" << "," << "Author" << "," << "20" << "," << "No" << "\n";
+                catalogue_output << ":/images/blue-book.jpg" << "," << "This is a book" << "," << "Author" << "," << "10" << "," << "checkoutbtn" << "\n";
             }
             else
             {
-                catalogue_output << QString::number(i + 1) << "," << "Cool Book" << "," << "Authorz" << "," << "20" << "," << "No" << "\n";
+                catalogue_output << ":/images/book-cover.png" << "," << "Cool Book" << "," << "Authorz" << "," << "10" << "," << "checkoutbtn" << "\n";
             }
 
         }

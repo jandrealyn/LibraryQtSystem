@@ -29,6 +29,8 @@ private slots:
 
     void on_addBook_clicked();
 
+    void mySlot();
+
 private:
     Ui::Catalogue *ui;
     CheckOutScreen* c_ui;
