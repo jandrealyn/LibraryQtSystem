@@ -1,6 +1,7 @@
 #include "mainwindow.h"
 #include "dialog.h"
 #include "ui_mainwindow.h"
+#include "catalogue.h"
 #include "QMessageBox"
 #include "QCheckBox"
 #include <QDebug>
@@ -26,8 +27,12 @@ void MainWindow::on_pushButton_clicked()
     QString pass = ui->lineEditPass->text();
 
     if(user == "test" && pass == "test"){
-        window = new Dialog(this);
-        window->show();
+        hide();
+        // CALL YOUR DIALOG WINDOWS WITH (nullptr) SO THAT THEY HAVE A TASKBAR ICON
+        _catalogueWindow = new Catalogue(nullptr);
+        _catalogueWindow->setWindowFlags(windowFlags() | Qt::WindowMinimizeButtonHint);
+        _catalogueWindow->showMaximized();
+        connect(_catalogueWindow, SIGNAL(ClosedMainMenu()), this, SLOT(MainMenuClosed()));
     }
     else {
         QMessageBox::warning(this, "Login", "Unsucessful, try again.");
@@ -38,3 +43,7 @@ void MainWindow::on_pushButton_clicked()
 
 }
 
+void MainWindow::MainMenuClosed()
+{
+    show();
+}
