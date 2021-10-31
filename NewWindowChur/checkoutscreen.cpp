@@ -6,6 +6,8 @@ CheckOutScreen::CheckOutScreen(QWidget *parent) :
     ui(new Ui::CheckOutScreen)
 {
     ui->setupUi(this);
+
+    ui->book_name_label->setText("hi");
 }
 
 CheckOutScreen::~CheckOutScreen()
@@ -16,4 +18,9 @@ CheckOutScreen::~CheckOutScreen()
 void CheckOutScreen::on_cancel_clicked()
 {
     close();
+}
+
+void CheckOutScreen::get_Book_Name(QString name)
+{
+
 }
