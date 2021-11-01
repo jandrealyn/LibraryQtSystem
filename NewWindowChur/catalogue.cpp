@@ -1,6 +1,7 @@
 #include "catalogue.h"
 #include "ui_catalogue.h"
 #include "createfiles.h"
+#include <QDebug>
 #include <QDialog>
 #include <QFile>
 #include <QMessageBox>
@@ -8,7 +9,9 @@
 #include <QStringList>
 #include <QItemSelectionModel>
 #include <QFormLayout>
-#include <QLine>
+#include <QFrame>
+#include <QScrollArea>
+#include <QGroupBox>
 
 Catalogue::Catalogue(QWidget *parent) :
     QDialog(parent),
@@ -49,8 +52,6 @@ Catalogue::Catalogue(QWidget *parent) :
         {
             if (catalogueData[i].contains(":/images"))
             {
-                qDebug("contains :/images");
-
                 QWidget* item = new QWidget(ui->bookCatalogue);
                 QString imagePath = catalogueData[i];
                 QPixmap p(imagePath);
@@ -87,46 +88,86 @@ Catalogue::Catalogue(QWidget *parent) :
     QPixmap img(":/images/yoobee-logo.png");
     ui->yoobeeLogo->setPixmap(img);
 
+    // Array control
+    QStringList catalogueTest = CreateFiles::GetFileData("catalogueTest");
+    const int arraySize = (catalogueTest.size() / 4) - 1;
 
-    // TEST
-    // horizontal layout
-    QWidget* testTab = new QWidget(ui->Test);
+    // LAYOUTS
+    QGroupBox* groupBox = new QGroupBox;
+    QFormLayout* formLayout = new QFormLayout();
+    groupBox->setLayout(formLayout);
 
-    QVBoxLayout *rootLayout = new QVBoxLayout(testTab);
-    QHBoxLayout *subLayout1 = new QHBoxLayout();
-    QHBoxLayout *subLayout2 = new QHBoxLayout();
 
-    rootLayout->addLayout(subLayout1);
-    rootLayout->addLayout(subLayout2);
+    QFrame* lines1[arraySize];
+    QFrame* lines2[arraySize];
+    QLabel* bookImage[arraySize];
+    QLabel* bookName[arraySize];
+    QLabel* bookAuthor[arraySize];
+    QLabel* bookCopies[arraySize];
+    QPushButton* checkoutButton[arraySize];
 
-    QPixmap p(":/images/book-cover.png");
-    QLabel* l = new QLabel;
-    l->setPixmap(p.scaled(90, 120));
+    int t = 4;
+    // Initalize all widgets
+    for (int row = 0; row < arraySize; row++)
+    {
+        // Book image
+        QString imagePath = catalogueTest[t];
+        QPixmap p(imagePath);
+        bookImage[row] = new QLabel;
+        bookImage[row]->setPixmap(p.scaled(90, 120));
 
-    QPixmap x(":/images/blue-book.jpg");
-    QLabel* a = new QLabel;
-    a->setPixmap(x.scaled(90, 120));
+        // Book name
+        bookName[row] = new QLabel;
+        bookName[row]->setText("Book name: " + catalogueTest[t + 1]);
 
-    QLabel* t = new QLabel;
-    t->setText("my new label");
-    QLabel* b = new QLabel;
-    b->setText("the second label");
+        // Book authour
+        bookAuthor[row] = new QLabel;
+        bookAuthor[row]->setText("Author: " + catalogueTest[t + 2]);
 
-    QPushButton* push1 = new QPushButton;
-    push1->setText("this is a push button");
+        // Book copies
+        bookCopies[row] = new QLabel;
+        bookCopies[row]->setText("Copies: " + catalogueTest[t + 3]);
 
-    QPushButton* push2 = new QPushButton;
-    push2->setText("this is a 2nd push button");
+        // Checkout button
+        const QSize btnSize = QSize(80, 25);
+        checkoutButton[row] = new QPushButton;
+        checkoutButton[row]->setText("Checkout");
+        checkoutButton[row]->setFixedSize(btnSize);
+        checkoutButton[row]->setStyleSheet("border: 1px solid black;");
 
-    subLayout1->addWidget(l);
-    subLayout1->addWidget(t);
-    subLayout1->addWidget(push1);
-    subLayout1->setContentsMargins(10, 0, 0, 40);
+        // Horizontal Lines
+        lines1[row] = new QFrame();
+        lines1[row]->setLineWidth(1);
+        lines1[row]->setFrameShape(QFrame::HLine);
+        lines1[row]->setFrameShadow(QFrame::Sunken);
 
-    subLayout2->addWidget(a);
-    subLayout2->addWidget(b);
-    subLayout2->addWidget(push2);
-    subLayout2->setContentsMargins(10, 0, 0, 40);
+        lines2[row] = new QFrame();
+        lines2[row]->setLineWidth(1);
+        lines2[row]->setFrameShape(QFrame::HLine);
+        lines2[row]->setFrameShadow(QFrame::Sunken);
+
+        t = t + 4;
+    }
+
+    // Add all of the widgets into the layouts
+    for (int row = 0; row < arraySize; row++)
+    {
+        formLayout->setWidget(row, QFormLayout::LabelRole, bookImage[row]);
+
+        QVBoxLayout* verticalLayout = new QVBoxLayout();
+        formLayout->setLayout(row, QFormLayout::FieldRole, verticalLayout);
+
+        verticalLayout->addWidget(lines1[row]);
+        verticalLayout->addWidget(bookName[row]);
+        verticalLayout->addWidget(bookAuthor[row]);
+        verticalLayout->addWidget(bookCopies[row]);
+        verticalLayout->addWidget(checkoutButton[row]);
+        verticalLayout->addWidget(lines2[row]);
+        formLayout->setContentsMargins(10, 5, 0, 5);
+        formLayout->setVerticalSpacing(30);
+    }
+
+    ui->scrollArea->setWidget(groupBox);
 }
 
 Catalogue::~Catalogue()
@@ -147,7 +188,7 @@ void Catalogue::on_checkOutButton_clicked()
     c_ui->exec();
 }
 
-
+// Search bar functionality
 void Catalogue::on_searchBar_textChanged(const QString &arg1)
 {
     QStringList foundData;
@@ -186,12 +227,13 @@ void Catalogue::on_searchBar_textChanged(const QString &arg1)
             if (foundData[b].contains(":/images"))
             {
                 qDebug("contains :/images");
-                QString imagePath = foundData[b];
-                QImage *img = new QImage();
-                QTableWidgetItem* item = new QTableWidgetItem;
-                item->setData(Qt::DecorationRole, QPixmap::fromImage(*img));
 
-                ui->bookCatalogue->setItem(row, col, item);
+                QWidget* item = new QWidget(ui->bookCatalogue);
+                QString imagePath = foundData[b];
+                QPixmap p(imagePath);
+                QLabel* l = new QLabel(item);
+                l->setPixmap(p.scaled(90,120));
+                ui->bookCatalogue->setCellWidget(row, col, item);
             }
             if (foundData[b] == "checkoutbtn")
             {
@@ -222,5 +264,110 @@ void Catalogue::mySlot()
     int asfd = ui->bookCatalogue->currentRow();
     int f = ui->bookCatalogue->currentColumn();
     qDebug() << "row: " << asfd << " col: " << f;
+}
+
+
+void Catalogue::on_lineEdit_textChanged(const QString &arg1)
+{
+    QStringList foundData;
+
+    if (CreateFiles::_catalogueTest.open(QIODevice::ReadOnly))
+    {
+        QTextStream in(&CreateFiles::_catalogueTest);
+        while(!in.atEnd())
+        {
+            QString line = CreateFiles::_catalogueTest.readLine().replace("\r\n","");
+            if (!line.contains("IMAGE, BOOK NAME, AUTHOR, COPIES"))
+            {
+                if (line.toLower().contains(arg1.toLower()))
+                {
+                    foundData.append(line.split(','));
+                }
+            }
+        }
+    }
+    CreateFiles::_catalogueTest.close();
+
+    for (int i = 0; i < foundData.size(); i++)
+    {
+        qDebug() << foundData[i];
+    }
+
+    QGroupBox* groupBox = new QGroupBox;
+    QFormLayout* formLayout = new QFormLayout();
+    groupBox->setLayout(formLayout);
+
+    // Array control
+    const int arraySize = (foundData.size() / 4) - 1;
+
+    QFrame* lines1[arraySize];
+    QFrame* lines2[arraySize];
+    QLabel* bookImage[arraySize];
+    QLabel* bookName[arraySize];
+    QLabel* bookAuthor[arraySize];
+    QLabel* bookCopies[arraySize];
+    QPushButton* checkoutButton[arraySize];
+
+    int t = 4;
+    // Initalize all widgets
+    for (int row = 0; row < arraySize; row++)
+    {
+        // Book image
+        QString imagePath = foundData[t];
+        QPixmap p(imagePath);
+        bookImage[row] = new QLabel;
+        bookImage[row]->setPixmap(p.scaled(90, 120));
+
+        // Book name
+        bookName[row] = new QLabel;
+        bookName[row]->setText("Book name: " + foundData[t + 1]);
+
+        // Book authour
+        bookAuthor[row] = new QLabel;
+        bookAuthor[row]->setText("Author: " + foundData[t + 2]);
+
+        // Book copies
+        bookCopies[row] = new QLabel;
+        bookCopies[row]->setText("Copies: " + foundData[t + 3]);
+
+        // Checkout button
+        const QSize btnSize = QSize(80, 25);
+        checkoutButton[row] = new QPushButton;
+        checkoutButton[row]->setText("Checkout");
+        checkoutButton[row]->setFixedSize(btnSize);
+
+        // Horizontal Lines
+        lines1[row] = new QFrame();
+        lines1[row]->setLineWidth(1);
+        lines1[row]->setFrameShape(QFrame::HLine);
+        lines1[row]->setFrameShadow(QFrame::Sunken);
+
+        lines2[row] = new QFrame();
+        lines2[row]->setLineWidth(1);
+        lines2[row]->setFrameShape(QFrame::HLine);
+        lines2[row]->setFrameShadow(QFrame::Sunken);
+
+        t = t + 4;
+    }
+
+    // Add all of the widgets into the layouts
+    for (int row = 0; row < arraySize; row++)
+    {
+        formLayout->setWidget(row, QFormLayout::LabelRole, bookImage[row]);
+
+        QVBoxLayout* verticalLayout = new QVBoxLayout();
+        formLayout->setLayout(row, QFormLayout::FieldRole, verticalLayout);
+
+        verticalLayout->addWidget(lines1[row]);
+        verticalLayout->addWidget(bookName[row]);
+        verticalLayout->addWidget(bookAuthor[row]);
+        verticalLayout->addWidget(bookCopies[row]);
+        verticalLayout->addWidget(checkoutButton[row]);
+        verticalLayout->addWidget(lines2[row]);
+        formLayout->setContentsMargins(10, 5, 0, 5);
+        formLayout->setVerticalSpacing(30);
+    }
+
+    ui->scrollArea->setWidget(groupBox);
 }
 

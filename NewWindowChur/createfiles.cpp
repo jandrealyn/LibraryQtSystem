@@ -3,6 +3,7 @@
 // Defining static variables
 QString CreateFiles::_path = "CSVFiles/";
 QFile CreateFiles::_catalogue(_path + "catalogue.csv");
+QFile CreateFiles::_catalogueTest(_path + "catalogueTest.csv");
 QFile CreateFiles::_members(_path + "members.csv");
 
 CreateFiles::CreateFiles()
@@ -35,35 +36,28 @@ void CreateFiles::CreateFilesOnStartUp()
         }
         _catalogue.close();
 
+        _catalogueTest.open(QIODevice::WriteOnly | QFile::Text);
+        QTextStream test_output(&_catalogueTest);
+        test_output << "IMAGE" << "," << "BOOK NAME" << "," << "AUTHOR" << "," << "COPIES" << "\n";
+        for (int i = 0; i < 20; i++)
+        {
+            if (i % 2 == 0)
+            {
+                test_output << ":/images/blue-book.jpg" << "," << "This is a book" << "," << "Author" << "," << "10" << "\n";
+            }
+            else
+            {
+                test_output << ":/images/book-cover.png" << "," << "Cool Book" << "," << "Authorz" << "," << "10" << "\n";
+            }
+        }
+        _catalogueTest.close();
+
         _members.open(QIODevice::WriteOnly | QFile::Text);
         QTextStream members_output(&_members);
         members_output << "ID" << "," << "USERNAME" << "," << "PASSWORD" << "," << "EMAIL" << "," << "PHONE_NUM" << "\n";
         _members.close();
     }
 }
-
-//QFile CreateFiles::GetCatalogueData()
-//{
-//    QStringList* catalogueData;
-//    // Read the CSV file and store its data into catalogueData
-//    if (CreateFiles::_catalogue.open(QIODevice::ReadOnly))
-//    {
-//        QTextStream in(&CreateFiles::_catalogue);
-
-//        while (!in.atEnd())
-//        {
-//            // readLine() will also read an endl or \n, so it's important to use replace() to get rid of them.
-//            QString line = CreateFiles::_catalogue.readLine().replace("\r\n","");
-//            catalogueData->append(line.split(','));
-//        }
-//    }
-//    else
-//    {
-//        // Displaying an error to the user if we can't open the catalogue.csv file.
-//        QMessageBox::warning(this, "Can not open \'catalogue.csv\'.", CreateFiles::_catalogue.errorString());
-//    }
-//    CreateFiles::_catalogue.close();
-//}
 
 QStringList CreateFiles::GetFileData(QString file)
 {
@@ -102,6 +96,23 @@ QStringList CreateFiles::GetFileData(QString file)
             return fileData;
         }
         _members.close();
+    }
+    else if (file == "catalogueTest")
+    {
+        if (_catalogueTest.open(QIODevice::ReadOnly))
+        {
+            QTextStream in(&_catalogueTest);
+            while(!in.atEnd())
+            {
+                QString line = _catalogueTest.readLine().replace("\r\n","");
+                fileData.append(line.split(','));
+            }
+        }
+        else
+        {
+            return fileData;
+        }
+        _catalogueTest.close();
     }
 
     return fileData;
