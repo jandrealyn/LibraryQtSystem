@@ -66,6 +66,41 @@
        </item>
       </layout>
      </widget>
+     <widget class="QWidget" name="Test">
+      <attribute name="title">
+       <string>Test Page</string>
+      </attribute>
+      <layout class="QVBoxLayout" name="verticalLayout">
+       <item>
+        <widget class="QLineEdit" name="lineEdit">
+         <property name="placeholderText">
+          <string>Search our catalogue</string>
+         </property>
+        </widget>
+       </item>
+       <item>
+        <widget class="QScrollArea" name="scrollArea">
+         <property name="styleSheet">
+          <string notr="true">background-color: rgb(255, 255, 255);
+QPushButton{border-width: 1px; border-color: black;};</string>
+         </property>
+         <property name="widgetResizable">
+          <bool>true</bool>
+         </property>
+         <widget class="QWidget" name="scrollAreaWidgetContents">
+          <property name="geometry">
+           <rect>
+            <x>0</x>
+            <y>0</y>
+            <width>1002</width>
+            <height>524</height>
+           </rect>
+          </property>
+         </widget>
+        </widget>
+       </item>
+      </layout>
+     </widget>
      <widget class="QWidget" name="Catalogue">
       <attribute name="title">
        <string>Catalogue</string>
@@ -166,15 +201,19 @@
        </property>
       </widget>
      </widget>
-     <widget class="QWidget" name="Test">
-      <attribute name="title">
-       <string>Test Page</string>
-      </attribute>
-     </widget>
     </widget>
    </item>
   </layout>
  </widget>
+ <tabstops>
+  <tabstop>tabWidget</tabstop>
+  <tabstop>searchBar</tabstop>
+  <tabstop>bookCatalogue</tabstop>
+  <tabstop>addBook</tabstop>
+  <tabstop>yourAccount_logout</tabstop>
+  <tabstop>pushButton_3</tabstop>
+  <tabstop>textBrowser</tabstop>
+ </tabstops>
  <resources>
   <include location="images.qrc"/>
  </resources>
