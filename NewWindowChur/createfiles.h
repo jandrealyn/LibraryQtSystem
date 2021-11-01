@@ -14,6 +14,7 @@ public:
 
     static QString _path;
     static QFile _catalogue;
+    static QFile _catalogueTest;
     static QFile _members;
     static QFile _duedate;
     static QFile _overdue;

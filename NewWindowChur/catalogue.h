@@ -31,6 +31,8 @@ private slots:
 
     void mySlot();
 
+    void on_lineEdit_textChanged(const QString &arg1);
+
 private:
     Ui::Catalogue *ui;
     CheckOutScreen* c_ui;
