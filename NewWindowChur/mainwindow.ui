@@ -13,15 +13,70 @@
   <property name="windowTitle">
    <string>MainWindow</string>
   </property>
+  <property name="styleSheet">
+   <string notr="true">background-color:rgb(255, 255, 255); </string>
+  </property>
   <widget class="QWidget" name="centralwidget">
-   <widget class="QPushButton" name="pushButton">
+   <property name="autoFillBackground">
+    <bool>false</bool>
+   </property>
+   <widget class="QLabel" name="img">
     <property name="geometry">
      <rect>
-      <x>170</x>
-      <y>200</y>
-      <width>181</width>
-      <height>51</height>
+      <x>30</x>
+      <y>60</y>
+      <width>271</width>
+      <height>71</height>
      </rect>
+    </property>
+    <property name="styleSheet">
+     <string notr="true"/>
+    </property>
+    <property name="text">
+     <string>TextLabel</string>
+    </property>
+   </widget>
+   <widget class="QPushButton" name="close">
+    <property name="geometry">
+     <rect>
+      <x>610</x>
+      <y>70</y>
+      <width>172</width>
+      <height>28</height>
+     </rect>
+    </property>
+    <property name="styleSheet">
+     <string notr="true">QPushButton#close{
+background-color: #d3d3d3;
+border-width: 2px;
+border-radius: 5px;
+border-color: black;
+min-width: 5em;
+padding: 3px;
+}</string>
+    </property>
+    <property name="text">
+     <string>Close</string>
+    </property>
+   </widget>
+   <widget class="QPushButton" name="login">
+    <property name="geometry">
+     <rect>
+      <x>300</x>
+      <y>380</y>
+      <width>172</width>
+      <height>28</height>
+     </rect>
+    </property>
+    <property name="styleSheet">
+     <string notr="true">QPushButton#login{
+background-color: #d3d3d3;
+border-width: 2px;
+border-radius: 10px;
+border-color: black;
+min-width: 10em;
+padding: 6px;
+}</string>
     </property>
     <property name="text">
      <string>Login</string>
@@ -30,13 +85,20 @@
    <widget class="QWidget" name="gridLayoutWidget">
     <property name="geometry">
      <rect>
-      <x>139</x>
-      <y>110</y>
-      <width>241</width>
-      <height>80</height>
+      <x>250</x>
+      <y>190</y>
+      <width>269</width>
+      <height>159</height>
      </rect>
     </property>
     <layout class="QGridLayout" name="gridLayout">
+     <item row="1" column="0">
+      <widget class="QLabel" name="label_2">
+       <property name="text">
+        <string>Password</string>
+       </property>
+      </widget>
+     </item>
      <item row="0" column="0">
       <widget class="QLabel" name="label">
        <property name="text">
@@ -50,27 +112,7 @@
      <item row="0" column="1">
       <widget class="QLineEdit" name="lineEditUser"/>
      </item>
-     <item row="1" column="0">
-      <widget class="QLabel" name="label_2">
-       <property name="text">
-        <string>Password</string>
-       </property>
-      </widget>
-     </item>
     </layout>
-   </widget>
-   <widget class="QLabel" name="label_3">
-    <property name="geometry">
-     <rect>
-      <x>220</x>
-      <y>50</y>
-      <width>71</width>
-      <height>41</height>
-     </rect>
-    </property>
-    <property name="text">
-     <string>Library Login</string>
-    </property>
    </widget>
   </widget>
   <widget class="QMenuBar" name="menubar">
@@ -79,7 +121,7 @@
      <x>0</x>
      <y>0</y>
      <width>800</width>
-     <height>21</height>
+     <height>26</height>
     </rect>
    </property>
   </widget>

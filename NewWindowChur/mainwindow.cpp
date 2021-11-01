@@ -12,6 +12,8 @@ MainWindow::MainWindow(QWidget *parent)
     , ui(new Ui::MainWindow)
 {
     ui->setupUi(this);
+    QPixmap Img("C:/Users/olivi/OneDrive/Desktop/CS106/Assignment/LibraryCuties/NewWindowChur/images/YoobeeLibraries");
+    ui->img->setPixmap(Img.scaled(150, 150, Qt::KeepAspectRatio));
 
 }
 
