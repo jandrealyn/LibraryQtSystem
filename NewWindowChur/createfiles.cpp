@@ -1,3 +1,17 @@
+// ------------------------------------------------------------
+//
+// CREATE FILES CLASS
+// Written by Jakob
+//
+// This class is used to easily acess our system files.
+// Team members can acess a file they need by calling
+// CreateFiles::_fileNeeded;
+//
+// If you need some files data, you can call
+// CreateFiles::GetFileData("fileNeeded") into a QStringList.
+//
+// ------------------------------------------------------------
+
 #include "createfiles.h"
 
 // Defining static variables
@@ -5,6 +19,7 @@ QString CreateFiles::_path = "CSVFiles/";
 QFile CreateFiles::_catalogue(_path + "catalogue.csv");
 QFile CreateFiles::_catalogueTest(_path + "catalogueTest.csv");
 QFile CreateFiles::_members(_path + "members.csv");
+QFile CreateFiles::_checkedOutBooks(_path + "checkedoutbooks.csv");
 
 CreateFiles::CreateFiles()
 {
@@ -56,6 +71,9 @@ void CreateFiles::CreateFilesOnStartUp()
         QTextStream members_output(&_members);
         members_output << "ID" << "," << "USERNAME" << "," << "PASSWORD" << "," << "EMAIL" << "," << "PHONE_NUM" << "\n";
         _members.close();
+
+        _checkedOutBooks.open(QIODevice::WriteOnly | QFile::Text);
+        QTextStream checkout(&_checkedOutBooks);
     }
 }
 

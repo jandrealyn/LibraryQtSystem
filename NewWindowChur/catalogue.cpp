@@ -1,3 +1,34 @@
+// ------------------------------------------------------------
+//
+// CATALOGUE SCREEN
+// Written by Jakob
+//
+// The "Catalogue", originally just supposed to be a screen
+// to show the current books the library is holding, has
+// evolved into the users home screen once they've logged in.
+//
+// It holds different screens in seperate tabs for easy
+// maneuverability. It includes the Home tab, Catalogue tab,
+// and Your account tab. Each tab has it's own buttons and
+// functionality.
+//
+// HOME TAB:
+// A home screen that displays any new books recently added
+// within the last two days. It may also hold any updates
+// an admin wants to write for every user to see.
+//
+// CATALOGUE TAB:
+// Displays all books with a search bar. User can look for
+// a book and click checkout, which will open a dialog window
+// from "checkoutscreen.cpp".
+//
+// YOUR ACCOUNT TAB:
+// The user can view their account details, picture or logout
+// from the home screen. They may also update anything to do
+// with their account/
+//
+// ------------------------------------------------------------
+
 #include "catalogue.h"
 #include "ui_catalogue.h"
 #include "createfiles.h"
