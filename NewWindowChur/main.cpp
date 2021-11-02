@@ -1,9 +1,12 @@
 #include "mainwindow.h"
-
+#include "createfiles.h"
+#include "catalogue.h"
 #include <QApplication>
-
+//testing github
 int main(int argc, char *argv[])
 {
+    CreateFiles::CreateFilesOnStartUp();
+
     QApplication a(argc, argv);
     MainWindow w;
     w.show();

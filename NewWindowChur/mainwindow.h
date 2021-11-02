@@ -3,6 +3,8 @@
 
 #include <QMainWindow>
 #include "dialog.h"
+#include "catalogue.h"
+#include "adminhome.h"
 
 QT_BEGIN_NAMESPACE
 namespace Ui { class MainWindow; }
@@ -17,10 +19,12 @@ public:
     ~MainWindow();
 
 private slots:
-    void on_pushButton_clicked();
+    void on_login_clicked();
+    void MainMenuClosed();
 
 private:
     Ui::MainWindow *ui;
-    Dialog *window;
+    Catalogue *_catalogueWindow;
+    adminhome * _adminWindow;
 };
 #endif // MAINWINDOW_H
