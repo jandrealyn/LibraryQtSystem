@@ -41,7 +41,7 @@ background-color: #FFFFFF;
     <property name="styleSheet">
      <string notr="true">*{
 background: rgb(255, 255, 255);
-fontsize: 15px;
+font-size: 15px;
 font-family: Century Gothic, sans-serif;
 }
 
@@ -185,7 +185,7 @@ padding: 6px;
      <x>0</x>
      <y>0</y>
      <width>987</width>
-     <height>24</height>
+     <height>20</height>
     </rect>
    </property>
   </widget>
