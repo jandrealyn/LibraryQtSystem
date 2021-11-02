@@ -1,3 +1,14 @@
+// ------------------------------------------------------------
+//
+// CHECK OUT SCREEN
+// Written by Jakob
+//
+// This window displays the information of a specific book
+// and gives the user options to check out a book, pre book
+// or leave and go back to the catalogue.
+//
+// ------------------------------------------------------------
+
 #include "checkoutscreen.h"
 #include "ui_checkoutscreen.h"
 

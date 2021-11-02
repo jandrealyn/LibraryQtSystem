@@ -16,9 +16,7 @@ public:
     static QFile _catalogue;
     static QFile _catalogueTest;
     static QFile _members;
-    static QFile _duedate;
-    static QFile _overdue;
-    static QFile _return;
+    static QFile _checkedOutBooks;
 
     static QStringList GetFileData(QString file);
 };
