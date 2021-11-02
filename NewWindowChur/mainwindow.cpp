@@ -7,14 +7,16 @@
 #include <QDebug>
 #include <QPushButton>
 
+ // - liv (Worked on Login/Signup/Menu Screens)
+
 
 MainWindow::MainWindow(QWidget *parent)
     : QMainWindow(parent)
     , ui(new Ui::MainWindow)
 {
     ui->setupUi(this);
-    QPixmap Img(":/images/YoobeeLibraries.png");
-    ui->img->setPixmap(Img.scaled(150, 150, Qt::KeepAspectRatio));
+    QPixmap Img(":/images/YoobeeLibraries.png"); // - liv
+    ui->img->setPixmap(Img.scaled(150, 150, Qt::KeepAspectRatio)); // - liv
 
 }
 
@@ -24,11 +26,16 @@ MainWindow::~MainWindow()
 }
 
 
+//When user clicks on login - liv
 void MainWindow::on_login_clicked()
 {
-    QString user = ui->username_input->text(); //Username Input
-    QString pass = ui->password_input->text(); //password input
 
+
+    QString user = ui->username_input->text(); //Username Input  // - liv
+    QString pass = ui->password_input->text(); //password input // - liv
+
+
+    //Login password & username for a normal user (not admin)  // - liv
     if(user == "test" && pass == "test"){
         hide();
         // CALL YOUR DIALOG WINDOWS WITH (nullptr) SO THAT THEY HAVE A TASKBAR ICON
@@ -38,7 +45,7 @@ void MainWindow::on_login_clicked()
         connect(_catalogueWindow, SIGNAL(ClosedMainMenu()), this, SLOT(MainMenuClosed()));
     }
     else {
-        QMessageBox::warning(this, "Login", "Unsucessful, try again.");
+        QMessageBox::warning(this, "Login", "Unsucessful, try again."); //if enters a incorrect login/password  // - liv
     }
 
    // window = new Dialog(this);

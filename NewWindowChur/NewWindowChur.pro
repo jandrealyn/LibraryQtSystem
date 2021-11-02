@@ -14,20 +14,23 @@ SOURCES += \
     createfiles.cpp \
     dialog.cpp \
     main.cpp \
-    mainwindow.cpp
+    mainwindow.cpp \
+    signupscreen.cpp
 
 HEADERS += \
     catalogue.h \
     checkoutscreen.h \
     createfiles.h \
     dialog.h \
-    mainwindow.h
+    mainwindow.h \
+    signupscreen.h
 
 FORMS += \
     catalogue.ui \
     checkoutscreen.ui \
     dialog.ui \
-    mainwindow.ui
+    mainwindow.ui \
+    signupscreen.ui
 
 # Default rules for deployment.
 qnx: target.path = /tmp/$${TARGET}/bin

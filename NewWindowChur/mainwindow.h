@@ -18,11 +18,11 @@ public:
     ~MainWindow();
 
 private slots:
-    void on_login_clicked();
-    void MainMenuClosed();
+    void on_login_clicked(); //calling a function
+    void MainMenuClosed(); //calling a function
 
 private:
     Ui::MainWindow *ui;
-    Catalogue *_catalogueWindow;
+    Catalogue *_catalogueWindow;//pointer to a catalogue window
 };
 #endif // MAINWINDOW_H
