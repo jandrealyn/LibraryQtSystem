@@ -6,9 +6,8 @@
 #include "dialog.h"
 #include "catalogue.h"
 
-namespace Ui {
-class signupscreen;
-}
+namespace Ui {class signupscreen;}
+QT_END_NAMESPACE
 
 class signupscreen : public QDialog
 {
@@ -17,6 +16,9 @@ class signupscreen : public QDialog
 public:
     explicit signupscreen(QWidget *parent = nullptr);
     ~signupscreen();
+
+private slots:
+    void on_next_clicked();
 
 private:
     Ui::signupscreen *ui;
