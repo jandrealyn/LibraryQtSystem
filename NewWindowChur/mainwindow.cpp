@@ -5,6 +5,7 @@
 #include "QMessageBox"
 #include "QCheckBox"
 #include <QDebug>
+#include <QPushButton>
 
 
 MainWindow::MainWindow(QWidget *parent)
@@ -12,6 +13,8 @@ MainWindow::MainWindow(QWidget *parent)
     , ui(new Ui::MainWindow)
 {
     ui->setupUi(this);
+    QPixmap Img(":/images/YoobeeLibraries.png");
+    ui->img->setPixmap(Img.scaled(150, 150, Qt::KeepAspectRatio));
 
 }
 
@@ -21,10 +24,10 @@ MainWindow::~MainWindow()
 }
 
 
-void MainWindow::on_pushButton_clicked()
+void MainWindow::on_login_clicked()
 {
-    QString user = ui->lineEditUser->text();
-    QString pass = ui->lineEditPass->text();
+    QString user = ui->username_input->text(); //Username Input
+    QString pass = ui->password_input->text(); //password input
 
     if(user == "test" && pass == "test"){
         hide();
