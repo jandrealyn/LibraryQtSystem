@@ -5,6 +5,7 @@
 #include "QMessageBox"
 #include "QCheckBox"
 #include <QDebug>
+#include <QPushButton>
 
 
 MainWindow::MainWindow(QWidget *parent)
@@ -23,10 +24,10 @@ MainWindow::~MainWindow()
 }
 
 
-void MainWindow::on_pushButton_clicked()
+void MainWindow::on_login_clicked()
 {
-    QString user = ui->lineEditUser->text();
-    QString pass = ui->lineEditPass->text();
+    QString user = ui->username_input->text(); //Username Input
+    QString pass = ui->password_input->text(); //password input
 
     if(user == "test" && pass == "test"){
         hide();
