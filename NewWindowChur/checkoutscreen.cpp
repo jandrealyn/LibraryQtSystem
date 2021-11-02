@@ -11,6 +11,7 @@
 
 #include "checkoutscreen.h"
 #include "ui_checkoutscreen.h"
+#include "createfiles.h"
 
 CheckOutScreen::CheckOutScreen(QWidget *parent) :
     QDialog(parent),
@@ -18,7 +19,13 @@ CheckOutScreen::CheckOutScreen(QWidget *parent) :
 {
     ui->setupUi(this);
 
-    ui->book_name_label->setText("hi");
+    ui->checkoutNow->setStyleSheet("QPushButton#checkoutNow { border: 1px solid black; color: rgb(0, 0, 0); background-color: rgb(243, 243, 243);"
+                                   "QPushButton:hover { background-color: #c2c2c2;}");
+    //ui->checkoutNow->setStyleSheet("QPushButton:hover { background-color: #c2c2c2;}");
+//    ui->prebook->setStyleSheet("QPushButton { border: 1px solid black; color: rgb(0, 0, 0); background-color: rgb(243, 243, 243);");
+//    ui->prebook->setStyleSheet("QPushButton:hover { background-color: #c2c2c2;}");
+//    ui->cancel->setStyleSheet("QPushButton { border: 1px solid black; color: rgb(0, 0, 0); background-color: rgb(243, 243, 243);");
+//    ui->cancel->setStyleSheet("QPushButton:hover { background-color: #c2c2c2;}");
 }
 
 CheckOutScreen::~CheckOutScreen()
@@ -31,7 +38,9 @@ void CheckOutScreen::on_cancel_clicked()
     close();
 }
 
-void CheckOutScreen::get_Book_Name(QString name)
+void CheckOutScreen::setLabels(QString bookName, QString authorName, QString copies)
 {
-
+    ui->book_name_label->setText(bookName);
+    ui->book_author_label->setText(authorName);
+    ui->book_copies_label->setText(copies);
 }

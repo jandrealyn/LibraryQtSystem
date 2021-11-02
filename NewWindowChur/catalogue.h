@@ -19,6 +19,9 @@ public:
 
 signals:
     void ClosedMainMenu();
+//    static void BookNameSignal(QString bookName);
+//    static void BookAuthorSignal(QString bookAuthor);
+//    static void BookCopiesSignal(QString bookCopies);
 
 private slots:
     void on_yourAccount_logout_clicked();

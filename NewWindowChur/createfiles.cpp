@@ -47,22 +47,21 @@ void CreateFiles::CreateFilesOnStartUp()
             {
                 catalogue_output << ":/images/book-cover.png" << "," << "Cool Book" << "," << "Authorz" << "," << "10" << "," << "checkoutbtn" << "\n";
             }
-
         }
         _catalogue.close();
 
         _catalogueTest.open(QIODevice::WriteOnly | QFile::Text);
         QTextStream test_output(&_catalogueTest);
-        test_output << "IMAGE" << "," << "BOOK NAME" << "," << "AUTHOR" << "," << "COPIES" << "\n";
+        test_output << "BOOK ID" << "," << "IMAGE" << "," << "BOOK NAME" << "," << "AUTHOR" << "," << "COPIES" << "\n";
         for (int i = 0; i < 20; i++)
         {
             if (i % 2 == 0)
             {
-                test_output << ":/images/blue-book.jpg" << "," << "This is a book" << "," << "Author" << "," << "10" << "\n";
+                test_output << QString::number(i) << "," << ":/images/blue-book.jpg" << "," << "This is a book" << "," << "Author" << "," << "10" << "\n";
             }
             else
             {
-                test_output << ":/images/book-cover.png" << "," << "Cool Book" << "," << "Authorz" << "," << "10" << "\n";
+                test_output << QString::number(i) << "," <<  ":/images/book-cover.png" << "," << "Cool Book" << "," << "Authorz" << "," << "10" << "\n";
             }
         }
         _catalogueTest.close();
@@ -73,7 +72,9 @@ void CreateFiles::CreateFilesOnStartUp()
         _members.close();
 
         _checkedOutBooks.open(QIODevice::WriteOnly | QFile::Text);
-        QTextStream checkout(&_checkedOutBooks);
+        QTextStream checkout_output(&_checkedOutBooks);
+        checkout_output << "BOOK ID" << "," << "BOOK NAME" << "," << "MEMBER ID" << "," << "MEMBER NAME" << "\n";
+        _checkedOutBooks.close();
     }
 }
 

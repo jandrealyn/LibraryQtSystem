@@ -81,8 +81,7 @@
        <item>
         <widget class="QScrollArea" name="scrollArea">
          <property name="styleSheet">
-          <string notr="true">background-color: rgb(255, 255, 255);
-QPushButton{border-width: 1px; border-color: black;};</string>
+          <string notr="true"/>
          </property>
          <property name="widgetResizable">
           <bool>true</bool>
@@ -119,6 +118,9 @@ QPushButton{border-width: 1px; border-color: black;};</string>
           <font>
            <pointsize>8</pointsize>
           </font>
+         </property>
+         <property name="styleSheet">
+          <string notr="true"/>
          </property>
         </widget>
        </item>
