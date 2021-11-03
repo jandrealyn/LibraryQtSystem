@@ -68,11 +68,11 @@
      </widget>
      <widget class="QWidget" name="Test">
       <attribute name="title">
-       <string>Test Page</string>
+       <string>Catalogue</string>
       </attribute>
       <layout class="QVBoxLayout" name="verticalLayout">
        <item>
-        <widget class="QLineEdit" name="lineEdit">
+        <widget class="QLineEdit" name="searchBar">
          <property name="placeholderText">
           <string>Search our catalogue</string>
          </property>
@@ -81,8 +81,7 @@
        <item>
         <widget class="QScrollArea" name="scrollArea">
          <property name="styleSheet">
-          <string notr="true">background-color: rgb(255, 255, 255);
-QPushButton{border-width: 1px; border-color: black;};</string>
+          <string notr="true"/>
          </property>
          <property name="widgetResizable">
           <bool>true</bool>
@@ -97,46 +96,6 @@ QPushButton{border-width: 1px; border-color: black;};</string>
            </rect>
           </property>
          </widget>
-        </widget>
-       </item>
-      </layout>
-     </widget>
-     <widget class="QWidget" name="Catalogue">
-      <attribute name="title">
-       <string>Catalogue</string>
-      </attribute>
-      <layout class="QGridLayout" name="gridLayout_2">
-       <item row="0" column="0">
-        <widget class="QLabel" name="yoobeeLogo">
-         <property name="text">
-          <string>TextLabel</string>
-         </property>
-        </widget>
-       </item>
-       <item row="2" column="0">
-        <widget class="QTableWidget" name="bookCatalogue">
-         <property name="font">
-          <font>
-           <pointsize>8</pointsize>
-          </font>
-         </property>
-        </widget>
-       </item>
-       <item row="1" column="0">
-        <widget class="QLineEdit" name="searchBar">
-         <property name="text">
-          <string/>
-         </property>
-         <property name="placeholderText">
-          <string>Search our catalogue</string>
-         </property>
-        </widget>
-       </item>
-       <item row="3" column="0">
-        <widget class="QPushButton" name="addBook">
-         <property name="text">
-          <string>Add Book</string>
-         </property>
         </widget>
        </item>
       </layout>
@@ -207,9 +166,6 @@ QPushButton{border-width: 1px; border-color: black;};</string>
  </widget>
  <tabstops>
   <tabstop>tabWidget</tabstop>
-  <tabstop>searchBar</tabstop>
-  <tabstop>bookCatalogue</tabstop>
-  <tabstop>addBook</tabstop>
   <tabstop>yourAccount_logout</tabstop>
   <tabstop>pushButton_3</tabstop>
   <tabstop>textBrowser</tabstop>
