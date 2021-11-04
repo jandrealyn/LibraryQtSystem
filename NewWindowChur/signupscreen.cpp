@@ -28,6 +28,17 @@ signupscreen::~signupscreen()
 }
 
 void signupscreen::on_Next_clicked(){
+    QString fName = ui->firstName->text();
+    QString lName = ui->lastName->text();
+    QString user = ui->Username->text(); //username input
+    QString pass = ui->Password->text();
+    QString mail = ui->email->text();
+    QString phone = ui->phone->text();
+
+    CreateFiles::CreateMember(fName, lName, user, pass, mail, phone);
+
+//    if (user == "test" && pass == "test" && mail == "test" && phone == "111"){ //Input thats required to go to next screen
+//        hide();
 
 
     QString fName = ui->firstname->text();
@@ -42,10 +53,10 @@ void signupscreen::on_Next_clicked(){
     if (fName == "test" && Lname == "test" && uName == "test" && pWord == "test" && email == "test" && phoneNum == "111"){ //Input thats required to go to next screen
         hide();
 
-}
-    else{
-        QMessageBox::warning(this, "Login", "unsuccessful, try again.");
-    }
+//}
+//    else{
+//        QMessageBox::warning(this, "Login", "unsuccessful, try again.");
+//    }
 
 
 }
@@ -54,7 +65,6 @@ void signupscreen::Signupclosed()
 {
     show();
 }
-
 
 
 void signupscreen::on_close_clicked()

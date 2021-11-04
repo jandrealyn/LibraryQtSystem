@@ -27,6 +27,8 @@ private slots:
 
     void on_close_clicked(); //function - for when the user clicks "close" button and what happens after
 
+    void on_Next_clicked();
+
 private:
     Ui::signupscreen *ui;
 };
