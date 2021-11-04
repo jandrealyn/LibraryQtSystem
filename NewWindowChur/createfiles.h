@@ -8,6 +8,13 @@
 class CreateFiles
 {
 public:
+    enum FileFlag
+    {
+        catalogue = 1,
+        members = 2,
+        checkedOut = 3
+    };
+
     CreateFiles();
 
     static void CreateFilesOnStartUp();
