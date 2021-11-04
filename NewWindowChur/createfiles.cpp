@@ -13,6 +13,7 @@
 // ------------------------------------------------------------
 
 #include "createfiles.h"
+#include <QRandomGenerator>
 
 // Defining static variables
 QString CreateFiles::_path = "CSVFiles/";
@@ -51,7 +52,7 @@ void CreateFiles::CreateFilesOnStartUp()
 
         _members.open(QIODevice::WriteOnly | QFile::Text);
         QTextStream members_output(&_members);
-        members_output << "ID" << "," << "USERNAME" << "," << "PASSWORD" << "," << "EMAIL" << "," << "PHONE_NUM" << "\n";
+        members_output << "ID" << "," << "FIRST NAME" << "," << "LAST NAME" << "," << "USERNAME" << "," << "PASSWORD" << "," << "EMAIL" << "," << "PHONE_NUM" << "\n";
         _members.close();
 
         _checkedOutBooks.open(QIODevice::WriteOnly | QFile::Text);
@@ -99,6 +100,23 @@ QStringList CreateFiles::GetFileData(QString file)
         }
         _members.close();
     }
+    else if (file == "checkedOutBooks")
+    {
+        if (_checkedOutBooks.open(QIODevice::ReadOnly))
+        {
+            QTextStream in(&_checkedOutBooks);
+            while(!in.atEnd())
+            {
+                QString line = _checkedOutBooks.readLine().replace("\r\n","");
+                fileData.append(line.split(','));
+            }
+        }
+        else
+        {
+            return fileData;
+        }
+        _checkedOutBooks.close();
+    }
     else
     {
         QStringList error = {"error"};
@@ -106,4 +124,26 @@ QStringList CreateFiles::GetFileData(QString file)
     }
 
     return fileData;
+}
+
+void CreateFiles::CreateMember(QString fName, QString lName, QString uName, QString pWord, QString email, QString phoneNum)
+{
+    // Generate the members ID
+    quint32 idNum = QRandomGenerator::global()->bounded(1000, 9999);
+    QString id = "Mem" + QString::number(idNum);
+    QStringList membersList = GetFileData("members");
+    if (membersList.contains(id))
+    {
+        while (membersList.contains(id))
+        {
+            quint32 idNum = QRandomGenerator::global()->bounded(1000, 9999);
+            QString id = "Mem" + QString::number(idNum);
+        }
+    }
+
+    // Output all of the members details
+    _members.open(QIODevice::WriteOnly | QFile::Append | QFile::Text);
+    QTextStream in(&_members);
+    in << id << "," << fName << "," << lName << "," << uName << "," << pWord << "," << email << "," << phoneNum << "\n";
+    _members.close();
 }
