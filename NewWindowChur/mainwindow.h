@@ -5,6 +5,7 @@
 #include "dialog.h"
 #include "catalogue.h"
 #include "signupscreen.h"
+#include "adminhome.h"
 
 QT_BEGIN_NAMESPACE
 namespace Ui { class MainWindow; }
@@ -28,5 +29,6 @@ private:
     Ui::MainWindow *ui;
     Catalogue *_catalogueWindow;//pointer to a catalogue window
     signupscreen *_signup; //pointer to a signup window
+    adminhome * _adminWindow;
 };
 #endif // MAINWINDOW_H

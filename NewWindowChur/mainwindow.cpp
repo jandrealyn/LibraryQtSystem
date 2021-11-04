@@ -1,4 +1,5 @@
 #include "mainwindow.h"
+#include "adminhome.h"
 #include "dialog.h"
 #include "ui_mainwindow.h"
 #include "catalogue.h"
@@ -43,6 +44,13 @@ void MainWindow::on_login_clicked()
         _catalogueWindow->setWindowFlags(windowFlags() | Qt::WindowMinimizeButtonHint);
         _catalogueWindow->showMaximized();
         connect(_catalogueWindow, SIGNAL(OpenMainMenu()), this, SLOT(MainMenuOpen()));
+    }
+    else if(user == "admin" && pass == "cs106") {
+        hide();
+        _adminWindow = new adminhome(nullptr);
+        _adminWindow->setWindowFlags(windowFlags() | Qt::WindowMinimizeButtonHint);
+        _adminWindow->showNormal();
+        connect(_adminWindow, SIGNAL(ClosedMainMenu()), this, SLOT(MainMenuClosed()));
     }
     else {
         QMessageBox::warning(this, "Login", "Unsucessful, try again."); //if enters a incorrect login/password  // - liv
