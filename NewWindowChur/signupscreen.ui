@@ -6,7 +6,7 @@
    <rect>
     <x>0</x>
     <y>0</y>
-    <width>1173</width>
+    <width>1408</width>
     <height>600</height>
    </rect>
   </property>
@@ -16,8 +16,8 @@
   <widget class="QFrame" name="gridFrame_2">
    <property name="geometry">
     <rect>
-     <x>190</x>
-     <y>10</y>
+     <x>40</x>
+     <y>20</y>
      <width>801</width>
      <height>551</height>
     </rect>
@@ -96,12 +96,39 @@ padding: 3px;
       <x>200</x>
       <y>190</y>
       <width>441</width>
-      <height>281</height>
+      <height>231</height>
      </rect>
     </property>
     <layout class="QGridLayout" name="gridLayout">
      <item row="0" column="1">
       <layout class="QFormLayout" name="formLayout_2">
+       <item row="0" column="0">
+        <widget class="QLabel" name="label_5">
+         <property name="text">
+          <string>First Name</string>
+         </property>
+        </widget>
+       </item>
+       <item row="0" column="1">
+        <widget class="QLineEdit" name="firstname"/>
+       </item>
+       <item row="1" column="0">
+        <widget class="QLabel" name="label_6">
+         <property name="text">
+          <string>Last Name</string>
+         </property>
+        </widget>
+       </item>
+       <item row="1" column="1">
+        <widget class="QLineEdit" name="lastname"/>
+       </item>
+       <item row="2" column="0">
+        <widget class="QLabel" name="label">
+         <property name="text">
+          <string>Username</string>
+         </property>
+        </widget>
+       </item>
        <item row="2" column="1">
         <widget class="QLineEdit" name="Username"/>
        </item>
