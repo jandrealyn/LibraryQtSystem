@@ -6,6 +6,7 @@
 #include "dialog.h"
 #include "catalogue.h"
 
+//--- Livs Part --//
 namespace Ui {class signupscreen;}
 QT_END_NAMESPACE
 
@@ -17,8 +18,14 @@ public:
     explicit signupscreen(QWidget *parent = nullptr);
     ~signupscreen();
 
+signals:
+    void OpenMainMenu();
+
 private slots:
-    void on_next_clicked();
+    void on_next_clicked(); //function - for when the user clicks "next" button
+    void Signupclosed(); //function - for when the user clicks "close" button
+
+    void on_close_clicked(); //function - for when the user clicks "close" button and what happens after
 
 private:
     Ui::signupscreen *ui;

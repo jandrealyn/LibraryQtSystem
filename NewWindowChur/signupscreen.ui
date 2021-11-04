@@ -54,8 +54,8 @@ border-style: inset;
    <widget class="QLabel" name="img">
     <property name="geometry">
      <rect>
-      <x>1</x>
-      <y>1</y>
+      <x>50</x>
+      <y>20</y>
       <width>341</width>
       <height>121</height>
      </rect>
@@ -71,7 +71,7 @@ border-style: inset;
     <property name="geometry">
      <rect>
       <x>600</x>
-      <y>20</y>
+      <y>60</y>
       <width>172</width>
       <height>28</height>
      </rect>

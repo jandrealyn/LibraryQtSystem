@@ -42,7 +42,7 @@ void MainWindow::on_login_clicked()
         _catalogueWindow = new Catalogue(nullptr);
         _catalogueWindow->setWindowFlags(windowFlags() | Qt::WindowMinimizeButtonHint);
         _catalogueWindow->showMaximized();
-        connect(_catalogueWindow, SIGNAL(ClosedMainMenu()), this, SLOT(MainMenuClosed()));
+        connect(_catalogueWindow, SIGNAL(OpenMainMenu()), this, SLOT(MainMenuOpen()));
     }
     else {
         QMessageBox::warning(this, "Login", "Unsucessful, try again."); //if enters a incorrect login/password  // - liv
@@ -53,7 +53,16 @@ void MainWindow::on_login_clicked()
 
 }
 
-void MainWindow::MainMenuClosed()
+void MainWindow::MainMenuOpen()
 {
     show();
 }
+
+void MainWindow::on_Create_clicked(){
+    hide();
+    _signup = new signupscreen(nullptr);
+    _signup->setWindowFlags((windowFlags()) | Qt::WindowMinimizeButtonHint);
+    _signup->show();
+    connect(_signup, SIGNAL(OpenMainMenu()), this, SLOT(MainMenuOpen()));
+}
+
