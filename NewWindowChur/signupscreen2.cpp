@@ -35,7 +35,7 @@ void signupscreen2::on_close_clicked(){ //function for - when the user clicks cl
     emit OpenMainMenu();
 }
 
-void signupscreen2::on_next_clicked()
+void signupscreen2::on_Next_clicked()
 {
 
 }

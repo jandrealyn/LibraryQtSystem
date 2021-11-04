@@ -22,7 +22,7 @@ signals:
     void OpenMainMenu();
 
 private slots:
-    void on_next_clicked(); //function - for when the user clicks "next" button
+    void on_Next_clicked(); //function - for when the user clicks "next" button
     void Signupclosed(); //function - for when the user clicks "close" button
 
     void on_close_clicked(); //function - for when the user clicks "close" button and what happens after

@@ -27,17 +27,19 @@ signupscreen::~signupscreen()
     delete ui;
 }
 
-void signupscreen::on_next_clicked(){
+void signupscreen::on_Next_clicked(){
 
 
-    QString user = ui->Username->text(); //username input
-    QString pass = ui->Password->text();
-    QString mail = ui->email->text();
-    QString phone = ui->phone->text();
+    QString fName = ui->firstname->text();
+    QString Lname = ui->lastname->text();
+    QString uName = ui->Username->text(); //username input
+    QString pWord = ui->Password->text();
+    QString email = ui->email->text();
+    QString phoneNum = ui->phone->text();
 
-//    CreateFiles::create
+    CreateFiles::CreateMember(fName, Lname, uName, pWord, email, phoneNum);
 
-    if (user == "test" && pass == "test" && mail == "test" && phone == "111"){ //Input thats required to go to next screen
+    if (fName == "test" && Lname == "test" && uName == "test" && pWord == "test" && email == "test" && phoneNum == "111"){ //Input thats required to go to next screen
         hide();
 
 }
