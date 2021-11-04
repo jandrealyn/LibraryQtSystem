@@ -27,23 +27,23 @@ signupscreen::~signupscreen()
     delete ui;
 }
 
-void signupscreen::on_next_clicked(){
-
-
+void signupscreen::on_Next_clicked(){
+    QString fName = ui->firstName->text();
+    QString lName = ui->lastName->text();
     QString user = ui->Username->text(); //username input
     QString pass = ui->Password->text();
     QString mail = ui->email->text();
     QString phone = ui->phone->text();
 
-    //createfile::CreateMember(arg1, arg2, arg3, arg4 etc.) - jakob creating function
+    CreateFiles::CreateMember(fName, lName, user, pass, mail, phone);
 
-    if (user == "test" && pass == "test" && mail == "test" && phone == "111"){ //Input thats required to go to next screen
-        hide();
+//    if (user == "test" && pass == "test" && mail == "test" && phone == "111"){ //Input thats required to go to next screen
+//        hide();
 
-}
-    else{
-        QMessageBox::warning(this, "Login", "unsuccessful, try again.");
-    }
+//}
+//    else{
+//        QMessageBox::warning(this, "Login", "unsuccessful, try again.");
+//    }
 
 
 }
@@ -52,7 +52,6 @@ void signupscreen::Signupclosed()
 {
     show();
 }
-
 
 
 void signupscreen::on_close_clicked()
