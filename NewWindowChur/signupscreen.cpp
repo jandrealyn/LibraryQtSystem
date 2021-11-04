@@ -65,8 +65,8 @@ void signupscreen::on_close_clicked()
 // If username is already taken, it will not let the user create an account.
 void signupscreen::on_Username_textChanged(const QString &arg1)
 {
-    QStringList membersList = CreateFiles::GetFileData("members");
-    int index = membersList.indexOf(QRegExp(arg1));
+    QStringList membersList = CreateFiles::GetFileData(CSVFiles::_Members);
+    int index = membersList.indexOf(arg1);
 
     if(arg1 == "")
     {

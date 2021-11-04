@@ -18,10 +18,7 @@ public:
     //static void CreateCatalogue();
 
 signals:
-    void ClosedMainMenu();
-//    static void BookNameSignal(QString bookName);
-//    static void BookAuthorSignal(QString bookAuthor);
-//    static void BookCopiesSignal(QString bookCopies);
+    void OpenMainMenu();
 
 private slots:
     void on_yourAccount_logout_clicked();

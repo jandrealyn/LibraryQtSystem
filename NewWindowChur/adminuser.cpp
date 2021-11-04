@@ -18,7 +18,7 @@ adminuser::adminuser(QWidget *parent) :
     ui(new Ui::adminuser)
 
 {
-    QStringList membersData = CreateFiles::GetFileData("members");
+    QStringList membersData = CreateFiles::GetFileData(CSVFiles::_Members);
     ui->setupUi(this);
     QPixmap Img(":/images/YoobeeLibraries.png");
     ui->img->setPixmap(Img.scaled(150, 150, Qt::KeepAspectRatio));

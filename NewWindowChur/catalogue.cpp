@@ -48,11 +48,8 @@ Catalogue::Catalogue(QWidget *parent) :
 {
     ui->setupUi(this);
 
-    //QPixmap img(":/images/yoobee-logo.png");
-    //ui->yoobeeLogo->setPixmap(img);
-
     // Array control
-    QStringList catalogue = CreateFiles::GetFileData("catalogue");
+    QStringList catalogue = CreateFiles::GetFileData(CSVFiles::_Catalogue);
     const int arraySize = (catalogue.size() / 5) - 1;
 
     // LAYOUTS
@@ -148,7 +145,7 @@ Catalogue::~Catalogue()
 void Catalogue::on_yourAccount_logout_clicked()
 {
     close();
-    emit ClosedMainMenu();
+    emit OpenMainMenu();
 }
 
 // Search bar functionality
