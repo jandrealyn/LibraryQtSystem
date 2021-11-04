@@ -18,6 +18,7 @@ public:
     static QFile _checkedOutBooks;
 
     static QStringList GetFileData(QString file);
+    static void CreateMember(QString fName, QString lName, QString uName, QString pWord, QString email, QString phoneNum);
 };
 
 #endif // CREATEFILES_H
