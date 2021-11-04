@@ -15,6 +15,12 @@ public:
     explicit adminuser(QWidget *parent = nullptr);
     ~adminuser();
 
+signals:
+    void ClosedAdminHome();
+
+private slots:
+    void on_back_clicked();
+
 private:
     Ui::adminuser *ui;
 };

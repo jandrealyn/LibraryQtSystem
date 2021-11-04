@@ -2,6 +2,9 @@
 #define ADMINSYSTEM_H
 
 #include <QDialog>
+#include "adminreturned.h"
+#include "admindue.h"
+#include "adminoverdue.h"
 
 namespace Ui {
 class adminsystem;
@@ -21,8 +24,20 @@ signals:
 private slots:
     void on_back_clicked();
 
+    void AdminSystemClosed();
+
+    void on_admin_returned_btn_clicked();
+
+    void on_admin_due_btn_clicked();
+
+    void on_admin_overdue_btn_clicked();
+
 private:
     Ui::adminsystem *ui;
+    adminreturned* admin_ret;
+    admindue* admin_due;
+    adminoverdue* admin_overdue;
+
 };
 
 #endif // ADMINSYSTEM_H
