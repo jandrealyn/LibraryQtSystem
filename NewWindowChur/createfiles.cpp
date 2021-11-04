@@ -52,7 +52,7 @@ void CreateFiles::CreateFilesOnStartUp()
 
         _members.open(QIODevice::WriteOnly | QFile::Text);
         QTextStream members_output(&_members);
-        members_output << "ID" << "," << "FIRST NAME" << "," << "LAST NAME" << "," << "USERNAME" << "," << "PASSWORD" << "," << "EMAIL" << "," << "PHONE_NUM" << "\n";
+        members_output << "ID" << "," << "FIRST NAME" << "," << "LAST NAME" << "," << "USERNAME" << "," << "PASSWORD" << "," << "EMAIL" << "," << "PHONE NUM" << "\n";
         _members.close();
 
         _checkedOutBooks.open(QIODevice::WriteOnly | QFile::Text);
@@ -126,6 +126,10 @@ QStringList CreateFiles::GetFileData(QString file)
     return fileData;
 }
 
+// This function is used to make the coding for other members in the team easier.
+// Whoever is in charge of the login screen can use this function to pass through
+// the values of the users account details and creates an account. It will also
+// generate a randomised ID.
 void CreateFiles::CreateMember(QString fName, QString lName, QString uName, QString pWord, QString email, QString phoneNum)
 {
     // Generate the members ID
