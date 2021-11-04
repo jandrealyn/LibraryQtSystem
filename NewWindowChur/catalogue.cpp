@@ -50,78 +50,12 @@ Catalogue::Catalogue(QWidget *parent) :
 {
     ui->setupUi(this);
 
-    // Creating a style sheet for when the QTableWidget is populated with data
-    ui->bookCatalogue->setStyleSheet("QHeaderView::section { background-color: rgba(254, 222, 255, 0.3) }");
-
-    // Get data from the catalogue file
-    QStringList catalogueData = CreateFiles::GetFileData("catalogue");
-    if (catalogueData.empty())
-    {
-        QMessageBox::warning(this, "Can not open \'catalogue.csv\'.", CreateFiles::_catalogue.errorString());
-    }
-
-    // Because we have 5 columns, we insert a column 5 times
-    for (int i = 0; i < 5; i++)
-    {   
-       ui->bookCatalogue->insertColumn(ui->bookCatalogue->columnCount());
-    }
-
-    // We have headers in our CSV file, so I use them to set the labels for the table.
-    ui->bookCatalogue->setHorizontalHeaderLabels({catalogueData[0], catalogueData[1], catalogueData[2], catalogueData[3], catalogueData[4]});
-    ui->bookCatalogue->horizontalHeader()->setSectionResizeMode(0, QHeaderView::Interactive);
-    ui->bookCatalogue->horizontalHeader()->setSectionResizeMode(1, QHeaderView::Stretch);
-    ui->bookCatalogue->horizontalHeader()->setSectionResizeMode(2, QHeaderView::Stretch);
-    ui->bookCatalogue->setSelectionMode(QHeaderView::NoSelection);
-
-    // Create the rows of the QTableWidget
-    int i = 5;
-    int rowCount = (catalogueData.size() / 5) - 1;
-    for (int row = 0; row < rowCount; row++)
-    {
-        ui->bookCatalogue->insertRow(ui->bookCatalogue->rowCount());
-        for (int col = 0; col < 5; col++)
-        {
-            if (catalogueData[i].contains(":/images"))
-            {
-                QWidget* item = new QWidget(ui->bookCatalogue);
-                QString imagePath = catalogueData[i];
-                QPixmap p(imagePath);
-                QLabel* l = new QLabel(item);
-                l->setPixmap(p.scaled(90,120));
-                ui->bookCatalogue->setCellWidget(row, col, item);
-            }
-            else if (catalogueData[i] == "checkoutbtn")
-            {
-                QWidget* item = new QWidget(ui->bookCatalogue);
-                QPushButton* push = new QPushButton(item);
-                push->setText("button");
-                connect(push, SIGNAL(clicked()), this, SLOT(mySlot()));
-                ui->bookCatalogue->setCellWidget(row, col, item);
-            }
-            else
-            {
-                QTableWidgetItem *item = new QTableWidgetItem(QString(catalogueData[i]));
-                ui->bookCatalogue->setItem(row, col, item);
-            }
-            i++;
-        }
-        ui->bookCatalogue->verticalHeader()->setDefaultSectionSize(120);
-        ui->bookCatalogue->verticalHeader()->sectionResizeMode(QHeaderView::Fixed);
-    }
-
-
-    // Make the items non editable
-    ui->bookCatalogue->setEditTriggers(ui->bookCatalogue->NoEditTriggers);
-
-    // Make the headers not able to be clicked
-    //ui->bookCatalogue->setSelectionModel(QItemSelectionModel::NoUpdate);
-
-    QPixmap img(":/images/yoobee-logo.png");
-    ui->yoobeeLogo->setPixmap(img);
+    //QPixmap img(":/images/yoobee-logo.png");
+    //ui->yoobeeLogo->setPixmap(img);
 
     // Array control
-    QStringList catalogueTest = CreateFiles::GetFileData("catalogueTest");
-    const int arraySize = (catalogueTest.size() / 5) - 1;
+    QStringList catalogue = CreateFiles::GetFileData("catalogue");
+    const int arraySize = (catalogue.size() / 5) - 1;
 
     // LAYOUTS
     QGroupBox* groupBox = new QGroupBox;
@@ -142,22 +76,22 @@ Catalogue::Catalogue(QWidget *parent) :
     for (int row = 0; row < arraySize; row++)
     {
         // Book image
-        QString imagePath = catalogueTest[t + 1]; // Skip the first spot of the list because it's the ID
+        QString imagePath = catalogue[t + 1]; // Skip the first spot of the list because it's the ID
         QPixmap p(imagePath);
         bookImage[row] = new QLabel;
         bookImage[row]->setPixmap(p.scaled(90, 120));
 
         // Book name
         bookName[row] = new QLabel;
-        bookName[row]->setText("Book name: " + catalogueTest[t + 2]);
+        bookName[row]->setText("Book name: " + catalogue[t + 2]);
 
         // Book author
         bookAuthor[row] = new QLabel;
-        bookAuthor[row]->setText("Author: " + catalogueTest[t + 3]);
+        bookAuthor[row]->setText("Author: " + catalogue[t + 3]);
 
         // Book copies
         bookCopies[row] = new QLabel;
-        bookCopies[row]->setText("Copies: " + catalogueTest[t + 4]);
+        bookCopies[row]->setText("Copies: " + catalogue[t + 4]);
 
         // Checkout button
         const QSize btnSize = QSize(80, 25);
@@ -170,7 +104,7 @@ Catalogue::Catalogue(QWidget *parent) :
         checkoutScreen[row] = new CheckOutScreen;
 
         connect(checkoutButton[row], SIGNAL(clicked()), checkoutScreen[row], SLOT(exec()));
-        checkoutScreen[row]->setLabels(catalogueTest[t + 2], catalogueTest[t + 3], catalogueTest[t + 4]);
+        checkoutScreen[row]->setLabels(catalogue[t + 2], catalogue[t + 3], catalogue[t + 4]);
 
         // Horizontal Lines
         lines1[row] = new QFrame();
@@ -219,13 +153,6 @@ void Catalogue::on_yourAccount_logout_clicked()
     emit ClosedMainMenu();
 }
 
-
-void Catalogue::on_checkOutButton_clicked()
-{
-    c_ui = new CheckOutScreen(nullptr);
-    c_ui->exec();
-}
-
 // Search bar functionality
 void Catalogue::on_searchBar_textChanged(const QString &arg1)
 {
@@ -237,7 +164,7 @@ void Catalogue::on_searchBar_textChanged(const QString &arg1)
         while(!in.atEnd())
         {
             QString line = CreateFiles::_catalogue.readLine().replace("\r\n","");
-            if (!line.contains("BOOK"))
+            if (line != "BOOK ID, IMAGE, BOOK NAME, AUTHOR, COPIES")
             {
                 if (line.toLower().contains(arg1.toLower()))
                 {
@@ -248,95 +175,13 @@ void Catalogue::on_searchBar_textChanged(const QString &arg1)
     }
     CreateFiles::_catalogue.close();
 
-    for (int i = 0; i < foundData.size(); i++)
-    {
-        qDebug() << foundData[i];
-    }
+    // Array control
+    const int arraySize = (foundData.size() / 5) - 1;
 
-    ui->bookCatalogue->setRowCount(0);
-
-    int b = 0;
-    int rowCount = (foundData.size() / 5);
-    for (int row = 0; row < rowCount; row++)
-    {
-        ui->bookCatalogue->insertRow(ui->bookCatalogue->rowCount());
-        for (int col = 0; col < 5; col++)
-        {
-            if (foundData[b].contains(":/images"))
-            {
-                qDebug("contains :/images");
-
-                QWidget* item = new QWidget(ui->bookCatalogue);
-                QString imagePath = foundData[b];
-                QPixmap p(imagePath);
-                QLabel* l = new QLabel(item);
-                l->setPixmap(p.scaled(90,120));
-                ui->bookCatalogue->setCellWidget(row, col, item);
-            }
-            if (foundData[b] == "checkoutbtn")
-            {
-                QWidget* item = new QWidget(ui->bookCatalogue);
-                QPushButton* push1 = new QPushButton(item);
-                push1->setText("button");
-                ui->bookCatalogue->setCellWidget(row, col, item);
-            }
-            else
-            {
-                QTableWidgetItem *item = new QTableWidgetItem(QString(foundData[b]));
-                ui->bookCatalogue->setItem(row, col, item);
-            }
-            b++;
-        }
-    }
-}
-
-void Catalogue::on_addBook_clicked()
-{
-
-}
-
-void Catalogue::mySlot()
-{
-    c_ui = new CheckOutScreen(this);
-    c_ui->show();
-    int asfd = ui->bookCatalogue->currentRow();
-    int f = ui->bookCatalogue->currentColumn();
-    qDebug() << "row: " << asfd << " col: " << f;
-}
-
-
-void Catalogue::on_lineEdit_textChanged(const QString &arg1)
-{
-    QStringList foundData;
-
-    if (CreateFiles::_catalogueTest.open(QIODevice::ReadOnly))
-    {
-        QTextStream in(&CreateFiles::_catalogueTest);
-        while(!in.atEnd())
-        {
-            QString line = CreateFiles::_catalogueTest.readLine().replace("\r\n","");
-            if (!line.contains("IMAGE, BOOK NAME, AUTHOR, COPIES"))
-            {
-                if (line.toLower().contains(arg1.toLower()))
-                {
-                    foundData.append(line.split(','));
-                }
-            }
-        }
-    }
-    CreateFiles::_catalogueTest.close();
-
-    for (int i = 0; i < foundData.size(); i++)
-    {
-        qDebug() << foundData[i];
-    }
-
+    // LAYOUTS
     QGroupBox* groupBox = new QGroupBox;
     QFormLayout* formLayout = new QFormLayout();
     groupBox->setLayout(formLayout);
-
-    // Array control
-    const int arraySize = (foundData.size() / 4) - 1;
 
     QFrame* lines1[arraySize];
     QFrame* lines2[arraySize];
@@ -345,34 +190,42 @@ void Catalogue::on_lineEdit_textChanged(const QString &arg1)
     QLabel* bookAuthor[arraySize];
     QLabel* bookCopies[arraySize];
     QPushButton* checkoutButton[arraySize];
+    CheckOutScreen* checkoutScreen[arraySize];
 
-    int t = 4;
+    int t = 5;
     // Initalize all widgets
     for (int row = 0; row < arraySize; row++)
     {
         // Book image
-        QString imagePath = foundData[t];
+        QString imagePath = foundData[t + 1];
         QPixmap p(imagePath);
         bookImage[row] = new QLabel;
         bookImage[row]->setPixmap(p.scaled(90, 120));
 
         // Book name
         bookName[row] = new QLabel;
-        bookName[row]->setText("Book name: " + foundData[t + 1]);
+        bookName[row]->setText("Book name: " + foundData[t + 2]);
 
         // Book authour
         bookAuthor[row] = new QLabel;
-        bookAuthor[row]->setText("Author: " + foundData[t + 2]);
+        bookAuthor[row]->setText("Author: " + foundData[t + 3]);
 
         // Book copies
         bookCopies[row] = new QLabel;
-        bookCopies[row]->setText("Copies: " + foundData[t + 3]);
+        bookCopies[row]->setText("Copies: " + foundData[t + 4]);
 
         // Checkout button
         const QSize btnSize = QSize(80, 25);
         checkoutButton[row] = new QPushButton;
         checkoutButton[row]->setText("Checkout");
         checkoutButton[row]->setFixedSize(btnSize);
+        checkoutButton[row]->setStyleSheet("QPushButton { border: 1px solid black; }"
+                                           "QPushButton:pressed { border-color: #e7e7e7; background-color: #f4f4f4; }");
+
+        checkoutScreen[row] = new CheckOutScreen;
+
+        connect(checkoutButton[row], SIGNAL(clicked()), checkoutScreen[row], SLOT(exec()));
+        checkoutScreen[row]->setLabels(foundData[t + 2], foundData[t + 3], foundData[t + 4]);
 
         // Horizontal Lines
         lines1[row] = new QFrame();
@@ -385,7 +238,7 @@ void Catalogue::on_lineEdit_textChanged(const QString &arg1)
         lines2[row]->setFrameShape(QFrame::HLine);
         lines2[row]->setFrameShadow(QFrame::Sunken);
 
-        t = t + 4;
+        t = t + 5;
     }
 
     // Add all of the widgets into the layouts
@@ -402,10 +255,10 @@ void Catalogue::on_lineEdit_textChanged(const QString &arg1)
         verticalLayout->addWidget(bookCopies[row]);
         verticalLayout->addWidget(checkoutButton[row]);
         verticalLayout->addWidget(lines2[row]);
-        formLayout->setContentsMargins(10, 5, 0, 5);
+        formLayout->setContentsMargins(10, 5, 0, 20);
         formLayout->setVerticalSpacing(30);
     }
 
     ui->scrollArea->setWidget(groupBox);
+    groupBox->setStyleSheet("background-color: white;");
 }
-

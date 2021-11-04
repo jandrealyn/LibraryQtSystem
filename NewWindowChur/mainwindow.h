@@ -4,6 +4,7 @@
 #include <QMainWindow>
 #include "dialog.h"
 #include "catalogue.h"
+#include "adminhome.h"
 
 QT_BEGIN_NAMESPACE
 namespace Ui { class MainWindow; }
@@ -24,5 +25,6 @@ private slots:
 private:
     Ui::MainWindow *ui;
     Catalogue *_catalogueWindow;
+    adminhome * _adminWindow;
 };
 #endif // MAINWINDOW_H
