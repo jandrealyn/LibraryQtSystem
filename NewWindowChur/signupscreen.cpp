@@ -20,6 +20,7 @@ signupscreen::signupscreen(QWidget *parent) :
     ui->setupUi(this);
     QPixmap Img(":/images/YoobeeLibraries.png"); // - liv
     ui->img->setPixmap(Img.scaled(150, 150, Qt::KeepAspectRatio)); // - liv
+    ui->Next->setEnabled(false); // Jakob
 }
 
 signupscreen::~signupscreen()
@@ -28,19 +29,6 @@ signupscreen::~signupscreen()
 }
 
 void signupscreen::on_Next_clicked(){
-    QString fName = ui->firstName->text();
-    QString lName = ui->lastName->text();
-    QString user = ui->Username->text(); //username input
-    QString pass = ui->Password->text();
-    QString mail = ui->email->text();
-    QString phone = ui->phone->text();
-
-    CreateFiles::CreateMember(fName, lName, user, pass, mail, phone);
-
-//    if (user == "test" && pass == "test" && mail == "test" && phone == "111"){ //Input thats required to go to next screen
-//        hide();
-
-
     QString fName = ui->firstname->text();
     QString Lname = ui->lastname->text();
     QString uName = ui->Username->text(); //username input
@@ -56,7 +44,7 @@ void signupscreen::on_Next_clicked(){
 //}
 //    else{
 //        QMessageBox::warning(this, "Login", "unsuccessful, try again.");
-//    }
+    }
 
 
 }
@@ -73,3 +61,31 @@ void signupscreen::on_close_clicked()
     emit OpenMainMenu();
 }
 
+// Written by Jakob
+// If username is already taken, it will not let the user create an account.
+void signupscreen::on_Username_textChanged(const QString &arg1)
+{
+    QStringList membersList = CreateFiles::GetFileData(CSVFiles::_Members);
+    int index = membersList.indexOf(arg1);
+
+    if(arg1 == "")
+    {
+        ui->usernameCheck->setPixmap(QPixmap());
+        ui->usernameCheckTest->setText("");
+        ui->Next->setEnabled(false);
+    }
+    else if (index < 0)
+    {
+        QPixmap p(":/images/username-ok.png");
+        ui->usernameCheck->setPixmap(p.scaled(15,15, Qt::KeepAspectRatio));
+        ui->usernameCheckTest->setText("Username good");
+        ui->Next->setEnabled(true);
+    }
+    else
+    {
+        QPixmap p(":/images/username-taken.png");
+        ui->usernameCheck->setPixmap(p.scaled(15,15, Qt::KeepAspectRatio));
+        ui->usernameCheckTest->setText("Username taken");
+        ui->Next->setEnabled(false);
+    }
+}

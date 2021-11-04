@@ -3,6 +3,7 @@
 #include "dialog.h"
 #include "ui_mainwindow.h"
 #include "catalogue.h"
+#include "createfiles.h"
 #include "QMessageBox"
 #include "QCheckBox"
 #include <QDebug>
@@ -30,11 +31,13 @@ MainWindow::~MainWindow()
 //When user clicks on login - liv
 void MainWindow::on_login_clicked()
 {
-
-
     QString user = ui->username_input->text(); //Username Input  // - liv
     QString pass = ui->password_input->text(); //password input // - liv
 
+    QStringList a = CreateFiles::GetFileData(CSVFiles::_Members);
+
+    //int foundUser = a.indexOf(user);
+    //int foundPass = a.indexOf(pass);
 
     //Login password & username for a normal user (not admin)  // - liv
     if(user == "test" && pass == "test"){
