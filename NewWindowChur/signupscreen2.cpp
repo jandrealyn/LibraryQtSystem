@@ -21,7 +21,10 @@ signupscreen2::signupscreen2(QWidget *parent) :
     QPixmap Img(":/images/YoobeeLibraries.png"); // - liv
     ui->img->setPixmap(Img.scaled(150, 150, Qt::KeepAspectRatio)); // - liv
 }
+void on_next_clicked(){
 
+
+}
 signupscreen2::~signupscreen2()
 {
     delete ui;
@@ -30,4 +33,14 @@ signupscreen2::~signupscreen2()
 void signupscreen2::on_close_clicked(){ //function for - when the user clicks close
     close();
     emit OpenMainMenu();
+}
+
+void signupscreen2::on_next_clicked()
+{
+
+}
+
+void signupscreen2::on_back_clicked()
+{
+
 }

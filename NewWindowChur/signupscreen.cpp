@@ -35,7 +35,7 @@ void signupscreen::on_next_clicked(){
     QString mail = ui->email->text();
     QString phone = ui->phone->text();
 
-    //createfile::CreateMember(arg1, arg2, arg3, arg4 etc.) - jakob creating function
+//    CreateFiles::create
 
     if (user == "test" && pass == "test" && mail == "test" && phone == "111"){ //Input thats required to go to next screen
         hide();
