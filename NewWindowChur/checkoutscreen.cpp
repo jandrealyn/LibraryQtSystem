@@ -11,14 +11,13 @@
 
 #include "checkoutscreen.h"
 #include "ui_checkoutscreen.h"
+#include "createfiles.h"
 
 CheckOutScreen::CheckOutScreen(QWidget *parent) :
     QDialog(parent),
     ui(new Ui::CheckOutScreen)
 {
     ui->setupUi(this);
-
-    ui->book_name_label->setText("hi");
 }
 
 CheckOutScreen::~CheckOutScreen()
@@ -31,7 +30,9 @@ void CheckOutScreen::on_cancel_clicked()
     close();
 }
 
-void CheckOutScreen::get_Book_Name(QString name)
+void CheckOutScreen::setLabels(QString bookName, QString authorName, QString copies)
 {
-
+    ui->book_name_label->setText(bookName);
+    ui->book_author_label->setText(authorName);
+    ui->book_copies_label->setText(copies);
 }
