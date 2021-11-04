@@ -18,7 +18,9 @@ SOURCES += \
     createfiles.cpp \
     dialog.cpp \
     main.cpp \
-    mainwindow.cpp
+    mainwindow.cpp \
+    signupscreen.cpp \
+    signupscreen2.cpp
 
 HEADERS += \
     admincatalogue.h \
@@ -29,7 +31,9 @@ HEADERS += \
     checkoutscreen.h \
     createfiles.h \
     dialog.h \
-    mainwindow.h
+    mainwindow.h \
+    signupscreen.h \
+    signupscreen2.h
 
 FORMS += \
     admincatalogue.ui \
@@ -39,7 +43,9 @@ FORMS += \
     catalogue.ui \
     checkoutscreen.ui \
     dialog.ui \
-    mainwindow.ui
+    mainwindow.ui \
+    signupscreen.ui \
+    signupscreen2.ui
 
 # Default rules for deployment.
 qnx: target.path = /tmp/$${TARGET}/bin
