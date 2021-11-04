@@ -34,10 +34,10 @@ void MainWindow::on_login_clicked()
     QString user = ui->username_input->text(); //Username Input  // - liv
     QString pass = ui->password_input->text(); //password input // - liv
 
-    QStringList a = CreateFiles::GetFileData("members");
+    QStringList a = CreateFiles::GetFileData(CSVFiles::_Members);
 
-    int foundUser = a.indexOf(QRegExp(user));
-    int foundPass = a.indexOf(QRegExp(pass));
+    //int foundUser = a.indexOf(user);
+    //int foundPass = a.indexOf(pass);
 
     //Login password & username for a normal user (not admin)  // - liv
     if(user == "test" && pass == "test"){

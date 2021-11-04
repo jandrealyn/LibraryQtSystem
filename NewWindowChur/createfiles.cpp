@@ -8,7 +8,7 @@
 // CreateFiles::_fileNeeded;
 //
 // If you need some files data, you can call
-// CreateFiles::GetFileData("fileNeeded") into a QStringList.
+// CreateFiles::GetFileData(CSVFiles::_YourFile) into a QStringList.
 //
 // ------------------------------------------------------------
 
@@ -62,12 +62,12 @@ void CreateFiles::CreateFilesOnStartUp()
     }
 }
 
-QStringList CreateFiles::GetFileData(QString file)
+QStringList CreateFiles::GetFileData(enum CSVFiles file)
 {
     QStringList fileData;
-
-    if (file == "catalogue")
+    switch (file)
     {
+    case CSVFiles::_Catalogue:
         if (_catalogue.open(QIODevice::ReadOnly))
         {
             QTextStream in(&_catalogue);
@@ -82,9 +82,8 @@ QStringList CreateFiles::GetFileData(QString file)
             return fileData;
         }
         _catalogue.close();
-    }
-    else if (file == "members")
-    {
+        break;
+    case CSVFiles::_Members:
         if (_members.open(QIODevice::ReadOnly))
         {
             QTextStream in(&_members);
@@ -99,9 +98,8 @@ QStringList CreateFiles::GetFileData(QString file)
             return fileData;
         }
         _members.close();
-    }
-    else if (file == "checkedOutBooks")
-    {
+        break;
+    case CSVFiles::_CheckedOutBooks:
         if (_checkedOutBooks.open(QIODevice::ReadOnly))
         {
             QTextStream in(&_checkedOutBooks);
@@ -116,13 +114,12 @@ QStringList CreateFiles::GetFileData(QString file)
             return fileData;
         }
         _checkedOutBooks.close();
+        break;
+    default:
+        qDebug() << "Could not open file.";
+        fileData = {"error"};
+        break;
     }
-    else
-    {
-        QStringList error = {"error"};
-        return error;
-    }
-
     return fileData;
 }
 
@@ -135,7 +132,7 @@ void CreateFiles::CreateMember(QString fName, QString lName, QString uName, QStr
     // Generate the members ID
     quint32 idNum = QRandomGenerator::global()->bounded(1000, 9999);
     QString id = "Mem" + QString::number(idNum);
-    QStringList membersList = GetFileData("members");
+    QStringList membersList = GetFileData(CSVFiles::_Members);
     if (membersList.contains(id))
     {
         while (membersList.contains(id))
