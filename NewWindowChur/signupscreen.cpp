@@ -41,11 +41,13 @@ void signupscreen::on_Next_clicked(){
     if (fName == "test" && Lname == "test" && uName == "test" && pWord == "test" && email == "test" && phoneNum == "111"){ //Input thats required to go to next screen
         hide();
 
+}
+    else{
+        QMessageBox::warning(this, "sign up", "unsuccessful, try again.");
 //}
 //    else{
 //        QMessageBox::warning(this, "Login", "unsuccessful, try again.");
     }
-
 
 }
 

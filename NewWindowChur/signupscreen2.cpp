@@ -44,3 +44,11 @@ void signupscreen2::on_back_clicked()
 {
 
 }
+
+void signupscreen2::on_SignUp_clicked(){
+    hide();
+    Signup = new signupscreen2(nullptr);
+    Signup->setWindowFlags((windowFlags()) | Qt::WindowMinimizeButtonHint);
+    Signup->show();
+    connect(Signup, SIGNAL(OpenMainMenu()), this, SLOT(MainMenuOpen()));
+}

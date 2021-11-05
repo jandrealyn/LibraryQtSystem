@@ -21,6 +21,7 @@ SOURCES += \
     checkoutscreen.cpp \
     createfiles.cpp \
     dialog.cpp \
+    loginscreen.cpp \
     main.cpp \
     mainwindow.cpp \
     signupscreen.cpp \
@@ -39,6 +40,7 @@ HEADERS += \
     checkoutscreen.h \
     createfiles.h \
     dialog.h \
+    loginscreen.h \
     mainwindow.h \
     signupscreen.h \
     signupscreen2.h
@@ -55,6 +57,7 @@ FORMS += \
     catalogue.ui \
     checkoutscreen.ui \
     dialog.ui \
+    loginscreen.ui \
     mainwindow.ui \
     signupscreen.ui \
     signupscreen2.ui
@@ -66,3 +69,6 @@ else: unix:!android: target.path = /opt/$${TARGET}/bin
 
 RESOURCES += \
     images.qrc
+
+DISTFILES += \
+    images/top-books.png

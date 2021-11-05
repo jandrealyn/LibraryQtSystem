@@ -1,42 +1,33 @@
-#include "mainwindow.h"
+#include "loginscreen.h"
+#include "ui_loginscreen.h"
 #include "adminhome.h"
 #include "dialog.h"
-#include "ui_mainwindow.h"
 #include "catalogue.h"
-#include "createfiles.h"
 #include "QMessageBox"
 #include "QCheckBox"
 #include <QDebug>
 #include <QPushButton>
 
-
-MainWindow::MainWindow(QWidget *parent)
-    : QMainWindow(parent)
-    , ui(new Ui::MainWindow)
+loginscreen::loginscreen(QWidget *parent) :
+    QDialog(parent),
+    ui(new Ui::loginscreen)
 {
     ui->setupUi(this);
-    QPixmap Img(":/images/YoobeeLibraries.png");
-    ui->img->setPixmap(Img.scaled(150, 150, Qt::KeepAspectRatio));
-
 }
 
-MainWindow::~MainWindow()
+loginscreen::~loginscreen()
 {
     delete ui;
 }
 
-
-void MainWindow::MainMenuClosed()
 //When user clicks on login - liv
-void MainWindow::on_login_clicked()
+void loginscreen::on_login_clicked()
 {
+
+
     QString user = ui->username_input->text(); //Username Input  // - liv
     QString pass = ui->password_input->text(); //password input // - liv
 
-    QStringList a = CreateFiles::GetFileData(CSVFiles::_Members);
-
-    //int foundUser = a.indexOf(user);
-    //int foundPass = a.indexOf(pass);
 
     //Login password & username for a normal user (not admin)  // - liv
     if(user == "test" && pass == "test"){
@@ -63,7 +54,15 @@ void MainWindow::on_login_clicked()
 
 }
 
-void MainWindow::MainMenuOpen()
+void loginscreen::MainMenuOpen()
 {
     show();
+}
+
+void loginscreen::on_Create_clicked(){
+    hide();
+    _signup = new signupscreen(nullptr);
+    _signup->setWindowFlags((windowFlags()) | Qt::WindowMinimizeButtonHint);
+    _signup->show();
+    connect(_signup, SIGNAL(OpenMainMenu()), this, SLOT(MainMenuOpen()));
 }
