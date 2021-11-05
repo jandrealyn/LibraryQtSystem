@@ -52,7 +52,7 @@ background-color: #FFFFFF;
          <string/>
         </property>
         <property name="pixmap">
-         <pixmap resource="images.qrc">:/images/yoobee-logo.png</pixmap>
+         <pixmap>:/images/yoobee-logo.png</pixmap>
         </property>
        </widget>
       </item>
@@ -161,8 +161,6 @@ padding: 6px;
   </widget>
   <widget class="QStatusBar" name="statusbar"/>
  </widget>
- <resources>
-  <include location="images.qrc"/>
- </resources>
+ <resources/>
  <connections/>
 </ui>

@@ -21,7 +21,7 @@ public:
 
 private slots:
     void MainMenuOpen();
-    void MainMenuClosed();
+//    void MainMenuClosed();
     void on_login_clicked();
 
 private:

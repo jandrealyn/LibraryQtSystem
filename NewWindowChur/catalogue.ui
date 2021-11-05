@@ -23,7 +23,7 @@
    <item row="0" column="0">
     <widget class="QTabWidget" name="tabWidget">
      <property name="currentIndex">
-      <number>1</number>
+      <number>0</number>
      </property>
      <widget class="QWidget" name="Home">
       <attribute name="title">
@@ -36,7 +36,7 @@
           <string/>
          </property>
          <property name="pixmap">
-          <pixmap resource="images.qrc">:/images/yoobee-logo.png</pixmap>
+          <pixmap>:/images/yoobee-logo.png</pixmap>
          </property>
         </widget>
        </item>
@@ -175,8 +175,6 @@
   <tabstop>pushButton_3</tabstop>
   <tabstop>textBrowser</tabstop>
  </tabstops>
- <resources>
-  <include location="images.qrc"/>
- </resources>
+ <resources/>
  <connections/>
 </ui>
