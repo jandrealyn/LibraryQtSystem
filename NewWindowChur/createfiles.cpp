@@ -13,6 +13,7 @@
 // ------------------------------------------------------------
 
 #include "createfiles.h"
+#include <QDebug>
 #include <QRandomGenerator>
 
 // Defining static variables
@@ -57,7 +58,7 @@ void CreateFiles::CreateFilesOnStartUp()
 
         _checkedOutBooks.open(QIODevice::WriteOnly | QFile::Text);
         QTextStream checkout_output(&_checkedOutBooks);
-        checkout_output << "BOOK ID" << "," << "BOOK NAME" << "," << "MEMBER ID" << "," << "MEMBER NAME" << "\n";
+        checkout_output << "BOOK ID" << "," << "BOOK NAME" << "," << "MEMBER ID" << "," << "MEMBER NAME" << "," << "DATE CHECKED OUT" << "," << "DATE DUE" << "\n";
         _checkedOutBooks.close();
     }
 }
@@ -117,7 +118,7 @@ QStringList CreateFiles::GetFileData(enum CSVFiles file)
         break;
     default:
         qDebug() << "Could not open file.";
-        fileData = {"error"};
+        fileData.append("error");
         break;
     }
     return fileData;
