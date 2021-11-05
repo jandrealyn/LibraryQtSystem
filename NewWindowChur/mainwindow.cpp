@@ -1,5 +1,6 @@
 #include "mainwindow.h"
 #include "adminhome.h"
+#include "loginscreen.h"
 #include "dialog.h"
 #include "ui_mainwindow.h"
 #include "catalogue.h"
@@ -24,8 +25,15 @@ MainWindow::~MainWindow()
     delete ui;
 }
 
+void MainWindow::on_login_clicked(){
+ hide();
+  _loginWindow = new loginscreen(nullptr);
+  _loginWindow->setWindowFlags((windowFlags()) | Qt::WindowMinimizeButtonHint);
+ _loginWindow->show();
 
+}
 void MainWindow::MainMenuClosed()
 {
     show();
+
 }
