@@ -99,6 +99,7 @@ Catalogue::Catalogue(QWidget *parent) :
         checkoutScreen[row] = new CheckOutScreen;
 
         connect(checkoutButton[row], SIGNAL(clicked()), checkoutScreen[row], SLOT(exec()));
+        // Book ID, Book Name, Member ID, Member Name, Date
         //checkoutScreen[row]->setVariables(catalogue[t + 2], catalogue[t + 3], catalogue[t + 4]);
 
         // Horizontal Lines
