@@ -222,19 +222,6 @@ border-color: #e7e7e7;
     <string>Author</string>
    </property>
   </widget>
-  <widget class="QLabel" name="memName">
-   <property name="geometry">
-    <rect>
-     <x>250</x>
-     <y>130</y>
-     <width>141</width>
-     <height>16</height>
-    </rect>
-   </property>
-   <property name="text">
-    <string>members name</string>
-   </property>
-  </widget>
  </widget>
  <tabstops>
   <tabstop>checkoutNow</tabstop>
