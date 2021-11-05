@@ -4,7 +4,6 @@
 #include <QMainWindow>
 #include "dialog.h"
 #include "catalogue.h"
-#include "signupscreen.h"
 #include "adminhome.h"
 
 QT_BEGIN_NAMESPACE
@@ -20,15 +19,11 @@ public:
     ~MainWindow();
 
 private slots:
-    void on_login_clicked(); //calling a function from Mainwindow.cpp
-    void MainMenuOpen(); //calling a function
-
-    void on_Create_clicked(); //calling a function from signupscreen.cpp
+    void MainMenuClosed();
 
 private:
     Ui::MainWindow *ui;
-    Catalogue *_catalogueWindow;//pointer to a catalogue window
-    signupscreen *_signup; //pointer to a signup window
+    Catalogue *_catalogueWindow;
     adminhome * _adminWindow;
 };
 #endif // MAINWINDOW_H

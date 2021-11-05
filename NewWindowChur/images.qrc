@@ -4,5 +4,7 @@
         <file>images/book-cover.png</file>
         <file>images/blue-book.jpg</file>
         <file>images/YoobeeLibraries.png</file>
+        <file>images/top-books.png</file>
+        <file>images/berserk.jpg</file>
     </qresource>
 </RCC>

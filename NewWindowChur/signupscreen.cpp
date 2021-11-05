@@ -44,7 +44,7 @@ void signupscreen::on_Next_clicked(){
 
 }
     else{
-        QMessageBox::warning(this, "Login", "unsuccessful, try again.");
+        QMessageBox::warning(this, "sign up", "unsuccessful, try again.");
     }
 
 

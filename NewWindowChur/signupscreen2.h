@@ -25,8 +25,10 @@ private slots:
   void on_close_clicked();//function - for when the user clicks the "close" button
   void on_Next_clicked(); //function - for when the user clicks the "next" button
   void on_back_clicked(); //function - for when the user clicks the "back" button
+  void on_SignUp_clicked();//function - for when the user clicks the "SignUp" button
 private:
     Ui::signupscreen2 *ui;
+    signupscreen2 *Signup;
 };
 
 #endif // SIGNUPSCREEN2_H
