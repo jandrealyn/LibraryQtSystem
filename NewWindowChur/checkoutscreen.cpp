@@ -30,9 +30,25 @@ void CheckOutScreen::on_cancel_clicked()
     close();
 }
 
-void CheckOutScreen::setLabels(QString bookName, QString authorName, QString copies)
+void CheckOutScreen::setVariables(QString memID, QString bookName, QString authorName, QString copies)
 {
+    memID = membersID;
     ui->book_name_label->setText(bookName);
     ui->book_author_label->setText(authorName);
     ui->book_copies_label->setText(copies);
 }
+
+void CheckOutScreen::on_checkoutNow_clicked()
+{
+//    QString memberName;
+//    int foundMemId = 0;
+//    QStringList membersList = CreateFiles::GetFileData("members");
+
+//    foundMemId = membersList.indexOf(QRegExp(membersID));
+//    if (foundMemId > 0)
+//    {
+
+//    }
+
+}
+

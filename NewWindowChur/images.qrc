@@ -6,5 +6,7 @@
         <file>images/YoobeeLibraries.png</file>
         <file>images/top-books.png</file>
         <file>images/berserk.jpg</file>
+        <file>images/username-ok.png</file>
+        <file>images/username-taken.png</file>
     </qresource>
 </RCC>

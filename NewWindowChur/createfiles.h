@@ -5,20 +5,26 @@
 #include <QTextStream>
 #include <QMessageBox>
 
+enum CSVFiles
+{
+    _Catalogue,
+    _Members,
+    _CheckedOutBooks
+};
+
 class CreateFiles
 {
 public:
     CreateFiles();
 
     static void CreateFilesOnStartUp();
+    static QStringList GetFileData(enum CSVFiles);
+    static void CreateMember(QString fName, QString lName, QString uName, QString pWord, QString email, QString phoneNum);
 
     static QString _path;
     static QFile _catalogue;
     static QFile _members;
     static QFile _checkedOutBooks;
-
-    static QStringList GetFileData(QString file);
-    static void CreateMember(QString fName, QString lName, QString uName, QString pWord, QString email, QString phoneNum);
 };
 
 #endif // CREATEFILES_H
