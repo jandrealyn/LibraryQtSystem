@@ -43,14 +43,19 @@ void loginscreen::on_login_clicked()
         QStringList a = CreateFiles::GetFileData(CSVFiles::_Members);
         int foundUser = a.indexOf(user);
         int foundPass = a.indexOf(pass);
+
+        // indexOf returns a positive number if it found the username or password
         if (foundUser > 0 && foundPass > 0)
         {
+            QString memName = a[foundUser - 2];
+            QString memID = a[foundUser - 3];
             hide();
             // CALL YOUR DIALOG WINDOWS WITH (nullptr) SO THAT THEY HAVE A TASKBAR ICON
-            _catalogueWindow = new Catalogue(nullptr);
+            _catalogueWindow = new Catalogue(nullptr, memName, memID);
             _catalogueWindow->setWindowFlags(windowFlags() | Qt::WindowMinimizeButtonHint);
             _catalogueWindow->showMaximized();
             connect(_catalogueWindow, SIGNAL(OpenMainMenu()), this, SLOT(LoginScreenOpen()));
+            //_catalogueWindow->setVariables(memName, memID);
         }
         else
         {

@@ -12,10 +12,8 @@ class Catalogue : public QDialog
     Q_OBJECT
 
 public:
-    explicit Catalogue(QWidget *parent = nullptr);
+    explicit Catalogue(QWidget *parent = nullptr, QString memName = "", QString memID = "");
     ~Catalogue();
-
-    //static void CreateCatalogue();
 
 signals:
     void OpenMainMenu();
@@ -25,6 +23,7 @@ private slots:
     void on_searchBar_textChanged(const QString &arg1);
 
 private:
+    QString memberName, memberID;
     Ui::Catalogue *ui;
     CheckOutScreen* c_ui;
 };
