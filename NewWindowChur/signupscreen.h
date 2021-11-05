@@ -5,6 +5,7 @@
 #include <QMainWindow>
 #include "dialog.h"
 #include "catalogue.h"
+#include "signupscreen2.h" // jakob
 
 //--- Livs Part --//
 namespace Ui {class signupscreen;}
@@ -19,7 +20,7 @@ public:
     ~signupscreen();
 
 signals:
-    void OpenMainMenu();
+    void OpenLoginScreen();
 
 private slots:
     void on_Next_clicked(); //function - for when the user clicks "next" button
@@ -31,6 +32,7 @@ private slots:
 
 private:
     Ui::signupscreen *ui;
+    signupscreen2* _signup2;
 };
 
 #endif // SIGNUPSCREEN_H

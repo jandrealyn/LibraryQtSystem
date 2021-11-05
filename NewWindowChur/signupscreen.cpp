@@ -1,6 +1,5 @@
 #include "signupscreen.h"
 #include "ui_signupscreen.h"
-#include "catalogue.h"
 #include "QMessageBox"
 #include "QCheckBox"
 #include <QDebug>
@@ -37,18 +36,10 @@ void signupscreen::on_Next_clicked(){
     QString phoneNum = ui->phone->text();
 
     CreateFiles::CreateMember(fName, Lname, uName, pWord, email, phoneNum);
-
-    if (fName == "test" && Lname == "test" && uName == "test" && pWord == "test" && email == "test" && phoneNum == "111"){ //Input thats required to go to next screen
-        hide();
-
-}
-    else{
-        QMessageBox::warning(this, "sign up", "unsuccessful, try again.");
-//}
-//    else{
-//        QMessageBox::warning(this, "Login", "unsuccessful, try again.");
-    }
-
+    _signup2 = new signupscreen2(nullptr);
+    _signup2->setWindowFlags(windowFlags() | Qt::WindowMinimizeButtonHint);
+    _signup2->show();
+    close();
 }
 
 void signupscreen::Signupclosed()
@@ -60,7 +51,7 @@ void signupscreen::Signupclosed()
 void signupscreen::on_close_clicked()
 {
     close();
-    emit OpenMainMenu();
+    emit OpenLoginScreen(); // - Jakob
 }
 
 // Written by Jakob
