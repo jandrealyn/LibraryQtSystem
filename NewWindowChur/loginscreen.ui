@@ -16,7 +16,7 @@
   <widget class="QFrame" name="gridFrame_3">
    <property name="geometry">
     <rect>
-     <x>80</x>
+     <x>90</x>
      <y>10</y>
      <width>801</width>
      <height>551</height>
@@ -54,8 +54,8 @@ border-style: inset;
    <widget class="QLabel" name="img_2">
     <property name="geometry">
      <rect>
-      <x>1</x>
-      <y>1</y>
+      <x>40</x>
+      <y>30</y>
       <width>341</width>
       <height>121</height>
      </rect>
@@ -67,7 +67,7 @@ border-style: inset;
      <string>Yoobee image</string>
     </property>
    </widget>
-   <widget class="QPushButton" name="close_4">
+   <widget class="QPushButton" name="close">
     <property name="geometry">
      <rect>
       <x>600</x>
@@ -151,9 +151,9 @@ padding: 6px;
    <widget class="QPushButton" name="Create">
     <property name="geometry">
      <rect>
-      <x>250</x>
+      <x>290</x>
       <y>410</y>
-      <width>267</width>
+      <width>256</width>
       <height>31</height>
      </rect>
     </property>
