@@ -36,9 +36,7 @@
 #include <QDialog>
 #include <QFile>
 #include <QMessageBox>
-#include <QTableWidget>
 #include <QStringList>
-#include <QItemSelectionModel>
 #include <QFormLayout>
 #include <QFrame>
 #include <QScrollArea>
@@ -50,11 +48,8 @@ Catalogue::Catalogue(QWidget *parent) :
 {
     ui->setupUi(this);
 
-    //QPixmap img(":/images/yoobee-logo.png");
-    //ui->yoobeeLogo->setPixmap(img);
-
     // Array control
-    QStringList catalogue = CreateFiles::GetFileData("catalogue");
+    QStringList catalogue = CreateFiles::GetFileData(CSVFiles::_Catalogue);
     const int arraySize = (catalogue.size() / 5) - 1;
 
     // LAYOUTS
@@ -104,7 +99,7 @@ Catalogue::Catalogue(QWidget *parent) :
         checkoutScreen[row] = new CheckOutScreen;
 
         connect(checkoutButton[row], SIGNAL(clicked()), checkoutScreen[row], SLOT(exec()));
-        checkoutScreen[row]->setLabels(catalogue[t + 2], catalogue[t + 3], catalogue[t + 4]);
+        //checkoutScreen[row]->setVariables(catalogue[t + 2], catalogue[t + 3], catalogue[t + 4]);
 
         // Horizontal Lines
         lines1[row] = new QFrame();
@@ -150,7 +145,7 @@ Catalogue::~Catalogue()
 void Catalogue::on_yourAccount_logout_clicked()
 {
     close();
-    emit ClosedMainMenu();
+    emit OpenMainMenu();
 }
 
 // Search bar functionality
@@ -225,7 +220,7 @@ void Catalogue::on_searchBar_textChanged(const QString &arg1)
         checkoutScreen[row] = new CheckOutScreen;
 
         connect(checkoutButton[row], SIGNAL(clicked()), checkoutScreen[row], SLOT(exec()));
-        checkoutScreen[row]->setLabels(foundData[t + 2], foundData[t + 3], foundData[t + 4]);
+        //checkoutScreen[row]->setLabels(foundData[t + 2], foundData[t + 3], foundData[t + 4]);
 
         // Horizontal Lines
         lines1[row] = new QFrame();

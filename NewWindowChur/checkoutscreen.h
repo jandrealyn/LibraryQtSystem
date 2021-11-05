@@ -15,13 +15,15 @@ public:
     explicit CheckOutScreen(QWidget *parent = nullptr);
     ~CheckOutScreen();
 
-    void setLabels(QString bookName, QString authorName, QString copies);
+    void setVariables(QString memID, QString bookName, QString authorName, QString copies);
 
 private slots:
     void on_cancel_clicked();
 
+    void on_checkoutNow_clicked();
+
 private:
-    QString bookID;
+    QString membersID;
     Ui::CheckOutScreen *ui;
 };
 

@@ -1,13 +1,13 @@
 <?xml version="1.0" encoding="UTF-8"?>
 <ui version="4.0">
- <class>adminsystem</class>
- <widget class="QDialog" name="adminsystem">
+ <class>adminreturned</class>
+ <widget class="QDialog" name="adminreturned">
   <property name="geometry">
    <rect>
     <x>0</x>
     <y>0</y>
-    <width>800</width>
-    <height>562</height>
+    <width>802</width>
+    <height>561</height>
    </rect>
   </property>
   <property name="windowTitle">
@@ -51,90 +51,12 @@ border-style: inset;
 }
 </string>
    </property>
-   <widget class="QWidget" name="verticalLayoutWidget">
-    <property name="geometry">
-     <rect>
-      <x>220</x>
-      <y>160</y>
-      <width>341</width>
-      <height>321</height>
-     </rect>
-    </property>
-    <layout class="QVBoxLayout" name="verticalLayout">
-     <item>
-      <widget class="QPushButton" name="admin_returned_btn">
-       <property name="styleSheet">
-        <string notr="true">background-color: rgb(255, 255, 255);
-font-family: sans-serif;
-border-width: 1px;
-
-border-color: black;
-
-border-radius: 10px;
-
-border-style: outset;
-
-font: 14px;
-
-padding: 10px;</string>
-       </property>
-       <property name="text">
-        <string>Returned Books</string>
-       </property>
-      </widget>
-     </item>
-     <item>
-      <widget class="QPushButton" name="admin_due_btn">
-       <property name="styleSheet">
-        <string notr="true">background-color: rgb(255, 255, 255);
-
-border-width: 1px;
-
-border-color: black;
-
-border-radius: 10px;
-
-border-style: outset;
-
-font: 14px;
-
-padding: 10px;</string>
-       </property>
-       <property name="text">
-        <string>Nearing Due Date Books</string>
-       </property>
-      </widget>
-     </item>
-     <item>
-      <widget class="QPushButton" name="admin_overdue_btn">
-       <property name="styleSheet">
-        <string notr="true">background-color: rgb(255, 255, 255);
-
-border-width: 1px;
-
-border-color: black;
-
-border-radius: 10px;
-
-border-style: outset;
-
-font: 14px;
-
-padding: 10px;</string>
-       </property>
-       <property name="text">
-        <string>Overdue Books</string>
-       </property>
-      </widget>
-     </item>
-    </layout>
-   </widget>
    <widget class="QLabel" name="label">
     <property name="geometry">
      <rect>
-      <x>280</x>
-      <y>60</y>
-      <width>221</width>
+      <x>240</x>
+      <y>70</y>
+      <width>301</width>
       <height>71</height>
      </rect>
     </property>
@@ -146,7 +68,7 @@ font: 40px;
 </string>
     </property>
     <property name="text">
-     <string>System Log</string>
+     <string>Returned Books</string>
     </property>
    </widget>
    <widget class="QPushButton" name="back">

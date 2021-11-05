@@ -9,8 +9,12 @@ CONFIG += c++11
 #DEFINES += QT_DISABLE_DEPRECATED_BEFORE=0x060000    # disables all the APIs deprecated before Qt 6.0.0
 
 SOURCES += \
+    admin.cpp \
     admincatalogue.cpp \
+    admindue.cpp \
     adminhome.cpp \
+    adminoverdue.cpp \
+    adminreturned.cpp \
     adminsystem.cpp \
     adminuser.cpp \
     catalogue.cpp \
@@ -24,8 +28,12 @@ SOURCES += \
     signupscreen2.cpp
 
 HEADERS += \
+    admin.h \
     admincatalogue.h \
+    admindue.h \
     adminhome.h \
+    adminoverdue.h \
+    adminreturned.h \
     adminsystem.h \
     adminuser.h \
     catalogue.h \
@@ -38,8 +46,12 @@ HEADERS += \
     signupscreen2.h
 
 FORMS += \
+    admin.ui \
     admincatalogue.ui \
+    admindue.ui \
     adminhome.ui \
+    adminoverdue.ui \
+    adminreturned.ui \
     adminsystem.ui \
     adminuser.ui \
     catalogue.ui \

@@ -27,6 +27,8 @@ private slots:
 
     void on_close_clicked(); //function - for when the user clicks "close" button and what happens after
 
+    void on_Username_textChanged(const QString &arg1);
+
 private:
     Ui::signupscreen *ui;
 };
