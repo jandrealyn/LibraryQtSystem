@@ -20,8 +20,10 @@ public:
     ~MainWindow();
 
 private slots:
+    void MainMenuOpen();
     void MainMenuClosed();
     void on_login_clicked();
+
 private:
     Ui::MainWindow *ui;
     Catalogue *_catalogueWindow;
