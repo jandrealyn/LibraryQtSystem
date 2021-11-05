@@ -20,7 +20,8 @@ public:
     ~signupscreen2();
 
 signals:
-    void OpenMainMenu();
+    void OpenLoginScreen();
+
 private slots:
   void on_close_clicked();//function - for when the user clicks the "close" button
   void on_Next_clicked(); //function - for when the user clicks the "next" button
