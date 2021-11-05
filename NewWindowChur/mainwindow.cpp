@@ -24,11 +24,11 @@ MainWindow::~MainWindow()
 }
 
 void MainWindow::on_login_clicked(){
- hide();
-  _loginWindow = new loginscreen(nullptr);
-  _loginWindow->setWindowFlags((windowFlags()) | Qt::WindowMinimizeButtonHint);
-  _loginWindow->show();
-  connect(_loginWindow, SIGNAL(OpenMainMenu()), this, SLOT(MainMenuOpen()));
+    hide();
+    _loginWindow = new loginscreen(nullptr);
+    _loginWindow->setWindowFlags((windowFlags()) | Qt::WindowMinimizeButtonHint);
+    _loginWindow->show();
+    connect(_loginWindow, SIGNAL(OpenMainMenu()), this, SLOT(MainMenuOpen()));
 }
 void MainWindow::MainMenuOpen()
 {

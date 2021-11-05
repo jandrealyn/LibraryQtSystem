@@ -47,7 +47,6 @@ void signupscreen::Signupclosed()
     show();
 }
 
-
 void signupscreen::on_close_clicked()
 {
     close();

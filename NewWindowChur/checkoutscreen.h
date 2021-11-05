@@ -15,7 +15,7 @@ public:
     explicit CheckOutScreen(QWidget *parent = nullptr);
     ~CheckOutScreen();
 
-    void setVariables(QString memID, QString bookName, QString authorName, QString copies);
+    void setVariables(QString memName, QString memID, QString bookName, QString authorName, QString copies);
 
 private slots:
     void on_cancel_clicked();
@@ -23,7 +23,7 @@ private slots:
     void on_checkoutNow_clicked();
 
 private:
-    QString membersID;
+    QString membersID, membersName;
     Ui::CheckOutScreen *ui;
 };
 

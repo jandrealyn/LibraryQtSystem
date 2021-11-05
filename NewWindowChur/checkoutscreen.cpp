@@ -30,9 +30,12 @@ void CheckOutScreen::on_cancel_clicked()
     close();
 }
 
-void CheckOutScreen::setVariables(QString memID, QString bookName, QString authorName, QString copies)
+void CheckOutScreen::setVariables(QString memName, QString memID, QString bookName, QString authorName, QString copies)
 {
-    memID = membersID;
+
+    membersID = memID;
+    membersName = memName;
+    ui->memName->setText(membersName);
     ui->book_name_label->setText(bookName);
     ui->book_author_label->setText(authorName);
     ui->book_copies_label->setText(copies);
