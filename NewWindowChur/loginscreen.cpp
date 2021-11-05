@@ -3,16 +3,21 @@
 #include "adminhome.h"
 #include "dialog.h"
 #include "catalogue.h"
+#include "mainwindow.h"
 #include "QMessageBox"
 #include "QCheckBox"
 #include <QDebug>
 #include <QPushButton>
+
+ // - liv (Worked on Login/Signup/Menu Screens)
 
 loginscreen::loginscreen(QWidget *parent) :
     QDialog(parent),
     ui(new Ui::loginscreen)
 {
     ui->setupUi(this);
+       QPixmap Img(":/images/YoobeeLibraries.png"); // - liv
+       ui->img_2->setPixmap(Img.scaled(150, 150, Qt::KeepAspectRatio)); // - liv
 }
 
 loginscreen::~loginscreen()
@@ -65,4 +70,8 @@ void loginscreen::on_Create_clicked(){
     _signup->setWindowFlags((windowFlags()) | Qt::WindowMinimizeButtonHint);
     _signup->show();
     connect(_signup, SIGNAL(OpenMainMenu()), this, SLOT(MainMenuOpen()));
+}
+void loginscreen::on_close_clicked(){
+   close();
+   emit OpenMainMenu();
 }
