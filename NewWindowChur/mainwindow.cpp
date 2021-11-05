@@ -26,17 +26,41 @@ MainWindow::~MainWindow()
 }
 
 
-void MainWindow::MainMenuClosed()
 //When user clicks on login - liv
 void MainWindow::on_login_clicked()
 {
     QString user = ui->username_input->text(); //Username Input  // - liv
     QString pass = ui->password_input->text(); //password input // - liv
 
-    QStringList a = CreateFiles::GetFileData(CSVFiles::_Members);
-
-    //int foundUser = a.indexOf(user);
-    //int foundPass = a.indexOf(pass);
+    // Code by Jakob
+    if (user == "admin" && pass == "cs106")
+    {
+        hide();
+        _adminWindow = new adminhome(nullptr);
+        _adminWindow->setWindowFlags(windowFlags() | Qt::WindowMinimizeButtonHint);
+        _adminWindow->showNormal();
+        connect(_adminWindow, SIGNAL(ClosedMainMenu()), this, SLOT(MainMenuOpen()));
+    }
+    else
+    {
+        // Checking if the inputs exist in the members file
+        QStringList a = CreateFiles::GetFileData(CSVFiles::_Members);
+        int foundUser = a.indexOf(user);
+        int foundPass = a.indexOf(pass);
+        if (foundUser > 0 && foundPass > 0)
+        {
+            hide();
+            // CALL YOUR DIALOG WINDOWS WITH (nullptr) SO THAT THEY HAVE A TASKBAR ICON
+            _catalogueWindow = new Catalogue(nullptr);
+            _catalogueWindow->setWindowFlags(windowFlags() | Qt::WindowMinimizeButtonHint);
+            _catalogueWindow->showMaximized();
+            connect(_catalogueWindow, SIGNAL(OpenMainMenu()), this, SLOT(MainMenuOpen()));
+        }
+        else
+        {
+            QMessageBox::warning(this, "User not found", "Username or password did not match, try again.");
+        }
+    }
 
     //Login password & username for a normal user (not admin)  // - liv
     if(user == "test" && pass == "test"){
@@ -52,15 +76,11 @@ void MainWindow::on_login_clicked()
         _adminWindow = new adminhome(nullptr);
         _adminWindow->setWindowFlags(windowFlags() | Qt::WindowMinimizeButtonHint);
         _adminWindow->showNormal();
-        connect(_adminWindow, SIGNAL(ClosedMainMenu()), this, SLOT(MainMenuClosed()));
+        connect(_adminWindow, SIGNAL(ClosedMainMenu()), this, SLOT(MainMenuOpen()));
     }
     else {
         QMessageBox::warning(this, "Login", "Unsucessful, try again."); //if enters a incorrect login/password  // - liv
     }
-
-   // window = new Dialog(this);
-    // window->show();
-
 }
 
 void MainWindow::MainMenuOpen()

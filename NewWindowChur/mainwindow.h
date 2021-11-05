@@ -19,7 +19,7 @@ public:
     ~MainWindow();
 
 private slots:
-    void MainMenuClosed();
+    void MainMenuOpen();
 
 private:
     Ui::MainWindow *ui;
