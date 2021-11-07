@@ -32,7 +32,7 @@ signupscreen2::~signupscreen2()
 
 void signupscreen2::on_close_clicked(){ //function for - when the user clicks close
     close();
-    emit OpenMainMenu();
+    emit OpenLoginScreen();
 }
 
 void signupscreen2::on_Next_clicked()
