@@ -1,7 +1,7 @@
 #ifndef DIALOG_H
 #define DIALOG_H
 
-#include <QDialog>
+#include <QDialog> // the base class of dialog windows
 
 namespace Ui {
 class Dialog;
