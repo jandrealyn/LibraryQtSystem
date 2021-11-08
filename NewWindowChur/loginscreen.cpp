@@ -34,6 +34,7 @@ void loginscreen::on_login_clicked()
     // Code by Jakob
     if (user == "admin" && pass == "cs106")
     {
+        // By lara
         hide();
         _adminWindow = new adminhome(nullptr);
         _adminWindow->setWindowFlags(windowFlags() | Qt::WindowMinimizeButtonHint);
@@ -48,21 +49,16 @@ void loginscreen::on_login_clicked()
         int col = 0;
         bool foundUser = false;
         int usernameIndex;
-        int passwordIndex;
         for (int i = 0; i < membersData.size(); i++)
         {
-            qDebug() << col;
             if (col == 4) // Only check for username and password once we reach the username column.
             {
-                if (user == membersData[i])
+                if (user == membersData[i]) // this is the same as saying if (user == membersData[col])
                 {
-                    qDebug() << "username found";
                     if (pass == membersData[i + 1])
                     {
-                        qDebug() << "password found";
                         foundUser = true;
-                        usernameIndex = i;
-                        passwordIndex = i + 1;
+                        usernameIndex = i; // we need this to find the users account details
                         break;
                     }
                     else
@@ -83,12 +79,12 @@ void loginscreen::on_login_clicked()
 
         if (foundUser)
         {
+            // These are passed through the catalogue windows constructor
             QString memID = membersData[usernameIndex - 4];
             QString memAvatar = membersData[usernameIndex - 3];
             QString memName = membersData[usernameIndex - 2];
             QString memEmail = membersData[usernameIndex + 2];
             QString memPhone = membersData[usernameIndex + 3];
-
 
             hide();
             // CALL YOUR DIALOG WINDOWS WITH (nullptr) SO THAT THEY HAVE A TASKBAR ICON
