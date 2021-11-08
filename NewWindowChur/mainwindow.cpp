@@ -1,3 +1,5 @@
+//including modules
+
 #include "mainwindow.h"
 #include "adminhome.h"
 #include "loginscreen.h"
@@ -6,9 +8,11 @@
 #include "catalogue.h"
 #include "QMessageBox"
 #include "QCheckBox"
-#include <QDebug>
-#include <QPushButton>
+#include <QDebug> //is a class that provides an output stream for debugging information
+#include <QPushButton>//is a widget which executes an action when a user clicks on it.
 
+
+//Livs code
 MainWindow::MainWindow(QWidget *parent)
     : QMainWindow(parent)
     , ui(new Ui::MainWindow)
