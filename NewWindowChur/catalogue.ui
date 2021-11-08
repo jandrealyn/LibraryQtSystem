@@ -22,8 +22,11 @@
   <layout class="QGridLayout" name="gridLayout">
    <item row="0" column="0">
     <widget class="QTabWidget" name="tabWidget">
+     <property name="styleSheet">
+      <string notr="true">background-color: rgb(255, 255, 255);</string>
+     </property>
      <property name="currentIndex">
-      <number>1</number>
+      <number>2</number>
      </property>
      <widget class="QWidget" name="Home">
       <attribute name="title">
@@ -36,7 +39,7 @@
           <string/>
          </property>
          <property name="pixmap">
-          <pixmap>:/images/yoobee-logo.png</pixmap>
+          <pixmap resource="images.qrc">:/images/yoobee-logo.png</pixmap>
          </property>
         </widget>
        </item>
@@ -112,8 +115,8 @@
       <widget class="QPushButton" name="yourAccount_logout">
        <property name="geometry">
         <rect>
-         <x>270</x>
-         <y>230</y>
+         <x>10</x>
+         <y>530</y>
          <width>91</width>
          <height>23</height>
         </rect>
@@ -125,8 +128,8 @@
       <widget class="QPushButton" name="pushButton_3">
        <property name="geometry">
         <rect>
-         <x>180</x>
-         <y>220</y>
+         <x>160</x>
+         <y>200</y>
          <width>91</width>
          <height>23</height>
         </rect>
@@ -145,24 +148,71 @@
         </rect>
        </property>
        <property name="autoFillBackground">
-        <bool>true</bool>
+        <bool>false</bool>
        </property>
        <property name="text">
         <string>Person Picture</string>
        </property>
       </widget>
-      <widget class="QLabel" name="label_2">
+      <widget class="QWidget" name="">
        <property name="geometry">
         <rect>
-         <x>180</x>
-         <y>20</y>
-         <width>81</width>
-         <height>31</height>
+         <x>160</x>
+         <y>10</y>
+         <width>651</width>
+         <height>171</height>
         </rect>
        </property>
-       <property name="text">
-        <string>Person Name</string>
-       </property>
+       <layout class="QVBoxLayout" name="verticalLayout_2">
+        <item>
+         <widget class="QLabel" name="label_2">
+          <property name="font">
+           <font>
+            <pointsize>13</pointsize>
+           </font>
+          </property>
+          <property name="text">
+           <string>Person Name</string>
+          </property>
+         </widget>
+        </item>
+        <item>
+         <widget class="QLabel" name="label_4">
+          <property name="font">
+           <font>
+            <pointsize>8</pointsize>
+           </font>
+          </property>
+          <property name="text">
+           <string>User ID</string>
+          </property>
+         </widget>
+        </item>
+        <item>
+         <widget class="QLabel" name="label_5">
+          <property name="font">
+           <font>
+            <pointsize>8</pointsize>
+           </font>
+          </property>
+          <property name="text">
+           <string>User email</string>
+          </property>
+         </widget>
+        </item>
+        <item>
+         <widget class="QLabel" name="label_6">
+          <property name="font">
+           <font>
+            <pointsize>8</pointsize>
+           </font>
+          </property>
+          <property name="text">
+           <string>User phone number</string>
+          </property>
+         </widget>
+        </item>
+       </layout>
       </widget>
      </widget>
     </widget>
@@ -175,6 +225,8 @@
   <tabstop>pushButton_3</tabstop>
   <tabstop>textBrowser</tabstop>
  </tabstops>
- <resources/>
+ <resources>
+  <include location="images.qrc"/>
+ </resources>
  <connections/>
 </ui>
