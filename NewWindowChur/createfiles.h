@@ -19,7 +19,8 @@ public:
 
     static void CreateFilesOnStartUp();
     static QStringList GetFileData(enum CSVFiles);
-    static void CreateMember(QString fName, QString lName, QString uName, QString pWord, QString email, QString phoneNum);
+    static void CreateMember(QString avatar, QString fName, QString lName, QString uName, QString pWord, QString email, QString phoneNum);
+    static void CheckOutBook(QString bookID, QString bookName, QString memID, QString memName);
 
     static QString _path;
     static QFile _catalogue;

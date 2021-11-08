@@ -4,7 +4,13 @@
         <file>images/book-cover.png</file>
         <file>images/blue-book.jpg</file>
         <file>images/YoobeeLibraries.png</file>
+        <file>images/top-books.png</file>
+        <file>images/berserk.jpg</file>
         <file>images/username-ok.png</file>
         <file>images/username-taken.png</file>
+        <file>images/cat-avatar.jpg</file>
+        <file>images/dog-avatar.jpg</file>
+        <file>images/jerboa-avatar.jpg</file>
+        <file>images/default-avatar.png</file>
     </qresource>
 </RCC>

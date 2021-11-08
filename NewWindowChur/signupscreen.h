@@ -5,6 +5,7 @@
 #include <QMainWindow>
 #include "dialog.h"
 #include "catalogue.h"
+#include "signupscreen2.h" // jakob
 
 //--- Livs Part --//
 namespace Ui {class signupscreen;}
@@ -19,7 +20,7 @@ public:
     ~signupscreen();
 
 signals:
-    void OpenMainMenu();
+    void OpenLoginScreen();
 
 private slots:
     void on_Next_clicked(); //function - for when the user clicks "next" button
@@ -29,8 +30,24 @@ private slots:
 
     void on_Username_textChanged(const QString &arg1);
 
+    void on_cat_avatar_toggled(bool checked);
+
+    void on_pup_avatar_toggled(bool checked);
+
+    void on_jerboa_avatar_toggled(bool checked);
+
+    void on_radioButton_toggled(bool checked);
+    void checkValues();
+
+    void on_email_textChanged(const QString &arg1);
+
 private:
     Ui::signupscreen *ui;
+    signupscreen2* _signup2;
+    QString _avatar; // jakob
+    bool _usernameOk; // jakob
+    bool _emailOk; // jakob
+    QStringList _membersList; // jakob
 };
 
 #endif // SIGNUPSCREEN_H

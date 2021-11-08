@@ -42,11 +42,21 @@
 #include <QScrollArea>
 #include <QGroupBox>
 
-Catalogue::Catalogue(QWidget *parent) :
+Catalogue::Catalogue(QWidget *parent, QString memID, QString memAvatar, QString memName, QString memEmail, QString memPhone) :
     QDialog(parent),
     ui(new Ui::Catalogue)
 {
     ui->setupUi(this);
+
+    // Set users details
+    QPixmap p(memAvatar);
+    ui->profile_picture->setPixmap(p.scaled(120,120));
+    ui->welcomeBack->setText("Welcome back, " + memName);
+
+    ui->user_name->setText(memName);
+    ui->user_email->setText(memEmail);
+    ui->user_phonenumber->setText(memPhone);
+    ui->user_id->setText("Your ID: " + memID);
 
     // Array control
     QStringList catalogue = CreateFiles::GetFileData(CSVFiles::_Catalogue);
@@ -97,9 +107,9 @@ Catalogue::Catalogue(QWidget *parent) :
                                            "QPushButton:pressed { border-color: #e7e7e7; background-color: #f4f4f4; }");
 
         checkoutScreen[row] = new CheckOutScreen;
-
         connect(checkoutButton[row], SIGNAL(clicked()), checkoutScreen[row], SLOT(exec()));
-        //checkoutScreen[row]->setVariables(catalogue[t + 2], catalogue[t + 3], catalogue[t + 4]);
+        // Book ID, Book Name, Member ID, Member Name, Date
+        checkoutScreen[row]->setVariables(memName, memID, catalogue[t], catalogue[t + 2], catalogue[t + 3], catalogue[t + 4]);
 
         // Horizontal Lines
         lines1[row] = new QFrame();
@@ -159,7 +169,7 @@ void Catalogue::on_searchBar_textChanged(const QString &arg1)
         while(!in.atEnd())
         {
             QString line = CreateFiles::_catalogue.readLine().replace("\r\n","");
-            if (line != "BOOK ID, IMAGE, BOOK NAME, AUTHOR, COPIES")
+            if (line != "BOOK ID, IMAGE, BOOK NAME, AUTHOR, COPIES") // These are the headers of the CSV file. This just skips over it.
             {
                 if (line.toLower().contains(arg1.toLower()))
                 {
