@@ -1,11 +1,13 @@
+//including modules
+
 #include "signupscreen2.h"
 #include "ui_signupscreen2.h"
 #include "catalogue.h"
 #include "QMessageBox"
 #include "QCheckBox"
-#include <QDebug>
-#include <QPushButton>
-#include <QInputDialog>
+#include <QDebug> //is a class that provides an output stream for debugging information
+#include <QPushButton> //is a widget which executes an action when a user clicks on it.
+#include <QInputDialog> //is a class that provides a simple convenience dialog to get a single value from the user.
 #include "createfiles.h"
 using namespace std;
 
