@@ -29,6 +29,7 @@ signupscreen2::signupscreen2(QWidget *parent) :
     ui->user_id->setText(memberID); // Here we are just setting the text on the the page to be the ID and name that we just got
     ui->user_name->setText(memberName);
     ui->user_id->setEnabled(false); // This makes it so a user can't edit the line
+    //test
 }
 void on_next_clicked(){
 
