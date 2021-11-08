@@ -103,7 +103,7 @@ padding: 3px;
      <string>Great </string>
     </property>
    </widget>
-   <widget class="QLabel" name="label_5">
+   <widget class="QLabel" name="user_name">
     <property name="geometry">
      <rect>
       <x>300</x>
@@ -132,14 +132,14 @@ padding: 3px;
    <widget class="QLabel" name="label_7">
     <property name="geometry">
      <rect>
-      <x>230</x>
+      <x>300</x>
       <y>280</y>
-      <width>101</width>
+      <width>51</width>
       <height>29</height>
      </rect>
     </property>
     <property name="text">
-     <string>(username) ID:</string>
+     <string>Your ID:</string>
     </property>
    </widget>
    <widget class="QLineEdit" name="user_id">

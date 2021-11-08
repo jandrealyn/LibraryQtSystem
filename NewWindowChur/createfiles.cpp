@@ -16,6 +16,7 @@
 #include <QDebug>
 #include <QRandomGenerator>
 #include <QDebug>
+#include <QDate>
 
 // Defining static variables
 QString CreateFiles::_path = "CSVFiles/";
@@ -41,7 +42,7 @@ void CreateFiles::CreateFilesOnStartUp()
         catalogue_output << "BOOK ID" << "," << "IMAGE" << "," << "BOOK NAME" << "," << "AUTHOR" << "," << "COPIES" << "\n";
         for (int i = 0; i < 20; i++)
         {
-            if (i % 2 == 0)
+            if (i % 2 == 0) // Maybe change how we create a book ID
             {
                 catalogue_output << QString::number(i) << "," << ":/images/blue-book.jpg" << "," << "This is a book" << "," << "Author" << "," << "10" << "\n";
             }
@@ -149,4 +150,16 @@ void CreateFiles::CreateMember(QString fName, QString lName, QString uName, QStr
     QTextStream in(&_members);
     in << id << "," << fName << "," << lName << "," << uName << "," << pWord << "," << email << "," << phoneNum << "\n";
     _members.close();
+}
+
+void CreateFiles::CheckOutBook(QString bookID, QString bookName, QString memID, QString memName)
+{
+    // Get the current date and due date
+    QString currentDate = QDate::currentDate().toString("dd.MM.yyyy");
+    QString dueDate = QDate::currentDate().addDays(7).toString("dd.MM.yyyy");
+
+    _checkedOutBooks.open(QIODevice::WriteOnly | QFile::Append | QFile::Text);
+    QTextStream in(&_checkedOutBooks);
+    in << bookID << "," << bookName << "," << memID << "," << memName << "," << currentDate << "," << dueDate << "\n";
+    _checkedOutBooks.close();
 }

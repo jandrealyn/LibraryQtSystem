@@ -41,6 +41,7 @@ void signupscreen::on_Next_clicked(){
     _signup2 = new signupscreen2(nullptr);
     _signup2->setWindowFlags(windowFlags() | Qt::WindowMinimizeButtonHint);
     _signup2->show();
+    connect(_signup2, SIGNAL(OpenLoginScreen()), this, SLOT(on_close_clicked()));
     close();
 }
 
@@ -48,7 +49,6 @@ void signupscreen::Signupclosed()
 {
     show();
 }
-
 
 void signupscreen::on_close_clicked()
 {
