@@ -1,10 +1,12 @@
+//including modules
+
 #include "loginscreen.h"
 #include "ui_loginscreen.h"
 #include "createfiles.h"
 #include "QMessageBox"
 #include "QCheckBox"
-#include <QDebug>
-#include <QPushButton>
+#include <QDebug> //is a class that provides an output stream for debugging information
+#include <QPushButton> //is a widget which executes an action when a user clicks on it.
 
  // - liv (Worked on Login/Signup/Menu Screens)
 
@@ -67,11 +69,11 @@ void loginscreen::on_Create_clicked(){
     connect(_signup, SIGNAL(OpenLoginScreen()), this, SLOT(LoginScreenOpen())); // Jakob
 }
 
-void loginscreen::on_close_clicked(){
+void loginscreen::on_close_clicked(){ //liv
    close();
    emit OpenMainMenu();
 }
 
-void loginscreen::LoginScreenOpen(){
+void loginscreen::LoginScreenOpen(){ //liv
     show();
 }

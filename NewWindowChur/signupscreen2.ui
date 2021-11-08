@@ -142,7 +142,7 @@ padding: 3px;
      <string>(username) ID:</string>
     </property>
    </widget>
-   <widget class="QLineEdit" name="lineEdit">
+   <widget class="QLineEdit" name="user_id">
     <property name="geometry">
      <rect>
       <x>360</x>

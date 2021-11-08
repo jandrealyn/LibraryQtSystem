@@ -1,7 +1,7 @@
 #ifndef SIGNUPSCREEN2_H
 #define SIGNUPSCREEN2_H
 
-#include <QDialog>
+#include <QDialog>  // the base class of dialog windows
 
 #include <QMainWindow>
 #include "dialog.h"

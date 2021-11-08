@@ -1,11 +1,13 @@
+//including modules
+
 #include "signupscreen2.h"
 #include "ui_signupscreen2.h"
 #include "catalogue.h"
 #include "QMessageBox"
 #include "QCheckBox"
-#include <QDebug>
-#include <QPushButton>
-#include <QInputDialog>
+#include <QDebug> //is a class that provides an output stream for debugging information
+#include <QPushButton> //is a widget which executes an action when a user clicks on it.
+#include <QInputDialog> //is a class that provides a simple convenience dialog to get a single value from the user.
 #include "createfiles.h"
 using namespace std;
 
@@ -20,6 +22,7 @@ signupscreen2::signupscreen2(QWidget *parent) :
     ui->setupUi(this);
     QPixmap Img(":/images/YoobeeLibraries.png"); // - liv
     ui->img->setPixmap(Img.scaled(150, 150, Qt::KeepAspectRatio)); // - liv
+
 }
 void on_next_clicked(){
 
