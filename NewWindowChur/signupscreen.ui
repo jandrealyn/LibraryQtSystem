@@ -94,9 +94,9 @@ padding: 3px;
     <property name="geometry">
      <rect>
       <x>160</x>
-      <y>290</y>
+      <y>286</y>
       <width>441</width>
-      <height>235</height>
+      <height>241</height>
      </rect>
     </property>
     <layout class="QGridLayout" name="gridLayout">
@@ -108,6 +108,9 @@ padding: 3px;
           <string>First Name</string>
          </property>
         </widget>
+       </item>
+       <item row="1" column="1">
+        <widget class="QLineEdit" name="firstname"/>
        </item>
        <item row="2" column="0">
         <widget class="QLabel" name="label_6">
@@ -181,9 +184,6 @@ padding: 6px;
          </property>
         </widget>
        </item>
-       <item row="1" column="1">
-        <widget class="QLineEdit" name="firstname"/>
-       </item>
       </layout>
      </item>
     </layout>
@@ -191,22 +191,22 @@ padding: 6px;
    <widget class="QWidget" name="layoutWidget">
     <property name="geometry">
      <rect>
-      <x>650</x>
-      <y>260</y>
+      <x>610</x>
+      <y>350</y>
       <width>141</width>
       <height>18</height>
      </rect>
     </property>
     <layout class="QHBoxLayout" name="horizontalLayout">
      <item>
-      <widget class="QLabel" name="usernameCheck">
+      <widget class="QLabel" name="usernamecheckImg">
        <property name="text">
         <string/>
        </property>
       </widget>
      </item>
      <item>
-      <widget class="QLabel" name="usernameCheckTest">
+      <widget class="QLabel" name="usernameCheckText">
        <property name="text">
         <string/>
        </property>
@@ -214,21 +214,116 @@ padding: 6px;
      </item>
     </layout>
    </widget>
-   <widget class="QLabel" name="label_7">
+   <widget class="QWidget" name="layoutWidget_2">
     <property name="geometry">
      <rect>
-      <x>100</x>
-      <y>120</y>
-      <width>47</width>
-      <height>13</height>
+      <x>610</x>
+      <y>410</y>
+      <width>141</width>
+      <height>18</height>
      </rect>
     </property>
-    <property name="text">
-     <string>TextLabel</string>
+    <layout class="QHBoxLayout" name="horizontalLayout_2">
+     <item>
+      <widget class="QLabel" name="emailCheckImg">
+       <property name="text">
+        <string/>
+       </property>
+      </widget>
+     </item>
+     <item>
+      <widget class="QLabel" name="emailCheckText">
+       <property name="text">
+        <string/>
+       </property>
+      </widget>
+     </item>
+    </layout>
+   </widget>
+   <widget class="QWidget" name="">
+    <property name="geometry">
+     <rect>
+      <x>140</x>
+      <y>100</y>
+      <width>531</width>
+      <height>161</height>
+     </rect>
     </property>
+    <layout class="QGridLayout" name="gridLayout_2">
+     <item row="0" column="1">
+      <widget class="QLabel" name="label_8">
+       <property name="text">
+        <string/>
+       </property>
+       <property name="pixmap">
+        <pixmap resource="images.qrc">:/images/dog-avatar.jpg</pixmap>
+       </property>
+      </widget>
+     </item>
+     <item row="1" column="0">
+      <widget class="QRadioButton" name="cat_avatar">
+       <property name="text">
+        <string>Kitty Cat</string>
+       </property>
+      </widget>
+     </item>
+     <item row="1" column="1">
+      <widget class="QRadioButton" name="pup_avatar">
+       <property name="text">
+        <string>Small Pup</string>
+       </property>
+      </widget>
+     </item>
+     <item row="1" column="2">
+      <widget class="QRadioButton" name="jerboa_avatar">
+       <property name="text">
+        <string>Jerboa Boi</string>
+       </property>
+      </widget>
+     </item>
+     <item row="0" column="2">
+      <widget class="QLabel" name="label_9">
+       <property name="text">
+        <string/>
+       </property>
+       <property name="pixmap">
+        <pixmap resource="images.qrc">:/images/jerboa-avatar.jpg</pixmap>
+       </property>
+      </widget>
+     </item>
+     <item row="0" column="0">
+      <widget class="QLabel" name="label_7">
+       <property name="text">
+        <string/>
+       </property>
+       <property name="pixmap">
+        <pixmap resource="images.qrc">:/images/cat-avatar.jpg</pixmap>
+       </property>
+      </widget>
+     </item>
+     <item row="0" column="3">
+      <widget class="QLabel" name="label_10">
+       <property name="styleSheet">
+        <string notr="true">background-color: rgb(85, 255, 255);</string>
+       </property>
+       <property name="text">
+        <string>No picture</string>
+       </property>
+      </widget>
+     </item>
+     <item row="1" column="3">
+      <widget class="QRadioButton" name="no_avatar">
+       <property name="text">
+        <string>No picture</string>
+       </property>
+      </widget>
+     </item>
+    </layout>
    </widget>
   </widget>
  </widget>
- <resources/>
+ <resources>
+  <include location="images.qrc"/>
+ </resources>
  <connections/>
 </ui>

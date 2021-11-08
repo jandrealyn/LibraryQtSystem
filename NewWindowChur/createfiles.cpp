@@ -130,7 +130,7 @@ QStringList CreateFiles::GetFileData(enum CSVFiles file)
 // Whoever is in charge of the login screen can use this function to pass through
 // the values of the users account details and creates an account. It will also
 // generate a randomised ID.
-void CreateFiles::CreateMember(QString fName, QString lName, QString uName, QString pWord, QString email, QString phoneNum)
+void CreateFiles::CreateMember(QString avatar, QString fName, QString lName, QString uName, QString pWord, QString email, QString phoneNum)
 {
     // Generate the members ID
     quint32 idNum = QRandomGenerator::global()->bounded(1000, 9999);
@@ -146,9 +146,18 @@ void CreateFiles::CreateMember(QString fName, QString lName, QString uName, QStr
     }
 
     // Output all of the members details
-    _members.open(QIODevice::WriteOnly | QFile::Append | QFile::Text);
-    QTextStream in(&_members);
-    in << id << "," << fName << "," << lName << "," << uName << "," << pWord << "," << email << "," << phoneNum << "\n";
+    if (_members.open(QIODevice::WriteOnly | QFile::Append | QFile::Text))
+    {
+        QTextStream in(&_members);
+        in << id << "," << avatar << "," << fName << "," << lName << "," << uName << "," << pWord << "," << email << "," << phoneNum << "\n";
+    }
+    else
+    {
+        QMessageBox* w = new QMessageBox;
+        w->setWindowTitle("Cannot open members.csv");
+        w->setText(_members.errorString() + "\n"
+                   "Please try again.");
+    }
     _members.close();
 }
 

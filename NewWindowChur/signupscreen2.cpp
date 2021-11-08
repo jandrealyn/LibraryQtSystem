@@ -26,7 +26,7 @@ signupscreen2::signupscreen2(QWidget *parent) :
     //test
     QStringList membersList = CreateFiles::GetFileData(CSVFiles::_Members); // Get the data from the members file
     int lastSpotInFile = membersList.size(); // This gets the last spot in the membersList
-    QString memberID = membersList[lastSpotInFile - 7]; // The user id is 6 columns away from the last spot, so we subtract it by 7
+    QString memberID = membersList[lastSpotInFile - 8]; // The user id is 6 columns away from the last spot, so we subtract it by 7
     QString memberName = membersList[lastSpotInFile - 6]; // The user name is 5 columns away from the last spot, so we subtract it by 6
     ui->user_id->setText(memberID); // Here we are just setting the text on the the page to be the ID and name that we just got
     ui->user_name->setText(memberName);
