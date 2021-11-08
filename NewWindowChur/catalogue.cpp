@@ -48,6 +48,10 @@ Catalogue::Catalogue(QWidget *parent, QString memID, QString memAvatar, QString 
 {
     ui->setupUi(this);
 
+    // Setting private variables (this is for the search function)
+    _memID = memID;
+    _memName = memName;
+
     // Set users details
     QPixmap p(memAvatar);
     ui->profile_picture->setPixmap(p.scaled(120,120));
@@ -230,7 +234,8 @@ void Catalogue::on_searchBar_textChanged(const QString &arg1)
         checkoutScreen[row] = new CheckOutScreen;
 
         connect(checkoutButton[row], SIGNAL(clicked()), checkoutScreen[row], SLOT(exec()));
-        //checkoutScreen[row]->setLabels(foundData[t + 2], foundData[t + 3], foundData[t + 4]);
+        // Book ID, Book Name, Member ID, Member Name, Date
+        checkoutScreen[row]->setVariables(_memName, _memID, foundData[t], foundData[t + 2], foundData[t + 3], foundData[t + 4]);
 
         // Horizontal Lines
         lines1[row] = new QFrame();
@@ -267,3 +272,15 @@ void Catalogue::on_searchBar_textChanged(const QString &arg1)
     ui->scrollArea->setWidget(groupBox);
     groupBox->setStyleSheet("background-color: white;");
 }
+
+void Catalogue::on_yourAccount_update_clicked()
+{
+
+}
+
+
+void Catalogue::on_yourAccount_updatePic_clicked()
+{
+
+}
+

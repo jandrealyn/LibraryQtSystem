@@ -22,10 +22,16 @@ private slots:
     void on_yourAccount_logout_clicked();
     void on_searchBar_textChanged(const QString &arg1);
 
+    void on_yourAccount_update_clicked();
+
+    void on_yourAccount_updatePic_clicked();
+
 private:
     QString memberName, memberID;
     Ui::Catalogue *ui;
     CheckOutScreen* c_ui;
+
+    QString _memID, _memName;
 };
 
 #endif // CATALOGUE_H

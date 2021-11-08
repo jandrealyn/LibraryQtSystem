@@ -12,6 +12,13 @@ enum CSVFiles
     _CheckedOutBooks
 };
 
+//enum MyEnum
+//{
+//    CSVFiles = _Catalogue | _Members,
+//    Test,
+//    One
+//};
+
 class CreateFiles
 {
 public:
