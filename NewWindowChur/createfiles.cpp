@@ -155,8 +155,8 @@ void CreateFiles::CreateMember(QString fName, QString lName, QString uName, QStr
 void CreateFiles::CheckOutBook(QString bookID, QString bookName, QString memID, QString memName)
 {
     // Get the current date and due date
-    QString currentDate = QDate::currentDate().toString();
-    QString dueDate = QDate::currentDate().addDays(7).toString();
+    QString currentDate = QDate::currentDate().toString("dd.MM.yyyy");
+    QString dueDate = QDate::currentDate().addDays(7).toString("dd.MM.yyyy");
 
     _checkedOutBooks.open(QIODevice::WriteOnly | QFile::Append | QFile::Text);
     QTextStream in(&_checkedOutBooks);
