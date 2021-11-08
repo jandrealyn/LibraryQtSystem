@@ -69,11 +69,11 @@ void CheckOutScreen::on_checkoutNow_clicked()
 
     if (yesChecked)
     {
-        QString dueDate = QDate::currentDate().addDays(7).toString();
+        QString dueDate = QDate::currentDate().addDays(7).toString("dd.MM.yyyy");
         QMessageBox* confirmed = new QMessageBox(nullptr);
         confirmed->setWindowTitle("Checkout Confirmed");
         confirmed->setText("You have successfully checked out " + _bookName + "!<br> "
-                           "It is due on " + dueDate);
+                           "Please return by " + dueDate);
        confirmed->exec();
        this->close();
     }
