@@ -93,8 +93,8 @@ padding: 3px;
    <widget class="QWidget" name="gridLayoutWidget">
     <property name="geometry">
      <rect>
-      <x>200</x>
-      <y>190</y>
+      <x>160</x>
+      <y>290</y>
       <width>441</width>
       <height>235</height>
      </rect>
@@ -102,6 +102,13 @@ padding: 3px;
     <layout class="QGridLayout" name="gridLayout">
      <item row="0" column="1">
       <layout class="QFormLayout" name="formLayout_2">
+       <item row="1" column="0">
+        <widget class="QLabel" name="label_5">
+         <property name="text">
+          <string>First Name</string>
+         </property>
+        </widget>
+       </item>
        <item row="2" column="0">
         <widget class="QLabel" name="label_6">
          <property name="text">
@@ -174,13 +181,6 @@ padding: 6px;
          </property>
         </widget>
        </item>
-       <item row="1" column="0">
-        <widget class="QLabel" name="label_5">
-         <property name="text">
-          <string>First Name</string>
-         </property>
-        </widget>
-       </item>
        <item row="1" column="1">
         <widget class="QLineEdit" name="firstname"/>
        </item>
@@ -188,7 +188,7 @@ padding: 6px;
      </item>
     </layout>
    </widget>
-   <widget class="QWidget" name="">
+   <widget class="QWidget" name="layoutWidget">
     <property name="geometry">
      <rect>
       <x>650</x>
@@ -213,6 +213,19 @@ padding: 6px;
       </widget>
      </item>
     </layout>
+   </widget>
+   <widget class="QLabel" name="label_7">
+    <property name="geometry">
+     <rect>
+      <x>100</x>
+      <y>120</y>
+      <width>47</width>
+      <height>13</height>
+     </rect>
+    </property>
+    <property name="text">
+     <string>TextLabel</string>
+    </property>
    </widget>
   </widget>
  </widget>

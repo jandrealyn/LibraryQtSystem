@@ -55,7 +55,7 @@ void CreateFiles::CreateFilesOnStartUp()
 
         _members.open(QIODevice::WriteOnly | QFile::Text);
         QTextStream members_output(&_members);
-        members_output << "ID" << "," << "FIRST NAME" << "," << "LAST NAME" << "," << "USERNAME" << "," << "PASSWORD" << "," << "EMAIL" << "," << "PHONE NUM" << "\n";
+        members_output << "ID" << "," << "PROFILE PICTURE" << "," << "FIRST NAME" << "," << "LAST NAME" << "," << "USERNAME" << "," << "PASSWORD" << "," << "EMAIL" << "," << "PHONE NUM" << "\n";
         _members.close();
 
         _checkedOutBooks.open(QIODevice::WriteOnly | QFile::Text);
