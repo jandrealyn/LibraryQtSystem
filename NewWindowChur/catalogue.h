@@ -12,7 +12,7 @@ class Catalogue : public QDialog
     Q_OBJECT
 
 public:
-    explicit Catalogue(QWidget *parent = nullptr, QString memName = "", QString memID = "");
+    explicit Catalogue(QWidget *parent = nullptr, QString memId = "", QString memAvatar = "", QString memName = "", QString memEmail = "", QString memPhone = "");
     ~Catalogue();
 
 signals:

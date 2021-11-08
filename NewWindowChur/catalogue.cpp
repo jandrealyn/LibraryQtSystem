@@ -42,11 +42,21 @@
 #include <QScrollArea>
 #include <QGroupBox>
 
-Catalogue::Catalogue(QWidget *parent, QString memName, QString memID) :
+Catalogue::Catalogue(QWidget *parent, QString memID, QString memAvatar, QString memName, QString memEmail, QString memPhone) :
     QDialog(parent),
     ui(new Ui::Catalogue)
 {
     ui->setupUi(this);
+
+    // Set users details
+    QPixmap p(memAvatar);
+    ui->profile_picture->setPixmap(p.scaled(120,120));
+    ui->welcomeBack->setText("Welcome back, " + memName);
+
+    ui->user_name->setText(memName);
+    ui->user_email->setText(memEmail);
+    ui->user_phonenumber->setText(memPhone);
+    ui->user_id->setText("Your ID: " + memID);
 
     // Array control
     QStringList catalogue = CreateFiles::GetFileData(CSVFiles::_Catalogue);
@@ -65,8 +75,6 @@ Catalogue::Catalogue(QWidget *parent, QString memName, QString memID) :
     QLabel* bookCopies[arraySize];
     QPushButton* checkoutButton[arraySize];
     CheckOutScreen* checkoutScreen[arraySize];
-
-    ui->welcomeBack->setText("Welcome back, " + memName);
 
     int t = 5;
     // Initalize all widgets

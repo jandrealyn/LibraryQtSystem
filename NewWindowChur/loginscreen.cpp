@@ -51,21 +51,29 @@ void loginscreen::on_login_clicked()
         int passwordIndex;
         for (int i = 0; i < membersData.size(); i++)
         {
-            if (col == 3) // Only check for username and password once we reach the username column.
+            qDebug() << col;
+            if (col == 4) // Only check for username and password once we reach the username column.
             {
                 if (user == membersData[i])
                 {
+                    qDebug() << "username found";
                     if (pass == membersData[i + 1])
                     {
+                        qDebug() << "password found";
                         foundUser = true;
                         usernameIndex = i;
                         passwordIndex = i + 1;
+                        break;
                     }
+                    else
+                        col++;
                 }
+                else
+                    col++;
             }
-            else if (col == 6)
+            else if (col == 7)
             {
-                col = 0; // Reset columns back to 0 since there are only 6 columns in members.csv
+                col = 0; // Reset columns back to 0 since there are only 7 columns in members.csv
             }
             else
             {
@@ -73,16 +81,20 @@ void loginscreen::on_login_clicked()
             }
         }
 
-        // indexOf returns a positive number if it found the username or password
         if (foundUser)
         {
+            QString memID = membersData[usernameIndex - 4];
+            QString memAvatar = membersData[usernameIndex - 3];
             QString memName = membersData[usernameIndex - 2];
-            QString memID = membersData[passwordIndex - 3];
+            QString memEmail = membersData[usernameIndex + 2];
+            QString memPhone = membersData[usernameIndex + 3];
+
+
             hide();
             // CALL YOUR DIALOG WINDOWS WITH (nullptr) SO THAT THEY HAVE A TASKBAR ICON
-            _catalogueWindow = new Catalogue(nullptr, memName, memID);
+            _catalogueWindow = new Catalogue(nullptr, memID, memAvatar, memName, memEmail, memPhone);
             _catalogueWindow->setWindowFlags(windowFlags() | Qt::WindowMinimizeButtonHint);
-            _catalogueWindow->showMaximized();
+            _catalogueWindow->showNormal();
             connect(_catalogueWindow, SIGNAL(OpenMainMenu()), this, SLOT(LoginScreenOpen()));
         }
         else
