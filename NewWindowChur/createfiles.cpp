@@ -39,16 +39,16 @@ void CreateFiles::CreateFilesOnStartUp()
         // Create all the files necessary to the directory
         _catalogue.open(QIODevice::WriteOnly | QFile::Text);
         QTextStream catalogue_output(&_catalogue);
-        catalogue_output << "BOOK ID" << "," << "IMAGE" << "," << "BOOK NAME" << "," << "AUTHOR" << "," << "COPIES" << "\n";
+        catalogue_output << "BOOK ID" << "," << "IMAGE" << "," << "BOOK NAME" << "," << "AUTHOR" << "," << "COPIES" << "," << "EDIT BOOK" << "\n";
         for (int i = 0; i < 20; i++)
         {
             if (i % 2 == 0) // Maybe change how we create a book ID
             {
-                catalogue_output << QString::number(i) << "," << ":/images/blue-book.jpg" << "," << "This is a book" << "," << "Author" << "," << "10" << "\n";
+                catalogue_output << QString::number(i) << "," << ":/images/blue-book.jpg" << "," << "This is a book" << "," << "Author" << "," << "10" << "," << "PushButton" << "\n";
             }
             else
             {
-                catalogue_output << QString::number(i) << "," <<  ":/images/book-cover.png" << "," << "Cool Book" << "," << "Authorz" << "," << "10" << "\n";
+                catalogue_output << QString::number(i) << "," <<  ":/images/book-cover.png" << "," << "Cool Book" << "," << "Authorz" << "," << "10" << "," << "PushButton" << "\n";
             }
         }
         _catalogue.close();

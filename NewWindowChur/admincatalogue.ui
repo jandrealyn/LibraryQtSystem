@@ -112,6 +112,16 @@ padding:2px;</string>
      <string>Yoobee Image</string>
     </property>
    </widget>
+   <widget class="QTableWidget" name="adminCatalogue">
+    <property name="geometry">
+     <rect>
+      <x>100</x>
+      <y>160</y>
+      <width>581</width>
+      <height>351</height>
+     </rect>
+    </property>
+   </widget>
   </widget>
  </widget>
  <resources/>
