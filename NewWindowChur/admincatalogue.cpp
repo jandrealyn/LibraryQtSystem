@@ -20,8 +20,10 @@ admincatalogue::admincatalogue(QWidget *parent) :
     QDialog(parent),
     ui(new Ui::admincatalogue)
 {
+    qDebug() << "inside constructor tesT 1";
     QPixmap Img(":/images/YoobeeLibraries.png");
     ui->img->setPixmap(Img.scaled(150, 150, Qt::KeepAspectRatio));
+
     // Array control
     QStringList catalogue = CreateFiles::GetFileData(CSVFiles::_Catalogue);
     const int arraySize = (catalogue.size() / 6) - 1;
@@ -72,7 +74,7 @@ admincatalogue::admincatalogue(QWidget *parent) :
         // Book ID, Book Name, Member ID, Member Name, Date
         //adminedit[row]->setVariables(catalogue[t], catalogue[t + 2], catalogue[t + 3], catalogue[t + 4]);
 
-        t = t + 5;
+        t = t + 6;
     }
 
     // Add all of the widgets into the layouts

@@ -15,13 +15,15 @@ signals:
     void ReserveScreenClosed();
 
 public:
-    explicit ReserveBook(QWidget *parent = nullptr, QString memName = "", QString memID = "", QString bookID = "", QString bookName = "", QString authorName = "", QString copies = "");
+    explicit ReserveBook(QWidget *parent = nullptr, QString memName = "", QString memID = "", QString bookID = "", QString bookName = "");
     ~ReserveBook();
 
 private slots:
     void on_cancel_clicked();
 
     void on_calendarWidget_clicked(const QDate &date);
+
+    void on_confirmReserve_clicked();
 
 private:
     Ui::ReserveBook *ui;

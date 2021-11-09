@@ -28,6 +28,7 @@ public:
     static QStringList GetFileData(enum CSVFiles);
     static void CreateMember(QString avatar, QString fName, QString lName, QString uName, QString pWord, QString email, QString phoneNum);
     static void CheckOutBook(QString bookID, QString bookName, QString memID, QString memName);
+    static void CheckOutBook(QString bookID, QString bookName, QString memID, QString memName, QString reserveDate, QString dueDate);
 
     static QString _path;
     static QFile _catalogue;

@@ -87,7 +87,7 @@ void CheckOutScreen::OpenCheckOutScreen()
 void CheckOutScreen::on_reserve_clicked()
 {
     hide();
-    _reserveBook = new ReserveBook(NULL);
+    _reserveBook = new ReserveBook(NULL, _membersName, _membersID, _bookID, _bookName);
     _reserveBook->setWindowTitle("Reserve a book");
     _reserveBook->showNormal();
     connect(_reserveBook, SIGNAL(ReserveScreenClosed()), this, SLOT(OpenCheckOutScreen()));

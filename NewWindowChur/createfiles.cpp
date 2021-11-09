@@ -80,20 +80,20 @@ QStringList CreateFiles::GetFileData(enum CSVFiles file)
     {
     case CSVFiles::_Catalogue:
         if (_catalogue.open(QIODevice::ReadOnly))
+            {
+                QTextStream in(&_catalogue);
+                while(!in.atEnd())
                 {
-                    QTextStream in(&_catalogue);
-                    while(!in.atEnd())
-                    {
-                        QString line = _catalogue.readLine().replace("\r\n","");
-                        fileData.append(line.split(','));
-                    }
+                    QString line = _catalogue.readLine().replace("\r\n","");
+                    fileData.append(line.split(','));
                 }
-                else
-                {
-                    return fileData;
-                }
-                _catalogue.close();
-                break;
+            }
+            else
+            {
+                return fileData;
+            }
+            _catalogue.close();
+            break;
     case CSVFiles::_Members:
         if (_members.open(QIODevice::ReadOnly))
         {
@@ -182,3 +182,12 @@ void CreateFiles::CheckOutBook(QString bookID, QString bookName, QString memID, 
 
     // Remove copy of book by one
 }
+
+void CreateFiles::CheckOutBook(QString bookID, QString bookName, QString memID, QString memName, QString reserveDate, QString dueDate)
+{
+    _reserveBook.open(QIODevice::WriteOnly | QFile::Append | QFile::Text);
+    QTextStream in(&_reserveBook);
+    in << bookID << "," << bookName << "," << memID << "," << memName << "," << reserveDate << "," << dueDate << "\n";
+    _reserveBook.close();
+}
+
