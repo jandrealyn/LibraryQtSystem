@@ -64,10 +64,6 @@ Catalogue::Catalogue(QWidget *parent, QString memID, QString memAvatar, QString 
 
     // Array control
     QStringList catalogue = CreateFiles::GetFileData(CSVFiles::_Catalogue);
-    for (int i = 0; i < catalogue.size(); i++)
-    {
-        qDebug() << "CATALOGUE: " << catalogue[i];
-    }
     const int arraySize = (catalogue.size() / 6) - 1;
 
     // LAYOUTS
@@ -116,6 +112,7 @@ Catalogue::Catalogue(QWidget *parent, QString memID, QString memAvatar, QString 
 
         // Sending Book ID, Book Name, Member ID, Member Name, Date through CheckOutScreen constructor.
         checkoutScreen[row] = new CheckOutScreen(NULL, memName, memID, catalogue[t], catalogue[t + 2], catalogue[t + 3], catalogue[t + 4]);
+        checkoutScreen[row]->setWindowTitle("Checkout a book");
         connect(checkoutButton[row], SIGNAL(clicked()), checkoutScreen[row], SLOT(exec()));
 
         // Horizontal Lines

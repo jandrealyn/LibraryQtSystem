@@ -24,12 +24,12 @@ QPushButton:pressed {
 border-color: #e7e7e7;
 }</string>
   </property>
-  <widget class="QPushButton" name="prebook">
+  <widget class="QPushButton" name="reserve">
    <property name="geometry">
     <rect>
      <x>120</x>
      <y>180</y>
-     <width>91</width>
+     <width>111</width>
      <height>41</height>
     </rect>
    </property>
@@ -37,13 +37,13 @@ border-color: #e7e7e7;
     <string notr="true"/>
    </property>
    <property name="text">
-    <string>Prebook</string>
+    <string>Reserve in Advance</string>
    </property>
   </widget>
   <widget class="QPushButton" name="cancel">
    <property name="geometry">
     <rect>
-     <x>230</x>
+     <x>250</x>
      <y>190</y>
      <width>75</width>
      <height>23</height>
@@ -225,7 +225,7 @@ border-color: #e7e7e7;
  </widget>
  <tabstops>
   <tabstop>checkoutNow</tabstop>
-  <tabstop>prebook</tabstop>
+  <tabstop>reserve</tabstop>
   <tabstop>cancel</tabstop>
  </tabstops>
  <resources/>

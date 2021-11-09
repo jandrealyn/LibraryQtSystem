@@ -44,19 +44,6 @@ void CheckOutScreen::on_cancel_clicked()
     close();
 }
 
-// This function is called from catalogue.cpp when creating the CheckOutScreen array.
-void CheckOutScreen::setVariables(QString memName, QString memID, QString bookID, QString bookName, QString authorName, QString copies)
-{
-    _membersID = memID;
-    _membersName = memName;
-    _bookID = bookID;
-    _bookName = bookName;
-
-    ui->book_name_label->setText(bookName);
-    ui->book_author_label->setText(authorName);
-    ui->book_copies_label->setText(copies);
-}
-
 void CheckOutScreen::on_checkoutNow_clicked()
 {
     bool yesChecked = false;
@@ -91,4 +78,20 @@ void CheckOutScreen::on_checkoutNow_clicked()
        this->close();
     }
 }
+
+void CheckOutScreen::OpenCheckOutScreen()
+{
+    show();
+}
+
+void CheckOutScreen::on_reserve_clicked()
+{
+    hide();
+    _reserveBook = new ReserveBook(NULL);
+    _reserveBook->setWindowTitle("Reserve a book");
+    _reserveBook->showNormal();
+    connect(_reserveBook, SIGNAL(ReserveScreenClosed()), this, SLOT(OpenCheckOutScreen()));
+}
+
+
 
