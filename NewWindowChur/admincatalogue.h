@@ -1,5 +1,6 @@
 #ifndef ADMINCATALOGUE_H
 #define ADMINCATALOGUE_H
+#include "admineditbook.h"
 
 #include <QDialog>
 
@@ -23,6 +24,7 @@ private slots:
 
 private:
     Ui::admincatalogue *ui;
+    admineditbook *adminedit;
 };
 
 #endif // ADMINCATALOGUE_H

@@ -58,9 +58,9 @@
   <widget class="QLabel" name="label_2">
    <property name="geometry">
     <rect>
-     <x>40</x>
+     <x>60</x>
      <y>110</y>
-     <width>61</width>
+     <width>51</width>
      <height>31</height>
     </rect>
    </property>
@@ -101,6 +101,60 @@
    </property>
    <property name="text">
     <string>Copies:</string>
+   </property>
+  </widget>
+  <widget class="QLabel" name="book_name_label">
+   <property name="geometry">
+    <rect>
+     <x>130</x>
+     <y>120</y>
+     <width>351</width>
+     <height>21</height>
+    </rect>
+   </property>
+   <property name="font">
+    <font>
+     <pointsize>12</pointsize>
+    </font>
+   </property>
+   <property name="text">
+    <string>BookName</string>
+   </property>
+  </widget>
+  <widget class="QLabel" name="book_author_label">
+   <property name="geometry">
+    <rect>
+     <x>130</x>
+     <y>160</y>
+     <width>351</width>
+     <height>21</height>
+    </rect>
+   </property>
+   <property name="font">
+    <font>
+     <pointsize>12</pointsize>
+    </font>
+   </property>
+   <property name="text">
+    <string>AuthorName</string>
+   </property>
+  </widget>
+  <widget class="QLabel" name="book_copies_label">
+   <property name="geometry">
+    <rect>
+     <x>130</x>
+     <y>200</y>
+     <width>351</width>
+     <height>21</height>
+    </rect>
+   </property>
+   <property name="font">
+    <font>
+     <pointsize>12</pointsize>
+    </font>
+   </property>
+   <property name="text">
+    <string>Copies</string>
    </property>
   </widget>
  </widget>
