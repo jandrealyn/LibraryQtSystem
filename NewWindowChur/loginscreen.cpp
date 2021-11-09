@@ -7,6 +7,7 @@
 #include "QCheckBox"
 #include <QDebug> //is a class that provides an output stream for debugging information
 #include <QPushButton> //is a widget which executes an action when a user clicks on it.
+#include <QLineEdit>
 
  // - liv (Worked on Login/Signup/Menu Screens)
 // Jakob - connected the signup screens and made the login functional
@@ -16,8 +17,10 @@ loginscreen::loginscreen(QWidget *parent) :
     ui(new Ui::loginscreen)
 {
     ui->setupUi(this);
-       QPixmap Img(":/images/YoobeeLibraries.png"); // - liv
-       ui->img_2->setPixmap(Img.scaled(150, 150, Qt::KeepAspectRatio)); // - liv
+   QPixmap Img(":/images/YoobeeLibraries.png"); // - liv
+   ui->img_2->setPixmap(Img.scaled(150, 150, Qt::KeepAspectRatio)); // - liv
+
+   connect(ui->password_input, SIGNAL(returnPressed()), this, SLOT(on_login_clicked()));
 }
 
 loginscreen::~loginscreen()

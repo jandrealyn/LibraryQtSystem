@@ -40,17 +40,9 @@ void CreateFiles::CreateFilesOnStartUp()
         _catalogue.open(QIODevice::WriteOnly | QFile::Text);
         QTextStream catalogue_output(&_catalogue);
         catalogue_output << "BOOK ID" << "," << "IMAGE" << "," << "BOOK NAME" << "," << "AUTHOR" << "," << "COPIES" << "," << "EDIT BOOK" << "\n";
-        for (int i = 0; i < 20; i++)
-        {
-            if (i % 2 == 0) // Maybe change how we create a book ID
-            {
-                catalogue_output << QString::number(i) << "," << ":/images/blue-book.jpg" << "," << "This is a book" << "," << "Author" << "," << "10" << "," << "PushButton" << "\n";
-            }
-            else
-            {
-                catalogue_output << QString::number(i) << "," <<  ":/images/book-cover.png" << "," << "Cool Book" << "," << "Authorz" << "," << "10" << "," << "PushButton" << "\n";
-            }
-        }
+        catalogue_output << "Book6969" << "," << ":/images/dog-avatar.jpg" << "," << "Jerboa Book" << "," << "Jakob Frederikson" << "," << "0" << "," << "PushButton" << "\n";
+        catalogue_output << "Book0342" << "," << ":/images/blue-book.jpg" << "," << "This is a book" << "," << "Author" << "," << "10" << "," << "PushButton" << "\n";
+        catalogue_output << "Book3163" << "," <<  ":/images/book-cover.png" << "," << "Cool Book" << "," << "Authorz" << "," << "10" << "," << "PushButton" << "\n";
         _catalogue.close();
 
         _members.open(QIODevice::WriteOnly | QFile::Text);
@@ -71,13 +63,31 @@ QStringList CreateFiles::GetFileData(enum CSVFiles file)
     switch (file)
     {
     case CSVFiles::_Catalogue:
+    {
+        QStringList copiesCheck;
+        int row = 0;
         if (_catalogue.open(QIODevice::ReadOnly))
         {
             QTextStream in(&_catalogue);
             while(!in.atEnd())
             {
                 QString line = _catalogue.readLine().replace("\r\n","");
-                fileData.append(line.split(','));
+
+                // CHECKING THE COPIES OF A BOOK
+                if (row > 0) // Skip the first row as it's just the headers of the catalogue.
+                {
+                    copiesCheck.append(line.split(','));
+                    if (copiesCheck[4].toInt() > 0) // Check if the books copies are greater than 0.
+                    {
+                        fileData.append(line.split(',')); // If they are, append it to fileData (which we return).
+                    }
+                    copiesCheck.clear(); // Clear the copies list for the next line of data.
+                }
+                else
+                {
+                    fileData.append(line.split(','));
+                }
+                row++;
             }
         }
         else
@@ -86,6 +96,7 @@ QStringList CreateFiles::GetFileData(enum CSVFiles file)
         }
         _catalogue.close();
         break;
+    }
     case CSVFiles::_Members:
         if (_members.open(QIODevice::ReadOnly))
         {
@@ -171,4 +182,6 @@ void CreateFiles::CheckOutBook(QString bookID, QString bookName, QString memID, 
     QTextStream in(&_checkedOutBooks);
     in << bookID << "," << bookName << "," << memID << "," << memName << "," << currentDate << "," << dueDate << "\n";
     _checkedOutBooks.close();
+
+    // Remove copy of book by one
 }

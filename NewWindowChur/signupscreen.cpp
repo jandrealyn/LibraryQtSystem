@@ -33,9 +33,7 @@ signupscreen::signupscreen(QWidget *parent) :
     connect(ui->no_avatar, SIGNAL(clicked()), this, SLOT(checkValues()));
     connect(ui->firstname, SIGNAL(textChanged()), this, SLOT(checkValues()));
     connect(ui->lastname, SIGNAL(textChanged()), this, SLOT(checkValues()));
-    //connect(ui->Username, SIGNAL(textChanged()), this, SLOT(checkValues()));
     connect(ui->Password, SIGNAL(textChanged()), this, SLOT(checkValues()));
-    //connect(ui->email, SIGNAL(textChanged()), this, SLOT(checkValues()));
     connect(ui->phone, SIGNAL(textChanged()), this, SLOT(checkValues()));
 }
 

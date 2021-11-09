@@ -58,13 +58,17 @@ Catalogue::Catalogue(QWidget *parent, QString memID, QString memAvatar, QString 
     ui->welcomeBack->setText("Welcome back, " + memName);
 
     ui->user_name->setText(memName);
-    ui->user_email->setText(memEmail);
-    ui->user_phonenumber->setText(memPhone);
-    ui->user_id->setText("Your ID: " + memID);
+    ui->user_email->setText("<b>Email:</b> " + memEmail);
+    ui->user_phonenumber->setText("<b>Phone:</b> " + memPhone);
+    ui->user_id->setText("<b>Your ID:</b> " + memID);
 
     // Array control
     QStringList catalogue = CreateFiles::GetFileData(CSVFiles::_Catalogue);
-    const int arraySize = (catalogue.size() / 5) - 1;
+    for (int i = 0; i < catalogue.size(); i++)
+    {
+        qDebug() << "CATALOGUE: " << catalogue[i];
+    }
+    const int arraySize = (catalogue.size() / 6) - 1;
 
     // LAYOUTS
     QGroupBox* groupBox = new QGroupBox;
@@ -80,7 +84,7 @@ Catalogue::Catalogue(QWidget *parent, QString memID, QString memAvatar, QString 
     QPushButton* checkoutButton[arraySize];
     CheckOutScreen* checkoutScreen[arraySize];
 
-    int t = 5;
+    int t = 6;
     // Initalize all widgets
     for (int row = 0; row < arraySize; row++)
     {
@@ -126,7 +130,7 @@ Catalogue::Catalogue(QWidget *parent, QString memID, QString memAvatar, QString 
         lines2[row]->setFrameShape(QFrame::HLine);
         lines2[row]->setFrameShadow(QFrame::Sunken);
 
-        t = t + 5;
+        t = t + 6;
     }
 
     // Add all of the widgets into the layouts
