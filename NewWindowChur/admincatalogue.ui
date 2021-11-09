@@ -54,7 +54,7 @@ border-style: inset;
    <widget class="QLabel" name="label">
     <property name="geometry">
      <rect>
-      <x>250</x>
+      <x>260</x>
       <y>60</y>
       <width>251</width>
       <height>71</height>
@@ -74,8 +74,8 @@ font: 28px;
    <widget class="QPushButton" name="back">
     <property name="geometry">
      <rect>
-      <x>620</x>
-      <y>50</y>
+      <x>640</x>
+      <y>40</y>
       <width>111</width>
       <height>41</height>
      </rect>
@@ -112,15 +112,28 @@ padding:2px;</string>
      <string>Yoobee Image</string>
     </property>
    </widget>
-   <widget class="QTableWidget" name="adminCatalogue">
+   <widget class="QScrollArea" name="scrollArea">
     <property name="geometry">
      <rect>
-      <x>100</x>
-      <y>160</y>
-      <width>581</width>
-      <height>351</height>
+      <x>80</x>
+      <y>150</y>
+      <width>641</width>
+      <height>381</height>
      </rect>
     </property>
+    <property name="widgetResizable">
+     <bool>true</bool>
+    </property>
+    <widget class="QWidget" name="scrollAreaWidgetContents">
+     <property name="geometry">
+      <rect>
+       <x>0</x>
+       <y>0</y>
+       <width>641</width>
+       <height>381</height>
+      </rect>
+     </property>
+    </widget>
    </widget>
   </widget>
  </widget>
