@@ -112,28 +112,15 @@ padding:2px;</string>
      <string>Yoobee Image</string>
     </property>
    </widget>
-   <widget class="QScrollArea" name="scrollArea">
+   <widget class="QTableWidget" name="adminCatalogue">
     <property name="geometry">
      <rect>
       <x>80</x>
       <y>150</y>
-      <width>641</width>
-      <height>381</height>
+      <width>611</width>
+      <height>371</height>
      </rect>
     </property>
-    <property name="widgetResizable">
-     <bool>true</bool>
-    </property>
-    <widget class="QWidget" name="scrollAreaWidgetContents">
-     <property name="geometry">
-      <rect>
-       <x>0</x>
-       <y>0</y>
-       <width>641</width>
-       <height>381</height>
-      </rect>
-     </property>
-    </widget>
    </widget>
   </widget>
  </widget>
