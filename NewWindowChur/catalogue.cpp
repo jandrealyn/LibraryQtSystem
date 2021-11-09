@@ -114,10 +114,9 @@ Catalogue::Catalogue(QWidget *parent, QString memID, QString memAvatar, QString 
         checkoutButton[row]->setStyleSheet("QPushButton { border: 1px solid black; }"
                                            "QPushButton:pressed { border-color: #e7e7e7; background-color: #f4f4f4; }");
 
-        checkoutScreen[row] = new CheckOutScreen;
+        // Sending Book ID, Book Name, Member ID, Member Name, Date through CheckOutScreen constructor.
+        checkoutScreen[row] = new CheckOutScreen(NULL, memName, memID, catalogue[t], catalogue[t + 2], catalogue[t + 3], catalogue[t + 4]);
         connect(checkoutButton[row], SIGNAL(clicked()), checkoutScreen[row], SLOT(exec()));
-        // Book ID, Book Name, Member ID, Member Name, Date
-        checkoutScreen[row]->setVariables(memName, memID, catalogue[t], catalogue[t + 2], catalogue[t + 3], catalogue[t + 4]);
 
         // Horizontal Lines
         lines1[row] = new QFrame();
@@ -235,11 +234,9 @@ void Catalogue::on_searchBar_textChanged(const QString &arg1)
         checkoutButton[row]->setStyleSheet("QPushButton { border: 1px solid black; }"
                                            "QPushButton:pressed { border-color: #e7e7e7; background-color: #f4f4f4; }");
 
-        checkoutScreen[row] = new CheckOutScreen;
-
+        // Sending Book ID, Book Name, Member ID, Member Name, Date through CheckOutScreen constructor.
+        checkoutScreen[row] = new CheckOutScreen(NULL, _memName, _memID, foundData[t], foundData[t + 2], foundData[t + 3], foundData[t + 4]);
         connect(checkoutButton[row], SIGNAL(clicked()), checkoutScreen[row], SLOT(exec()));
-        // Book ID, Book Name, Member ID, Member Name, Date
-        checkoutScreen[row]->setVariables(_memName, _memID, foundData[t], foundData[t + 2], foundData[t + 3], foundData[t + 4]);
 
         // Horizontal Lines
         lines1[row] = new QFrame();
