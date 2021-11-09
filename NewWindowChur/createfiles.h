@@ -33,6 +33,7 @@ public:
     static QFile _catalogue;
     static QFile _members;
     static QFile _checkedOutBooks;
+    static QFile _reserveBook;
 };
 
 #endif // CREATEFILES_H

@@ -2,6 +2,7 @@
 #define CHECKOUTSCREEN_H
 
 #include <QDialog>
+#include "reservebook.h"
 
 namespace Ui {
 class CheckOutScreen;
@@ -20,11 +21,14 @@ private slots:
 
     void on_checkoutNow_clicked();
 
-    void on_prebook_clicked();
+    void on_reserve_clicked();
+
+    void OpenCheckOutScreen();
 
 private:
-    QString _membersID, _membersName, _bookID, _bookName;
     Ui::CheckOutScreen *ui;
+    QString _membersID, _membersName, _bookID, _bookName;
+    ReserveBook* _reserveBook;
 };
 
 #endif // CHECKOUTSCREEN_H

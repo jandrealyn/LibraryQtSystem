@@ -25,7 +25,7 @@ SOURCES += \
     loginscreen.cpp \
     main.cpp \
     mainwindow.cpp \
-    prebook.cpp \
+    reservebook.cpp \
     signupscreen.cpp \
     signupscreen2.cpp \
     updateuserdetails.cpp \
@@ -47,7 +47,7 @@ HEADERS += \
     dialog.h \
     loginscreen.h \
     mainwindow.h \
-    prebook.h \
+    reservebook.h \
     signupscreen.h \
     signupscreen2.h \
     updateuserdetails.h \
@@ -68,7 +68,7 @@ FORMS += \
     dialog.ui \
     loginscreen.ui \
     mainwindow.ui \
-    prebook.ui \
+    reservebook.ui \
     signupscreen.ui \
     signupscreen2.ui \
     updateuserdetails.ui \

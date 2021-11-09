@@ -23,6 +23,7 @@ QString CreateFiles::_path = "CSVFiles/";
 QFile CreateFiles::_catalogue(_path + "catalogue.csv");
 QFile CreateFiles::_members(_path + "members.csv");
 QFile CreateFiles::_checkedOutBooks(_path + "checkedoutbooks.csv");
+QFile CreateFiles::_reserveBook(_path + "reserveBook.csv");
 
 CreateFiles::CreateFiles()
 {
@@ -62,6 +63,13 @@ void CreateFiles::CreateFilesOnStartUp()
         QTextStream checkout_output(&_checkedOutBooks);
         checkout_output << "BOOK ID" << "," << "BOOK NAME" << "," << "MEMBER ID" << "," << "MEMBER NAME" << "," << "DATE CHECKED OUT" << "," << "DATE DUE" << "\n";
         _checkedOutBooks.close();
+    }
+
+    if (!_reserveBook.exists())
+    {
+        _reserveBook.open(QIODevice::WriteOnly | QFile::Text);
+        QTextStream prebook_output(&_reserveBook);
+        prebook_output << "BOOK ID" << "," << "BOOK NAME" << "," << "MEMBER ID" << "," << "MEMBER NAME" << "," << "PREBOOK DATE" << "," << "DATE DUE" << "\n";
     }
 }
 
