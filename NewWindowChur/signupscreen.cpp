@@ -33,9 +33,7 @@ signupscreen::signupscreen(QWidget *parent) :
     connect(ui->no_avatar, SIGNAL(clicked()), this, SLOT(checkValues()));
     connect(ui->firstname, SIGNAL(textChanged()), this, SLOT(checkValues()));
     connect(ui->lastname, SIGNAL(textChanged()), this, SLOT(checkValues()));
-    //connect(ui->Username, SIGNAL(textChanged()), this, SLOT(checkValues()));
     connect(ui->Password, SIGNAL(textChanged()), this, SLOT(checkValues()));
-    //connect(ui->email, SIGNAL(textChanged()), this, SLOT(checkValues()));
     connect(ui->phone, SIGNAL(textChanged()), this, SLOT(checkValues()));
 }
 
@@ -71,8 +69,9 @@ void signupscreen::on_close_clicked()
     emit OpenLoginScreen(); // - Jakob
 }
 
-// Written by Jakob
-// If username is already taken, it will not let the user create an account.
+// By Jakob
+// This function checks the text the users has typed in the username line edit.
+// It will set _usernameOk to true if the email is not taken already.
 void signupscreen::on_Username_textChanged(const QString &arg1)
 {
     int index = _membersList.indexOf(arg1);
@@ -95,6 +94,34 @@ void signupscreen::on_Username_textChanged(const QString &arg1)
         ui->usernamecheckImg->setPixmap(p.scaled(15,15, Qt::KeepAspectRatio));
         ui->usernameCheckText->setText("Username taken");
         _usernameOk = false;
+    }
+}
+
+// By Jakob
+// This function checks the text the users has typed in the email line edit.
+// It will set _emailOk to true if the email is not taken already
+void signupscreen::on_email_textChanged(const QString &arg1)
+{
+    int index = _membersList.indexOf(arg1);
+
+    if(arg1 == "")
+    {
+        ui->emailCheckImg->setPixmap(QPixmap());
+        ui->emailCheckText->setText("");
+    }
+    else if (index < 0)
+    {
+        QPixmap p(":/images/username-ok.png");
+        ui->emailCheckImg->setPixmap(p.scaled(15,15, Qt::KeepAspectRatio));
+        ui->emailCheckText->setText("Email good");
+        _emailOk = true;
+    }
+    else
+    {
+        QPixmap p(":/images/username-taken.png");
+        ui->emailCheckImg->setPixmap(p.scaled(15,15, Qt::KeepAspectRatio));
+        ui->emailCheckText->setText("Email taken");
+        _emailOk = false;
     }
 }
 
@@ -143,30 +170,3 @@ void signupscreen::checkValues()
         ui->Next->setEnabled(false);
     }
 }
-
-
-void signupscreen::on_email_textChanged(const QString &arg1)
-{
-    int index = _membersList.indexOf(arg1);
-
-    if(arg1 == "")
-    {
-        ui->emailCheckImg->setPixmap(QPixmap());
-        ui->emailCheckText->setText("");
-    }
-    else if (index < 0)
-    {
-        QPixmap p(":/images/username-ok.png");
-        ui->emailCheckImg->setPixmap(p.scaled(15,15, Qt::KeepAspectRatio));
-        ui->emailCheckText->setText("Email good");
-        _usernameOk = true;
-    }
-    else
-    {
-        QPixmap p(":/images/username-taken.png");
-        ui->emailCheckImg->setPixmap(p.scaled(15,15, Qt::KeepAspectRatio));
-        ui->emailCheckText->setText("Email taken");
-        _usernameOk = false;
-    }
-}
-
