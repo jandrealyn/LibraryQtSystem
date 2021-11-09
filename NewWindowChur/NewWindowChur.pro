@@ -25,8 +25,11 @@ SOURCES += \
     loginscreen.cpp \
     main.cpp \
     mainwindow.cpp \
+    reservebook.cpp \
     signupscreen.cpp \
-    signupscreen2.cpp
+    signupscreen2.cpp \
+    updateuserdetails.cpp \
+    updateuserpicture.cpp
 
 HEADERS += \
     admin.h \
@@ -44,8 +47,11 @@ HEADERS += \
     dialog.h \
     loginscreen.h \
     mainwindow.h \
+    reservebook.h \
     signupscreen.h \
-    signupscreen2.h
+    signupscreen2.h \
+    updateuserdetails.h \
+    updateuserpicture.h
 
 FORMS += \
     admin.ui \
@@ -62,8 +68,11 @@ FORMS += \
     dialog.ui \
     loginscreen.ui \
     mainwindow.ui \
+    reservebook.ui \
     signupscreen.ui \
-    signupscreen2.ui
+    signupscreen2.ui \
+    updateuserdetails.ui \
+    updateuserpicture.ui
 
 # Default rules for deployment.
 qnx: target.path = /tmp/$${TARGET}/bin

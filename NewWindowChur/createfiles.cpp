@@ -23,6 +23,7 @@ QString CreateFiles::_path = "CSVFiles/";
 QFile CreateFiles::_catalogue(_path + "catalogue.csv");
 QFile CreateFiles::_members(_path + "members.csv");
 QFile CreateFiles::_checkedOutBooks(_path + "checkedoutbooks.csv");
+QFile CreateFiles::_reserveBook(_path + "reserveBook.csv");
 
 CreateFiles::CreateFiles()
 {
@@ -35,33 +36,40 @@ void CreateFiles::CreateFilesOnStartUp()
     {
         // Make the directory (the CSVFiles folder)
         QDir().mkdir(_path);
+    }
 
-        // Create all the files necessary to the directory
+    if (!_catalogue.exists())
+    {
         _catalogue.open(QIODevice::WriteOnly | QFile::Text);
         QTextStream catalogue_output(&_catalogue);
         catalogue_output << "BOOK ID" << "," << "IMAGE" << "," << "BOOK NAME" << "," << "AUTHOR" << "," << "COPIES" << "," << "EDIT BOOK" << "\n";
-        for (int i = 0; i < 20; i++)
-        {
-            if (i % 2 == 0) // Maybe change how we create a book ID
-            {
-                catalogue_output << QString::number(i) << "," << ":/images/blue-book.jpg" << "," << "This is a book" << "," << "Author" << "," << "10" << "," << "PushButton" << "\n";
-            }
-            else
-            {
-                catalogue_output << QString::number(i) << "," <<  ":/images/book-cover.png" << "," << "Cool Book" << "," << "Authorz" << "," << "10" << "," << "PushButton" << "\n";
-            }
-        }
+        catalogue_output << "Book6969" << "," << ":/images/jerboa-avatar.jpg" << "," << "Jerboa Book" << "," << "Jakob Frederikson" << "," << "0" << "," << "PushButton" << "\n";
+        catalogue_output << "Book0342" << "," << ":/images/blue-book.jpg" << "," << "This is a book" << "," << "Author" << "," << "10" << "," << "PushButton" << "\n";
+        catalogue_output << "Book3163" << "," <<  ":/images/book-cover.png" << "," << "Cool Book" << "," << "Authorz" << "," << "10" << "," << "PushButton" << "\n";
         _catalogue.close();
+    }
 
+    if (!_members.exists())
+    {
         _members.open(QIODevice::WriteOnly | QFile::Text);
         QTextStream members_output(&_members);
         members_output << "ID" << "," << "PROFILE PICTURE" << "," << "FIRST NAME" << "," << "LAST NAME" << "," << "USERNAME" << "," << "PASSWORD" << "," << "EMAIL" << "," << "PHONE NUM" << "\n";
         _members.close();
+    }
 
+    if (!_checkedOutBooks.exists())
+    {
         _checkedOutBooks.open(QIODevice::WriteOnly | QFile::Text);
         QTextStream checkout_output(&_checkedOutBooks);
         checkout_output << "BOOK ID" << "," << "BOOK NAME" << "," << "MEMBER ID" << "," << "MEMBER NAME" << "," << "DATE CHECKED OUT" << "," << "DATE DUE" << "\n";
         _checkedOutBooks.close();
+    }
+
+    if (!_reserveBook.exists())
+    {
+        _reserveBook.open(QIODevice::WriteOnly | QFile::Text);
+        QTextStream prebook_output(&_reserveBook);
+        prebook_output << "BOOK ID" << "," << "BOOK NAME" << "," << "MEMBER ID" << "," << "MEMBER NAME" << "," << "PREBOOK DATE" << "," << "DATE DUE" << "\n";
     }
 }
 
@@ -72,20 +80,20 @@ QStringList CreateFiles::GetFileData(enum CSVFiles file)
     {
     case CSVFiles::_Catalogue:
         if (_catalogue.open(QIODevice::ReadOnly))
-        {
-            QTextStream in(&_catalogue);
-            while(!in.atEnd())
-            {
-                QString line = _catalogue.readLine().replace("\r\n","");
-                fileData.append(line.split(','));
-            }
-        }
-        else
-        {
-            return fileData;
-        }
-        _catalogue.close();
-        break;
+                {
+                    QTextStream in(&_catalogue);
+                    while(!in.atEnd())
+                    {
+                        QString line = _catalogue.readLine().replace("\r\n","");
+                        fileData.append(line.split(','));
+                    }
+                }
+                else
+                {
+                    return fileData;
+                }
+                _catalogue.close();
+                break;
     case CSVFiles::_Members:
         if (_members.open(QIODevice::ReadOnly))
         {
@@ -171,4 +179,6 @@ void CreateFiles::CheckOutBook(QString bookID, QString bookName, QString memID, 
     QTextStream in(&_checkedOutBooks);
     in << bookID << "," << bookName << "," << memID << "," << memName << "," << currentDate << "," << dueDate << "\n";
     _checkedOutBooks.close();
+
+    // Remove copy of book by one
 }

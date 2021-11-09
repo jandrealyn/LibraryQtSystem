@@ -12,6 +12,13 @@ enum CSVFiles
     _CheckedOutBooks
 };
 
+//enum MyEnum
+//{
+//    CSVFiles = _Catalogue | _Members,
+//    Test,
+//    One
+//};
+
 class CreateFiles
 {
 public:
@@ -26,6 +33,7 @@ public:
     static QFile _catalogue;
     static QFile _members;
     static QFile _checkedOutBooks;
+    static QFile _reserveBook;
 };
 
 #endif // CREATEFILES_H
