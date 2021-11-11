@@ -275,7 +275,8 @@ void Catalogue::on_searchBar_textChanged(const QString &arg1)
 
 void Catalogue::on_yourAccount_update_clicked()
 {
-
+    update_ui = new UpdateUserDetails(nullptr);
+    update_ui->exec();
 }
 
 

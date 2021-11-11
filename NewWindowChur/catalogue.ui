@@ -242,7 +242,7 @@ background-color: rgb(239, 239, 239);</string>
         </layout>
        </item>
        <item>
-        <widget class="QTabWidget" name="tabWidget_2">
+        <widget class="QTabWidget" name="users_books">
          <property name="sizePolicy">
           <sizepolicy hsizetype="Expanding" vsizetype="Preferred">
            <horstretch>0</horstretch>
@@ -258,21 +258,6 @@ background-color: rgb(239, 239, 239);</string>
          <widget class="QWidget" name="tab">
           <attribute name="title">
            <string>Current books</string>
-          </attribute>
-          <widget class="QTableWidget" name="tableWidget">
-           <property name="geometry">
-            <rect>
-             <x>0</x>
-             <y>0</y>
-             <width>1001</width>
-             <height>231</height>
-            </rect>
-           </property>
-          </widget>
-         </widget>
-         <widget class="QWidget" name="tab_2">
-          <attribute name="title">
-           <string>Checkout History</string>
           </attribute>
          </widget>
         </widget>
