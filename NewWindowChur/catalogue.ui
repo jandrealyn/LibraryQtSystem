@@ -6,8 +6,8 @@
    <rect>
     <x>0</x>
     <y>0</y>
-    <width>1046</width>
-    <height>614</height>
+    <width>933</width>
+    <height>579</height>
    </rect>
   </property>
   <property name="sizePolicy">
@@ -26,13 +26,20 @@
       <string notr="true">background-color: rgb(255, 255, 255);</string>
      </property>
      <property name="currentIndex">
-      <number>1</number>
+
+      <number>2</number>
+
+      <number>0</number>
+
      </property>
      <widget class="QWidget" name="Home">
       <attribute name="title">
        <string>Home</string>
       </attribute>
       <layout class="QGridLayout" name="gridLayout_3">
+       <item row="4" column="0">
+        <widget class="QTextBrowser" name="img"/>
+       </item>
        <item row="0" column="0">
         <widget class="QLabel" name="yoobeeLogo_2">
          <property name="text">
@@ -56,9 +63,6 @@
           <string>LATEST NEWS</string>
          </property>
         </widget>
-       </item>
-       <item row="4" column="0">
-        <widget class="QTextBrowser" name="textBrowser"/>
        </item>
        <item row="2" column="0">
         <widget class="QLabel" name="welcomeBack">
@@ -99,8 +103,8 @@
            <rect>
             <x>0</x>
             <y>0</y>
-            <width>1002</width>
-            <height>524</height>
+            <width>889</width>
+            <height>489</height>
            </rect>
           </property>
          </widget>
@@ -242,7 +246,7 @@ background-color: rgb(239, 239, 239);</string>
         </layout>
        </item>
        <item>
-        <widget class="QTabWidget" name="tabWidget_2">
+        <widget class="QTabWidget" name="users_books">
          <property name="sizePolicy">
           <sizepolicy hsizetype="Expanding" vsizetype="Preferred">
            <horstretch>0</horstretch>
@@ -258,11 +262,6 @@ background-color: rgb(239, 239, 239);</string>
          <widget class="QWidget" name="tab">
           <attribute name="title">
            <string>Current books</string>
-          </attribute>
-         </widget>
-         <widget class="QWidget" name="tab_2">
-          <attribute name="title">
-           <string>Checkout History</string>
           </attribute>
          </widget>
         </widget>
@@ -289,7 +288,7 @@ background-color: rgb(239, 239, 239);</string>
  <tabstops>
   <tabstop>tabWidget</tabstop>
   <tabstop>yourAccount_logout</tabstop>
-  <tabstop>textBrowser</tabstop>
+  <tabstop>img</tabstop>
  </tabstops>
  <resources>
   <include location="images.qrc"/>

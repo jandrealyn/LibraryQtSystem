@@ -2,10 +2,10 @@
 #define SIGNUPSCREEN2_H
 
 #include <QDialog>  // the base class of dialog windows
-
 #include <QMainWindow>
 #include "dialog.h"
 #include "catalogue.h"
+
 
 //--- Livs Part --//
 namespace Ui {class signupscreen2;}
@@ -23,13 +23,12 @@ signals:
     void OpenLoginScreen();
 
 private slots:
-  void on_close_clicked();//function - for when the user clicks the "close" button
-  void on_Next_clicked(); //function - for when the user clicks the "next" button
-  void on_back_clicked(); //function - for when the user clicks the "back" button
-  void on_SignUp_clicked();//function - for when the user clicks the "SignUp" button
+  void on_close_clicked();//function - for when the user clicks the "close" button // - Liv
+  void on_done_clicked(); //function - for when the user clicks the "done" button // - Liv
 private:
-    Ui::signupscreen2 *ui;
-    signupscreen2 *Signup;
+    Ui::signupscreen2 *ui; // - Liv
+    signupscreen2 *Signup; // - Liv
+
 };
 
 #endif // SIGNUPSCREEN2_H

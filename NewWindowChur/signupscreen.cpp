@@ -27,10 +27,10 @@ signupscreen::signupscreen(QWidget *parent) :
     _membersList = CreateFiles::GetFileData(CSVFiles::_Members);
 
     // Jakob - this bit of code disables the next button until all field have values
-    connect(ui->cat_avatar, SIGNAL(clicked()), this, SLOT(checkValues()));
-    connect(ui->pup_avatar, SIGNAL(clicked()), this, SLOT(checkValues()));
-    connect(ui->jerboa_avatar, SIGNAL(clicked()), this, SLOT(checkValues()));
-    connect(ui->no_avatar, SIGNAL(clicked()), this, SLOT(checkValues()));
+    connect(ui->cat_avatar, SIGNAL(toggled(bool)), this, SLOT(checkValues()));
+    connect(ui->pup_avatar, SIGNAL(toggled(bool)), this, SLOT(checkValues()));
+    connect(ui->jerboa_avatar, SIGNAL(toggled(bool)), this, SLOT(checkValues()));
+    connect(ui->no_avatar, SIGNAL(toggled(bool)), this, SLOT(checkValues()));
     connect(ui->firstname, SIGNAL(textChanged()), this, SLOT(checkValues()));
     connect(ui->lastname, SIGNAL(textChanged()), this, SLOT(checkValues()));
     connect(ui->Password, SIGNAL(textChanged()), this, SLOT(checkValues()));
@@ -43,20 +43,22 @@ signupscreen::~signupscreen()
 }
 
 void signupscreen::on_Next_clicked(){
-    QString fName = ui->firstname->text();
-    QString Lname = ui->lastname->text();
+    QString fName = ui->firstname->text();//firstname input
+    QString Lname = ui->lastname->text();//Lastname input
     QString uName = ui->Username->text(); //username input
-    QString pWord = ui->Password->text();
-    QString email = ui->email->text();
-    QString phoneNum = ui->phone->text();
+    QString pWord = ui->Password->text();//password input
+    QString email = ui->email->text();//email input
+    QString phoneNum = ui->phone->text();//phone input
 
     CreateFiles::CreateMember(_avatar, fName, Lname, uName, pWord, email, phoneNum);
-    _signup2 = new signupscreen2(nullptr);
-    _signup2->setWindowFlags(windowFlags() | Qt::WindowMinimizeButtonHint);
-    _signup2->show();
-    connect(_signup2, SIGNAL(OpenLoginScreen()), this, SLOT(on_close_clicked()));
+
+    Signupscreen2 = new signupscreen2(nullptr);
+    Signupscreen2->setWindowFlags(windowFlags() | Qt::WindowMinimizeButtonHint);
+    Signupscreen2->show();
+    connect(Signupscreen2, SIGNAL(OpenLoginScreen()), this, SLOT(on_close_clicked()));
     close();
 }
+
 
 void signupscreen::Signupclosed()
 {
@@ -68,6 +70,8 @@ void signupscreen::on_close_clicked()
     close();
     emit OpenLoginScreen(); // - Jakob
 }
+
+
 
 // By Jakob
 // This function checks the text the users has typed in the username line edit.
@@ -151,16 +155,16 @@ void signupscreen::on_radioButton_toggled(bool checked)
 
 void signupscreen::checkValues()
 {
-    if (!ui->firstname->text().isEmpty() &&
-        !ui->lastname->text().isEmpty() &&
-        !ui->Password->text().isEmpty() &&
-        _usernameOk &&
-        _emailOk)
+    if (ui->cat_avatar->isChecked() ||
+        ui->pup_avatar->isChecked() ||
+        ui->jerboa_avatar->isChecked() ||
+        ui->no_avatar->isChecked())
     {
-        if (ui->cat_avatar->isChecked() ||
-            ui->pup_avatar->isChecked() ||
-            ui->jerboa_avatar->isChecked() ||
-            ui->no_avatar->isChecked())
+        if (!ui->firstname->text().isEmpty() &&
+            !ui->lastname->text().isEmpty() &&
+            !ui->Password->text().isEmpty() &&
+            _usernameOk &&
+            _emailOk)
         {
             ui->Next->setEnabled(true);
         }

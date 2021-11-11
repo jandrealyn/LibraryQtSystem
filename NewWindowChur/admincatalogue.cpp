@@ -28,6 +28,7 @@ admincatalogue::admincatalogue(QWidget *parent) :
     QStringList booksData = CreateFiles::GetFileData(CSVFiles::_Catalogue);
 
     ui->adminCatalogue->setStyleSheet("QHeaderView::section { background-color: rgba(254, 222, 255, 0.3) }");
+
     // Because we have 5 columns, we insert a column 5 times
     const int arraySize = (booksData.size() / 6) - 1;
     QPushButton* push[arraySize];

@@ -46,6 +46,7 @@ void CreateFiles::CreateFilesOnStartUp()
         catalogue_output << "Book6969" << "," << ":/images/jerboa-avatar.jpg" << "," << "Jerboa Book" << "," << "Jakob Frederikson" << "," << "0" << "," << "PushButton" << "\n";
         catalogue_output << "Book0342" << "," << ":/images/blue-book.jpg" << "," << "This is a book" << "," << "Author" << "," << "10" << "," << "PushButton" << "\n";
         catalogue_output << "Book3163" << "," <<  ":/images/book-cover.png" << "," << "Cool Book" << "," << "Authorz" << "," << "10" << "," << "PushButton" << "\n";
+        catalogue_output << "Book3164" << "," <<  ":/images/cat-avatar.jpg" << "," << "Swag" << "," << "Lawl" << "," << "1" << "," << "PushButton" << "\n";
         _catalogue.close();
     }
 
@@ -126,6 +127,18 @@ QStringList CreateFiles::GetFileData(enum CSVFiles file)
         }
         _checkedOutBooks.close();
         break;
+    case CSVFiles::_ReservedBooks:
+        if (_reserveBook.open(QIODevice::ReadOnly))
+        {
+            QTextStream in(&_reserveBook);
+            while(!in.atEnd())
+            {
+                QString line = _reserveBook.readLine().replace("\r\n","");
+                fileData.append(line.split(','));
+            }
+        }
+        _reserveBook.close();
+        break;
     default:
         qDebug() << "Could not open file.";
         fileData.append("error");
@@ -169,18 +182,49 @@ void CreateFiles::CreateMember(QString avatar, QString fName, QString lName, QSt
     _members.close();
 }
 
-void CreateFiles::CheckOutBook(QString bookID, QString bookName, QString memID, QString memName)
+void CreateFiles::CheckOutBook(QString bookID, QString bookName, QString memID, QString memName, QString dueDate)
 {
-    // Get the current date and due date
-    QString currentDate = QDate::currentDate().toString("dd.MM.yyyy");
-    QString dueDate = QDate::currentDate().addDays(7).toString("dd.MM.yyyy");
+    QString currentDate = QDate::currentDate().toString("dd/MM/yyyy");
 
+    // Output the details of the checkout to checkedOutBooks file
     _checkedOutBooks.open(QIODevice::WriteOnly | QFile::Append | QFile::Text);
     QTextStream in(&_checkedOutBooks);
     in << bookID << "," << bookName << "," << memID << "," << memName << "," << currentDate << "," << dueDate << "\n";
     _checkedOutBooks.close();
 
-    // Remove copy of book by one
+    // We now need to remove a copy of the book as a user has checked it out.
+    QStringList catalogueData = GetFileData(CSVFiles::_Catalogue);
+
+    for (int i = 0; i < catalogueData.size(); i++)
+    {
+        if (catalogueData[i] == bookName)
+        {
+            catalogueData[i + 2] = QString::number(catalogueData[i + 2].toInt() - 1); // subtract the book copies by 1
+            break;
+        }
+    }
+    // Once the copy of the book is removed, we need to write it back to the catalogue file.
+    _catalogue.open(QIODevice::WriteOnly | QFile::Truncate | QFile::Text);
+    QTextStream catalogueIn(&_catalogue);
+    int col = 0;
+    for (int i = 0; i < catalogueData.size(); i++)
+    {
+            if (col != 5)
+            {
+                catalogueIn << catalogueData[i] << ",";
+                col++;
+            }
+            else if (col == 5)
+            {
+                catalogueIn << catalogueData[i] << "\n";
+                col = 0;
+            }
+    }
+    _catalogue.close();
+
+    // Now that we wrote that into the catalogue file, we need to update the catalogue page with the correct information.
+    // 'Correct information' being that the copies of the book has gone down by one.
+
 }
 
 void CreateFiles::CheckOutBook(QString bookID, QString bookName, QString memID, QString memName, QString reserveDate, QString dueDate)
@@ -190,6 +234,7 @@ void CreateFiles::CheckOutBook(QString bookID, QString bookName, QString memID, 
     in << bookID << "," << bookName << "," << memID << "," << memName << "," << reserveDate << "," << dueDate << "\n";
     _reserveBook.close();
 }
+
 
 //gansa
 
@@ -202,4 +247,72 @@ void CreateFiles::CheckOutBook(QString bookID, QString bookName, QString memID, 
     //}
     //_catalogue.close();
 //}
+
+QDate CreateFiles::FindLastReserveDate(QString bookID)
+{
+    // We need to check if the book exists in reserved books first
+    // If it doesn't, then it means it hasn't been reserved before and that it's only just hit 0 copies from a normal checkout.
+    // Therefore, we need to search the checkedOutBooks file instead.
+    QStringList reservedBooks = GetFileData(CSVFiles::_ReservedBooks);
+
+    QDate date;
+    QString minimumDate;
+    int bookCount1 = 0;
+    int bookCount2 = 0; // Multiple people may have reserved the same book
+                       // In this case, we need to find the last known spot in the CSV of the reserved book.
+                       // The last known spot will be the latest reserved date. We can get that due date and set that
+                       // as the minimum date a user can set their next reservation.
+
+    for (int i = 0; i < reservedBooks.size(); i++)
+    {
+        if (reservedBooks[i] == bookID)
+        {
+            bookCount1++;
+        }
+    }
+    if (bookCount1 != 0)
+    {
+        for (int i = 0; i < reservedBooks.size(); i++)
+        {
+            if (reservedBooks[i] == bookID)
+            {
+                bookCount2++;
+                if (bookCount2 == bookCount1)
+                {
+                    qDebug() << reservedBooks[i + 5];
+                    date = QDate::fromString(reservedBooks[i+5], "dd/MM/yyyy");
+                    break;
+                }
+            }
+        }
+    }
+    else // The book doesn't exist in this file, therefore we check checkedOutBooks instead.
+    {
+        QStringList checkedOutBooks = GetFileData(CSVFiles::_CheckedOutBooks);
+
+        for (int i = 0; i < checkedOutBooks.size(); i++)
+        {
+            if (checkedOutBooks[i] == bookID)
+            {
+                bookCount1++;
+            }
+        }
+        for (int i = 0; i < checkedOutBooks.size(); i++)
+        {
+            if (checkedOutBooks[i] == bookID)
+            {
+                bookCount2++;
+                if (bookCount2 == bookCount1)
+                {
+                    date = QDate::fromString(checkedOutBooks[i+4], "dd/MM/yyyy"); // for some reason i can't read the due date in checked out books
+                    date = date.addDays(7); // so I have to do addDays(7)
+                    break;
+                }
+            }
+        }
+    }
+
+    return date;
+}
+
 
