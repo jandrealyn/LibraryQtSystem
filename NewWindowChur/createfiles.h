@@ -12,6 +12,13 @@ enum CSVFiles
     _CheckedOutBooks
 };
 
+//enum MyEnum
+//{
+//    CSVFiles = _Catalogue | _Members,
+//    Test,
+//    One
+//};
+
 class CreateFiles
 {
 public:
@@ -19,13 +26,15 @@ public:
 
     static void CreateFilesOnStartUp();
     static QStringList GetFileData(enum CSVFiles);
-    static void CreateMember(QString fName, QString lName, QString uName, QString pWord, QString email, QString phoneNum);
+    static void CreateMember(QString avatar, QString fName, QString lName, QString uName, QString pWord, QString email, QString phoneNum);
     static void CheckOutBook(QString bookID, QString bookName, QString memID, QString memName);
+    static void CheckOutBook(QString bookID, QString bookName, QString memID, QString memName, QString reserveDate, QString dueDate);
 
     static QString _path;
     static QFile _catalogue;
     static QFile _members;
     static QFile _checkedOutBooks;
+    static QFile _reserveBook;
 };
 
 #endif // CREATEFILES_H

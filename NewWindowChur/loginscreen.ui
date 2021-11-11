@@ -163,6 +163,13 @@ padding: 6px;
    </widget>
   </widget>
  </widget>
+ <tabstops>
+  <tabstop>username_input</tabstop>
+  <tabstop>password_input</tabstop>
+  <tabstop>login</tabstop>
+  <tabstop>Create</tabstop>
+  <tabstop>close</tabstop>
+ </tabstops>
  <resources/>
  <connections/>
 </ui>
