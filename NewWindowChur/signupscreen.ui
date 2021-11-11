@@ -140,7 +140,11 @@ padding: 3px;
         </widget>
        </item>
        <item row="4" column="1">
-        <widget class="QLineEdit" name="Password"/>
+        <widget class="QLineEdit" name="Password">
+         <property name="echoMode">
+          <enum>QLineEdit::Password</enum>
+         </property>
+        </widget>
        </item>
        <item row="5" column="0">
         <widget class="QLabel" name="label_3">
@@ -240,7 +244,7 @@ padding: 6px;
      </item>
     </layout>
    </widget>
-   <widget class="QWidget" name="">
+   <widget class="QWidget" name="layoutWidget">
     <property name="geometry">
      <rect>
       <x>140</x>
