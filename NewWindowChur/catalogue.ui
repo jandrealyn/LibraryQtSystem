@@ -26,7 +26,11 @@
       <string notr="true">background-color: rgb(255, 255, 255);</string>
      </property>
      <property name="currentIndex">
+
+      <number>2</number>
+
       <number>0</number>
+
      </property>
      <widget class="QWidget" name="Home">
       <attribute name="title">
@@ -242,7 +246,7 @@ background-color: rgb(239, 239, 239);</string>
         </layout>
        </item>
        <item>
-        <widget class="QTabWidget" name="tabWidget_2">
+        <widget class="QTabWidget" name="users_books">
          <property name="sizePolicy">
           <sizepolicy hsizetype="Expanding" vsizetype="Preferred">
            <horstretch>0</horstretch>
@@ -258,11 +262,6 @@ background-color: rgb(239, 239, 239);</string>
          <widget class="QWidget" name="tab">
           <attribute name="title">
            <string>Current books</string>
-          </attribute>
-         </widget>
-         <widget class="QWidget" name="tab_2">
-          <attribute name="title">
-           <string>Checkout History</string>
           </attribute>
          </widget>
         </widget>

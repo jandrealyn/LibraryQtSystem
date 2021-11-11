@@ -12,6 +12,8 @@
 #include "checkoutscreen.h"
 #include "ui_checkoutscreen.h"
 #include "createfiles.h"
+#include "catalogue.h"
+#include <QStatusBar>
 #include <QDate>
 
 CheckOutScreen::CheckOutScreen(QWidget *parent, QString memName, QString memID, QString bookID, QString bookName, QString authorName, QString copies) :
@@ -23,15 +25,24 @@ CheckOutScreen::CheckOutScreen(QWidget *parent, QString memName, QString memID, 
     _membersName = memName;
     _bookID = bookID;
     _bookName = bookName;
+    _copies = copies;
 
     ui->book_name_label->setText(bookName);
     ui->book_author_label->setText(authorName);
     ui->book_copies_label->setText(copies);
 
-    if (copies.toInt() == 0) // We can't let a user checkout a book that doesn't have any copies
+    if (_copies.toInt() == 0) // We can't let a user checkout a book that doesn't have any copies
     {
         ui->checkoutNow->setEnabled(false);
+        ui->checkoutNow->setToolTip("Checking out a book is not available while there are no copies available.");
     }
+    else
+    {
+        ui->reserve->setEnabled(false);
+        ui->reserve->setToolTip("Reserving a book is not available while there are copies remaining \n for checkout.");
+    }
+
+    connect(this, SIGNAL(UpdateCheckOutScreenSignal()), this, SLOT(UpdateCheckOutScreenSlot()));
 }
 
 CheckOutScreen::~CheckOutScreen()
@@ -46,8 +57,6 @@ void CheckOutScreen::on_cancel_clicked()
 
 void CheckOutScreen::on_checkoutNow_clicked()
 {
-    bool yesChecked = false;
-
     QMessageBox* confirmCheckout = new QMessageBox(nullptr);
     confirmCheckout->setWindowTitle("Checkout Confirmation");
     confirmCheckout->setText("Are you sure you want to checkout this book?");
@@ -58,30 +67,47 @@ void CheckOutScreen::on_checkoutNow_clicked()
     switch(result)
     {
     case QMessageBox::Yes:
-        CreateFiles::CheckOutBook(_bookID, _bookName, _membersID, _membersName);
-        yesChecked = true;
+    {
+        QString dueDate = QDate::currentDate().addDays(7).toString("dd.MM.yyyy");
+        CreateFiles::CheckOutBook(_bookID, _bookName, _membersID, _membersName, dueDate);
+        QMessageBox* confirmed = new QMessageBox(nullptr);
+        confirmed->setWindowTitle("Checkout Confirmed");
+        confirmed->setText("You have successfully checked out " + _bookName + "!<br> "
+                           "Please return by " + dueDate);
+        confirmed->exec();
+        emit UpdateCatalogue();
+        emit UpdateCheckOutScreenSignal();
+    }
         break;
     case QMessageBox::Cancel:
         confirmCheckout->close();
         break;
     default: break;
     }
-
-    if (yesChecked)
-    {
-        QString dueDate = QDate::currentDate().addDays(7).toString("dd.MM.yyyy");
-        QMessageBox* confirmed = new QMessageBox(nullptr);
-        confirmed->setWindowTitle("Checkout Confirmed");
-        confirmed->setText("You have successfully checked out " + _bookName + "!<br> "
-                           "Please return by " + dueDate);
-       confirmed->exec();
-       this->close();
-    }
 }
 
 void CheckOutScreen::OpenCheckOutScreen()
 {
     show();
+}
+
+void CheckOutScreen::UpdateCheckOutScreenSlot()
+{
+    _copies = QString::number(_copies.toInt() - 1);
+    ui->book_copies_label->setText(_copies);
+
+    if (_copies.toInt() == 0)
+    {
+        ui->checkoutNow->setEnabled(false);
+        ui->checkoutNow->setToolTip("Checking out a book is not available while there are no copies available.");
+        ui->reserve->setEnabled(true);
+    }
+    else
+    {
+        ui->reserve->setEnabled(false);
+        ui->reserve->setToolTip("Reserving a book is not available while there are copies remaining \n for checkout.");
+        ui->checkoutNow->setEnabled(true);
+    }
 }
 
 void CheckOutScreen::on_reserve_clicked()
@@ -92,6 +118,3 @@ void CheckOutScreen::on_reserve_clicked()
     _reserveBook->showNormal();
     connect(_reserveBook, SIGNAL(ReserveScreenClosed()), this, SLOT(OpenCheckOutScreen()));
 }
-
-
-
