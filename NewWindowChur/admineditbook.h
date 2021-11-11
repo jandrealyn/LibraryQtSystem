@@ -17,9 +17,16 @@ public:
 
     //void setVariables(QString bookID, QString bookName, QString authorName, QString copies);
 
+private slots:
+    void on_canceledit_clicked();
+
+
+
+    void on_confimedit_clicked();
+
 private:
     Ui::admineditbook *ui;
-    QString _bookID;
+    QString _bookID, _bookName;
 };
 
 #endif // ADMINEDITBOOK_H

@@ -29,6 +29,9 @@ admincatalogue::admincatalogue(QWidget *parent) :
 
     ui->adminCatalogue->setStyleSheet("QHeaderView::section { background-color: rgba(254, 222, 255, 0.3) }");
     // Because we have 5 columns, we insert a column 5 times
+    const int arraySize = (booksData.size() / 6) - 1;
+    QPushButton* push[arraySize];
+    admineditbook* adminedit[arraySize];
     for (int i = 0; i < 6; i++)
     {
        ui->adminCatalogue->insertColumn(ui->adminCatalogue->columnCount());
@@ -58,13 +61,13 @@ admincatalogue::admincatalogue(QWidget *parent) :
             }
             else if (col == 5){
                 QWidget* item = new QWidget(ui->adminCatalogue);
-                QPushButton* push = new QPushButton(item);
-                push->setText("Edit");
-                push->resize(QSize(40,20));
-                connect(push, SIGNAL(clicked()), this, SLOT(mySlot()));
+                push[row] = new QPushButton(item);
+                push[row]->setText("Edit");
+                push[row]->setGeometry(20,35,60,40); //Changes the size of the button and the placement
+                adminedit[row] = new admineditbook(NULL, booksData[i-5], booksData[i-3], booksData[i-2], booksData[i-1]);
+                adminedit[row]->setWindowTitle("Edit book");
+                connect(push[row], SIGNAL(clicked()), adminedit[row], SLOT(exec()));
                 ui->adminCatalogue->setCellWidget(row, col, item);
-
-
             }
             else {
              QTableWidgetItem *item = new QTableWidgetItem(QString(booksData[i]));
@@ -85,6 +88,8 @@ void admincatalogue::on_back_clicked()
     close();
     emit ClosedAdminHome();
 }
+
+
 
 
 
