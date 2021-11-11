@@ -235,6 +235,19 @@ void CreateFiles::CheckOutBook(QString bookID, QString bookName, QString memID, 
     _reserveBook.close();
 }
 
+
+//gansa
+
+//void CreateFiles::EditBook(QString bookData[i]){
+   // _catalogue.open(QIODevice::WriteOnly| QFile::Truncate | QFile::Text);
+    //QTextStream catalogue_output(&_catalogue);
+    //catalogue_output << "BOOK ID" << "," << "IMAGE" << "," << "BOOK NAME" << "," << "AUTHOR" << "," << "COPIES" << "," << "EDIT BOOK" << "\n";
+    //for (int row; row < amount; row++){
+       // catalogue_output << bookID[row] << "," << bookIMG[row] << "," << bookName[row] << "," << authorName[row] << "," << copies[row] << "," << "PushButton";
+    //}
+    //_catalogue.close();
+//}
+
 QDate CreateFiles::FindLastReserveDate(QString bookID)
 {
     // We need to check if the book exists in reserved books first
@@ -301,4 +314,5 @@ QDate CreateFiles::FindLastReserveDate(QString bookID)
 
     return date;
 }
+
 
