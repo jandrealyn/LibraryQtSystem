@@ -41,6 +41,7 @@
 #include <QFrame>
 #include <QScrollArea>
 #include <QGroupBox>
+#include <QTabWidget>
 
 Catalogue::Catalogue(QWidget *parent, QString memID, QString memAvatar, QString memName, QString memEmail, QString memPhone) :
     QDialog(parent),

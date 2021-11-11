@@ -156,7 +156,8 @@ color: rgb(249, 238, 192);</string>
       <widget class="QPushButton" name="pushButton">
        <property name="styleSheet">
         <string notr="true">background-color: rgb(216, 193, 58);
-border-color: rgb(20, 20, 34);</string>
+border: none;
+border-radius: 3px;</string>
        </property>
        <property name="text">
         <string>Confirm Changes</string>
@@ -167,7 +168,8 @@ border-color: rgb(20, 20, 34);</string>
       <widget class="QPushButton" name="pushButton_2">
        <property name="styleSheet">
         <string notr="true">background-color: rgb(216, 193, 58);
-border-color: rgb(20, 20, 34);</string>
+border: none;
+border-radius: 3px;</string>
        </property>
        <property name="text">
         <string>Cancel</string>

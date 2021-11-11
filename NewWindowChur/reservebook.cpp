@@ -59,6 +59,7 @@ void ReserveBook::on_confirmReserve_clicked()
         CreateFiles::CheckOutBook(_bookID, _bookName, _membersID, _membersName, reserveDate, dueDate); //ReserveBook()
         QMessageBox::information(this, "Reservation success", "You have successfully placed a reservation for " + _bookName + "!");
         close();
+        emit ReserveScreenClosed();
         break;
     case QMessageBox::Cancel:
         confirmCheckout->close();
