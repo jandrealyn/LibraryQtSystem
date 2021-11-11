@@ -148,6 +148,7 @@ Catalogue::Catalogue(QWidget *parent, QString memID, QString memAvatar, QString 
     }
 
     ui->scrollArea->setWidget(groupBox);
+    qDebug() << "test group box";
     groupBox->setStyleSheet("background-color: white;");
 }
 
