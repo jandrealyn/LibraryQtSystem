@@ -156,6 +156,15 @@ Catalogue::~Catalogue()
 {
     delete ui;
 }
+//Liv Tried to figure out how to add the same imagery from " main window " - Yet to figure it out..s
+//Catalogue::Home()
+//    QDialog(parent),
+//    ui(new Ui::Catalogue)
+//{
+//    ui->setupUi(this);
+//    QPixmap Img(":/images/YoobeeLibraries.png");
+//    ui->img->setPixmap(Img.scaled(150, 150, Qt::KeepAspectRatio));
+//}
 
 void Catalogue::on_yourAccount_logout_clicked()
 {

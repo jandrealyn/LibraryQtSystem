@@ -152,10 +152,10 @@ padding: 3px;
      </rect>
     </property>
    </widget>
-   <widget class="QPushButton" name="close_2">
+   <widget class="QPushButton" name="done">
     <property name="geometry">
      <rect>
-      <x>170</x>
+      <x>320</x>
       <y>400</y>
       <width>172</width>
       <height>28</height>
@@ -172,30 +172,7 @@ padding: 3px;
 }</string>
     </property>
     <property name="text">
-     <string>Back</string>
-    </property>
-   </widget>
-   <widget class="QPushButton" name="close_3">
-    <property name="geometry">
-     <rect>
-      <x>460</x>
-      <y>400</y>
-      <width>172</width>
-      <height>28</height>
-     </rect>
-    </property>
-    <property name="styleSheet">
-     <string notr="true">QPushButton#close{
-background-color: #d3d3d3;
-border-width: 2px;
-border-radius: 5px;
-border-color: black;
-min-width: 5em;
-padding: 3px;
-}</string>
-    </property>
-    <property name="text">
-     <string>Sign Up!</string>
+     <string>Done</string>
     </property>
    </widget>
   </widget>
