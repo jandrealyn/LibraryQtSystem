@@ -3,4 +3,7 @@ build-NewWindowChur-Desktop_Qt_5_12_11_MinGW_64_bit-Debug
 build-NewWindowChur-Desktop_Qt_6_2_0_MinGW_64_bit-Debug
 build-NewWindowChur-Desktop_Qt_6_2_1_MinGW_64_bit-Debug
 build-NewWindowChur-Desktop_Qt_5_12_11_MinGW_64_bit-Debug
-NewWindowChur/*.user
+
+NewWindowChur/*.pro.user*
+
+*.user
