@@ -35,13 +35,13 @@ signupscreen2::signupscreen2(QWidget *parent) :
     ui->user_id->setEnabled(false); // This makes it so a user can't edit the line
     //test
 }
-void on_next_clicked(){
-
-
-}
 signupscreen2::~signupscreen2()
 {
     delete ui;
+}
+void signupscreen2::on_done_clicked(){
+    close();
+    emit OpenLoginScreen();
 }
 
 void signupscreen2::on_close_clicked(){ //function for - when the user clicks close
@@ -49,20 +49,4 @@ void signupscreen2::on_close_clicked(){ //function for - when the user clicks cl
     emit OpenLoginScreen();
 }
 
-void signupscreen2::on_Next_clicked()
-{
 
-}
-
-void signupscreen2::on_back_clicked()
-{
-
-}
-
-void signupscreen2::on_SignUp_clicked(){
-    hide();
-    Signup = new signupscreen2(nullptr);
-    Signup->setWindowFlags((windowFlags()) | Qt::WindowMinimizeButtonHint);
-    Signup->show();
-    connect(Signup, SIGNAL(OpenMainMenu()), this, SLOT(MainMenuOpen()));
-}

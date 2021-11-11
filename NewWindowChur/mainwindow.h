@@ -20,15 +20,15 @@ public:
     ~MainWindow();
 
 private slots:
-    void MainMenuOpen();
+    void MainMenuOpen(); // - Liv
 //    void MainMenuClosed();
-    void on_login_clicked();
+    void on_login_clicked(); // - Liv
 
 private:
     Ui::MainWindow *ui;
-    Catalogue *_catalogueWindow;
-    adminhome * _adminWindow;
-    loginscreen *_loginWindow;
+    Catalogue *_catalogueWindow; // - Liv
+    adminhome * _adminWindow; // - Liv
+    loginscreen *_loginWindow; // - Liv
 
 };
 #endif // MAINWINDOW_H
