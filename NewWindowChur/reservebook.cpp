@@ -15,7 +15,8 @@ ReserveBook::ReserveBook(QWidget *parent, QString memName, QString memID, QStrin
     _membersID = memID;
     _bookID = bookID;
     _bookName = bookName;
-    ui->calendarWidget->setMinimumDate(QDate::currentDate());
+    QDate minimumDate = CreateFiles::FindLastReserveDate(_bookID);
+    ui->calendarWidget->setMinimumDate(minimumDate);
     ui->bookNameLabel->setText(_bookName);
     ui->returnDateLabel->setText("Your selected date + 7 days.");
 }
@@ -56,6 +57,8 @@ void ReserveBook::on_confirmReserve_clicked()
     {
     case QMessageBox::Yes:
         CreateFiles::CheckOutBook(_bookID, _bookName, _membersID, _membersName, reserveDate, dueDate); //ReserveBook()
+        QMessageBox::information(this, "Reservation success", "You have successfully placed a reservation for " + _bookName + "!");
+        close();
         break;
     case QMessageBox::Cancel:
         confirmCheckout->close();

@@ -9,7 +9,8 @@ enum CSVFiles
 {
     _Catalogue,
     _Members,
-    _CheckedOutBooks
+    _CheckedOutBooks,
+    _ReservedBooks
 };
 
 //enum MyEnum
@@ -27,8 +28,9 @@ public:
     static void CreateFilesOnStartUp();
     static QStringList GetFileData(enum CSVFiles);
     static void CreateMember(QString avatar, QString fName, QString lName, QString uName, QString pWord, QString email, QString phoneNum);
-    static void CheckOutBook(QString bookID, QString bookName, QString memID, QString memName);
+    static void CheckOutBook(QString bookID, QString bookName, QString memID, QString memName, QString dueDate);
     static void CheckOutBook(QString bookID, QString bookName, QString memID, QString memName, QString reserveDate, QString dueDate);
+    static QDate FindLastReserveDate(QString bookID);
 
     static QString _path;
     static QFile _catalogue;

@@ -27,10 +27,10 @@ signupscreen::signupscreen(QWidget *parent) :
     _membersList = CreateFiles::GetFileData(CSVFiles::_Members);
 
     // Jakob - this bit of code disables the next button until all field have values
-    connect(ui->cat_avatar, SIGNAL(clicked()), this, SLOT(checkValues()));
-    connect(ui->pup_avatar, SIGNAL(clicked()), this, SLOT(checkValues()));
-    connect(ui->jerboa_avatar, SIGNAL(clicked()), this, SLOT(checkValues()));
-    connect(ui->no_avatar, SIGNAL(clicked()), this, SLOT(checkValues()));
+    connect(ui->cat_avatar, SIGNAL(toggled(bool)), this, SLOT(checkValues()));
+    connect(ui->pup_avatar, SIGNAL(toggled(bool)), this, SLOT(checkValues()));
+    connect(ui->jerboa_avatar, SIGNAL(toggled(bool)), this, SLOT(checkValues()));
+    connect(ui->no_avatar, SIGNAL(toggled(bool)), this, SLOT(checkValues()));
     connect(ui->firstname, SIGNAL(textChanged()), this, SLOT(checkValues()));
     connect(ui->lastname, SIGNAL(textChanged()), this, SLOT(checkValues()));
     connect(ui->Password, SIGNAL(textChanged()), this, SLOT(checkValues()));
@@ -151,16 +151,16 @@ void signupscreen::on_radioButton_toggled(bool checked)
 
 void signupscreen::checkValues()
 {
-    if (!ui->firstname->text().isEmpty() &&
-        !ui->lastname->text().isEmpty() &&
-        !ui->Password->text().isEmpty() &&
-        _usernameOk &&
-        _emailOk)
+    if (ui->cat_avatar->isChecked() ||
+        ui->pup_avatar->isChecked() ||
+        ui->jerboa_avatar->isChecked() ||
+        ui->no_avatar->isChecked())
     {
-        if (ui->cat_avatar->isChecked() ||
-            ui->pup_avatar->isChecked() ||
-            ui->jerboa_avatar->isChecked() ||
-            ui->no_avatar->isChecked())
+        if (!ui->firstname->text().isEmpty() &&
+            !ui->lastname->text().isEmpty() &&
+            !ui->Password->text().isEmpty() &&
+            _usernameOk &&
+            _emailOk)
         {
             ui->Next->setEnabled(true);
         }

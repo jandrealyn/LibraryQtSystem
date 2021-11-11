@@ -114,6 +114,7 @@ Catalogue::Catalogue(QWidget *parent, QString memID, QString memAvatar, QString 
         checkoutScreen[row] = new CheckOutScreen(NULL, memName, memID, catalogue[t], catalogue[t + 2], catalogue[t + 3], catalogue[t + 4]);
         checkoutScreen[row]->setWindowTitle("Checkout a book");
         connect(checkoutButton[row], SIGNAL(clicked()), checkoutScreen[row], SLOT(exec()));
+        connect(checkoutScreen[row], SIGNAL(UpdateCatalogue()), this, SLOT(update_catalogue()));
 
         // Horizontal Lines
         lines1[row] = new QFrame();
@@ -148,7 +149,6 @@ Catalogue::Catalogue(QWidget *parent, QString memID, QString memAvatar, QString 
     }
 
     ui->scrollArea->setWidget(groupBox);
-    qDebug() << "test group box";
     groupBox->setStyleSheet("background-color: white;");
 }
 
@@ -235,6 +235,7 @@ void Catalogue::on_searchBar_textChanged(const QString &arg1)
         // Sending Book ID, Book Name, Member ID, Member Name, Date through CheckOutScreen constructor.
         checkoutScreen[row] = new CheckOutScreen(NULL, _memName, _memID, foundData[t], foundData[t + 2], foundData[t + 3], foundData[t + 4]);
         connect(checkoutButton[row], SIGNAL(clicked()), checkoutScreen[row], SLOT(exec()));
+        connect(checkoutScreen[row], SIGNAL(UpdateCatalogue()), this, SLOT(update_catalogue()));
 
         // Horizontal Lines
         lines1[row] = new QFrame();
@@ -281,5 +282,96 @@ void Catalogue::on_yourAccount_update_clicked()
 void Catalogue::on_yourAccount_updatePic_clicked()
 {
 
+}
+
+void Catalogue::update_catalogue()
+{
+    // Array control
+    QStringList catalogue = CreateFiles::GetFileData(CSVFiles::_Catalogue);
+    const int arraySize = (catalogue.size() / 6) - 1;
+
+    // LAYOUTS
+    QGroupBox* groupBox = new QGroupBox;
+    QFormLayout* formLayout = new QFormLayout();
+    groupBox->setLayout(formLayout);
+
+    QFrame* lines1[arraySize];
+    QFrame* lines2[arraySize];
+    QLabel* bookImage[arraySize];
+    QLabel* bookName[arraySize];
+    QLabel* bookAuthor[arraySize];
+    QLabel* bookCopies[arraySize];
+    QPushButton* checkoutButton[arraySize];
+    CheckOutScreen* checkoutScreen[arraySize];
+
+    int t = 6;
+    // Initalize all widgets
+    for (int row = 0; row < arraySize; row++)
+    {
+        // Book image
+        QString imagePath = catalogue[t + 1]; // Skip the first spot of the list because it's the ID
+        QPixmap p(imagePath);
+        bookImage[row] = new QLabel;
+        bookImage[row]->setPixmap(p.scaled(90, 120));
+
+        // Book name
+        bookName[row] = new QLabel;
+        bookName[row]->setText("Book name: " + catalogue[t + 2]);
+
+        // Book author
+        bookAuthor[row] = new QLabel;
+        bookAuthor[row]->setText("Author: " + catalogue[t + 3]);
+
+        // Book copies
+        bookCopies[row] = new QLabel;
+        bookCopies[row]->setText("Copies: " + catalogue[t + 4]);
+
+        // Checkout button
+        const QSize btnSize = QSize(80, 25);
+        checkoutButton[row] = new QPushButton;
+        checkoutButton[row]->setText("Checkout");
+        checkoutButton[row]->setFixedSize(btnSize);
+        checkoutButton[row]->setStyleSheet("QPushButton { border: 1px solid black; }"
+                                           "QPushButton:pressed { border-color: #e7e7e7; background-color: #f4f4f4; }");
+
+        // Sending Book ID, Book Name, Member ID, Member Name, Date through CheckOutScreen constructor.
+        checkoutScreen[row] = new CheckOutScreen(NULL, _memName, _memID, catalogue[t], catalogue[t + 2], catalogue[t + 3], catalogue[t + 4]);
+        checkoutScreen[row]->setWindowTitle("Checkout a book");
+        connect(checkoutButton[row], SIGNAL(clicked()), checkoutScreen[row], SLOT(exec()));
+
+        // Horizontal Lines
+        lines1[row] = new QFrame();
+        lines1[row]->setLineWidth(1);
+        lines1[row]->setFrameShape(QFrame::HLine);
+        lines1[row]->setFrameShadow(QFrame::Sunken);
+
+        lines2[row] = new QFrame();
+        lines2[row]->setLineWidth(1);
+        lines2[row]->setFrameShape(QFrame::HLine);
+        lines2[row]->setFrameShadow(QFrame::Sunken);
+
+        t = t + 6;
+    }
+
+    // Add all of the widgets into the layouts
+    for (int row = 0; row < arraySize; row++)
+    {
+        formLayout->setWidget(row, QFormLayout::LabelRole, bookImage[row]);
+
+        QVBoxLayout* verticalLayout = new QVBoxLayout();
+        formLayout->setLayout(row, QFormLayout::FieldRole, verticalLayout);
+
+        verticalLayout->addWidget(lines1[row]);
+        verticalLayout->addWidget(bookName[row]);
+        verticalLayout->addWidget(bookAuthor[row]);
+        verticalLayout->addWidget(bookCopies[row]);
+        verticalLayout->addWidget(checkoutButton[row]);
+        verticalLayout->addWidget(lines2[row]);
+        formLayout->setContentsMargins(10, 5, 0, 20);
+        formLayout->setVerticalSpacing(30);
+    }
+
+    ui->scrollArea->setWidget(groupBox);
+    groupBox->setStyleSheet("background-color: white;");
 }
 

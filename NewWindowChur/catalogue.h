@@ -26,6 +26,8 @@ private slots:
 
     void on_yourAccount_updatePic_clicked();
 
+    void update_catalogue();
+
 private:
     QString memberName, memberID;
     Ui::Catalogue *ui;
