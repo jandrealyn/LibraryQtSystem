@@ -13,7 +13,16 @@ class Catalogue : public QDialog
     Q_OBJECT
 
 public:
-    explicit Catalogue(QWidget *parent = nullptr, QString memId = "", QString memAvatar = "", QString memName = "", QString memEmail = "", QString memPhone = "");
+    explicit Catalogue(QWidget *parent = nullptr,
+                       QString memUser = "",
+                       QString memPass = "",
+                       QString memfName = "",
+                       QString memlName = "",
+                       QString memEmail = "",
+                       QString memPhone = "",
+                       QString memID = "",
+                       QString memAvatar = "");
+
     ~Catalogue();
 
 signals:
@@ -30,12 +39,10 @@ private slots:
     void update_catalogue();
 
 private:
-    QString memberName, memberID;
+    QString _memUser, _memPass, _memfName, _memlName, _memEmail, _memPhone, _memID, _memAvatar;
     Ui::Catalogue *ui;
     CheckOutScreen* c_ui;
     UpdateUserDetails* update_ui;
-
-    QString _memID, _memName;
 };
 
 #endif // CATALOGUE_H
