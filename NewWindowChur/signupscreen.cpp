@@ -132,33 +132,45 @@ void signupscreen::on_email_textChanged(const QString &arg1)
 void signupscreen::on_cat_avatar_toggled(bool checked)
 {
     if (checked)
+    {
         _avatar = ":/images/cat-avatar.jpg";
+        _avatarSelected = true;
+    }
 }
 
 void signupscreen::on_pup_avatar_toggled(bool checked)
 {
     if (checked)
+    {
         _avatar = ":/images/dog-avatar.jpg";
+        _avatarSelected = true;
+    }
 }
 
 void signupscreen::on_jerboa_avatar_toggled(bool checked)
 {
     if (checked)
-        _avatar = ":/images/jerboa-avatar.jpg";
+    {
+      _avatar = ":/images/jerboa-avatar.jpg";
+      _avatarSelected = true;
+    }
 }
 
 void signupscreen::on_radioButton_toggled(bool checked)
 {
     if (checked)
+    {
         _avatar = ":/images/default-avatar.png";
+        _avatarSelected = true;
+    }
 }
 
+// By Jakob
+// Checks if all the necessary info has been made to create a user.
+// If everything is all good, it enables the "create user" button
 void signupscreen::checkValues()
 {
-    if (ui->cat_avatar->isChecked() ||
-        ui->pup_avatar->isChecked() ||
-        ui->jerboa_avatar->isChecked() ||
-        ui->no_avatar->isChecked())
+    if (_avatarSelected)
     {
         if (!ui->firstname->text().isEmpty() &&
             !ui->lastname->text().isEmpty() &&
