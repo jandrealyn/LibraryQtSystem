@@ -42,6 +42,7 @@
 #include <QScrollArea>
 #include <QGroupBox>
 #include <QTabWidget>
+#include <QTableWidget>
 
 Catalogue::Catalogue(QWidget *parent,
                      QString memUser,
@@ -166,6 +167,9 @@ Catalogue::Catalogue(QWidget *parent,
 
     ui->scrollArea->setWidget(groupBox);
     groupBox->setStyleSheet("background-color: white;");
+
+    // Users checked out books section
+    ui->users_books->
 }
 
 Catalogue::~Catalogue()
