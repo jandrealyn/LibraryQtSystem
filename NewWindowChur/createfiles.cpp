@@ -235,6 +235,34 @@ void CreateFiles::CheckOutBook(QString bookID, QString bookName, QString memID, 
     _reserveBook.close();
 }
 
+void CreateFiles::UpdateMemberDetails(QStringList membersData)
+{
+    int col = 0;
+    if(_members.open(QIODevice::WriteOnly | QFile::Truncate | QFile::Text))
+    {
+        QTextStream in(&_members);
+        for (int i = 0; i < membersData.size(); i++)
+        {
+            in << membersData[i];
+            if (col != 7)
+            {
+                in << ",";
+                col++;
+            }
+            else
+            {
+                in << "\n";
+                col = 0;
+            }
+        }
+    }
+    else
+    {
+        qDebug() << "Could not open members file.";
+    }
+    _members.close();
+}
+
 
 //gansa
 
@@ -259,9 +287,9 @@ QDate CreateFiles::FindLastReserveDate(QString bookID)
     QString minimumDate;
     int bookCount1 = 0;
     int bookCount2 = 0; // Multiple people may have reserved the same book
-                       // In this case, we need to find the last known spot in the CSV of the reserved book.
-                       // The last known spot will be the latest reserved date. We can get that due date and set that
-                       // as the minimum date a user can set their next reservation.
+                        // In this case, we need to find the last known spot in the CSV of the reserved book.
+                        // The last known spot will be the latest reserved date. We can get that due date and set that
+                        // as the minimum date a user can set their next reservation.
 
     for (int i = 0; i < reservedBooks.size(); i++)
     {

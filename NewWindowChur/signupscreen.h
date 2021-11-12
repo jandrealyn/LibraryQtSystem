@@ -48,6 +48,7 @@ private:
     QString _avatar; // jakob
     bool _usernameOk; // jakob
     bool _emailOk; // jakob
+    bool _avatarSelected; // jakob
     QStringList _membersList; // jakob
 };
 
