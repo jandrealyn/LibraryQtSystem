@@ -37,6 +37,7 @@ private slots:
     void on_jerboa_avatar_toggled(bool checked);
 
     void on_radioButton_toggled(bool checked);
+
     void checkValues();
 
     void on_email_textChanged(const QString &arg1);

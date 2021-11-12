@@ -2,6 +2,7 @@
 #define CATALOGUE_H
 
 #include "checkoutscreen.h"
+#include "updateuserdetails.h"
 
 namespace Ui {
 class Catalogue;
@@ -23,13 +24,16 @@ private slots:
     void on_searchBar_textChanged(const QString &arg1);
 
     void on_yourAccount_update_clicked();
-    void on_home_clicked();
+
     void on_yourAccount_updatePic_clicked();
+
+    void update_catalogue();
 
 private:
     QString memberName, memberID;
     Ui::Catalogue *ui;
     CheckOutScreen* c_ui;
+    UpdateUserDetails* update_ui;
 
     QString _memID, _memName;
 };

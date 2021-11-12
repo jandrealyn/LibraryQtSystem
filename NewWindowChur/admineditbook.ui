@@ -13,149 +13,208 @@
   <property name="windowTitle">
    <string>Dialog</string>
   </property>
-  <widget class="QPushButton" name="pushButton_2">
+  <widget class="QFrame" name="gridFrame_2">
    <property name="geometry">
     <rect>
-     <x>100</x>
-     <y>350</y>
-     <width>121</width>
-     <height>51</height>
-    </rect>
-   </property>
-   <property name="text">
-    <string>Confirm Changes</string>
-   </property>
-  </widget>
-  <widget class="QPushButton" name="pushButton_3">
-   <property name="geometry">
-    <rect>
-     <x>310</x>
-     <y>350</y>
-     <width>121</width>
-     <height>51</height>
-    </rect>
-   </property>
-   <property name="text">
-    <string>Cancel</string>
-   </property>
-  </widget>
-  <widget class="QLabel" name="label">
-   <property name="geometry">
-    <rect>
-     <x>190</x>
-     <y>20</y>
-     <width>141</width>
-     <height>51</height>
+     <x>0</x>
+     <y>0</y>
+     <width>551</width>
+     <height>441</height>
     </rect>
    </property>
    <property name="styleSheet">
-    <string notr="true">font-size: 34px</string>
+    <string notr="true">*{
+background: rgb(255, 255, 255);
+fontsize: 15px;
+font-family: Century Gothic, sans-serif;
+}
+
+QFrame{
+border: solid 10px rgba(0, 0, 0);
+}
+
+QLineEdit{
+color: #8d98a1;
+background-color: #d3d3d3;
+font-size: 18px;
+border-style: outset;
+border-radius: 10px;
+}
+QPushButton{
+background: #ced1d8;
+border-style: outset;
+border-radius: 5px;
+}
+QPushButton:pressed{
+background-color: rgb(224, 0, 0);
+border-style: inset;
+}
+</string>
    </property>
-   <property name="text">
-    <string>Edit Book</string>
-   </property>
-  </widget>
-  <widget class="QLabel" name="label_2">
-   <property name="geometry">
-    <rect>
-     <x>60</x>
-     <y>110</y>
-     <width>51</width>
-     <height>31</height>
-    </rect>
-   </property>
-   <property name="styleSheet">
-    <string notr="true">font-size: 20px</string>
-   </property>
-   <property name="text">
-    <string>Title:</string>
-   </property>
-  </widget>
-  <widget class="QLabel" name="label_3">
-   <property name="geometry">
-    <rect>
-     <x>40</x>
-     <y>150</y>
-     <width>91</width>
-     <height>31</height>
-    </rect>
-   </property>
-   <property name="styleSheet">
-    <string notr="true">font-size: 20px</string>
-   </property>
-   <property name="text">
-    <string>Author:</string>
-   </property>
-  </widget>
-  <widget class="QLabel" name="label_4">
-   <property name="geometry">
-    <rect>
-     <x>40</x>
-     <y>190</y>
-     <width>91</width>
-     <height>31</height>
-    </rect>
-   </property>
-   <property name="styleSheet">
-    <string notr="true">font-size: 20px</string>
-   </property>
-   <property name="text">
-    <string>Copies:</string>
-   </property>
-  </widget>
-  <widget class="QLabel" name="book_name_label">
-   <property name="geometry">
-    <rect>
-     <x>130</x>
-     <y>120</y>
-     <width>351</width>
-     <height>21</height>
-    </rect>
-   </property>
-   <property name="font">
-    <font>
-     <pointsize>12</pointsize>
-    </font>
-   </property>
-   <property name="text">
-    <string>BookName</string>
-   </property>
-  </widget>
-  <widget class="QLabel" name="book_author_label">
-   <property name="geometry">
-    <rect>
-     <x>130</x>
-     <y>160</y>
-     <width>351</width>
-     <height>21</height>
-    </rect>
-   </property>
-   <property name="font">
-    <font>
-     <pointsize>12</pointsize>
-    </font>
-   </property>
-   <property name="text">
-    <string>AuthorName</string>
-   </property>
-  </widget>
-  <widget class="QLabel" name="book_copies_label">
-   <property name="geometry">
-    <rect>
-     <x>130</x>
-     <y>200</y>
-     <width>351</width>
-     <height>21</height>
-    </rect>
-   </property>
-   <property name="font">
-    <font>
-     <pointsize>12</pointsize>
-    </font>
-   </property>
-   <property name="text">
-    <string>Copies</string>
-   </property>
+   <widget class="QPushButton" name="back">
+    <property name="geometry">
+     <rect>
+      <x>640</x>
+      <y>40</y>
+      <width>111</width>
+      <height>41</height>
+     </rect>
+    </property>
+    <property name="styleSheet">
+     <string notr="true">background-color: rgb(255, 255, 255);
+
+border-width: 1px;
+
+border-color: black;
+
+border-radius: 10px;
+
+border-style: outset;
+
+font: 14px;
+
+padding:2px;</string>
+    </property>
+    <property name="text">
+     <string>Back</string>
+    </property>
+   </widget>
+   <widget class="QLabel" name="label_2">
+    <property name="geometry">
+     <rect>
+      <x>80</x>
+      <y>120</y>
+      <width>41</width>
+      <height>31</height>
+     </rect>
+    </property>
+    <property name="styleSheet">
+     <string notr="true">font-size: 20px</string>
+    </property>
+    <property name="text">
+     <string>Title:</string>
+    </property>
+   </widget>
+   <widget class="QLabel" name="label_4">
+    <property name="geometry">
+     <rect>
+      <x>50</x>
+      <y>220</y>
+      <width>91</width>
+      <height>31</height>
+     </rect>
+    </property>
+    <property name="styleSheet">
+     <string notr="true">font-size: 20px</string>
+    </property>
+    <property name="text">
+     <string>Copies:</string>
+    </property>
+   </widget>
+   <widget class="QLabel" name="label">
+    <property name="geometry">
+     <rect>
+      <x>200</x>
+      <y>30</y>
+      <width>151</width>
+      <height>51</height>
+     </rect>
+    </property>
+    <property name="styleSheet">
+     <string notr="true">font-size: 34px</string>
+    </property>
+    <property name="text">
+     <string>Edit Book</string>
+    </property>
+   </widget>
+   <widget class="QPushButton" name="canceledit">
+    <property name="geometry">
+     <rect>
+      <x>320</x>
+      <y>360</y>
+      <width>121</width>
+      <height>51</height>
+     </rect>
+    </property>
+    <property name="text">
+     <string>Cancel</string>
+    </property>
+   </widget>
+   <widget class="QLabel" name="label_3">
+    <property name="geometry">
+     <rect>
+      <x>50</x>
+      <y>170</y>
+      <width>91</width>
+      <height>31</height>
+     </rect>
+    </property>
+    <property name="styleSheet">
+     <string notr="true">font-size: 20px</string>
+    </property>
+    <property name="text">
+     <string>Author:</string>
+    </property>
+   </widget>
+   <widget class="QPushButton" name="confimedit">
+    <property name="geometry">
+     <rect>
+      <x>110</x>
+      <y>360</y>
+      <width>121</width>
+      <height>51</height>
+     </rect>
+    </property>
+    <property name="text">
+     <string>Confirm Changes</string>
+    </property>
+   </widget>
+   <widget class="QLabel" name="label_5">
+    <property name="geometry">
+     <rect>
+      <x>50</x>
+      <y>270</y>
+      <width>71</width>
+      <height>31</height>
+     </rect>
+    </property>
+    <property name="styleSheet">
+     <string notr="true">font-size: 20px</string>
+    </property>
+    <property name="text">
+     <string>Image:</string>
+    </property>
+   </widget>
+   <widget class="QLineEdit" name="book_name_label">
+    <property name="geometry">
+     <rect>
+      <x>130</x>
+      <y>120</y>
+      <width>281</width>
+      <height>31</height>
+     </rect>
+    </property>
+   </widget>
+   <widget class="QLineEdit" name="book_author_label">
+    <property name="geometry">
+     <rect>
+      <x>130</x>
+      <y>170</y>
+      <width>281</width>
+      <height>31</height>
+     </rect>
+    </property>
+   </widget>
+   <widget class="QLineEdit" name="book_copies_label">
+    <property name="geometry">
+     <rect>
+      <x>130</x>
+      <y>220</y>
+      <width>281</width>
+      <height>31</height>
+     </rect>
+    </property>
+   </widget>
   </widget>
  </widget>
  <resources/>
