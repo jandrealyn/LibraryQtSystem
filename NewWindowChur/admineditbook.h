@@ -24,6 +24,8 @@ private slots:
 
     void on_confimedit_clicked();
 
+    void on_deletebook_clicked();
+
 private:
     Ui::admineditbook *ui;
     QString _bookID, _bookName;

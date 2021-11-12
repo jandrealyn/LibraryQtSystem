@@ -266,15 +266,18 @@ void CreateFiles::UpdateMemberDetails(QStringList membersData)
 
 //gansa
 
-//void CreateFiles::EditBook(QString bookData[i]){
-   // _catalogue.open(QIODevice::WriteOnly| QFile::Truncate | QFile::Text);
-    //QTextStream catalogue_output(&_catalogue);
-    //catalogue_output << "BOOK ID" << "," << "IMAGE" << "," << "BOOK NAME" << "," << "AUTHOR" << "," << "COPIES" << "," << "EDIT BOOK" << "\n";
-    //for (int row; row < amount; row++){
-       // catalogue_output << bookID[row] << "," << bookIMG[row] << "," << bookName[row] << "," << authorName[row] << "," << copies[row] << "," << "PushButton";
-    //}
-    //_catalogue.close();
-//}
+void CreateFiles::EditBook(QStringList bookData){
+    _catalogue.open(QIODevice::WriteOnly| QFile::Truncate | QFile::Text);
+    QTextStream catalogue_output(&_catalogue);
+    catalogue_output << "BOOK ID" << "," << "IMAGE" << "," << "BOOK NAME" << "," << "AUTHOR" << "," << "COPIES" << "," << "EDIT BOOK" << "\n";
+    int i=6;
+    int amount = (bookData.size() / 6) - 1;
+    for (int row = 0; row < amount; row++){
+            catalogue_output << bookData[i] << "," << bookData[i+1] << "," << bookData[i+2] << "," << bookData[i+3] << "," << bookData[i+4] << "," << "PushButton" << "\n";
+            i = i + 6;
+    }
+    _catalogue.close();
+}
 
 QDate CreateFiles::FindLastReserveDate(QString bookID)
 {
