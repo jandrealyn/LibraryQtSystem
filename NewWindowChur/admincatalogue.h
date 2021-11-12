@@ -22,6 +22,8 @@ signals:
 private slots:
     void on_back_clicked();
 
+    void on_verticalScrollBar_sliderMoved(int position);
+
 private:
     Ui::admincatalogue *ui;
     admineditbook *adminedit;

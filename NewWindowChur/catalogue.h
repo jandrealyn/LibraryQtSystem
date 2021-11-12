@@ -24,7 +24,7 @@ private slots:
     void on_searchBar_textChanged(const QString &arg1);
 
     void on_yourAccount_update_clicked();
-    void on_home_clicked();
+    //void on_home_clicked();
     void on_yourAccount_updatePic_clicked();
 
     void update_catalogue();

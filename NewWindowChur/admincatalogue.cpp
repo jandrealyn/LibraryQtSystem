@@ -15,6 +15,7 @@
 #include <QScrollArea>
 #include <QGroupBox>
 #include <QPushButton>
+#include <QScrollBar>
 
 admincatalogue::admincatalogue(QWidget *parent) :
     QDialog(parent),
@@ -40,8 +41,8 @@ admincatalogue::admincatalogue(QWidget *parent) :
     // We have headers in our CSV file, so I use them to set the labels for the table.
     ui->adminCatalogue->setHorizontalHeaderLabels({booksData[0], booksData[1], booksData[2], booksData[3], booksData[4], booksData[5]});
     ui->adminCatalogue->horizontalHeader()->setSectionResizeMode(0, QHeaderView::Interactive);
-    ui->adminCatalogue->horizontalHeader()->setSectionResizeMode(1, QHeaderView::Stretch);
-    ui->adminCatalogue->horizontalHeader()->setSectionResizeMode(2, QHeaderView::Stretch);
+    ui->adminCatalogue->horizontalHeader()->setSectionResizeMode(1, QHeaderView::ResizeToContents);
+    ui->adminCatalogue->horizontalHeader()->setSectionResizeMode(2, QHeaderView::ResizeToContents);
     ui->adminCatalogue->setSelectionMode(QHeaderView::NoSelection);
     // Create the rows of the QTableWidget
     int i = 6;
@@ -91,6 +92,8 @@ void admincatalogue::on_back_clicked()
 }
 
 
+void admincatalogue::on_verticalScrollBar_sliderMoved(int position)
+{
 
-
+}
 
