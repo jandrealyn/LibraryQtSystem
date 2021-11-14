@@ -128,6 +128,7 @@ void UpdateUserDetails::on_confirmChanges_clicked()
     case QMessageBox::Yes:
         CreateFiles::UpdateMemberDetails(membersData);
         QMessageBox::information(this, "Update Succesful", "Details have been successfully updated.");
+        close();
         break;
     case QMessageBox::Cancel:
         break;
