@@ -6,6 +6,7 @@
 int main(int argc, char *argv[])
 {
     SystemFiles::CreateFilesOnStartUp();
+    SystemFiles::CheckReservedBooks();
 
     QApplication a(argc, argv);
     MainWindow w;
