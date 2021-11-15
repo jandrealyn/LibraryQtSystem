@@ -14,7 +14,7 @@
 
 #include "updateuserdetails.h"
 #include "ui_updateuserdetails.h"
-#include "createfiles.h"
+#include "SystemFiles.h"
 #include <QLineEdit>
 #include <QMessageBox>
 #include <QDebug>
@@ -37,7 +37,7 @@ UpdateUserDetails::UpdateUserDetails(QWidget *parent, QString memUsername, QStri
     _emailGood = false;
 
     // Getting members data straight away
-    membersData = CreateFiles::GetFileData(CSVFiles::_Members);
+    membersData = SystemFiles::GetFileData(CSVFiles::_Members);
 
     // Settings all the line edits with user information
     ui->lineEdit_username->setText(memUsername);
@@ -126,8 +126,9 @@ void UpdateUserDetails::on_confirmChanges_clicked()
     switch (result)
     {
     case QMessageBox::Yes:
-        CreateFiles::UpdateMemberDetails(membersData);
+        SystemFiles::UpdateMemberDetails(membersData);
         QMessageBox::information(this, "Update Succesful", "Details have been successfully updated.");
+        close();
         break;
     case QMessageBox::Cancel:
         break;

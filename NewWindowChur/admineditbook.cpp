@@ -1,6 +1,6 @@
 #include "admineditbook.h"
 #include "ui_admineditbook.h"
-#include "createfiles.h"
+#include "SystemFiles.h"
 #include <QWidget>
 #include <QDebug>
 #include <QDialog>
@@ -55,7 +55,7 @@ void admineditbook::on_confimedit_clicked()
     msgBox.exec();
 
     if (msgBox.clickedButton()==edit){
-            QStringList booksData = CreateFiles::GetFileData(CSVFiles::_Catalogue);
+            QStringList booksData = SystemFiles::GetFileData(CSVFiles::_Catalogue);
             int rowCount = (booksData.size() / 6) - 1;
             int i = 6;
             for (int row = 0; row < rowCount; row++)
@@ -74,8 +74,7 @@ void admineditbook::on_confimedit_clicked()
                 }
             }
             //CreateFiles::EditBook(booksData[arraySize+1]);
-            CreateFiles::EditBook(booksData);
-            emit admincatalogueUpdate();
+            SystemFiles::EditBook(booksData);
             close();
             emit exec();
         }
@@ -100,7 +99,7 @@ void admineditbook::on_deletebook_clicked()
     msgBox.exec();
 
     if (msgBox.clickedButton()==edit){
-            QStringList booksData = CreateFiles::GetFileData(CSVFiles::_Catalogue);
+            QStringList booksData = SystemFiles::GetFileData(CSVFiles::_Catalogue);
             int rowCount = (booksData.size() / 6) - 1;
             int i = 6;
             for (int row = 0; row < rowCount; row++)
@@ -114,7 +113,7 @@ void admineditbook::on_deletebook_clicked()
                 }
             }
             //CreateFiles::EditBook(booksData[arraySize+1]);
-            CreateFiles::EditBook(booksData);
+            SystemFiles::EditBook(booksData);
             close();
             emit exec();
         }
@@ -123,4 +122,3 @@ void admineditbook::on_deletebook_clicked()
     //if no clicked
     }
 }
-

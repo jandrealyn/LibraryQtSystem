@@ -7,7 +7,7 @@
 #include <QDebug> //is a class that provides an output stream for debugging information
 #include <QPushButton>//is a widget which executes an action when a user clicks on it.
 #include <QInputDialog>
-#include "createfiles.h"
+#include "SystemFiles.h"
 using namespace std;
 
  // - liv (Worked on Login/Signup/Menu Screens)
@@ -24,7 +24,7 @@ signupscreen::signupscreen(QWidget *parent) :
     ui->Next->setEnabled(false); // Jakob
 
     // Jakob
-    _membersList = CreateFiles::GetFileData(CSVFiles::_Members);
+    _membersList = SystemFiles::GetFileData(CSVFiles::_Members);
 
     // Jakob - this bit of code disables the next button until all field have values
     connect(ui->cat_avatar, SIGNAL(toggled(bool)), this, SLOT(checkValues()));
@@ -50,7 +50,7 @@ void signupscreen::on_Next_clicked(){
     QString email = ui->email->text();//email input
     QString phoneNum = ui->phone->text();//phone input
 
-    CreateFiles::CreateMember(_avatar, fName, Lname, uName, pWord, email, phoneNum);
+    SystemFiles::CreateMember(_avatar, fName, Lname, uName, pWord, email, phoneNum);
 
     Signupscreen2 = new signupscreen2(nullptr);
     Signupscreen2->setWindowFlags(windowFlags() | Qt::WindowMinimizeButtonHint);

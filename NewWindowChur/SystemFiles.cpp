@@ -12,24 +12,24 @@
 //
 // ------------------------------------------------------------
 
-#include "createfiles.h"
+#include "SystemFiles.h"
 #include <QDebug>
 #include <QRandomGenerator>
 #include <QDebug>
 #include <QDate>
 
 // Defining static variables
-QString CreateFiles::_path = "CSVFiles/";
-QFile CreateFiles::_catalogue(_path + "catalogue.csv");
-QFile CreateFiles::_members(_path + "members.csv");
-QFile CreateFiles::_checkedOutBooks(_path + "checkedoutbooks.csv");
-QFile CreateFiles::_reserveBook(_path + "reserveBook.csv");
+QString SystemFiles::_path = "CSVFiles/";
+QFile SystemFiles::_catalogue(_path + "catalogue.csv");
+QFile SystemFiles::_members(_path + "members.csv");
+QFile SystemFiles::_checkedOutBooks(_path + "checkedoutbooks.csv");
+QFile SystemFiles::_reserveBook(_path + "reserveBook.csv");
 
-CreateFiles::CreateFiles()
+SystemFiles::SystemFiles()
 {
 }
 
-void CreateFiles::CreateFilesOnStartUp()
+void SystemFiles::CreateFilesOnStartUp()
 {
     // Check if the "CSVFiles" folder exists, if not then create it.
     if (!QDir(_path).exists())
@@ -74,7 +74,7 @@ void CreateFiles::CreateFilesOnStartUp()
     }
 }
 
-QStringList CreateFiles::GetFileData(enum CSVFiles file)
+QStringList SystemFiles::GetFileData(enum CSVFiles file)
 {
     QStringList fileData;
     switch (file)
@@ -151,7 +151,7 @@ QStringList CreateFiles::GetFileData(enum CSVFiles file)
 // Whoever is in charge of the login screen can use this function to pass through
 // the values of the users account details and creates an account. It will also
 // generate a randomised ID.
-void CreateFiles::CreateMember(QString avatar, QString fName, QString lName, QString uName, QString pWord, QString email, QString phoneNum)
+void SystemFiles::CreateMember(QString avatar, QString fName, QString lName, QString uName, QString pWord, QString email, QString phoneNum)
 {
     // Generate the members ID
     quint32 idNum = QRandomGenerator::global()->bounded(1000, 9999);
@@ -182,7 +182,7 @@ void CreateFiles::CreateMember(QString avatar, QString fName, QString lName, QSt
     _members.close();
 }
 
-void CreateFiles::CheckOutBook(QString bookID, QString bookName, QString memID, QString memName, QString dueDate)
+void SystemFiles::CheckOutBook(QString bookID, QString bookName, QString memID, QString memName, QString dueDate)
 {
     QString currentDate = QDate::currentDate().toString("dd/MM/yyyy");
 
@@ -227,7 +227,7 @@ void CreateFiles::CheckOutBook(QString bookID, QString bookName, QString memID, 
 
 }
 
-void CreateFiles::CheckOutBook(QString bookID, QString bookName, QString memID, QString memName, QString reserveDate, QString dueDate)
+void SystemFiles::CheckOutBook(QString bookID, QString bookName, QString memID, QString memName, QString reserveDate, QString dueDate)
 {
     _reserveBook.open(QIODevice::WriteOnly | QFile::Append | QFile::Text);
     QTextStream in(&_reserveBook);
@@ -235,7 +235,7 @@ void CreateFiles::CheckOutBook(QString bookID, QString bookName, QString memID, 
     _reserveBook.close();
 }
 
-void CreateFiles::UpdateMemberDetails(QStringList membersData)
+void SystemFiles::UpdateMemberDetails(QStringList membersData)
 {
     int col = 0;
     if(_members.open(QIODevice::WriteOnly | QFile::Truncate | QFile::Text))
@@ -266,7 +266,7 @@ void CreateFiles::UpdateMemberDetails(QStringList membersData)
 
 //gansa
 
-void CreateFiles::EditBook(QStringList bookData){
+void SystemFiles::EditBook(QStringList bookData){
     _catalogue.open(QIODevice::WriteOnly| QFile::Truncate | QFile::Text);
     QTextStream catalogue_output(&_catalogue);
     catalogue_output << "BOOK ID" << "," << "IMAGE" << "," << "BOOK NAME" << "," << "AUTHOR" << "," << "COPIES" << "," << "EDIT BOOK" << "\n";
@@ -279,7 +279,7 @@ void CreateFiles::EditBook(QStringList bookData){
     _catalogue.close();
 }
 
-QDate CreateFiles::FindLastReserveDate(QString bookID)
+QDate SystemFiles::FindLastReserveDate(QString bookID)
 {
     // We need to check if the book exists in reserved books first
     // If it doesn't, then it means it hasn't been reserved before and that it's only just hit 0 copies from a normal checkout.

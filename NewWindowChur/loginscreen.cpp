@@ -2,7 +2,7 @@
 
 #include "loginscreen.h"
 #include "ui_loginscreen.h"
-#include "createfiles.h"
+#include "SystemFiles.h"
 #include "QMessageBox"
 #include "QCheckBox"
 #include <QDebug> //is a class that provides an output stream for debugging information
@@ -47,7 +47,7 @@ void loginscreen::on_login_clicked()
     else
     {
         // Checking if the inputs exist in the members file
-        QStringList membersData = CreateFiles::GetFileData(CSVFiles::_Members);
+        QStringList membersData = SystemFiles::GetFileData(CSVFiles::_Members);
 
         int col = 0;
         bool foundUser = false;

@@ -11,7 +11,7 @@
 
 #include "checkoutscreen.h"
 #include "ui_checkoutscreen.h"
-#include "createfiles.h"
+#include "SystemFiles.h"
 #include "catalogue.h"
 #include <QStatusBar>
 #include <QDate>
@@ -69,7 +69,7 @@ void CheckOutScreen::on_checkoutNow_clicked()
     case QMessageBox::Yes:
     {
         QString dueDate = QDate::currentDate().addDays(7).toString("dd.MM.yyyy");
-        CreateFiles::CheckOutBook(_bookID, _bookName, _membersID, _membersName, dueDate);
+        SystemFiles::CheckOutBook(_bookID, _bookName, _membersID, _membersName, dueDate);
         QMessageBox* confirmed = new QMessageBox(nullptr);
         confirmed->setWindowTitle("Checkout Confirmed");
         confirmed->setText("You have successfully checked out " + _bookName + "!<br> "

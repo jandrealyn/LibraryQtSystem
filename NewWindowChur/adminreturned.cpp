@@ -1,6 +1,6 @@
 #include "adminreturned.h"
 #include "ui_adminreturned.h"
-#include "createfiles.h"
+#include "SystemFiles.h"
 #include <QDebug>
 #include <QDialog>
 #include <QFile>
@@ -17,7 +17,7 @@ adminreturned::adminreturned(QWidget *parent) :
     QDialog(parent),
     ui(new Ui::adminreturned)
 {
-        QStringList booksData = CreateFiles::GetFileData(CSVFiles::_Catalogue);
+        QStringList booksData = SystemFiles::GetFileData(CSVFiles::_Catalogue);
         ui->setupUi(this);
         QPixmap Img(":/images/YoobeeLibraries.png");
         ui->img->setPixmap(Img.scaled(150, 150, Qt::KeepAspectRatio));

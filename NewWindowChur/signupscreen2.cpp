@@ -8,7 +8,7 @@
 #include <QDebug> //is a class that provides an output stream for debugging information
 #include <QPushButton> //is a widget which executes an action when a user clicks on it.
 #include <QInputDialog> //is a class that provides a simple convenience dialog to get a single value from the user.
-#include "createfiles.h"
+#include "SystemFiles.h"
 using namespace std;
 
 // - liv (Worked on Login/Signup/Menu Screens)
@@ -26,7 +26,7 @@ signupscreen2::signupscreen2(QWidget *parent) :
     // Jakob - Dsiplaying users ID and First name
     //test
     //test
-    QStringList membersList = CreateFiles::GetFileData(CSVFiles::_Members); // Get the data from the members file
+    QStringList membersList = SystemFiles::GetFileData(CSVFiles::_Members); // Get the data from the members file
     int lastSpotInFile = membersList.size(); // This gets the last spot in the membersList
     QString memberID = membersList[lastSpotInFile - 8]; // The user id is 6 columns away from the last spot, so we subtract it by 7
     QString memberName = membersList[lastSpotInFile - 6]; // The user name is 5 columns away from the last spot, so we subtract it by 6
