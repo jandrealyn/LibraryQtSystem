@@ -10,7 +10,7 @@ CONFIG += c++11
 
 SOURCES += \
     SystemFiles.cpp \
-    admin.cpp \
+    adminaddbook.cpp \
     admincatalogue.cpp \
     admindue.cpp \
     admineditbook.cpp \
@@ -34,7 +34,7 @@ SOURCES += \
 
 HEADERS += \
     SystemFiles.h \
-    admin.h \
+    adminaddbook.h \
     admincatalogue.h \
     admindue.h \
     admineditbook.h \
@@ -56,7 +56,7 @@ HEADERS += \
     updateuserpicture.h
 
 FORMS += \
-    admin.ui \
+    adminaddbook.ui \
     admincatalogue.ui \
     admindue.ui \
     admineditbook.ui \

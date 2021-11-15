@@ -183,6 +183,57 @@ void SystemFiles::CreateMember(QString avatar, QString fName, QString lName, QSt
     _members.close();
 }
 
+//Lara 3:)
+
+void SystemFiles::CreateBook(QString bookimg, QString title, QString author, QString copies)
+{
+    // Generate the members ID
+    quint32 id = QRandomGenerator::global()->bounded(1000, 9999);
+    QString bookid = "Book" + QString::number(id);
+    QStringList bookList = GetFileData(CSVFiles::_Catalogue);
+    if (bookList.contains(bookid))
+    {
+        while (bookList.contains(bookid))
+        {
+            quint32 id = QRandomGenerator::global()->bounded(1000, 9999);
+            QString bookid = "Book" + QString::number(id);
+        }
+    }
+
+    // Output all of the members details
+    if (_catalogue.open(QIODevice::WriteOnly | QFile::Append | QFile::Text))
+    {
+        QTextStream in(&_catalogue);
+        in << bookid << "," << bookimg << "," << title << "," << author << "," << copies << "," << "PushButton" << "\n";
+    }
+    else
+    {
+        QMessageBox* w = new QMessageBox;
+        w->setWindowTitle("Cannot open catalogue.csv");
+        w->setText(_members.errorString() + "\n"
+                   "Please try again.");
+    }
+    _catalogue.close();
+}
+
+void SystemFiles::DeleteBook(QString bookID){
+
+    QStringList bookList = GetFileData(CSVFiles::_Catalogue);
+    _catalogue.open(QIODevice::WriteOnly| QFile::Truncate | QFile::Text);
+    QTextStream catalogue_output(&_catalogue);
+
+    catalogue_output << "BOOK ID" << "," << "IMAGE" << "," << "BOOK NAME" << "," << "AUTHOR" << "," << "COPIES" << "," << "EDIT BOOK" << "\n";
+    int i=6;
+    int amount = (bookList.size() / 6) - 1;
+    for (int row = 0; row < amount; row++){
+        if (bookList[i] != bookID){
+            catalogue_output << bookList[i] << "," << bookList[i+1] << "," << bookList[i+2] << "," << bookList[i+3] << "," << bookList[i+4] << "," << "PushButton" << "\n";
+        }
+        i = i + 6;
+    }
+    _catalogue.close();
+}
+
 void SystemFiles::CheckOutBook(QString bookID, QString bookName, QString memID, QString memName, QString dueDate)
 {
     QString currentDate = QDate::currentDate().toString("dd/MM/yyyy");

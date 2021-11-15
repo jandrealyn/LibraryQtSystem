@@ -1,6 +1,7 @@
 #ifndef ADMINCATALOGUE_H
 #define ADMINCATALOGUE_H
 #include "admineditbook.h"
+#include "adminaddbook.h"
 
 #include <QDialog>
 
@@ -22,11 +23,14 @@ signals:
 private slots:
     void on_back_clicked();
 
-    void on_verticalScrollBar_sliderMoved(int position);
+    void admincatalogueUpdate();
+
+    void on_addbook_clicked();
 
 private:
     Ui::admincatalogue *ui;
     admineditbook *adminedit;
+    adminaddbook *adminadd;
 };
 
 #endif // ADMINCATALOGUE_H

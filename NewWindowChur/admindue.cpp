@@ -1,6 +1,8 @@
 #include "admindue.h"
 #include "ui_admindue.h"
 
+//Laras Code :)
+
 admindue::admindue(QWidget *parent) :
     QDialog(parent),
     ui(new Ui::admindue)
