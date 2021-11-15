@@ -2,7 +2,7 @@
 
 #include "loginscreen.h"
 #include "ui_loginscreen.h"
-#include "createfiles.h"
+#include "SystemFiles.h"
 #include "QMessageBox"
 #include "QCheckBox"
 #include <QDebug> //is a class that provides an output stream for debugging information
@@ -47,7 +47,7 @@ void loginscreen::on_login_clicked()
     else
     {
         // Checking if the inputs exist in the members file
-        QStringList membersData = CreateFiles::GetFileData(CSVFiles::_Members);
+        QStringList membersData = SystemFiles::GetFileData(CSVFiles::_Members);
 
         int col = 0;
         bool foundUser = false;
@@ -83,15 +83,19 @@ void loginscreen::on_login_clicked()
         if (foundUser)
         {
             // These are passed through the catalogue windows constructor
-            QString memID = membersData[usernameIndex - 4];
-            QString memAvatar = membersData[usernameIndex - 3];
-            QString memName = membersData[usernameIndex - 2];
+            QString memfName = membersData[usernameIndex - 2];
+            QString memlName = membersData[usernameIndex - 1];
             QString memEmail = membersData[usernameIndex + 2];
             QString memPhone = membersData[usernameIndex + 3];
+            QString memID = membersData[usernameIndex - 4];
+            QString memAvatar = membersData[usernameIndex - 3];
+
+
+
 
             hide();
             // CALL YOUR DIALOG WINDOWS WITH (nullptr) SO THAT THEY HAVE A TASKBAR ICON
-            _catalogueWindow = new Catalogue(nullptr, memID, memAvatar, memName, memEmail, memPhone);
+            _catalogueWindow = new Catalogue(nullptr, user, pass, memfName, memlName, memEmail, memPhone, memID, memAvatar);
             _catalogueWindow->setWindowFlags(windowFlags() | Qt::WindowMinimizeButtonHint);
             _catalogueWindow->showNormal();
             connect(_catalogueWindow, SIGNAL(OpenMainMenu()), this, SLOT(LoginScreenOpen()));

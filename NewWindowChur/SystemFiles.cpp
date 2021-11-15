@@ -12,24 +12,24 @@
 //
 // ------------------------------------------------------------
 
-#include "createfiles.h"
+#include "SystemFiles.h"
 #include <QDebug>
 #include <QRandomGenerator>
 #include <QDebug>
 #include <QDate>
 
 // Defining static variables
-QString CreateFiles::_path = "CSVFiles/";
-QFile CreateFiles::_catalogue(_path + "catalogue.csv");
-QFile CreateFiles::_members(_path + "members.csv");
-QFile CreateFiles::_checkedOutBooks(_path + "checkedoutbooks.csv");
-QFile CreateFiles::_reserveBook(_path + "reserveBook.csv");
+QString SystemFiles::_path = "CSVFiles/";
+QFile SystemFiles::_catalogue(_path + "catalogue.csv");
+QFile SystemFiles::_members(_path + "members.csv");
+QFile SystemFiles::_checkedOutBooks(_path + "checkedoutbooks.csv");
+QFile SystemFiles::_reserveBook(_path + "reserveBook.csv");
 
-CreateFiles::CreateFiles()
+SystemFiles::SystemFiles()
 {
 }
 
-void CreateFiles::CreateFilesOnStartUp()
+void SystemFiles::CreateFilesOnStartUp()
 {
     // Check if the "CSVFiles" folder exists, if not then create it.
     if (!QDir(_path).exists())
@@ -74,7 +74,7 @@ void CreateFiles::CreateFilesOnStartUp()
     }
 }
 
-QStringList CreateFiles::GetFileData(enum CSVFiles file)
+QStringList SystemFiles::GetFileData(enum CSVFiles file)
 {
     QStringList fileData;
     switch (file)
@@ -151,7 +151,7 @@ QStringList CreateFiles::GetFileData(enum CSVFiles file)
 // Whoever is in charge of the login screen can use this function to pass through
 // the values of the users account details and creates an account. It will also
 // generate a randomised ID.
-void CreateFiles::CreateMember(QString avatar, QString fName, QString lName, QString uName, QString pWord, QString email, QString phoneNum)
+void SystemFiles::CreateMember(QString avatar, QString fName, QString lName, QString uName, QString pWord, QString email, QString phoneNum)
 {
     // Generate the members ID
     quint32 idNum = QRandomGenerator::global()->bounded(1000, 9999);
@@ -182,7 +182,7 @@ void CreateFiles::CreateMember(QString avatar, QString fName, QString lName, QSt
     _members.close();
 }
 
-void CreateFiles::CheckOutBook(QString bookID, QString bookName, QString memID, QString memName, QString dueDate)
+void SystemFiles::CheckOutBook(QString bookID, QString bookName, QString memID, QString memName, QString dueDate)
 {
     QString currentDate = QDate::currentDate().toString("dd/MM/yyyy");
 
@@ -227,7 +227,7 @@ void CreateFiles::CheckOutBook(QString bookID, QString bookName, QString memID, 
 
 }
 
-void CreateFiles::CheckOutBook(QString bookID, QString bookName, QString memID, QString memName, QString reserveDate, QString dueDate)
+void SystemFiles::CheckOutBook(QString bookID, QString bookName, QString memID, QString memName, QString reserveDate, QString dueDate)
 {
     _reserveBook.open(QIODevice::WriteOnly | QFile::Append | QFile::Text);
     QTextStream in(&_reserveBook);
@@ -235,20 +235,51 @@ void CreateFiles::CheckOutBook(QString bookID, QString bookName, QString memID, 
     _reserveBook.close();
 }
 
+void SystemFiles::UpdateMemberDetails(QStringList membersData)
+{
+    int col = 0;
+    if(_members.open(QIODevice::WriteOnly | QFile::Truncate | QFile::Text))
+    {
+        QTextStream in(&_members);
+        for (int i = 0; i < membersData.size(); i++)
+        {
+            in << membersData[i];
+            if (col != 7)
+            {
+                in << ",";
+                col++;
+            }
+            else
+            {
+                in << "\n";
+                col = 0;
+            }
+        }
+    }
+    else
+    {
+        qDebug() << "Could not open members file.";
+    }
+    _members.close();
+}
+
 
 //gansa
 
-//void CreateFiles::EditBook(QString bookData[i]){
-   // _catalogue.open(QIODevice::WriteOnly| QFile::Truncate | QFile::Text);
-    //QTextStream catalogue_output(&_catalogue);
-    //catalogue_output << "BOOK ID" << "," << "IMAGE" << "," << "BOOK NAME" << "," << "AUTHOR" << "," << "COPIES" << "," << "EDIT BOOK" << "\n";
-    //for (int row; row < amount; row++){
-       // catalogue_output << bookID[row] << "," << bookIMG[row] << "," << bookName[row] << "," << authorName[row] << "," << copies[row] << "," << "PushButton";
-    //}
-    //_catalogue.close();
-//}
+void SystemFiles::EditBook(QStringList bookData){
+    _catalogue.open(QIODevice::WriteOnly| QFile::Truncate | QFile::Text);
+    QTextStream catalogue_output(&_catalogue);
+    catalogue_output << "BOOK ID" << "," << "IMAGE" << "," << "BOOK NAME" << "," << "AUTHOR" << "," << "COPIES" << "," << "EDIT BOOK" << "\n";
+    int i=6;
+    int amount = (bookData.size() / 6) - 1;
+    for (int row = 0; row < amount; row++){
+            catalogue_output << bookData[i] << "," << bookData[i+1] << "," << bookData[i+2] << "," << bookData[i+3] << "," << bookData[i+4] << "," << "PushButton" << "\n";
+            i = i + 6;
+    }
+    _catalogue.close();
+}
 
-QDate CreateFiles::FindLastReserveDate(QString bookID)
+QDate SystemFiles::FindLastReserveDate(QString bookID)
 {
     // We need to check if the book exists in reserved books first
     // If it doesn't, then it means it hasn't been reserved before and that it's only just hit 0 copies from a normal checkout.
@@ -259,9 +290,9 @@ QDate CreateFiles::FindLastReserveDate(QString bookID)
     QString minimumDate;
     int bookCount1 = 0;
     int bookCount2 = 0; // Multiple people may have reserved the same book
-                       // In this case, we need to find the last known spot in the CSV of the reserved book.
-                       // The last known spot will be the latest reserved date. We can get that due date and set that
-                       // as the minimum date a user can set their next reservation.
+                        // In this case, we need to find the last known spot in the CSV of the reserved book.
+                        // The last known spot will be the latest reserved date. We can get that due date and set that
+                        // as the minimum date a user can set their next reservation.
 
     for (int i = 0; i < reservedBooks.size(); i++)
     {

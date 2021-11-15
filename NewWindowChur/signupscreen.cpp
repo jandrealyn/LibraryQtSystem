@@ -7,7 +7,7 @@
 #include <QDebug> //is a class that provides an output stream for debugging information
 #include <QPushButton>//is a widget which executes an action when a user clicks on it.
 #include <QInputDialog>
-#include "createfiles.h"
+#include "SystemFiles.h"
 using namespace std;
 
  // - liv (Worked on Login/Signup/Menu Screens)
@@ -24,7 +24,7 @@ signupscreen::signupscreen(QWidget *parent) :
     ui->Next->setEnabled(false); // Jakob
 
     // Jakob
-    _membersList = CreateFiles::GetFileData(CSVFiles::_Members);
+    _membersList = SystemFiles::GetFileData(CSVFiles::_Members);
 
     // Jakob - this bit of code disables the next button until all field have values
     connect(ui->cat_avatar, SIGNAL(toggled(bool)), this, SLOT(checkValues()));
@@ -50,7 +50,7 @@ void signupscreen::on_Next_clicked(){
     QString email = ui->email->text();//email input
     QString phoneNum = ui->phone->text();//phone input
 
-    CreateFiles::CreateMember(_avatar, fName, Lname, uName, pWord, email, phoneNum);
+    SystemFiles::CreateMember(_avatar, fName, Lname, uName, pWord, email, phoneNum);
 
     Signupscreen2 = new signupscreen2(nullptr);
     Signupscreen2->setWindowFlags(windowFlags() | Qt::WindowMinimizeButtonHint);
@@ -132,33 +132,45 @@ void signupscreen::on_email_textChanged(const QString &arg1)
 void signupscreen::on_cat_avatar_toggled(bool checked)
 {
     if (checked)
+    {
         _avatar = ":/images/cat-avatar.jpg";
+        _avatarSelected = true;
+    }
 }
 
 void signupscreen::on_pup_avatar_toggled(bool checked)
 {
     if (checked)
+    {
         _avatar = ":/images/dog-avatar.jpg";
+        _avatarSelected = true;
+    }
 }
 
 void signupscreen::on_jerboa_avatar_toggled(bool checked)
 {
     if (checked)
-        _avatar = ":/images/jerboa-avatar.jpg";
+    {
+      _avatar = ":/images/jerboa-avatar.jpg";
+      _avatarSelected = true;
+    }
 }
 
 void signupscreen::on_radioButton_toggled(bool checked)
 {
     if (checked)
+    {
         _avatar = ":/images/default-avatar.png";
+        _avatarSelected = true;
+    }
 }
 
+// By Jakob
+// Checks if all the necessary info has been made to create a user.
+// If everything is all good, it enables the "create user" button
 void signupscreen::checkValues()
 {
-    if (ui->cat_avatar->isChecked() ||
-        ui->pup_avatar->isChecked() ||
-        ui->jerboa_avatar->isChecked() ||
-        ui->no_avatar->isChecked())
+    if (_avatarSelected)
     {
         if (!ui->firstname->text().isEmpty() &&
             !ui->lastname->text().isEmpty() &&

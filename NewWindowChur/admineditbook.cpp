@@ -1,6 +1,6 @@
 #include "admineditbook.h"
 #include "ui_admineditbook.h"
-#include "createfiles.h"
+#include "SystemFiles.h"
 #include <QWidget>
 #include <QDebug>
 #include <QDialog>
@@ -20,6 +20,10 @@ admineditbook::admineditbook(QWidget *parent, QString bookID, QString bookName, 
     ui(new Ui::admineditbook)
 {
     ui->setupUi(this);
+
+    QPixmap Img(":/images/YoobeeLibraries.png");
+    ui->img->setPixmap(Img.scaled(100, 100, Qt::KeepAspectRatio));
+
     _bookID = bookID;
     _bookName = bookName;
 
@@ -51,21 +55,28 @@ void admineditbook::on_confimedit_clicked()
     msgBox.exec();
 
     if (msgBox.clickedButton()==edit){
-            QStringList booksData = CreateFiles::GetFileData(CSVFiles::_Catalogue);
-            const int arraySize = (booksData.size() / 6) - 1;
+            QStringList booksData = SystemFiles::GetFileData(CSVFiles::_Catalogue);
             int rowCount = (booksData.size() / 6) - 1;
+            int i = 6;
             for (int row = 0; row < rowCount; row++)
             {
                 for (int col = 0; col < 6; col++)
                 {
-                    if (booksData[row][col] == _bookID){
-                        //booksData[row][2] = book_name_label::text();
-                        //booksData[row][3] = book_author_label::text();
-                        //booksData[row][4] = book_copies_label::text();
+                    if (booksData[i] == _bookID){
+                        QString name = ui->book_name_label->text();
+                        QString author = ui->book_author_label->text();
+                        QString copies = ui->book_copies_label->text();
+                        booksData[i+2] = name;
+                        booksData[i+3] = author;
+                        booksData[i+4] = copies;
                     }
+                    i++;
                 }
             }
-            //CreateFiles::EditBook(booksData[arraySize]);
+            //CreateFiles::EditBook(booksData[arraySize+1]);
+            SystemFiles::EditBook(booksData);
+            close();
+            emit exec();
         }
 
     else {
@@ -76,4 +87,39 @@ void admineditbook::on_confimedit_clicked()
 }
 
 
+
+
+void admineditbook::on_deletebook_clicked()
+{
+    QMessageBox msgBox;
+    msgBox.setWindowTitle(tr("Delete Book"));
+    msgBox.setText(tr("Proceed with deleting book?"));
+    QAbstractButton* edit = msgBox.addButton(tr("Yes"), QMessageBox::YesRole);
+    msgBox.addButton(tr("No"), QMessageBox::NoRole);
+    msgBox.exec();
+
+    if (msgBox.clickedButton()==edit){
+            QStringList booksData = SystemFiles::GetFileData(CSVFiles::_Catalogue);
+            int rowCount = (booksData.size() / 6) - 1;
+            int i = 6;
+            for (int row = 0; row < rowCount; row++)
+            {
+                for (int col = 0; col < 6; col++)
+                {
+                    if (booksData[i] == _bookID){
+                        booksData.removeAt(i), booksData.removeAt(i+1), booksData.removeAt(i+2), booksData.removeAt(i+3), booksData.removeAt(i+4), booksData.removeAt(i+5);
+                    }
+                    i++;
+                }
+            }
+            //CreateFiles::EditBook(booksData[arraySize+1]);
+            SystemFiles::EditBook(booksData);
+            close();
+            emit exec();
+        }
+
+    else {
+    //if no clicked
+    }
+}
 

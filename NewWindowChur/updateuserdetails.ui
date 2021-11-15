@@ -7,14 +7,14 @@
     <x>0</x>
     <y>0</y>
     <width>568</width>
-    <height>271</height>
+    <height>398</height>
    </rect>
   </property>
   <property name="windowTitle">
    <string>Dialog</string>
   </property>
   <property name="styleSheet">
-   <string notr="true">background-color: rgb(20, 20, 34);</string>
+   <string notr="true"/>
   </property>
   <layout class="QVBoxLayout" name="verticalLayout">
    <item>
@@ -23,7 +23,7 @@
       <widget class="QLabel" name="label_7">
        <property name="styleSheet">
         <string notr="true">font: 24pt &quot;Poppins&quot;;
-color: rgb(249, 238, 192);</string>
+</string>
        </property>
        <property name="text">
         <string>Edit personal details</string>
@@ -37,37 +37,49 @@ color: rgb(249, 238, 192);</string>
      <item row="0" column="0">
       <widget class="QLabel" name="label">
        <property name="styleSheet">
-        <string notr="true">font: 12pt &quot;Poppins&quot;;
-color: rgb(249, 238, 192);</string>
+        <string notr="true">font: 12pt &quot;Poppins&quot;;</string>
        </property>
        <property name="text">
         <string>Username:</string>
        </property>
       </widget>
      </item>
-     <item row="0" column="1">
-      <widget class="QLineEdit" name="lineEdit">
-       <property name="styleSheet">
-        <string notr="true">background-color: rgb(255, 255, 255);</string>
-       </property>
-      </widget>
-     </item>
      <item row="1" column="0">
       <widget class="QLabel" name="label_2">
        <property name="styleSheet">
-        <string notr="true">font: 12pt &quot;Poppins&quot;;
-color: rgb(249, 238, 192);</string>
+        <string notr="true">font: 12pt &quot;Poppins&quot;;</string>
        </property>
        <property name="text">
         <string>Password:</string>
        </property>
       </widget>
      </item>
+     <item row="1" column="1">
+      <layout class="QHBoxLayout" name="horizontalLayout_4">
+       <item>
+        <widget class="QLineEdit" name="lineEdit_password">
+         <property name="styleSheet">
+          <string notr="true">background-color: rgb(255, 255, 255);
+font: 12pt &quot;Poppins&quot;;</string>
+         </property>
+        </widget>
+       </item>
+       <item>
+        <widget class="QCheckBox" name="checkBox">
+         <property name="styleSheet">
+          <string notr="true">font: 8pt &quot;Poppins&quot;;</string>
+         </property>
+         <property name="text">
+          <string>Show Password</string>
+         </property>
+        </widget>
+       </item>
+      </layout>
+     </item>
      <item row="2" column="0">
       <widget class="QLabel" name="label_3">
        <property name="styleSheet">
-        <string notr="true">font: 12pt &quot;Poppins&quot;;
-color: rgb(249, 238, 192);</string>
+        <string notr="true">font: 12pt &quot;Poppins&quot;;</string>
        </property>
        <property name="text">
         <string>First name:</string>
@@ -75,17 +87,17 @@ color: rgb(249, 238, 192);</string>
       </widget>
      </item>
      <item row="2" column="1">
-      <widget class="QLineEdit" name="lineEdit_3">
+      <widget class="QLineEdit" name="lineEdit_firstname">
        <property name="styleSheet">
-        <string notr="true">background-color: rgb(255, 255, 255);</string>
+        <string notr="true">background-color: rgb(255, 255, 255);
+font: 12pt &quot;Poppins&quot;;</string>
        </property>
       </widget>
      </item>
      <item row="3" column="0">
       <widget class="QLabel" name="label_4">
        <property name="styleSheet">
-        <string notr="true">font: 12pt &quot;Poppins&quot;;
-color: rgb(249, 238, 192);</string>
+        <string notr="true">font: 12pt &quot;Poppins&quot;;</string>
        </property>
        <property name="text">
         <string>Last Name:</string>
@@ -93,45 +105,56 @@ color: rgb(249, 238, 192);</string>
       </widget>
      </item>
      <item row="3" column="1">
-      <widget class="QLineEdit" name="lineEdit_4">
+      <widget class="QLineEdit" name="lineEdit_lastname">
        <property name="styleSheet">
-        <string notr="true">background-color: rgb(255, 255, 255);</string>
+        <string notr="true">background-color: rgb(255, 255, 255);
+font: 12pt &quot;Poppins&quot;;</string>
        </property>
       </widget>
      </item>
      <item row="4" column="0">
       <widget class="QLabel" name="label_5">
        <property name="styleSheet">
-        <string notr="true">font: 12pt &quot;Poppins&quot;;
-color: rgb(249, 238, 192);</string>
+        <string notr="true">font: 12pt &quot;Poppins&quot;;</string>
        </property>
        <property name="text">
         <string>Email:</string>
        </property>
       </widget>
      </item>
-     <item row="4" column="1">
-      <widget class="QLineEdit" name="lineEdit_5">
+     <item row="5" column="0">
+      <widget class="QLabel" name="label_8">
        <property name="styleSheet">
-        <string notr="true">background-color: rgb(255, 255, 255);</string>
+        <string notr="true">font: 12pt &quot;Poppins&quot;;</string>
+       </property>
+       <property name="text">
+        <string>Phone:</string>
        </property>
       </widget>
      </item>
-     <item row="5" column="0">
+     <item row="5" column="1">
+      <widget class="QLineEdit" name="lineEdit_phone">
+       <property name="styleSheet">
+        <string notr="true">background-color: rgb(255, 255, 255);
+font: 12pt &quot;Poppins&quot;;</string>
+       </property>
+      </widget>
+     </item>
+     <item row="6" column="0">
       <widget class="QLabel" name="label_6">
        <property name="styleSheet">
-        <string notr="true">font: 12pt &quot;Poppins&quot;;
-color: rgb(249, 238, 192);</string>
+        <string notr="true">font: 12pt &quot;Poppins&quot;;</string>
        </property>
        <property name="text">
         <string>User ID:</string>
        </property>
       </widget>
      </item>
-     <item row="5" column="1">
-      <widget class="QLineEdit" name="lineEdit_6">
+     <item row="6" column="1">
+      <widget class="QLineEdit" name="lineEdit_userid">
        <property name="styleSheet">
-        <string notr="true">background-color: rgb(255, 255, 255);</string>
+        <string notr="true">background-color: rgb(255, 255, 255);
+font: 12pt &quot;Poppins&quot;;</string>
        </property>
        <property name="text">
         <string/>
@@ -141,23 +164,65 @@ color: rgb(249, 238, 192);</string>
        </property>
       </widget>
      </item>
-     <item row="1" column="1">
-      <widget class="QLineEdit" name="lineEdit_2">
-       <property name="styleSheet">
-        <string notr="true">background-color: rgb(255, 255, 255);</string>
-       </property>
-      </widget>
+     <item row="0" column="1">
+      <layout class="QHBoxLayout" name="horizontalLayout_5">
+       <item>
+        <widget class="QLineEdit" name="lineEdit_username">
+         <property name="styleSheet">
+          <string notr="true">background-color: rgb(255, 255, 255);
+font: 12pt &quot;Poppins&quot;;</string>
+         </property>
+        </widget>
+       </item>
+       <item>
+        <widget class="QLabel" name="usernamePic">
+         <property name="text">
+          <string>TextLabel</string>
+         </property>
+        </widget>
+       </item>
+      </layout>
+     </item>
+     <item row="4" column="1">
+      <layout class="QHBoxLayout" name="horizontalLayout_6">
+       <item>
+        <widget class="QLineEdit" name="lineEdit_email">
+         <property name="styleSheet">
+          <string notr="true">background-color: rgb(255, 255, 255);
+font: 12pt &quot;Poppins&quot;;</string>
+         </property>
+        </widget>
+       </item>
+       <item>
+        <widget class="QLabel" name="emailPic">
+         <property name="text">
+          <string>TextLabel</string>
+         </property>
+        </widget>
+       </item>
+      </layout>
      </item>
     </layout>
    </item>
    <item>
     <layout class="QHBoxLayout" name="horizontalLayout_2">
      <item>
-      <widget class="QPushButton" name="pushButton">
+      <widget class="QPushButton" name="confirmChanges">
+       <property name="sizePolicy">
+        <sizepolicy hsizetype="Minimum" vsizetype="Preferred">
+         <horstretch>0</horstretch>
+         <verstretch>0</verstretch>
+        </sizepolicy>
+       </property>
        <property name="styleSheet">
-        <string notr="true">background-color: rgb(216, 193, 58);
-border: none;
-border-radius: 3px;</string>
+        <string notr="true">QPushButton {
+	background-color: rgb(216, 193, 58);
+	border-radius: 3px;
+}
+
+QPushButton::pressed {
+	background-color: rgb(216, 150, 90);
+}</string>
        </property>
        <property name="text">
         <string>Confirm Changes</string>
@@ -166,10 +231,21 @@ border-radius: 3px;</string>
      </item>
      <item>
       <widget class="QPushButton" name="pushButton_2">
+       <property name="sizePolicy">
+        <sizepolicy hsizetype="Minimum" vsizetype="Preferred">
+         <horstretch>0</horstretch>
+         <verstretch>0</verstretch>
+        </sizepolicy>
+       </property>
        <property name="styleSheet">
-        <string notr="true">background-color: rgb(216, 193, 58);
-border: none;
-border-radius: 3px;</string>
+        <string notr="true">QPushButton {
+	background-color: rgb(216, 193, 58);
+	border-radius: 3px;
+}
+
+QPushButton::pressed {
+	background-color: rgb(216, 150, 90);
+}</string>
        </property>
        <property name="text">
         <string>Cancel</string>

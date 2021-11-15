@@ -31,7 +31,7 @@
 
 #include "catalogue.h"
 #include "ui_catalogue.h"
-#include "createfiles.h"
+#include "SystemFiles.h"
 #include <QDebug>
 #include <QDialog>
 #include <QFile>
@@ -42,29 +42,47 @@
 #include <QScrollArea>
 #include <QGroupBox>
 #include <QTabWidget>
+#include <QTableWidget>
 
-Catalogue::Catalogue(QWidget *parent, QString memID, QString memAvatar, QString memName, QString memEmail, QString memPhone) :
+Catalogue::Catalogue(QWidget *parent,
+                     QString memUser,
+                     QString memPass,
+                     QString memfName,
+                     QString memlName,
+                     QString memEmail,
+                     QString memPhone,
+                     QString memID,
+                     QString memAvatar) :
     QDialog(parent),
     ui(new Ui::Catalogue)
 {
     ui->setupUi(this);
 
-    // Setting private variables (this is for the search function)
+    // Check if user has any overdue books as they login
+
+
+    // Setting private variables
+    _memUser = memUser;
+    _memPass = memPass;
+    _memfName = memfName;
+    _memlName = memlName;
+    _memEmail = memEmail;
+    _memPhone = memPhone;
     _memID = memID;
-    _memName = memName;
+    _memAvatar = memAvatar;
 
     // Set users details
     QPixmap p(memAvatar);
     ui->profile_picture->setPixmap(p.scaled(120,120));
-    ui->welcomeBack->setText("Welcome back, " + memName);
+    ui->welcomeBack->setText("Welcome back, " + _memfName);
 
-    ui->user_name->setText(memName);
-    ui->user_email->setText("<b>Email:</b> " + memEmail);
-    ui->user_phonenumber->setText("<b>Phone:</b> " + memPhone);
-    ui->user_id->setText("<b>Your ID:</b> " + memID);
+    ui->user_name->setText(_memfName);
+    ui->user_email->setText("<b>Email:</b> " + _memEmail);
+    ui->user_phonenumber->setText("<b>Phone:</b> " + _memPhone);
+    ui->user_id->setText("<b>Your ID:</b> " + _memID);
 
     // Array control
-    QStringList catalogue = CreateFiles::GetFileData(CSVFiles::_Catalogue);
+    QStringList catalogue = SystemFiles::GetFileData(CSVFiles::_Catalogue);
     const int arraySize = (catalogue.size() / 6) - 1;
 
     // LAYOUTS
@@ -112,7 +130,7 @@ Catalogue::Catalogue(QWidget *parent, QString memID, QString memAvatar, QString 
                                            "QPushButton:pressed { border-color: #e7e7e7; background-color: #f4f4f4; }");
 
         // Sending Book ID, Book Name, Member ID, Member Name, Date through CheckOutScreen constructor.
-        checkoutScreen[row] = new CheckOutScreen(NULL, memName, memID, catalogue[t], catalogue[t + 2], catalogue[t + 3], catalogue[t + 4]);
+        checkoutScreen[row] = new CheckOutScreen(NULL, _memfName, memID, catalogue[t], catalogue[t + 2], catalogue[t + 3], catalogue[t + 4]);
         checkoutScreen[row]->setWindowTitle("Checkout a book");
         connect(checkoutButton[row], SIGNAL(clicked()), checkoutScreen[row], SLOT(exec()));
         connect(checkoutScreen[row], SIGNAL(UpdateCatalogue()), this, SLOT(update_catalogue()));
@@ -151,6 +169,9 @@ Catalogue::Catalogue(QWidget *parent, QString memID, QString memAvatar, QString 
 
     ui->scrollArea->setWidget(groupBox);
     groupBox->setStyleSheet("background-color: white;");
+
+    // Users checked out books section
+    //ui->users_books->table
 }
 
 Catalogue::~Catalogue()
@@ -178,12 +199,12 @@ void Catalogue::on_searchBar_textChanged(const QString &arg1)
 {
     QStringList foundData;
 
-    if (CreateFiles::_catalogue.open(QIODevice::ReadOnly))
+    if (SystemFiles::_catalogue.open(QIODevice::ReadOnly))
     {
-        QTextStream in(&CreateFiles::_catalogue);
+        QTextStream in(&SystemFiles::_catalogue);
         while(!in.atEnd())
         {
-            QString line = CreateFiles::_catalogue.readLine().replace("\r\n","");
+            QString line = SystemFiles::_catalogue.readLine().replace("\r\n","");
             if (line != "BOOK ID, IMAGE, BOOK NAME, AUTHOR, COPIES") // These are the headers of the CSV file. This just skips over it.
             {
                 if (line.toLower().contains(arg1.toLower()))
@@ -193,7 +214,7 @@ void Catalogue::on_searchBar_textChanged(const QString &arg1)
             }
         }
     }
-    CreateFiles::_catalogue.close();
+    SystemFiles::_catalogue.close();
 
     // Array control
     const int arraySize = (foundData.size() / 5) - 1;
@@ -243,7 +264,7 @@ void Catalogue::on_searchBar_textChanged(const QString &arg1)
                                            "QPushButton:pressed { border-color: #e7e7e7; background-color: #f4f4f4; }");
 
         // Sending Book ID, Book Name, Member ID, Member Name, Date through CheckOutScreen constructor.
-        checkoutScreen[row] = new CheckOutScreen(NULL, _memName, _memID, foundData[t], foundData[t + 2], foundData[t + 3], foundData[t + 4]);
+        checkoutScreen[row] = new CheckOutScreen(NULL, _memfName, _memID, foundData[t], foundData[t + 2], foundData[t + 3], foundData[t + 4]);
         connect(checkoutButton[row], SIGNAL(clicked()), checkoutScreen[row], SLOT(exec()));
         connect(checkoutScreen[row], SIGNAL(UpdateCatalogue()), this, SLOT(update_catalogue()));
 
@@ -285,7 +306,8 @@ void Catalogue::on_searchBar_textChanged(const QString &arg1)
 
 void Catalogue::on_yourAccount_update_clicked()
 {
-    update_ui = new UpdateUserDetails(nullptr);
+
+    update_ui = new UpdateUserDetails(this, _memUser, _memPass, _memfName, _memlName, _memEmail, _memPhone, _memID);
     update_ui->exec();
 }
 
@@ -295,10 +317,16 @@ void Catalogue::on_yourAccount_updatePic_clicked()
 
 }
 
+// This function is used when a user updates their details or when a user checks out a book.
+// It will update the entire catalogue each time either of those functions happens.
 void Catalogue::update_catalogue()
 {
+    // Member details udpate
+
+
+    // Catalogue update
     // Array control
-    QStringList catalogue = CreateFiles::GetFileData(CSVFiles::_Catalogue);
+    QStringList catalogue = SystemFiles::GetFileData(CSVFiles::_Catalogue);
     const int arraySize = (catalogue.size() / 6) - 1;
 
     // LAYOUTS
@@ -346,7 +374,7 @@ void Catalogue::update_catalogue()
                                            "QPushButton:pressed { border-color: #e7e7e7; background-color: #f4f4f4; }");
 
         // Sending Book ID, Book Name, Member ID, Member Name, Date through CheckOutScreen constructor.
-        checkoutScreen[row] = new CheckOutScreen(NULL, _memName, _memID, catalogue[t], catalogue[t + 2], catalogue[t + 3], catalogue[t + 4]);
+        checkoutScreen[row] = new CheckOutScreen(NULL, _memfName, _memID, catalogue[t], catalogue[t + 2], catalogue[t + 3], catalogue[t + 4]);
         checkoutScreen[row]->setWindowTitle("Checkout a book");
         connect(checkoutButton[row], SIGNAL(clicked()), checkoutScreen[row], SLOT(exec()));
 
