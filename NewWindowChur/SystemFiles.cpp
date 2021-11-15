@@ -71,6 +71,7 @@ void SystemFiles::CreateFilesOnStartUp()
         _reserveBook.open(QIODevice::WriteOnly | QFile::Text);
         QTextStream prebook_output(&_reserveBook);
         prebook_output << "BOOK ID" << "," << "BOOK NAME" << "," << "MEMBER ID" << "," << "MEMBER NAME" << "," << "PREBOOK DATE" << "," << "DATE DUE" << "\n";
+        _reserveBook.close();
     }
 }
 
@@ -346,4 +347,126 @@ QDate SystemFiles::FindLastReserveDate(QString bookID)
     return date;
 }
 
+// Function performed on start up
+// This checks the reserved books file to see if a book has met its checkout date.
+// If it has, then we add the book to the checkedOutBooks file and remove it from reserved books.
+void SystemFiles::CheckReservedBooks()
+{
+    QStringList reservedBooks = GetFileData(CSVFiles::_ReservedBooks);
+    QStringList booksForCheckOut;
 
+    QString date = QDate::currentDate().toString("dd/MM/yyyy");
+    QDate currDate = QDate::fromString(date, "dd/MM/yyyy");
+
+    int column = 5;
+    for (int i = 0; i < reservedBooks.size(); i++)
+    {
+        if (column == 3)
+        {
+            qDebug() << reservedBooks[i];
+            QDate bookDate = QDate::fromString(reservedBooks[i]);
+            if (bookDate <= currDate)
+            {
+                qDebug() << "book date less than or equal to current date";
+                booksForCheckOut.append(reservedBooks[i - 4]); // Book ID
+
+                booksForCheckOut.append(reservedBooks[i - 3]); // Book name
+                booksForCheckOut.append(reservedBooks[i - 2]); // Member name
+                booksForCheckOut.append(reservedBooks[i - 1]); // Member ID
+                booksForCheckOut.append(reservedBooks[i]);     // Date Checked Out
+                booksForCheckOut.append(reservedBooks[i + 1]); // Date due
+            }
+            column++;
+        }
+        else if (column == 5)
+        {
+            column = 0;
+        }
+        else
+        {
+            column++;
+        }
+    }
+
+    // If there were books that need to be moved to the check out file then we need to rewrite the reserved books file
+    if (!booksForCheckOut.empty())
+    {
+        qDebug() << "data in booksForCheckOut";
+        if(_reserveBook.open(QIODevice::WriteOnly | QFile::Truncate | QFile::Text))
+        {
+            QTextStream in(&_reserveBook);
+            int column = 0; // there are 5 columns in the reserved book file
+
+            for (int i = 0; i < reservedBooks.size() - booksForCheckOut.size(); i++)
+            {
+                if (reservedBooks[i] != booksForCheckOut[i])
+                {
+                    if (column == 5)
+                    {
+                        column = 0;
+                        in << reservedBooks[i] << "\n";
+                    }
+                    else
+                    {
+                        in << reservedBooks[i] << ",";
+                        column++;
+                    }
+                }
+            }
+        }
+        _reserveBook.close();
+
+        // Output booksForCheckOut to checkedOutBooks.csv
+        if (_checkedOutBooks.open(QIODevice::WriteOnly | QFile::Truncate | QFile::Text))
+        {
+            QTextStream in(&_checkedOutBooks);
+            int column = 0;
+            in << "BOOK ID" << "," << "BOOK NAME" << "," << "MEMBER ID" << "," << "MEMBER NAME" << "," << "DATE CHECKED OUT" << "," << "DATE DUE" << "\n";
+            for (int i = 0; i < booksForCheckOut.size(); i++)
+            {
+                if (column == 5)
+                {
+                    column = 0;
+                    in << booksForCheckOut[i] << "\n";
+                }
+                else
+                {
+                    in << booksForCheckOut[i] << ",";
+                    column++;
+                }
+            }
+        }
+        _checkedOutBooks.close();
+    }
+}
+
+QStringList SystemFiles::CheckUsersOverdueBooks(QString memID)
+{
+    QStringList checkedOutBooksData = GetFileData(CSVFiles::_CheckedOutBooks);
+    QStringList overdueBooks;
+
+    QString date = QDate::currentDate().toString("dd/MM/yyyy");
+    QDate currDate = QDate::fromString(date, "dd/MM/yyyy");
+
+    if (checkedOutBooksData.indexOf(memID) > 0) // If the members ID exists in the the checkedOutBooks file
+    {
+        for (int i = 0; i < checkedOutBooksData.size(); i++)
+        {
+            if (checkedOutBooksData[i] == memID) // Find members ID on the line
+            {
+                QDate bookDueDate = QDate::fromString(checkedOutBooksData[i + 3]); // Convert books due date to a QDate from a string
+
+                if (bookDueDate >= currDate) // Compare the two dates
+                {
+                    overdueBooks.append(checkedOutBooksData[i - 1]); // Book name
+                    overdueBooks.append(checkedOutBooksData[i + 2]); // Book return date
+                }
+            }
+        }
+        return overdueBooks;
+    }
+    else
+    {
+        return overdueBooks;
+    }
+}

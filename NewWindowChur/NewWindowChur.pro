@@ -25,6 +25,7 @@ SOURCES += \
     loginscreen.cpp \
     main.cpp \
     mainwindow.cpp \
+    overdue.cpp \
     reservebook.cpp \
     signupscreen.cpp \
     signupscreen2.cpp \
@@ -47,6 +48,7 @@ HEADERS += \
     dialog.h \
     loginscreen.h \
     mainwindow.h \
+    overdue.h \
     reservebook.h \
     signupscreen.h \
     signupscreen2.h \
@@ -68,6 +70,7 @@ FORMS += \
     dialog.ui \
     loginscreen.ui \
     mainwindow.ui \
+    overdue.ui \
     reservebook.ui \
     signupscreen.ui \
     signupscreen2.ui \
