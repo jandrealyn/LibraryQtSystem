@@ -35,16 +35,21 @@ adminreturned::adminreturned(QWidget *parent) :
            ui->adminReturned->horizontalHeader()->setSectionResizeMode(2, QHeaderView::Stretch);
            ui->adminReturned->setSelectionMode(QHeaderView::NoSelection);
            // Create the rows of the QTableWidget
-           int i = 5;
-           int rowCount = (booksData.size() / 5) - 1;
+           int i = 6;
+           int rowCount = (booksData.size() / 6) - 1;
            for (int row = 0; row < rowCount; row++)
            {
                ui->adminReturned->insertRow(ui->adminReturned->rowCount());
-               for (int col = 0; col < 5; col++)
+               for (int col = 0; col < 6; col++)
                {
-                   QTableWidgetItem *item = new QTableWidgetItem(QString(booksData[i]));
-                   ui->adminReturned->setItem(row, col, item);
-                   i++;
+                   if (col == 6){
+                        i++;
+                   }
+                   else {
+                       QTableWidgetItem *item = new QTableWidgetItem(QString(booksData[i]));
+                       ui->adminReturned->setItem(row, col, item);
+                       i++;
+                   }
                }
            }
 

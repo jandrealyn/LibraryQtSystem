@@ -24,6 +24,8 @@ private slots:
 
     void on_verticalScrollBar_sliderMoved(int position);
 
+    void admincatalogueUpdate();
+
 private:
     Ui::admincatalogue *ui;
     admineditbook *adminedit;

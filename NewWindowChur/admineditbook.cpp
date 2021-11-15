@@ -75,6 +75,7 @@ void admineditbook::on_confimedit_clicked()
             }
             //CreateFiles::EditBook(booksData[arraySize+1]);
             CreateFiles::EditBook(booksData);
+            emit admincatalogueUpdate();
             close();
             emit exec();
         }

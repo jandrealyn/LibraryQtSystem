@@ -15,6 +15,8 @@ public:
     explicit admineditbook(QWidget *parent = nullptr, QString bookID = "", QString bookName = "", QString authorName = "", QString copies = "");
     ~admineditbook();
 
+signals:
+    admincatalogueUpdate();
     //void setVariables(QString bookID, QString bookName, QString authorName, QString copies);
 
 private slots:

@@ -30,11 +30,8 @@ public:
     static void CreateMember(QString avatar, QString fName, QString lName, QString uName, QString pWord, QString email, QString phoneNum);
     static void CheckOutBook(QString bookID, QString bookName, QString memID, QString memName, QString dueDate);
     static void CheckOutBook(QString bookID, QString bookName, QString memID, QString memName, QString reserveDate, QString dueDate);
-<<<<<<< HEAD
     static void EditBook(QStringList bookData);
-=======
     static void UpdateMemberDetails(QStringList membersData);
->>>>>>> dev
     static QDate FindLastReserveDate(QString bookID);
 
     static QString _path;
