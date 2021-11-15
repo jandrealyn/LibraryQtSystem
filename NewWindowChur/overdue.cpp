@@ -14,13 +14,15 @@ Overdue::Overdue(QWidget *parent, QStringList overdueBooks) :
     ui->tableWidget_overdueBooks->horizontalHeader()->setSectionResizeMode(1, QHeaderView::Stretch);
     ui->tableWidget_overdueBooks->setSelectionMode(QHeaderView::NoSelection);
 
+    int listIndex = 0;
     for (int i = 0; i < overdueBooks.size() / 2; i++)
     {
         ui->tableWidget_overdueBooks->insertRow(ui->tableWidget_overdueBooks->rowCount());
         for (int j = 0; j < 2; j++)
         {
-            QTableWidgetItem *item = new QTableWidgetItem(QString(overdueBooks[i]));
+            QTableWidgetItem *item = new QTableWidgetItem(QString(overdueBooks[listIndex]));
             ui->tableWidget_overdueBooks->setItem(i, j, item);
+            listIndex++;
         }
     }
 }

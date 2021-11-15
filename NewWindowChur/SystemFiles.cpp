@@ -256,14 +256,14 @@ void SystemFiles::UpdateMemberDetails(QStringList membersData)
                 col = 0;
             }
         }
+        QMessageBox::information(NULL, "Update Succesful", "Details have been successfully updated."); // Displaying success message.
     }
     else
     {
-        qDebug() << "Could not open members file.";
+        QMessageBox::warning(NULL, "Unable to open members.csv", _members.errorString()); // Displaying error message if unable to open file.
     }
     _members.close();
 }
-
 
 //gansa
 
@@ -311,7 +311,6 @@ QDate SystemFiles::FindLastReserveDate(QString bookID)
                 bookCount2++;
                 if (bookCount2 == bookCount1)
                 {
-                    qDebug() << reservedBooks[i + 5];
                     date = QDate::fromString(reservedBooks[i+5], "dd/MM/yyyy");
                     break;
                 }
@@ -355,32 +354,25 @@ void SystemFiles::CheckReservedBooks()
     QStringList reservedBooks = GetFileData(CSVFiles::_ReservedBooks);
     QStringList booksForCheckOut;
 
-    QString date = QDate::currentDate().toString("dd/MM/yyyy");
-    QDate currDate = QDate::fromString(date, "dd/MM/yyyy");
+    QString date = QDate::currentDate().toString("dd.MM.yyyy");
+    QDate currDate = QDate::fromString(date);
 
-    int column = 5;
-    for (int i = 0; i < reservedBooks.size(); i++)
+    int column = 0;
+    for (int i = 6; i < reservedBooks.size(); i++) // loop starts at 6 to skip the headers in the CSV file
     {
-        if (column == 3)
+        if (column == 5)
         {
-            qDebug() << reservedBooks[i];
+            column = 0;
             QDate bookDate = QDate::fromString(reservedBooks[i]);
             if (bookDate <= currDate)
             {
-                qDebug() << "book date less than or equal to current date";
-                booksForCheckOut.append(reservedBooks[i - 4]); // Book ID
-
-                booksForCheckOut.append(reservedBooks[i - 3]); // Book name
-                booksForCheckOut.append(reservedBooks[i - 2]); // Member name
-                booksForCheckOut.append(reservedBooks[i - 1]); // Member ID
-                booksForCheckOut.append(reservedBooks[i]);     // Date Checked Out
-                booksForCheckOut.append(reservedBooks[i + 1]); // Date due
+                booksForCheckOut.append(reservedBooks[i - 5]); // Book ID
+                booksForCheckOut.append(reservedBooks[i - 4]); // Book name
+                booksForCheckOut.append(reservedBooks[i - 3]); // Member name
+                booksForCheckOut.append(reservedBooks[i - 2]); // Member ID
+                booksForCheckOut.append(reservedBooks[i - 1]); // Date Checked Out
+                booksForCheckOut.append(reservedBooks[i]);     // Date due
             }
-            column++;
-        }
-        else if (column == 5)
-        {
-            column = 0;
         }
         else
         {
@@ -391,8 +383,7 @@ void SystemFiles::CheckReservedBooks()
     // If there were books that need to be moved to the check out file then we need to rewrite the reserved books file
     if (!booksForCheckOut.empty())
     {
-        qDebug() << "data in booksForCheckOut";
-        if(_reserveBook.open(QIODevice::WriteOnly | QFile::Truncate | QFile::Text))
+        if(_reserveBook.open(QIODevice::WriteOnly | QFile::Truncate | QFile::Text)) // Rewriting the reserveBook csv with the books for check out removed.
         {
             QTextStream in(&_reserveBook);
             int column = 0; // there are 5 columns in the reserved book file
@@ -416,12 +407,10 @@ void SystemFiles::CheckReservedBooks()
         }
         _reserveBook.close();
 
-        // Output booksForCheckOut to checkedOutBooks.csv
-        if (_checkedOutBooks.open(QIODevice::WriteOnly | QFile::Truncate | QFile::Text))
+        if (_checkedOutBooks.open(QIODevice::WriteOnly | QFile::Append | QFile::Text)) // Adding the books for check out to checkedOutBooks csv
         {
             QTextStream in(&_checkedOutBooks);
             int column = 0;
-            in << "BOOK ID" << "," << "BOOK NAME" << "," << "MEMBER ID" << "," << "MEMBER NAME" << "," << "DATE CHECKED OUT" << "," << "DATE DUE" << "\n";
             for (int i = 0; i < booksForCheckOut.size(); i++)
             {
                 if (column == 5)
@@ -440,13 +429,16 @@ void SystemFiles::CheckReservedBooks()
     }
 }
 
+// This function checks whether a user has overdue books when they log in.
+// It searches the checkedOutBooks csv for their ID and appends any overdue books to the overdueBooks list.
+// If the user has no overdue books, then it will return an empty list.
 QStringList SystemFiles::CheckUsersOverdueBooks(QString memID)
 {
     QStringList checkedOutBooksData = GetFileData(CSVFiles::_CheckedOutBooks);
     QStringList overdueBooks;
 
-    QString date = QDate::currentDate().toString("dd/MM/yyyy");
-    QDate currDate = QDate::fromString(date, "dd/MM/yyyy");
+    QString date = QDate::currentDate().toString("dd.MM.yyyy");
+    QDate currDate = QDate::fromString(date);
 
     if (checkedOutBooksData.indexOf(memID) > 0) // If the members ID exists in the the checkedOutBooks file
     {
@@ -455,18 +447,17 @@ QStringList SystemFiles::CheckUsersOverdueBooks(QString memID)
             if (checkedOutBooksData[i] == memID) // Find members ID on the line
             {
                 QDate bookDueDate = QDate::fromString(checkedOutBooksData[i + 3]); // Convert books due date to a QDate from a string
-
-                if (bookDueDate >= currDate) // Compare the two dates
+                if (currDate <= bookDueDate) // Compare the two dates
                 {
                     overdueBooks.append(checkedOutBooksData[i - 1]); // Book name
-                    overdueBooks.append(checkedOutBooksData[i + 2]); // Book return date
+                    overdueBooks.append(checkedOutBooksData[i + 3]); // Book return date
                 }
             }
         }
-        return overdueBooks;
+        return overdueBooks; // returning a list with data
     }
     else
     {
-        return overdueBooks;
+        return overdueBooks; // returning an empty list
     }
 }
