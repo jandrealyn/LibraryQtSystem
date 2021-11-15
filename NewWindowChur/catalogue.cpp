@@ -31,7 +31,7 @@
 
 #include "catalogue.h"
 #include "ui_catalogue.h"
-#include "createfiles.h"
+#include "SystemFiles.h"
 #include <QDebug>
 #include <QDialog>
 #include <QFile>
@@ -53,13 +53,15 @@ Catalogue::Catalogue(QWidget *parent,
                      QString memPhone,
                      QString memID,
                      QString memAvatar) :
-    //user, pass, memfName, memlName, memEmail, memPhone, memID, memAvatar
     QDialog(parent),
     ui(new Ui::Catalogue)
 {
     ui->setupUi(this);
 
-    // Setting private variables (this is for the search function)
+    // Check if user has any overdue books as they login
+
+
+    // Setting private variables
     _memUser = memUser;
     _memPass = memPass;
     _memfName = memfName;
@@ -75,12 +77,12 @@ Catalogue::Catalogue(QWidget *parent,
     ui->welcomeBack->setText("Welcome back, " + _memfName);
 
     ui->user_name->setText(_memfName);
-    ui->user_email->setText("<b>Email:</b> " + memEmail);
-    ui->user_phonenumber->setText("<b>Phone:</b> " + memPhone);
-    ui->user_id->setText("<b>Your ID:</b> " + memID);
+    ui->user_email->setText("<b>Email:</b> " + _memEmail);
+    ui->user_phonenumber->setText("<b>Phone:</b> " + _memPhone);
+    ui->user_id->setText("<b>Your ID:</b> " + _memID);
 
     // Array control
-    QStringList catalogue = CreateFiles::GetFileData(CSVFiles::_Catalogue);
+    QStringList catalogue = SystemFiles::GetFileData(CSVFiles::_Catalogue);
     const int arraySize = (catalogue.size() / 6) - 1;
 
     // LAYOUTS
@@ -169,7 +171,7 @@ Catalogue::Catalogue(QWidget *parent,
     groupBox->setStyleSheet("background-color: white;");
 
     // Users checked out books section
-    ui->users_books->
+    //ui->users_books->table
 }
 
 Catalogue::~Catalogue()
@@ -197,12 +199,12 @@ void Catalogue::on_searchBar_textChanged(const QString &arg1)
 {
     QStringList foundData;
 
-    if (CreateFiles::_catalogue.open(QIODevice::ReadOnly))
+    if (SystemFiles::_catalogue.open(QIODevice::ReadOnly))
     {
-        QTextStream in(&CreateFiles::_catalogue);
+        QTextStream in(&SystemFiles::_catalogue);
         while(!in.atEnd())
         {
-            QString line = CreateFiles::_catalogue.readLine().replace("\r\n","");
+            QString line = SystemFiles::_catalogue.readLine().replace("\r\n","");
             if (line != "BOOK ID, IMAGE, BOOK NAME, AUTHOR, COPIES") // These are the headers of the CSV file. This just skips over it.
             {
                 if (line.toLower().contains(arg1.toLower()))
@@ -212,7 +214,7 @@ void Catalogue::on_searchBar_textChanged(const QString &arg1)
             }
         }
     }
-    CreateFiles::_catalogue.close();
+    SystemFiles::_catalogue.close();
 
     // Array control
     const int arraySize = (foundData.size() / 5) - 1;
@@ -324,7 +326,7 @@ void Catalogue::update_catalogue()
 
     // Catalogue update
     // Array control
-    QStringList catalogue = CreateFiles::GetFileData(CSVFiles::_Catalogue);
+    QStringList catalogue = SystemFiles::GetFileData(CSVFiles::_Catalogue);
     const int arraySize = (catalogue.size() / 6) - 1;
 
     // LAYOUTS

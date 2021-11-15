@@ -33,11 +33,8 @@ private slots:
     void on_searchBar_textChanged(const QString &arg1);
 
     void on_yourAccount_update_clicked();
-<<<<<<< HEAD
     //void on_home_clicked();
-=======
 
->>>>>>> dev
     void on_yourAccount_updatePic_clicked();
 
     void update_catalogue();

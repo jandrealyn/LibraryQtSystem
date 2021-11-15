@@ -1,6 +1,6 @@
 #include "admincatalogue.h"
 #include "ui_admincatalogue.h"
-#include "createfiles.h"
+#include "SystemFiles.h"
 #include "admineditbook.h"
 #include <QWidget>
 #include <QDebug>
@@ -26,7 +26,7 @@ admincatalogue::admincatalogue(QWidget *parent) :
     QPixmap Img(":/images/YoobeeLibraries.png");
     ui->img->setPixmap(Img.scaled(150, 150, Qt::KeepAspectRatio));
 
-    QStringList booksData = CreateFiles::GetFileData(CSVFiles::_Catalogue);
+    QStringList booksData = SystemFiles::GetFileData(CSVFiles::_Catalogue);
 
     ui->adminCatalogue->setStyleSheet("QHeaderView::section { background-color: rgba(254, 222, 255, 0.3) }");
 
