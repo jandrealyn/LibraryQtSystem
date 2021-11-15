@@ -35,6 +35,8 @@ public:
     static void EditBook(QStringList bookData);
     static void UpdateMemberDetails(QStringList membersData);
     static QDate FindLastReserveDate(QString bookID);
+    static void CheckReservedBooks();
+    static QStringList CheckUsersOverdueBooks(QString memID);
 
     static QString _path;
     static QFile _catalogue;
