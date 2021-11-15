@@ -15,6 +15,8 @@
 #include <QGroupBox>
 #include <QPushButton>
 
+//Laras Code :)
+
 admineditbook::admineditbook(QWidget *parent, QString bookID, QString bookName, QString authorName, QString copies) :
     QDialog(parent),
     ui(new Ui::admineditbook)
@@ -99,21 +101,7 @@ void admineditbook::on_deletebook_clicked()
     msgBox.exec();
 
     if (msgBox.clickedButton()==edit){
-            QStringList booksData = SystemFiles::GetFileData(CSVFiles::_Catalogue);
-            int rowCount = (booksData.size() / 6) - 1;
-            int i = 6;
-            for (int row = 0; row < rowCount; row++)
-            {
-                for (int col = 0; col < 6; col++)
-                {
-                    if (booksData[i] == _bookID){
-                        booksData.removeAt(i), booksData.removeAt(i+1), booksData.removeAt(i+2), booksData.removeAt(i+3), booksData.removeAt(i+4), booksData.removeAt(i+5);
-                    }
-                    i++;
-                }
-            }
-            //CreateFiles::EditBook(booksData[arraySize+1]);
-            SystemFiles::EditBook(booksData);
+            SystemFiles::DeleteBook(_bookID);
             close();
             emit exec();
         }

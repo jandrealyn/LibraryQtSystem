@@ -2,6 +2,7 @@
 #include "ui_admincatalogue.h"
 #include "SystemFiles.h"
 #include "admineditbook.h"
+#include "adminaddbook.h"
 #include <QWidget>
 #include <QDebug>
 #include <QDialog>
@@ -16,6 +17,8 @@
 #include <QGroupBox>
 #include <QPushButton>
 #include <QScrollBar>
+
+//Laras Code :)
 
 admincatalogue::admincatalogue(QWidget *parent) :
     QDialog(parent),
@@ -92,13 +95,10 @@ void admincatalogue::on_back_clicked()
 }
 
 
-void admincatalogue::on_verticalScrollBar_sliderMoved(int position)
-{
 
-}
 
 void admincatalogue::admincatalogueUpdate(){
-    QStringList booksData = CreateFiles::GetFileData(CSVFiles::_Catalogue);
+    QStringList booksData = SystemFiles::GetFileData(CSVFiles::_Catalogue);
 
     ui->adminCatalogue->setStyleSheet("QHeaderView::section { background-color: rgba(254, 222, 255, 0.3) }");
 
@@ -150,5 +150,14 @@ void admincatalogue::admincatalogueUpdate(){
             i++;
         }
     }
+}
+
+
+void admincatalogue::on_addbook_clicked()
+{
+    adminaddbook* adminadd;
+    adminadd = new adminaddbook;
+    adminadd->setWindowTitle("Add book");
+    adminadd->show();
 }
 

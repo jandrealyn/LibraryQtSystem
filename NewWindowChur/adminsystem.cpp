@@ -1,6 +1,8 @@
 #include "adminsystem.h"
 #include "ui_adminsystem.h"
 
+//Laras Code :)
+
 adminsystem::adminsystem(QWidget *parent) :
     QDialog(parent),
     ui(new Ui::adminsystem)

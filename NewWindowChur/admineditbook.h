@@ -22,8 +22,6 @@ signals:
 private slots:
     void on_canceledit_clicked();
 
-
-
     void on_confimedit_clicked();
 
     void on_deletebook_clicked();
