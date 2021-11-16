@@ -23,8 +23,6 @@ signals:
 private slots:
     void on_back_clicked();
 
-    void admincatalogueUpdate();
-
     void on_addbook_clicked();
 
 private:
