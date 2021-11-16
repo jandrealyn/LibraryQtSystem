@@ -481,6 +481,7 @@ void Catalogue::update_catalogue()
         checkoutScreen[row] = new CheckOutScreen(NULL, _memfName, _memID, catalogue[t], catalogue[t + 2], catalogue[t + 3], catalogue[t + 4]);
         checkoutScreen[row]->setWindowTitle("Checkout a book");
         connect(checkoutButton[row], SIGNAL(clicked()), checkoutScreen[row], SLOT(exec()));
+        connect(checkoutScreen[row], SIGNAL(UpdateUsersCurrentBooks()), this, SLOT(update_usersBooks()));
 
         // Horizontal Lines
         lines1[row] = new QFrame();
