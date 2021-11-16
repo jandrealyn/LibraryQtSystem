@@ -1,6 +1,9 @@
 #include "adminuser.h"
 #include "ui_adminuser.h"
 #include "SystemFiles.h"
+#include "adminedituser.h"
+#include "signupscreen.h"
+#include <QWidget>
 #include <QDebug>
 #include <QDialog>
 #include <QFile>
@@ -12,6 +15,8 @@
 #include <QFrame>
 #include <QScrollArea>
 #include <QGroupBox>
+#include <QPushButton>
+#include <QScrollBar>
 
 //Laras Code :)
 
@@ -26,13 +31,13 @@ adminuser::adminuser(QWidget *parent) :
     ui->img->setPixmap(Img.scaled(150, 150, Qt::KeepAspectRatio));
 
     ui->adminUser->setStyleSheet("QHeaderView::section { background-color: rgba(254, 222, 255, 0.3) }");
-       // Because we have 5 columns, we insert a column 5 times
-       for (int i = 0; i < 8; i++)
+       // Because we have 9 columns, we insert a column 9 times
+       for (int i = 0; i < 9; i++)
        {
           ui->adminUser->insertColumn(ui->adminUser->columnCount());
        }
        // We have headers in our CSV file, so I use them to set the labels for the table.
-       ui->adminUser->setHorizontalHeaderLabels({membersData[0], membersData[1], membersData[2], membersData[3], membersData[4], membersData[5], membersData[6], membersData[7]});
+       ui->adminUser->setHorizontalHeaderLabels({membersData[0], membersData[1], membersData[2], membersData[3], membersData[4], membersData[5], membersData[6], membersData[7], "EDIT USER"});
        ui->adminUser->horizontalHeader()->setSectionResizeMode(0, QHeaderView::ResizeToContents);
        ui->adminUser->horizontalHeader()->setSectionResizeMode(1, QHeaderView::ResizeToContents);
        ui->adminUser->horizontalHeader()->setSectionResizeMode(2, QHeaderView::ResizeToContents);
@@ -41,17 +46,41 @@ adminuser::adminuser(QWidget *parent) :
        ui->adminUser->horizontalHeader()->setSectionResizeMode(5, QHeaderView::ResizeToContents);
        ui->adminUser->horizontalHeader()->setSectionResizeMode(6, QHeaderView::ResizeToContents);
        ui->adminUser->horizontalHeader()->setSectionResizeMode(7, QHeaderView::ResizeToContents);
+       ui->adminUser->horizontalHeader()->setSectionResizeMode(8, QHeaderView::ResizeToContents);
        ui->adminUser->setSelectionMode(QHeaderView::NoSelection);
        // Create the rows of the QTableWidget
-       int i = 8;
-       int rowCount = (membersData.size() / 8) - 1;
+       int i = 9;
+       int rowCount = (membersData.size() / 9) - 1;
+       QPushButton* push[rowCount];
+       adminedituser* admineditu[rowCount];
        for (int row = 0; row < rowCount; row++)
        {
            ui->adminUser->insertRow(ui->adminUser->rowCount());
-           for (int col = 0; col < 8; col++)
+           for (int col = 0; col < 9; col++)
            {
-               QTableWidgetItem *item = new QTableWidgetItem(QString(membersData[i]));
-               ui->adminUser->setItem(row, col, item);
+               if (membersData[i].contains(":/images")){
+                   ui->adminUser->verticalHeader()->setSectionResizeMode(row, QHeaderView::Stretch);
+                   QWidget* item = new QWidget(ui->adminUser);
+                   QString imagePath = membersData[i];
+                   QPixmap p(imagePath);
+                   QLabel* l = new QLabel(item);
+                   l->setPixmap(p.scaled(60,90));
+                   ui->adminUser->setCellWidget(row, col, item);
+               }
+               else if (col == 9){
+                   QWidget* item = new QWidget(ui->adminUser);
+                   push[row] = new QPushButton(item);
+                   push[row]->setText("Edit");
+                   push[row]->setGeometry(20,35,60,40); //Changes the size of the button and the placement
+                   admineditu[row] = new adminedituser(NULL, membersData[i-6], membersData[i-5], membersData[i-2], membersData[i-1]);
+                   admineditu[row]->setWindowTitle("Edit User");
+                   connect(push[row], SIGNAL(clicked()), admineditu[row], SLOT(exec()));
+                   ui->adminUser->setCellWidget(row, col, item);
+               }
+               else {
+                QTableWidgetItem *item = new QTableWidgetItem(QString(membersData[i]));
+                ui->adminUser->setItem(row, col, item);
+               }
                i++;
            }
        }
@@ -72,6 +101,10 @@ void adminuser::on_back_clicked()
 
 void adminuser::on_adduser_clicked()
 {
-
+    hide();
+    _signup = new signupscreen(nullptr);
+    _signup->setWindowFlags((windowFlags()) | Qt::WindowMinimizeButtonHint);
+    _signup->show();
+    connect(_signup, SIGNAL(OpenLoginScreen()), this, SLOT(LoginScreenOpen()));
 }
 
