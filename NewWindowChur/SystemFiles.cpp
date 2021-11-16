@@ -1,6 +1,6 @@
 // ------------------------------------------------------------
 //
-// CREATE FILES CLASS
+// SystemFiles CLASS
 // Written by Jakob
 //
 // This class is used to easily acess our system files.
@@ -13,10 +13,10 @@
 // ------------------------------------------------------------
 
 #include "SystemFiles.h"
-#include <QDebug>
 #include <QRandomGenerator>
-#include <QDebug>
-#include <QDate>
+#include <QDir>
+#include <QTextStream>
+#include <QMessageBox>
 
 // Defining static variables
 QString SystemFiles::_path = "CSVFiles/";
@@ -141,7 +141,7 @@ QStringList SystemFiles::GetFileData(enum CSVFiles file)
         _reserveBook.close();
         break;
     default:
-        qDebug() << "Could not open file.";
+        QMessageBox::warning(NULL, "Error", "Could not get file data.");
         fileData.append("error");
         break;
     }

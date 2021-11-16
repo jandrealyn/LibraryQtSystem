@@ -1,9 +1,9 @@
 #ifndef SYSTEMFILES_H
 #define SYSTEMFILES_H
-#include <QDir>
+
+#include <QString>
+#include <QDate>
 #include <QFile>
-#include <QTextStream>
-#include <QMessageBox>
 
 enum CSVFiles
 {
@@ -12,13 +12,6 @@ enum CSVFiles
     _CheckedOutBooks,
     _ReservedBooks
 };
-
-//enum MyEnum
-//{
-//    CSVFiles = _Catalogue | _Members,
-//    Test,
-//    One
-//};
 
 class SystemFiles
 {
