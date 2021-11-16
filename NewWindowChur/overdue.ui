@@ -7,7 +7,7 @@
     <x>0</x>
     <y>0</y>
     <width>486</width>
-    <height>196</height>
+    <height>185</height>
    </rect>
   </property>
   <property name="windowTitle">
@@ -32,8 +32,8 @@
      <item>
       <widget class="QLabel" name="label_2">
        <property name="text">
-        <string>Please return them as soon as possible. For every week overdue, a $10 penalty will be applied to
- your account.</string>
+        <string>Please return them as soon as possible. For every week overdue, a $10 penalty will be applied
+ to your account.</string>
        </property>
       </widget>
      </item>

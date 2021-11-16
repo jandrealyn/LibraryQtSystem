@@ -60,6 +60,7 @@ void ReserveBook::on_confirmReserve_clicked()
         QMessageBox::information(this, "Reservation success", "You have successfully placed a reservation for " + _bookName + "!");
         close();
         emit ReserveScreenClosed();
+        emit Res_UpdateUsersCurrentBooks();
         break;
     case QMessageBox::Cancel:
         confirmCheckout->close();
