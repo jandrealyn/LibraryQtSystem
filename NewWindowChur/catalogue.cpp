@@ -140,7 +140,7 @@ Catalogue::Catalogue(QWidget *parent,
         checkoutScreen[row] = new CheckOutScreen(NULL, _memfName, memID, catalogue[t], catalogue[t + 2], catalogue[t + 3], catalogue[t + 4]);
         checkoutScreen[row]->setWindowTitle("Checkout a book");
         connect(checkoutButton[row], SIGNAL(clicked()), checkoutScreen[row], SLOT(exec()));
-        connect(checkoutScreen[row], SIGNAL(UpdateCatalogue()), this, SLOT(update_catalogue()));
+        connect(checkoutScreen[row], SIGNAL(UpdateUsersCurrentBooks()), this, SLOT(update_usersBooks()));
 
         // Horizontal Lines
         lines1[row] = new QFrame();
@@ -178,13 +178,112 @@ Catalogue::Catalogue(QWidget *parent,
     groupBox->setStyleSheet("background-color: white;");
 
     // Users checked out books section
-    //ui->users_books->table
+    QStringList checkedOutBooksData = SystemFiles::GetFileData(CSVFiles::_CheckedOutBooks);
+    QStringList reservedBooksData = SystemFiles::GetFileData(CSVFiles::_ReservedBooks);
+    int column = 0;
+    int listIndex = 0;
+    int rows = 0;
+
+    ui->tableWidget_currentBooks->insertColumn(ui->tableWidget_currentBooks->columnCount());
+    ui->tableWidget_currentBooks->insertColumn(ui->tableWidget_currentBooks->columnCount());
+    ui->tableWidget_currentBooks->insertColumn(ui->tableWidget_currentBooks->columnCount());
+    ui->tableWidget_currentBooks->insertColumn(ui->tableWidget_currentBooks->columnCount());
+    ui->tableWidget_currentBooks->setHorizontalHeaderLabels({"Book Name", "Date Checked Out/Booked", "Return By", "Checkout or Reserve"});
+    ui->tableWidget_currentBooks->horizontalHeader()->setSectionResizeMode(0, QHeaderView::Stretch);
+    ui->tableWidget_currentBooks->horizontalHeader()->setSectionResizeMode(1, QHeaderView::Stretch);
+    ui->tableWidget_currentBooks->horizontalHeader()->setSectionResizeMode(2, QHeaderView::Stretch);
+    ui->tableWidget_currentBooks->horizontalHeader()->setSectionResizeMode(3, QHeaderView::Stretch);
+    ui->tableWidget_currentBooks->setSelectionMode(QHeaderView::NoSelection);
+
+    // Quick check to see if user exists in the checked out books file
+    if (checkedOutBooksData.indexOf(_memID) > 0)
+    {
+        QStringList checkOutBookDetails;
+        for (int i = 0; i < checkedOutBooksData.size(); i++)
+        {
+            if (column == 2)
+            {
+                if (checkedOutBooksData[i] == _memID)
+                {
+                    checkOutBookDetails.append(checkedOutBooksData[i - 1]); // Book Name
+                    checkOutBookDetails.append(checkedOutBooksData[i + 2]); // Book checkout date
+                    checkOutBookDetails.append(checkedOutBooksData[i + 3]); // Book return date
+                    checkOutBookDetails.append("Checkout");
+                }
+                column++;
+            }
+            else if (column == 5)
+            {
+                column = 0;
+            }
+            else
+            {
+                column++;
+            }
+        }
+
+        for (int i = 0; i < checkOutBookDetails.size() / 4; i++)
+        {
+            ui->tableWidget_currentBooks->insertRow(ui->tableWidget_currentBooks->rowCount());
+            rows++; // We use this in the reservedBooksData section. It allows us to set items in the correct row.
+            for (int j = 0; j < 4; j++)
+            {
+                QTableWidgetItem *item = new QTableWidgetItem(QString(checkOutBookDetails[listIndex]));
+                item->setFlags(item->flags() ^ Qt::ItemIsEditable); // Makes the item not editable
+                ui->tableWidget_currentBooks->setItem(i, j, item);
+                listIndex++;
+            }
+        }
+    }
+
+    // Quick check to see if user exists in the reserved books file
+    if (reservedBooksData.indexOf(_memID) > 0)
+    {
+        QStringList reservedBookDetails;
+        column = 0; // resetting the column and list index
+        listIndex = 0;
+        for (int i = 0; i < reservedBooksData.size(); i++)
+        {
+            if (column == 2)
+            {
+                if (reservedBooksData[i] == _memID)
+                {
+                    reservedBookDetails.append(reservedBooksData[i - 1]); // Book Name
+                    reservedBookDetails.append(reservedBooksData[i + 2]); // Book checkout date
+                    reservedBookDetails.append(reservedBooksData[i + 3]); // Book return date
+                    reservedBookDetails.append("Reserved");
+                }
+            }
+            else if (column == 5)
+            {
+                column = 0;
+            }
+            else
+            {
+                column++;
+            }
+        }
+
+        for (int i = 0; i < (reservedBookDetails.size() / 4); i++)
+        {
+            ui->tableWidget_currentBooks->insertRow(ui->tableWidget_currentBooks->rowCount());
+            for (int j = 0; j < 4; j++)
+            {
+                QTableWidgetItem *item = new QTableWidgetItem(QString(reservedBookDetails[listIndex]));
+                item->setFlags(item->flags() ^ Qt::ItemIsEditable); // Makes the item not editable
+                ui->tableWidget_currentBooks->setItem(rows, j, item); // Here we use rows instead of i to make sure we set the item in the right row
+                listIndex++;
+            }
+            rows++;
+        }
+    }
 }
 
 Catalogue::~Catalogue()
 {
     delete ui;
 }
+
 //Liv Tried to figure out how to add the same imagery from " main window " - Yet to figure it out..s
 //Catalogue::Home()
 //    QDialog(parent),
@@ -212,7 +311,7 @@ void Catalogue::on_searchBar_textChanged(const QString &arg1)
         while(!in.atEnd())
         {
             QString line = SystemFiles::_catalogue.readLine().replace("\r\n","");
-            if (line != "BOOK ID, IMAGE, BOOK NAME, AUTHOR, COPIES") // These are the headers of the CSV file. This just skips over it.
+            if (line != "BOOK ID,IMAGE,BOOK NAME,AUTHOR,COPIES,EDIT BOOK") // These are the headers of the CSV file. This just skips over it.
             {
                 if (line.toLower().contains(arg1.toLower()))
                 {
@@ -224,7 +323,7 @@ void Catalogue::on_searchBar_textChanged(const QString &arg1)
     SystemFiles::_catalogue.close();
 
     // Array control
-    const int arraySize = (foundData.size() / 5) - 1;
+    const int arraySize = (foundData.size() / 6);
 
     // LAYOUTS
     QGroupBox* groupBox = new QGroupBox;
@@ -240,7 +339,7 @@ void Catalogue::on_searchBar_textChanged(const QString &arg1)
     QPushButton* checkoutButton[arraySize];
     CheckOutScreen* checkoutScreen[arraySize];
 
-    int t = 5;
+    int t = 0;
     // Initalize all widgets
     for (int row = 0; row < arraySize; row++)
     {
@@ -274,6 +373,7 @@ void Catalogue::on_searchBar_textChanged(const QString &arg1)
         checkoutScreen[row] = new CheckOutScreen(NULL, _memfName, _memID, foundData[t], foundData[t + 2], foundData[t + 3], foundData[t + 4]);
         connect(checkoutButton[row], SIGNAL(clicked()), checkoutScreen[row], SLOT(exec()));
         connect(checkoutScreen[row], SIGNAL(UpdateCatalogue()), this, SLOT(update_catalogue()));
+        connect(checkoutScreen[row], SIGNAL(UpdateUsersCurrentBooks()), this, SLOT(update_usersBooks()));
 
         // Horizontal Lines
         lines1[row] = new QFrame();
@@ -286,7 +386,7 @@ void Catalogue::on_searchBar_textChanged(const QString &arg1)
         lines2[row]->setFrameShape(QFrame::HLine);
         lines2[row]->setFrameShadow(QFrame::Sunken);
 
-        t = t + 5;
+        t = t + 6;
     }
 
     // Add all of the widgets into the layouts
@@ -328,9 +428,6 @@ void Catalogue::on_yourAccount_updatePic_clicked()
 // It will update the entire catalogue each time either of those functions happens.
 void Catalogue::update_catalogue()
 {
-    // Member details udpate
-
-
     // Catalogue update
     // Array control
     QStringList catalogue = SystemFiles::GetFileData(CSVFiles::_Catalogue);
@@ -384,6 +481,7 @@ void Catalogue::update_catalogue()
         checkoutScreen[row] = new CheckOutScreen(NULL, _memfName, _memID, catalogue[t], catalogue[t + 2], catalogue[t + 3], catalogue[t + 4]);
         checkoutScreen[row]->setWindowTitle("Checkout a book");
         connect(checkoutButton[row], SIGNAL(clicked()), checkoutScreen[row], SLOT(exec()));
+        connect(checkoutScreen[row], SIGNAL(UpdateUsersCurrentBooks()), this, SLOT(update_usersBooks()));
 
         // Horizontal Lines
         lines1[row] = new QFrame();
@@ -419,5 +517,100 @@ void Catalogue::update_catalogue()
 
     ui->scrollArea->setWidget(groupBox);
     groupBox->setStyleSheet("background-color: white;");
+}
+
+void Catalogue::update_usersBooks()
+{
+    qDebug() << "test";
+    ui->tableWidget_currentBooks->setRowCount(0);
+    // Users checked out books section
+    QStringList checkedOutBooksData = SystemFiles::GetFileData(CSVFiles::_CheckedOutBooks);
+    QStringList reservedBooksData = SystemFiles::GetFileData(CSVFiles::_ReservedBooks);
+    int column = 0;
+    int listIndex = 0;
+    int rows = 0;
+
+    // Quick check to see if user exists in the checked out books file
+    if (checkedOutBooksData.indexOf(_memID) > 0)
+    {
+        QStringList checkOutBookDetails;
+        for (int i = 0; i < checkedOutBooksData.size(); i++)
+        {
+            if (column == 2)
+            {
+                if (checkedOutBooksData[i] == _memID)
+                {
+                    checkOutBookDetails.append(checkedOutBooksData[i - 1]); // Book Name
+                    checkOutBookDetails.append(checkedOutBooksData[i + 2]); // Book checkout date
+                    checkOutBookDetails.append(checkedOutBooksData[i + 3]); // Book return date
+                    checkOutBookDetails.append("Checkout");
+                }
+                column++;
+            }
+            else if (column == 5)
+            {
+                column = 0;
+            }
+            else
+            {
+                column++;
+            }
+        }
+
+        for (int i = 0; i < checkOutBookDetails.size() / 4; i++)
+        {
+            ui->tableWidget_currentBooks->insertRow(ui->tableWidget_currentBooks->rowCount());
+            rows++; // We use this in the reservedBooksData section. It allows us to set items in the correct row.
+            for (int j = 0; j < 4; j++)
+            {
+                QTableWidgetItem *item = new QTableWidgetItem(QString(checkOutBookDetails[listIndex]));
+                item->setFlags(item->flags() ^ Qt::ItemIsEditable); // Makes the item not editable
+                ui->tableWidget_currentBooks->setItem(i, j, item);
+                listIndex++;
+            }
+        }
+    }
+
+    // Quick check to see if user exists in the reserved books file
+    if (reservedBooksData.indexOf(_memID) > 0)
+    {
+        QStringList reservedBookDetails;
+        column = 0; // resetting the column and list index
+        listIndex = 0;
+        for (int i = 0; i < reservedBooksData.size(); i++)
+        {
+            if (column == 2)
+            {
+                if (reservedBooksData[i] == _memID)
+                {
+                    reservedBookDetails.append(reservedBooksData[i - 1]); // Book Name
+                    reservedBookDetails.append(reservedBooksData[i + 2]); // Book checkout date
+                    reservedBookDetails.append(reservedBooksData[i + 3]); // Book return date
+                    reservedBookDetails.append("Reserved");
+                }
+            }
+            else if (column == 5)
+            {
+                column = 0;
+            }
+            else
+            {
+                column++;
+            }
+        }
+
+        for (int i = 0; i < (reservedBookDetails.size() / 4); i++)
+        {
+            ui->tableWidget_currentBooks->insertRow(ui->tableWidget_currentBooks->rowCount());
+            for (int j = 0; j < 4; j++)
+            {
+                QTableWidgetItem *item = new QTableWidgetItem(QString(reservedBookDetails[listIndex]));
+                item->setFlags(item->flags() ^ Qt::ItemIsEditable); // Makes the item not editable
+                ui->tableWidget_currentBooks->setItem(rows, j, item); // Here we use rows instead of i to make sure we set the item in the right row
+                listIndex++;
+            }
+            rows++;
+        }
+    }
 }
 

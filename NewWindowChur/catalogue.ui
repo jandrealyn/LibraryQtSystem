@@ -26,23 +26,20 @@
       <string notr="true"/>
      </property>
      <property name="currentIndex">
-      <number>2</number>
+      <number>0</number>
      </property>
      <widget class="QWidget" name="Home">
       <attribute name="title">
        <string>Home</string>
       </attribute>
       <layout class="QGridLayout" name="gridLayout_3">
-       <item row="4" column="0">
-        <widget class="QTextBrowser" name="img"/>
-       </item>
        <item row="0" column="0">
         <widget class="QLabel" name="yoobeeLogo_2">
          <property name="text">
           <string/>
          </property>
          <property name="pixmap">
-          <pixmap resource="images.qrc">:/images/yoobee-logo.png</pixmap>
+          <pixmap resource="images.qrc">:/images/YoobeeLibraries.png</pixmap>
          </property>
         </widget>
        </item>
@@ -69,6 +66,17 @@
          </property>
          <property name="text">
           <string>Welcome back, </string>
+         </property>
+        </widget>
+       </item>
+       <item row="4" column="0">
+        <widget class="QTextBrowser" name="textBrowser">
+         <property name="html">
+          <string>&lt;!DOCTYPE HTML PUBLIC &quot;-//W3C//DTD HTML 4.0//EN&quot; &quot;http://www.w3.org/TR/REC-html40/strict.dtd&quot;&gt;
+&lt;html&gt;&lt;head&gt;&lt;meta name=&quot;qrichtext&quot; content=&quot;1&quot; /&gt;&lt;style type=&quot;text/css&quot;&gt;
+p, li { white-space: pre-wrap; }
+&lt;/style&gt;&lt;/head&gt;&lt;body style=&quot; font-family:'MS Shell Dlg 2'; font-size:8.25pt; font-weight:400; font-style:normal;&quot;&gt;
+&lt;p style=&quot; margin-top:0px; margin-bottom:0px; margin-left:0px; margin-right:0px; -qt-block-indent:0; text-indent:0px;&quot;&gt;&lt;img src=&quot;:/images/top-books.png&quot; /&gt;&lt;/p&gt;&lt;/body&gt;&lt;/html&gt;</string>
          </property>
         </widget>
        </item>
@@ -130,19 +138,6 @@
              </property>
              <property name="text">
               <string>Person Picture</string>
-             </property>
-            </widget>
-           </item>
-           <item>
-            <widget class="QPushButton" name="yourAccount_updatePic">
-             <property name="sizePolicy">
-              <sizepolicy hsizetype="Fixed" vsizetype="Fixed">
-               <horstretch>0</horstretch>
-               <verstretch>0</verstretch>
-              </sizepolicy>
-             </property>
-             <property name="text">
-              <string>Change profile picture</string>
              </property>
             </widget>
            </item>
@@ -288,7 +283,6 @@ background-color: rgb(239, 239, 239);</string>
  </widget>
  <tabstops>
   <tabstop>yourAccount_logout</tabstop>
-  <tabstop>img</tabstop>
  </tabstops>
  <resources>
   <include location="images.qrc"/>

@@ -19,6 +19,7 @@ public:
 signals:
     void UpdateCatalogue();
     void UpdateCheckOutScreenSignal();
+    void UpdateUsersCurrentBooks();
 
 private slots:
     void on_cancel_clicked();
@@ -30,6 +31,8 @@ private slots:
     void OpenCheckOutScreen();
 
     void UpdateCheckOutScreenSlot();
+
+    void Res_UpdateUsersCurrentBooks_Emitted();
 
 private:
     Ui::CheckOutScreen *ui;

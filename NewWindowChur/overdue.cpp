@@ -9,7 +9,7 @@ Overdue::Overdue(QWidget *parent, QStringList overdueBooks) :
 
     ui->tableWidget_overdueBooks->insertColumn(ui->tableWidget_overdueBooks->columnCount());
     ui->tableWidget_overdueBooks->insertColumn(ui->tableWidget_overdueBooks->columnCount()); // We need 2 columns which is why this line appears twice
-    ui->tableWidget_overdueBooks->setHorizontalHeaderLabels({"Book name", "Date due"});
+    ui->tableWidget_overdueBooks->setHorizontalHeaderLabels({"Book Name", "Due Date"});
     ui->tableWidget_overdueBooks->horizontalHeader()->setSectionResizeMode(0, QHeaderView::Stretch);
     ui->tableWidget_overdueBooks->horizontalHeader()->setSectionResizeMode(1, QHeaderView::Stretch);
     ui->tableWidget_overdueBooks->setSelectionMode(QHeaderView::NoSelection);
@@ -21,6 +21,7 @@ Overdue::Overdue(QWidget *parent, QStringList overdueBooks) :
         for (int j = 0; j < 2; j++)
         {
             QTableWidgetItem *item = new QTableWidgetItem(QString(overdueBooks[listIndex]));
+            item->setFlags(item->flags() ^ Qt::ItemIsEditable);
             ui->tableWidget_overdueBooks->setItem(i, j, item);
             listIndex++;
         }

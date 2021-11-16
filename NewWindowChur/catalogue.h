@@ -39,6 +39,8 @@ private slots:
 
     void update_catalogue();
 
+    void update_usersBooks();
+
 private:
     QString _memUser, _memPass, _memfName, _memlName, _memEmail, _memPhone, _memID, _memAvatar;
     Ui::Catalogue *ui;
