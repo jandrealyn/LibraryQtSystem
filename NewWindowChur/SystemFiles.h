@@ -28,11 +28,15 @@ public:
     static void CreateFilesOnStartUp();
     static QStringList GetFileData(enum CSVFiles);
     static void CreateMember(QString avatar, QString fName, QString lName, QString uName, QString pWord, QString email, QString phoneNum);
+    static void CreateBook(QString bookimg, QString title, QString author, QString copies);
+    static void DeleteBook(QString bookID);
     static void CheckOutBook(QString bookID, QString bookName, QString memID, QString memName, QString dueDate);
     static void CheckOutBook(QString bookID, QString bookName, QString memID, QString memName, QString reserveDate, QString dueDate);
     static void EditBook(QStringList bookData);
     static void UpdateMemberDetails(QStringList membersData);
     static QDate FindLastReserveDate(QString bookID);
+    static void CheckReservedBooks();
+    static QStringList CheckUsersOverdueBooks(QString memID);
 
     static QString _path;
     static QFile _catalogue;

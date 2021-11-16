@@ -10,7 +10,7 @@ CONFIG += c++11
 
 SOURCES += \
     SystemFiles.cpp \
-    admin.cpp \
+    adminaddbook.cpp \
     admincatalogue.cpp \
     admindue.cpp \
     admineditbook.cpp \
@@ -25,6 +25,7 @@ SOURCES += \
     loginscreen.cpp \
     main.cpp \
     mainwindow.cpp \
+    overdue.cpp \
     reservebook.cpp \
     signupscreen.cpp \
     signupscreen2.cpp \
@@ -33,7 +34,7 @@ SOURCES += \
 
 HEADERS += \
     SystemFiles.h \
-    admin.h \
+    adminaddbook.h \
     admincatalogue.h \
     admindue.h \
     admineditbook.h \
@@ -47,6 +48,7 @@ HEADERS += \
     dialog.h \
     loginscreen.h \
     mainwindow.h \
+    overdue.h \
     reservebook.h \
     signupscreen.h \
     signupscreen2.h \
@@ -54,7 +56,7 @@ HEADERS += \
     updateuserpicture.h
 
 FORMS += \
-    admin.ui \
+    adminaddbook.ui \
     admincatalogue.ui \
     admindue.ui \
     admineditbook.ui \
@@ -68,6 +70,7 @@ FORMS += \
     dialog.ui \
     loginscreen.ui \
     mainwindow.ui \
+    overdue.ui \
     reservebook.ui \
     signupscreen.ui \
     signupscreen2.ui \

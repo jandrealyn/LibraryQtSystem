@@ -21,6 +21,8 @@ signals:
 private slots:
     void on_back_clicked();
 
+    void on_adduser_clicked();
+
 private:
     Ui::adminuser *ui;
 };

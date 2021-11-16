@@ -15,12 +15,12 @@ public:
     explicit admineditbook(QWidget *parent = nullptr, QString bookID = "", QString bookName = "", QString authorName = "", QString copies = "");
     ~admineditbook();
 
+signals:
+    admincatalogueUpdate();
     //void setVariables(QString bookID, QString bookName, QString authorName, QString copies);
 
 private slots:
     void on_canceledit_clicked();
-
-
 
     void on_confimedit_clicked();
 

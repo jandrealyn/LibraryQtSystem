@@ -138,7 +138,7 @@ padding:2px;</string>
      <enum>Qt::Vertical</enum>
     </property>
    </widget>
-   <widget class="QPushButton" name="pushButton">
+   <widget class="QPushButton" name="addbook">
     <property name="geometry">
      <rect>
       <x>310</x>

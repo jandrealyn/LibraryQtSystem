@@ -32,6 +32,7 @@
 #include "catalogue.h"
 #include "ui_catalogue.h"
 #include "SystemFiles.h"
+#include "overdue.h"
 #include <QDebug>
 #include <QDialog>
 #include <QFile>
@@ -58,9 +59,6 @@ Catalogue::Catalogue(QWidget *parent,
 {
     ui->setupUi(this);
 
-    // Check if user has any overdue books as they login
-
-
     // Setting private variables
     _memUser = memUser;
     _memPass = memPass;
@@ -70,6 +68,15 @@ Catalogue::Catalogue(QWidget *parent,
     _memPhone = memPhone;
     _memID = memID;
     _memAvatar = memAvatar;
+
+    // Check if user has any overdue books as they login
+    QStringList overdueBooks = SystemFiles::CheckUsersOverdueBooks(_memID); // we need to show them: book name, book return date, current date
+
+    if (!overdueBooks.isEmpty())
+    {
+        Overdue* overdueScreen = new Overdue(nullptr, overdueBooks);
+        overdueScreen->exec();
+    }
 
     // Set users details
     QPixmap p(memAvatar);
