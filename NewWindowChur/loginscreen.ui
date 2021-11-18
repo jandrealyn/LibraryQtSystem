@@ -16,8 +16,8 @@
   <widget class="QFrame" name="gridFrame_3">
    <property name="geometry">
     <rect>
-     <x>90</x>
-     <y>10</y>
+     <x>110</x>
+     <y>30</y>
      <width>801</width>
      <height>551</height>
     </rect>
@@ -70,87 +70,27 @@ border-style: inset;
    <widget class="QPushButton" name="close">
     <property name="geometry">
      <rect>
-      <x>600</x>
-      <y>20</y>
+      <x>580</x>
+      <y>60</y>
       <width>172</width>
       <height>28</height>
      </rect>
     </property>
     <property name="styleSheet">
-     <string notr="true">QPushButton#close{
-background-color: #d3d3d3;
-border-width: 2px;
-border-radius: 5px;
-border-color: black;
-min-width: 5em;
-padding: 3px;
-}</string>
+     <string notr="true">QPushButton
+{
+  color: white;
+  background-color: #27a9e3;
+  border-width: 0px;
+  border-radius: 3px;
+}
+hover:
+
+QPushButton:hover { background-color: #66c011; }</string>
     </property>
     <property name="text">
      <string>Close</string>
     </property>
-   </widget>
-   <widget class="QWidget" name="gridLayoutWidget">
-    <property name="geometry">
-     <rect>
-      <x>210</x>
-      <y>230</y>
-      <width>341</width>
-      <height>159</height>
-     </rect>
-    </property>
-    <layout class="QGridLayout" name="gridLayout">
-     <item row="0" column="1">
-      <layout class="QFormLayout" name="formLayout_2">
-       <item row="0" column="0">
-        <widget class="QLabel" name="label">
-         <property name="text">
-          <string>Username</string>
-         </property>
-        </widget>
-       </item>
-       <item row="0" column="1">
-        <widget class="QLineEdit" name="username_input"/>
-       </item>
-       <item row="1" column="0">
-        <widget class="QLabel" name="label_2">
-         <property name="text">
-          <string>Password</string>
-         </property>
-        </widget>
-       </item>
-       <item row="1" column="1">
-        <widget class="QLineEdit" name="password_input">
-         <property name="echoMode">
-          <enum>QLineEdit::Password</enum>
-         </property>
-        </widget>
-       </item>
-       <item row="2" column="1">
-        <widget class="QPushButton" name="login">
-         <property name="styleSheet">
-          <string notr="true">*{
-background-color:rgb(255, 255, 255); 
-font-family: cenury gothic, sans-serif;
-
-}
-QPushButton#login{
-background-color: #d3d3d3;
-border-width: 2px;
-border-radius: 10px;
-border-color: black;
-min-width: 10em;
-padding: 6px;
-}</string>
-         </property>
-         <property name="text">
-          <string>Login</string>
-         </property>
-        </widget>
-       </item>
-      </layout>
-     </item>
-    </layout>
    </widget>
    <widget class="QPushButton" name="Create">
     <property name="geometry">
@@ -161,16 +101,89 @@ padding: 6px;
       <height>31</height>
      </rect>
     </property>
+    <property name="styleSheet">
+     <string notr="true">QPushButton
+{
+  color: white;
+  background-color: #27a9e3;
+  border-width: 0px;
+  border-radius: 3px;
+}
+hover:
+
+QPushButton:hover { background-color: #66c011; }</string>
+    </property>
     <property name="text">
      <string>Create An Account</string>
     </property>
    </widget>
+   <widget class="QWidget" name="formLayoutWidget">
+    <property name="geometry">
+     <rect>
+      <x>310</x>
+      <y>240</y>
+      <width>221</width>
+      <height>136</height>
+     </rect>
+    </property>
+    <layout class="QVBoxLayout" name="verticalLayout_2">
+     <item>
+      <widget class="QLabel" name="label">
+       <property name="text">
+        <string>Username</string>
+       </property>
+      </widget>
+     </item>
+     <item>
+      <widget class="QLineEdit" name="username_input">
+       <property name="styleSheet">
+        <string notr="true">QLabel { color: white; }
+QLineEdit { border-radius: 3px; }</string>
+       </property>
+      </widget>
+     </item>
+     <item>
+      <widget class="QLabel" name="label_2">
+       <property name="text">
+        <string>Password</string>
+       </property>
+      </widget>
+     </item>
+     <item>
+      <widget class="QLineEdit" name="password_input">
+       <property name="styleSheet">
+        <string notr="true">QLabel { color: white; }
+QLineEdit { border-radius: 3px; }</string>
+       </property>
+       <property name="echoMode">
+        <enum>QLineEdit::Password</enum>
+       </property>
+      </widget>
+     </item>
+     <item>
+      <widget class="QPushButton" name="login">
+       <property name="styleSheet">
+        <string notr="true">QPushButton
+{
+  color: white;
+  background-color: #27a9e3;
+  border-width: 0px;
+  border-radius: 3px;
+}
+hover:
+
+QPushButton:hover { background-color: #66c011; }</string>
+       </property>
+       <property name="text">
+        <string>Login</string>
+       </property>
+      </widget>
+     </item>
+    </layout>
+   </widget>
   </widget>
  </widget>
  <tabstops>
-  <tabstop>username_input</tabstop>
-  <tabstop>password_input</tabstop>
-  <tabstop>login</tabstop>
   <tabstop>Create</tabstop>
   <tabstop>close</tabstop>
  </tabstops>

@@ -12,6 +12,11 @@
  // - liv (Worked on Login/Signup/Menu Screens)
 // Jakob - connected the signup screens and made the login functional
 
+/*
+   Login screen is for allowing the user to have a entrance into their
+   saved data.
+*/
+
 loginscreen::loginscreen(QWidget *parent) :
     QDialog(parent),
     ui(new Ui::loginscreen)
@@ -90,9 +95,6 @@ void loginscreen::on_login_clicked()
             QString memID = membersData[usernameIndex - 4];
             QString memAvatar = membersData[usernameIndex - 3];
 
-
-
-
             hide();
             // CALL YOUR DIALOG WINDOWS WITH (nullptr) SO THAT THEY HAVE A TASKBAR ICON
             _catalogueWindow = new Catalogue(nullptr, user, pass, memfName, memlName, memEmail, memPhone, memID, memAvatar);
@@ -107,7 +109,8 @@ void loginscreen::on_login_clicked()
     }
 }
 
-void loginscreen::on_Create_clicked(){
+void loginscreen::on_Create_clicked(){ //Liv
+    //hide "login screen " when use clicks the create button
     hide();
     _signup = new signupscreen(nullptr);
     _signup->setWindowFlags((windowFlags()) | Qt::WindowMinimizeButtonHint);

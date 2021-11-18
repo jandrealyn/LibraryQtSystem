@@ -1,6 +1,6 @@
 // ------------------------------------------------------------
 //
-// CREATE FILES CLASS
+// SystemFiles CLASS
 // Written by Jakob
 //
 // This class is used to easily acess our system files.
@@ -13,10 +13,10 @@
 // ------------------------------------------------------------
 
 #include "SystemFiles.h"
-#include <QDebug>
 #include <QRandomGenerator>
-#include <QDebug>
-#include <QDate>
+#include <QDir>
+#include <QTextStream>
+#include <QMessageBox>
 
 // Defining static variables
 QString SystemFiles::_path = "CSVFiles/";
@@ -24,10 +24,6 @@ QFile SystemFiles::_catalogue(_path + "catalogue.csv");
 QFile SystemFiles::_members(_path + "members.csv");
 QFile SystemFiles::_checkedOutBooks(_path + "checkedoutbooks.csv");
 QFile SystemFiles::_reserveBook(_path + "reserveBook.csv");
-
-SystemFiles::SystemFiles()
-{
-}
 
 void SystemFiles::CreateFilesOnStartUp()
 {
@@ -141,7 +137,7 @@ QStringList SystemFiles::GetFileData(enum CSVFiles file)
         _reserveBook.close();
         break;
     default:
-        qDebug() << "Could not open file.";
+        QMessageBox::warning(NULL, "Error", "Could not get file data.");
         fileData.append("error");
         break;
     }
@@ -299,6 +295,7 @@ void SystemFiles::CheckOutBook(QString bookID, QString bookName, QString memID, 
 
 }
 
+// Overloaded function for reserving a book
 void SystemFiles::CheckOutBook(QString bookID, QString bookName, QString memID, QString memName, QString reserveDate, QString dueDate)
 {
     _reserveBook.open(QIODevice::WriteOnly | QFile::Append | QFile::Text);
@@ -364,6 +361,7 @@ void SystemFiles::EditUser(QStringList userData){
     _members.close();
 }
 
+// Find the last reserve date for a book. This makes sure a user doesn't reserve a book during someone elses reserve date.
 QDate SystemFiles::FindLastReserveDate(QString bookID)
 {
     // We need to check if the book exists in reserved books first
@@ -419,8 +417,8 @@ QDate SystemFiles::FindLastReserveDate(QString bookID)
                 bookCount2++;
                 if (bookCount2 == bookCount1)
                 {
-                    date = QDate::fromString(checkedOutBooks[i+4], "dd/MM/yyyy"); // for some reason i can't read the due date in checked out books
-                    date = date.addDays(7); // so I have to do addDays(7)
+                    date = QDate::fromString(checkedOutBooks[i+5], "dd/MM/yyyy");
+                    //date = date.addDays(7); // so I have to do addDays(7)
                     break;
                 }
             }
@@ -438,7 +436,7 @@ void SystemFiles::CheckReservedBooks()
     QStringList reservedBooks = GetFileData(CSVFiles::_ReservedBooks);
     QStringList booksForCheckOut;
 
-    QString date = QDate::currentDate().toString("dd.MM.yyyy");
+    QString date = QDate::currentDate().toString("dd/MM/yyyy");
     QDate currDate = QDate::fromString(date);
 
     int column = 0;
@@ -448,7 +446,7 @@ void SystemFiles::CheckReservedBooks()
         {
             column = 0;
             QDate bookDate = QDate::fromString(reservedBooks[i]);
-            if (bookDate <= currDate)
+            if (currDate > bookDate)
             {
                 booksForCheckOut.append(reservedBooks[i - 5]); // Book ID
                 booksForCheckOut.append(reservedBooks[i - 4]); // Book name
@@ -470,13 +468,13 @@ void SystemFiles::CheckReservedBooks()
         if(_reserveBook.open(QIODevice::WriteOnly | QFile::Truncate | QFile::Text)) // Rewriting the reserveBook csv with the books for check out removed.
         {
             QTextStream in(&_reserveBook);
-            int column = 0; // there are 5 columns in the reserved book file
+            int column = 0;
 
             for (int i = 0; i < reservedBooks.size() - booksForCheckOut.size(); i++)
             {
                 if (reservedBooks[i] != booksForCheckOut[i])
                 {
-                    if (column == 5)
+                    if (column == 5) // there are 5 columns in the CSV
                     {
                         column = 0;
                         in << reservedBooks[i] << "\n";
@@ -497,10 +495,10 @@ void SystemFiles::CheckReservedBooks()
             int column = 0;
             for (int i = 0; i < booksForCheckOut.size(); i++)
             {
-                if (column == 5)
+                if (column == 6)
                 {
                     column = 0;
-                    in << booksForCheckOut[i] << "\n";
+                    in << "PushButton" << "\n"; // this used to be [ in << booksForCheckOut[i] << "\n"; but has been changed to PushButton for laras code
                 }
                 else
                 {
@@ -516,12 +514,14 @@ void SystemFiles::CheckReservedBooks()
 // This function checks whether a user has overdue books when they log in.
 // It searches the checkedOutBooks csv for their ID and appends any overdue books to the overdueBooks list.
 // If the user has no overdue books, then it will return an empty list.
+// We do not need to check reserveBook.csv. If a book has met it's overdue date in that file, it would have already
+// been moved to checkedoutbooks.csv
 QStringList SystemFiles::CheckUsersOverdueBooks(QString memID)
 {
     QStringList checkedOutBooksData = GetFileData(CSVFiles::_CheckedOutBooks);
     QStringList overdueBooks;
 
-    QString date = QDate::currentDate().toString("dd.MM.yyyy");
+    QString date = QDate::currentDate().toString("dd/MM/yyyy");
     QDate currDate = QDate::fromString(date);
 
     if (checkedOutBooksData.indexOf(memID) > 0) // If the members ID exists in the the checkedOutBooks file
@@ -531,7 +531,7 @@ QStringList SystemFiles::CheckUsersOverdueBooks(QString memID)
             if (checkedOutBooksData[i] == memID) // Find members ID on the line
             {
                 QDate bookDueDate = QDate::fromString(checkedOutBooksData[i + 3]); // Convert books due date to a QDate from a string
-                if (currDate <= bookDueDate) // Compare the two dates
+                if (currDate > bookDueDate) // Compare the two dates
                 {
                     overdueBooks.append(checkedOutBooksData[i - 1]); // Book name
                     overdueBooks.append(checkedOutBooksData[i + 3]); // Book return date

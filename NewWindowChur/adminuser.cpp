@@ -26,6 +26,7 @@ adminuser::adminuser(QWidget *parent) :
 
 {
     QStringList membersData = SystemFiles::GetFileData(CSVFiles::_Members);
+
         ui->setupUi(this);
         QPixmap Img(":/images/YoobeeLibraries.png");
         ui->img->setPixmap(Img.scaled(150, 150, Qt::KeepAspectRatio));
@@ -95,6 +96,7 @@ adminuser::adminuser(QWidget *parent) :
                }
            }
     }
+
 
 adminuser::~adminuser()
 {

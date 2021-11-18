@@ -89,4 +89,5 @@ RESOURCES += \
     images.qrc
 
 DISTFILES += \
-    images/top-books.png
+    images/top-books.png \
+    umlclassdiagrams.qmodel

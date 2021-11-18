@@ -2,8 +2,7 @@
 #include "ui_reservebook.h"
 #include "SystemFiles.h"
 #include <QDate>
-
-//test
+#include <QMessageBox>
 
 ReserveBook::ReserveBook(QWidget *parent, QString memName, QString memID, QString bookID, QString bookName) :
     QDialog(parent),
@@ -60,6 +59,7 @@ void ReserveBook::on_confirmReserve_clicked()
         QMessageBox::information(this, "Reservation success", "You have successfully placed a reservation for " + _bookName + "!");
         close();
         emit ReserveScreenClosed();
+        emit Res_UpdateUsersCurrentBooks();
         break;
     case QMessageBox::Cancel:
         confirmCheckout->close();
