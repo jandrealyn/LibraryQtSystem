@@ -32,14 +32,14 @@ adminuser::adminuser(QWidget *parent) :
 
     ui->adminUser->setStyleSheet("QHeaderView::section { background-color: rgba(254, 222, 255, 0.3) }");
        // Because we have 9 columns, we insert a column 9 times
-       for (int i = 0; i < 9; i++)
+       for (int i = 0; i < 8; i++)
        {
           ui->adminUser->insertColumn(ui->adminUser->columnCount());
        }
        // We have headers in our CSV file, so I use them to set the labels for the table.
        ui->adminUser->setHorizontalHeaderLabels({membersData[0], membersData[1], membersData[2], membersData[3], membersData[4], membersData[5], membersData[6], membersData[7], "EDIT USER"});
        ui->adminUser->horizontalHeader()->setSectionResizeMode(0, QHeaderView::ResizeToContents);
-       ui->adminUser->horizontalHeader()->setSectionResizeMode(1, QHeaderView::ResizeToContents);
+       ui->adminUser->horizontalHeader()->setSectionResizeMode(1, QHeaderView::Stretch);
        ui->adminUser->horizontalHeader()->setSectionResizeMode(2, QHeaderView::ResizeToContents);
        ui->adminUser->horizontalHeader()->setSectionResizeMode(3, QHeaderView::ResizeToContents);
        ui->adminUser->horizontalHeader()->setSectionResizeMode(4, QHeaderView::ResizeToContents);
@@ -49,16 +49,18 @@ adminuser::adminuser(QWidget *parent) :
        ui->adminUser->horizontalHeader()->setSectionResizeMode(8, QHeaderView::ResizeToContents);
        ui->adminUser->setSelectionMode(QHeaderView::NoSelection);
        // Create the rows of the QTableWidget
-       int i = 9;
-       int rowCount = (membersData.size() / 9) - 1;
+       int i = 8;
+        qDebug() << "Fail! 0";
+       int rowCount = (membersData.size() / 8) - 1;
        QPushButton* push[rowCount];
        adminedituser* admineditu[rowCount];
        for (int row = 0; row < rowCount; row++)
        {
            ui->adminUser->insertRow(ui->adminUser->rowCount());
-           for (int col = 0; col < 9; col++)
+           for (int col = 0; col < 8; col++)
            {
                if (membersData[i].contains(":/images")){
+                   qDebug() << "Fail 1!";
                    ui->adminUser->verticalHeader()->setSectionResizeMode(row, QHeaderView::Stretch);
                    QWidget* item = new QWidget(ui->adminUser);
                    QString imagePath = membersData[i];
@@ -67,10 +69,12 @@ adminuser::adminuser(QWidget *parent) :
                    l->setPixmap(p.scaled(60,90));
                    ui->adminUser->setCellWidget(row, col, item);
                }
-               else if (col == 9){
+               else if (col == 8){
+                   qDebug() << "Fail 2!";
                    QWidget* item = new QWidget(ui->adminUser);
                    push[row] = new QPushButton(item);
                    push[row]->setText("Edit");
+                   push[row]->setStyleSheet("QPushButton{font-size: 12px;}");
                    push[row]->setGeometry(20,35,60,40); //Changes the size of the button and the placement
                    admineditu[row] = new adminedituser(NULL, membersData[i-6], membersData[i-5], membersData[i-2], membersData[i-1]);
                    admineditu[row]->setWindowTitle("Edit User");
@@ -78,6 +82,7 @@ adminuser::adminuser(QWidget *parent) :
                    ui->adminUser->setCellWidget(row, col, item);
                }
                else {
+                    qDebug() << "Fail 3!";
                 QTableWidgetItem *item = new QTableWidgetItem(QString(membersData[i]));
                 ui->adminUser->setItem(row, col, item);
                }
@@ -101,10 +106,8 @@ void adminuser::on_back_clicked()
 
 void adminuser::on_adduser_clicked()
 {
-    hide();
+
     _signup = new signupscreen(nullptr);
-    _signup->setWindowFlags((windowFlags()) | Qt::WindowMinimizeButtonHint);
     _signup->show();
-    connect(_signup, SIGNAL(OpenLoginScreen()), this, SLOT(LoginScreenOpen()));
 }
 
