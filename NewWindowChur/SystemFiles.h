@@ -21,9 +21,11 @@ public:
     static void CreateMember(QString avatar, QString fName, QString lName, QString uName, QString pWord, QString email, QString phoneNum);
     static void CreateBook(QString bookimg, QString title, QString author, QString copies);
     static void DeleteBook(QString bookID);
+    static void DeleteUser(QString userID);
     static void CheckOutBook(QString bookID, QString bookName, QString memID, QString memName, QString dueDate);
     static void CheckOutBook(QString bookID, QString bookName, QString memID, QString memName, QString reserveDate, QString dueDate);
     static void EditBook(QStringList bookData);
+    static void EditUser(QStringList userData);
     static void UpdateMemberDetails(QStringList membersData);
     static QDate FindLastReserveDate(QString bookID);
     static void CheckReservedBooks();
