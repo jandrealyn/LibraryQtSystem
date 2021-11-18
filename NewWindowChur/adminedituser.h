@@ -12,7 +12,7 @@ class adminedituser : public QDialog
     Q_OBJECT
 
 public:
-    explicit adminedituser(QWidget *parent = nullptr, QString firstname = "", QString lastname = "", QString email = "", QString phone = "");
+    explicit adminedituser(QWidget *parent = nullptr, QString id = "", QString firstname = "", QString lastname = "", QString email = "", QString phone = "");
     ~adminedituser();
 
 private slots:
@@ -20,8 +20,11 @@ private slots:
 
     void on_canceledit_clicked();
 
+    void on_confimedit_clicked();
+
 private:
     Ui::adminedituser *ui;
+    QString _userid;
 };
 
 #endif // ADMINEDITUSER_H

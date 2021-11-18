@@ -30,6 +30,7 @@ public:
     static QDate FindLastReserveDate(QString bookID);
     static void CheckReservedBooks();
     static QStringList CheckUsersOverdueBooks(QString memID);
+    static void ReturnBook(QString bookid);
 
     static QString _path;
     static QFile _catalogue;
