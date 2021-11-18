@@ -68,15 +68,16 @@ void CheckOutScreen::on_checkoutNow_clicked()
     {
     case QMessageBox::Yes:
     {
-        QString dueDate = QDate::currentDate().addDays(7).toString("dd.MM.yyyy");
+        QString dueDate = QDate::currentDate().addDays(7).toString("dd/MM/yyyy");
         SystemFiles::CheckOutBook(_bookID, _bookName, _membersID, _membersName, dueDate);
         QMessageBox* confirmed = new QMessageBox(nullptr);
         confirmed->setWindowTitle("Checkout Confirmed");
         confirmed->setText("You have successfully checked out " + _bookName + "!<br> "
                            "Please return by " + dueDate);
-        confirmed->exec();
+        emit UpdateUsersCurrentBooks();
         emit UpdateCatalogue();
         emit UpdateCheckOutScreenSignal();
+        confirmed->exec();
     }
         break;
     case QMessageBox::Cancel:
@@ -110,6 +111,11 @@ void CheckOutScreen::UpdateCheckOutScreenSlot()
     }
 }
 
+void CheckOutScreen::Res_UpdateUsersCurrentBooks_Emitted()
+{
+    emit UpdateUsersCurrentBooks();
+}
+
 void CheckOutScreen::on_reserve_clicked()
 {
     hide();
@@ -117,4 +123,5 @@ void CheckOutScreen::on_reserve_clicked()
     _reserveBook->setWindowTitle("Reserve a book");
     _reserveBook->showNormal();
     connect(_reserveBook, SIGNAL(ReserveScreenClosed()), this, SLOT(OpenCheckOutScreen()));
+    connect(_reserveBook, SIGNAL(Res_UpdateUsersCurrentBooks()), this, SLOT(Res_UpdateUsersCurrentBooks_Emitted()));
 }

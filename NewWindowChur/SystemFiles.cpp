@@ -62,7 +62,7 @@ void SystemFiles::CreateFilesOnStartUp()
     {
         _checkedOutBooks.open(QIODevice::WriteOnly | QFile::Text);
         QTextStream checkout_output(&_checkedOutBooks);
-        checkout_output << "BOOK ID" << "," << "BOOK NAME" << "," << "MEMBER ID" << "," << "MEMBER NAME" << "," << "DATE CHECKED OUT" << "," << "DATE DUE" << "\n";
+        checkout_output << "BOOK ID" << "," << "BOOK NAME" << "," << "MEMBER ID" << "," << "MEMBER NAME" << "," << "DATE CHECKED OUT" << "," << "DATE DUE" << "," << "RETURN" << "\n";
         _checkedOutBooks.close();
     }
 
@@ -171,7 +171,7 @@ void SystemFiles::CreateMember(QString avatar, QString fName, QString lName, QSt
     if (_members.open(QIODevice::WriteOnly | QFile::Append | QFile::Text))
     {
         QTextStream in(&_members);
-        in << id << "," << avatar << "," << fName << "," << lName << "," << uName << "," << pWord << "," << email << "," << phoneNum << "\n";
+        in << id << "," << avatar << "," << fName << "," << lName << "," << uName << "," << pWord << "," << email << "," << phoneNum  << "\n";
     }
     else
     {
@@ -216,6 +216,8 @@ void SystemFiles::CreateBook(QString bookimg, QString title, QString author, QSt
     _catalogue.close();
 }
 
+//lARA cODE :))))
+
 void SystemFiles::DeleteBook(QString bookID){
 
     QStringList bookList = GetFileData(CSVFiles::_Catalogue);
@@ -234,6 +236,24 @@ void SystemFiles::DeleteBook(QString bookID){
     _catalogue.close();
 }
 
+void SystemFiles::DeleteUser(QString userID){
+
+    QStringList userList = GetFileData(CSVFiles::_Members);
+    _members.open(QIODevice::WriteOnly| QFile::Truncate | QFile::Text);
+    QTextStream member_output(&_members);
+
+    member_output << "ID" << "," << "PROFILE PICTURE" << "," << "FIRST NAME" << "," << "LAST NAME" << "," << "USERNAME" << "," << "PASSWORD" << "," << "EMAIL" << "," << "PHONE NUM" << "\n";
+    int i=8;
+    int amount = (userList.size() / 8) - 1;
+    for (int row = 0; row < amount; row++){
+        if (userList[i] != userID){
+            member_output << userList[i] << "," << userList[i+1] << "," << userList[i+2] << "," << userList[i+3] << "," << userList[i+4] << ","<< userList[i+5] << ","<< userList[i+6] << ","<< userList[i+7] << "\n";
+        }
+        i = i + 8;
+    }
+    _catalogue.close();
+}
+
 void SystemFiles::CheckOutBook(QString bookID, QString bookName, QString memID, QString memName, QString dueDate)
 {
     QString currentDate = QDate::currentDate().toString("dd/MM/yyyy");
@@ -241,7 +261,7 @@ void SystemFiles::CheckOutBook(QString bookID, QString bookName, QString memID, 
     // Output the details of the checkout to checkedOutBooks file
     _checkedOutBooks.open(QIODevice::WriteOnly | QFile::Append | QFile::Text);
     QTextStream in(&_checkedOutBooks);
-    in << bookID << "," << bookName << "," << memID << "," << memName << "," << currentDate << "," << dueDate << "\n";
+    in << bookID << "," << bookName << "," << memID << "," << memName << "," << currentDate << "," << dueDate << "," << "PushButton" << "\n";
     _checkedOutBooks.close();
 
     // We now need to remove a copy of the book as a user has checked it out.
@@ -331,6 +351,19 @@ void SystemFiles::EditBook(QStringList bookData){
     _catalogue.close();
 }
 
+void SystemFiles::EditUser(QStringList userData){
+    _members.open(QIODevice::WriteOnly| QFile::Truncate | QFile::Text);
+    QTextStream member_output(&_members);
+    member_output << "ID" << "," << "PROFILE PICTURE" << "," << "FIRST NAME" << "," << "LAST NAME" << "," << "USERNAME" << "," << "PASSWORD" << "," << "EMAIL" << "," << "PHONE NUM" << "\n";
+    int i=8;
+    int amount = (userData.size() / 8) - 1;
+    for (int row = 0; row < amount; row++){
+            member_output << userData[i] << "," << userData[i+1] << "," << userData[i+2] << "," << userData[i+3] << "," << userData[i+4] << ","<< userData[i+5] << ","<< userData[i+6] << ","<< userData[i+7] << "\n";
+            i = i + 8;
+    }
+    _members.close();
+}
+
 QDate SystemFiles::FindLastReserveDate(QString bookID)
 {
     // We need to check if the book exists in reserved books first
@@ -405,7 +438,7 @@ void SystemFiles::CheckReservedBooks()
     QStringList reservedBooks = GetFileData(CSVFiles::_ReservedBooks);
     QStringList booksForCheckOut;
 
-    QString date = QDate::currentDate().toString("dd.MM.yyyy");
+    QString date = QDate::currentDate().toString("dd/MM/yyyy");
     QDate currDate = QDate::fromString(date);
 
     int column = 0;
@@ -415,7 +448,7 @@ void SystemFiles::CheckReservedBooks()
         {
             column = 0;
             QDate bookDate = QDate::fromString(reservedBooks[i]);
-            if (bookDate <= currDate)
+            if (currDate > bookDate)
             {
                 booksForCheckOut.append(reservedBooks[i - 5]); // Book ID
                 booksForCheckOut.append(reservedBooks[i - 4]); // Book name
@@ -488,7 +521,7 @@ QStringList SystemFiles::CheckUsersOverdueBooks(QString memID)
     QStringList checkedOutBooksData = GetFileData(CSVFiles::_CheckedOutBooks);
     QStringList overdueBooks;
 
-    QString date = QDate::currentDate().toString("dd.MM.yyyy");
+    QString date = QDate::currentDate().toString("dd/MM/yyyy");
     QDate currDate = QDate::fromString(date);
 
     if (checkedOutBooksData.indexOf(memID) > 0) // If the members ID exists in the the checkedOutBooks file
@@ -498,7 +531,7 @@ QStringList SystemFiles::CheckUsersOverdueBooks(QString memID)
             if (checkedOutBooksData[i] == memID) // Find members ID on the line
             {
                 QDate bookDueDate = QDate::fromString(checkedOutBooksData[i + 3]); // Convert books due date to a QDate from a string
-                if (currDate <= bookDueDate) // Compare the two dates
+                if (currDate > bookDueDate) // Compare the two dates
                 {
                     overdueBooks.append(checkedOutBooksData[i - 1]); // Book name
                     overdueBooks.append(checkedOutBooksData[i + 3]); // Book return date

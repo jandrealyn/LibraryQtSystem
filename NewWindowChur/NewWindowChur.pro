@@ -14,6 +14,7 @@ SOURCES += \
     admincatalogue.cpp \
     admindue.cpp \
     admineditbook.cpp \
+    adminedituser.cpp \
     adminhome.cpp \
     adminoverdue.cpp \
     adminreturned.cpp \
@@ -38,6 +39,7 @@ HEADERS += \
     admincatalogue.h \
     admindue.h \
     admineditbook.h \
+    adminedituser.h \
     adminhome.h \
     adminoverdue.h \
     adminreturned.h \
@@ -60,6 +62,7 @@ FORMS += \
     admincatalogue.ui \
     admindue.ui \
     admineditbook.ui \
+    adminedituser.ui \
     adminhome.ui \
     adminoverdue.ui \
     adminreturned.ui \

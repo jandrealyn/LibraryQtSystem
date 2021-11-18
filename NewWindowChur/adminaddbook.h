@@ -20,8 +20,6 @@ private slots:
 
     void on_canceladd_clicked();
 
-
-
     void on_bookone_toggled(bool checked);
 
     void on_booktwo_toggled(bool checked);

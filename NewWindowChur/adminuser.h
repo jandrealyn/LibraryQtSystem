@@ -1,5 +1,7 @@
 #ifndef ADMINUSER_H
 #define ADMINUSER_H
+#include "adminedituser.h"
+#include "signupscreen.h"
 
 #include <QDialog>
 
@@ -25,6 +27,8 @@ private slots:
 
 private:
     Ui::adminuser *ui;
+    adminedituser* admineditu;
+    signupscreen* _signup;
 };
 
 #endif // ADMINUSER_H
