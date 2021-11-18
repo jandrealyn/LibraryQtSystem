@@ -12,6 +12,11 @@
 #include <QPushButton>//is a widget which executes an action when a user clicks on it.
 
 
+/*
+ * Main screen is for when a user enters the website to browse the online library without needing
+ * to save their data. and can freely view the catalogue and main menu.
+*/
+
 //Livs code
 MainWindow::MainWindow(QWidget *parent)
     : QMainWindow(parent)
