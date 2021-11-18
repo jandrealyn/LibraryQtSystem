@@ -77,14 +77,16 @@ border-style: inset;
      </rect>
     </property>
     <property name="styleSheet">
-     <string notr="true">QPushButton#close{
-background-color: #d3d3d3;
-border-width: 2px;
-border-radius: 5px;
-border-color: black;
-min-width: 5em;
-padding: 3px;
-}</string>
+     <string notr="true">QPushButton
+{
+  color: white;
+  background-color: #27a9e3;
+  border-width: 0px;
+  border-radius: 3px;
+}
+hover:
+
+QPushButton:hover { background-color: #66c011; }</string>
     </property>
     <property name="text">
      <string>Close</string>
@@ -151,6 +153,10 @@ padding: 3px;
       <height>22</height>
      </rect>
     </property>
+    <property name="styleSheet">
+     <string notr="true">QLabel { color: white; }
+QLineEdit { border-radius: 3px; }</string>
+    </property>
    </widget>
    <widget class="QPushButton" name="done">
     <property name="geometry">
@@ -162,14 +168,16 @@ padding: 3px;
      </rect>
     </property>
     <property name="styleSheet">
-     <string notr="true">QPushButton#close{
-background-color: #d3d3d3;
-border-width: 2px;
-border-radius: 5px;
-border-color: black;
-min-width: 5em;
-padding: 3px;
-}</string>
+     <string notr="true">QPushButton
+{
+  color: white;
+  background-color: #27a9e3;
+  border-width: 0px;
+  border-radius: 3px;
+}
+hover:
+
+QPushButton:hover { background-color: #66c011; }</string>
     </property>
     <property name="text">
      <string>Done</string>
