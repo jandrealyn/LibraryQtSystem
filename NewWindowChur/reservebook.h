@@ -11,12 +11,13 @@ class ReserveBook : public QDialog
 {
     Q_OBJECT
 
-signals:
-    void ReserveScreenClosed();
-
 public:
     explicit ReserveBook(QWidget *parent = nullptr, QString memName = "", QString memID = "", QString bookID = "", QString bookName = "");
     ~ReserveBook();
+
+signals:
+    void ReserveScreenClosed();
+    void Res_UpdateUsersCurrentBooks();
 
 private slots:
     void on_cancel_clicked();
