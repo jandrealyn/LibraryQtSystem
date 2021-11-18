@@ -545,3 +545,36 @@ QStringList SystemFiles::CheckUsersOverdueBooks(QString memID)
         return overdueBooks; // returning an empty list
     }
 }
+
+void SystemFiles::ReturnBook(QString bookid){
+
+    QStringList catalogueData = GetFileData(CSVFiles::_Catalogue);
+
+    for (int i = 0; i < catalogueData.size(); i++)
+    {
+        if (catalogueData[i] == bookid)
+        {
+            catalogueData[i + 4] = QString::number(catalogueData[i + 4].toInt() + 1); // add 1 to book copies
+            break;
+        }
+    }
+    // Once the copy of the book is removed, we need to write it back to the catalogue file.
+    _catalogue.open(QIODevice::WriteOnly | QFile::Truncate | QFile::Text);
+    QTextStream catalogueIn(&_catalogue);
+    int col = 0;
+    for (int i = 0; i < catalogueData.size(); i++)
+    {
+            if (col != 5)
+            {
+                catalogueIn << catalogueData[i] << ",";
+                col++;
+            }
+            else if (col == 5)
+            {
+                catalogueIn << catalogueData[i] << "\n";
+                col = 0;
+            }
+    }
+    _catalogue.close();
+
+}
