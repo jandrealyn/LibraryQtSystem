@@ -117,6 +117,7 @@ void MainWindow::on_login_clicked(){
     _loginWindow->show();
     connect(_loginWindow, SIGNAL(OpenMainMenu()), this, SLOT(MainMenuOpen()));
 }
+
 void MainWindow::MainMenuOpen()
 {
     show();
