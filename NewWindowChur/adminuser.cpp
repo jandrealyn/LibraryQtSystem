@@ -32,7 +32,7 @@ adminuser::adminuser(QWidget *parent) :
 
     ui->adminUser->setStyleSheet("QHeaderView::section { background-color: rgba(254, 222, 255, 0.3) }");
        // Because we have 9 columns, we insert a column 9 times
-       for (int i = 0; i < 8; i++)
+       for (int i = 0; i < 9; i++)
        {
           ui->adminUser->insertColumn(ui->adminUser->columnCount());
        }
@@ -48,19 +48,21 @@ adminuser::adminuser(QWidget *parent) :
        ui->adminUser->horizontalHeader()->setSectionResizeMode(7, QHeaderView::ResizeToContents);
        ui->adminUser->horizontalHeader()->setSectionResizeMode(8, QHeaderView::ResizeToContents);
        ui->adminUser->setSelectionMode(QHeaderView::NoSelection);
+
        // Create the rows of the QTableWidget
        int i = 8;
-        qDebug() << "Fail! 0";
-       int rowCount = (membersData.size() / 8) - 1;
+       int rowCount = (membersData.size() / 7) - 1;
        QPushButton* push[rowCount];
        adminedituser* admineditu[rowCount];
        for (int row = 0; row < rowCount; row++)
        {
+           qDebug() << "i = " << i;
            ui->adminUser->insertRow(ui->adminUser->rowCount());
            for (int col = 0; col < 8; col++)
            {
+               qDebug() << "i = " << i;
+               qDebug() << membersData[i];
                if (membersData[i].contains(":/images")){
-                   qDebug() << "Fail 1!";
                    ui->adminUser->verticalHeader()->setSectionResizeMode(row, QHeaderView::Stretch);
                    QWidget* item = new QWidget(ui->adminUser);
                    QString imagePath = membersData[i];
@@ -69,27 +71,33 @@ adminuser::adminuser(QWidget *parent) :
                    l->setPixmap(p.scaled(60,90));
                    ui->adminUser->setCellWidget(row, col, item);
                }
-               else if (col == 8){
-                   qDebug() << "Fail 2!";
-                   QWidget* item = new QWidget(ui->adminUser);
-                   push[row] = new QPushButton(item);
-                   push[row]->setText("Edit");
-                   push[row]->setStyleSheet("QPushButton{font-size: 12px;}");
-                   push[row]->setGeometry(20,35,60,40); //Changes the size of the button and the placement
-                   admineditu[row] = new adminedituser(NULL, membersData[i-6], membersData[i-5], membersData[i-2], membersData[i-1]);
-                   admineditu[row]->setWindowTitle("Edit User");
-                   connect(push[row], SIGNAL(clicked()), admineditu[row], SLOT(exec()));
-                   ui->adminUser->setCellWidget(row, col, item);
+               else if (col == 7){
+                   QTableWidgetItem *item = new QTableWidgetItem(QString(membersData[i]));
+                   ui->adminUser->setItem(row, col, item);
+                   col++;
+                   qDebug() << "hackerzz";
+                   if (col == 8)
+                   {
+                       QWidget* item = new QWidget(ui->adminUser);
+                       push[row] = new QPushButton(item);
+                       push[row]->setText("Edit");
+                       push[row]->setStyleSheet("QPushButton{font-size: 12px;}");
+                       push[row]->setGeometry(20,35,60,40); //Changes the size of the button and the placement
+                       admineditu[row] = new adminedituser(NULL, membersData[i-6], membersData[i-5], membersData[i-2], membersData[i-1]);
+                       admineditu[row]->setWindowTitle("Edit User");
+                       connect(push[row], SIGNAL(clicked()), admineditu[row], SLOT(exec()));
+                       ui->adminUser->setCellWidget(row, col, item);
+                   }
+
+
                }
                else {
-                    qDebug() << "Fail 3!";
                 QTableWidgetItem *item = new QTableWidgetItem(QString(membersData[i]));
-                ui->adminUser->setItem(row, col, item);
+                ui->adminUser->setItem(row, col, item);                
                }
-               i++;
+                i++;
            }
        }
-
 }
 
 adminuser::~adminuser()

@@ -95,9 +95,6 @@ void loginscreen::on_login_clicked()
             QString memID = membersData[usernameIndex - 4];
             QString memAvatar = membersData[usernameIndex - 3];
 
-
-
-
             hide();
             // CALL YOUR DIALOG WINDOWS WITH (nullptr) SO THAT THEY HAVE A TASKBAR ICON
             _catalogueWindow = new Catalogue(nullptr, user, pass, memfName, memlName, memEmail, memPhone, memID, memAvatar);
