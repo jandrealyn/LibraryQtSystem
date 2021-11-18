@@ -15,6 +15,7 @@
 #include "catalogue.h"
 #include <QStatusBar>
 #include <QDate>
+#include <QMessageBox>
 
 CheckOutScreen::CheckOutScreen(QWidget *parent, QString memName, QString memID, QString bookID, QString bookName, QString authorName, QString copies) :
     QDialog(parent),

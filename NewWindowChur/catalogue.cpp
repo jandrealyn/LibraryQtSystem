@@ -418,12 +418,6 @@ void Catalogue::on_yourAccount_update_clicked()
     update_ui->exec();
 }
 
-
-void Catalogue::on_yourAccount_updatePic_clicked()
-{
-
-}
-
 // This function is used when a user updates their details or when a user checks out a book.
 // It will update the entire catalogue each time either of those functions happens.
 void Catalogue::update_catalogue()

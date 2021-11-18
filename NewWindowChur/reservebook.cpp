@@ -2,8 +2,7 @@
 #include "ui_reservebook.h"
 #include "SystemFiles.h"
 #include <QDate>
-
-//test
+#include <QMessageBox>
 
 ReserveBook::ReserveBook(QWidget *parent, QString memName, QString memID, QString bookID, QString bookName) :
     QDialog(parent),

@@ -25,10 +25,6 @@ QFile SystemFiles::_members(_path + "members.csv");
 QFile SystemFiles::_checkedOutBooks(_path + "checkedoutbooks.csv");
 QFile SystemFiles::_reserveBook(_path + "reserveBook.csv");
 
-SystemFiles::SystemFiles()
-{
-}
-
 void SystemFiles::CreateFilesOnStartUp()
 {
     // Check if the "CSVFiles" folder exists, if not then create it.

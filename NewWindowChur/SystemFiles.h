@@ -16,8 +16,6 @@ enum CSVFiles
 class SystemFiles
 {
 public:
-    SystemFiles();
-
     static void CreateFilesOnStartUp();
     static QStringList GetFileData(enum CSVFiles);
     static void CreateMember(QString avatar, QString fName, QString lName, QString uName, QString pWord, QString email, QString phoneNum);
