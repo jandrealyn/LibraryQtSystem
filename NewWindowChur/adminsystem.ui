@@ -54,35 +54,13 @@ border-style: inset;
    <widget class="QWidget" name="verticalLayoutWidget">
     <property name="geometry">
      <rect>
-      <x>220</x>
-      <y>160</y>
-      <width>341</width>
-      <height>321</height>
+      <x>200</x>
+      <y>180</y>
+      <width>371</width>
+      <height>271</height>
      </rect>
     </property>
     <layout class="QVBoxLayout" name="verticalLayout">
-     <item>
-      <widget class="QPushButton" name="admin_returned_btn">
-       <property name="styleSheet">
-        <string notr="true">background-color: rgb(255, 255, 255);
-font-family: sans-serif;
-border-width: 1px;
-
-border-color: black;
-
-border-radius: 10px;
-
-border-style: outset;
-
-font: 14px;
-
-padding: 10px;</string>
-       </property>
-       <property name="text">
-        <string>Returned Books</string>
-       </property>
-      </widget>
-     </item>
      <item>
       <widget class="QPushButton" name="admin_due_btn">
        <property name="styleSheet">
@@ -98,10 +76,10 @@ border-style: outset;
 
 font: 14px;
 
-padding: 10px;</string>
+padding: 20px;</string>
        </property>
        <property name="text">
-        <string>Nearing Due Date Books</string>
+        <string>Checked Out Books</string>
        </property>
       </widget>
      </item>
@@ -120,7 +98,7 @@ border-style: outset;
 
 font: 14px;
 
-padding: 10px;</string>
+padding: 20px;</string>
        </property>
        <property name="text">
         <string>Overdue Books</string>

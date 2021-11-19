@@ -40,13 +40,13 @@ adminuser::adminuser(QWidget *parent) :
            ui->adminUser->setHorizontalHeaderLabels({membersData[0], membersData[1], membersData[2], membersData[3], membersData[4], membersData[5], membersData[6], membersData[7], "EDIT USER"});
            ui->adminUser->horizontalHeader()->setSectionResizeMode(0, QHeaderView::ResizeToContents);
            ui->adminUser->horizontalHeader()->setSectionResizeMode(1, QHeaderView::Stretch);
-           ui->adminUser->horizontalHeader()->setSectionResizeMode(2, QHeaderView::ResizeToContents);
-           ui->adminUser->horizontalHeader()->setSectionResizeMode(3, QHeaderView::ResizeToContents);
-           ui->adminUser->horizontalHeader()->setSectionResizeMode(4, QHeaderView::ResizeToContents);
-           ui->adminUser->horizontalHeader()->setSectionResizeMode(5, QHeaderView::ResizeToContents);
-           ui->adminUser->horizontalHeader()->setSectionResizeMode(6, QHeaderView::ResizeToContents);
-           ui->adminUser->horizontalHeader()->setSectionResizeMode(7, QHeaderView::ResizeToContents);
-           ui->adminUser->horizontalHeader()->setSectionResizeMode(8, QHeaderView::ResizeToContents);
+           ui->adminUser->horizontalHeader()->setSectionResizeMode(2, QHeaderView::Stretch);
+           ui->adminUser->horizontalHeader()->setSectionResizeMode(3, QHeaderView::Stretch);
+           ui->adminUser->horizontalHeader()->setSectionResizeMode(4, QHeaderView::Stretch);
+           ui->adminUser->horizontalHeader()->setSectionResizeMode(5, QHeaderView::Stretch);
+           ui->adminUser->horizontalHeader()->setSectionResizeMode(6, QHeaderView::Stretch);
+           ui->adminUser->horizontalHeader()->setSectionResizeMode(7, QHeaderView::Stretch);
+           ui->adminUser->horizontalHeader()->setSectionResizeMode(8, QHeaderView::Stretch);
            ui->adminUser->setSelectionMode(QHeaderView::NoSelection);
            // Create the rows of the QTableWidget
            int i = 8;
@@ -67,7 +67,7 @@ adminuser::adminuser(QWidget *parent) :
                        QString imagePath = membersData[i];
                        QPixmap p(imagePath);
                        QLabel* l = new QLabel(item);
-                       l->setPixmap(p.scaled(60,90));
+                       l->setPixmap(p.scaled(30,45));
                        ui->adminUser->setCellWidget(row, col, item);
                    }
                    else if (col == 7){

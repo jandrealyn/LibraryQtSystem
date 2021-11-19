@@ -17,6 +17,8 @@
 #include <QDir>
 #include <QTextStream>
 #include <QMessageBox>
+#include <QDebug>
+
 
 // Defining static variables
 QString SystemFiles::_path = "CSVFiles/";
@@ -547,7 +549,7 @@ QStringList SystemFiles::CheckUsersOverdueBooks(QString memID)
 }
 
 void SystemFiles::ReturnBook(QString bookid){
-
+    qDebug() << "Bruh";
     QStringList catalogueData = GetFileData(CSVFiles::_Catalogue);
 
     for (int i = 0; i < catalogueData.size(); i++)
@@ -576,5 +578,26 @@ void SystemFiles::ReturnBook(QString bookid){
             }
     }
     _catalogue.close();
+
+    QStringList bookList = GetFileData(CSVFiles::_CheckedOutBooks);
+    _checkedOutBooks.open(QIODevice::WriteOnly| QFile::Truncate | QFile::Text);
+    QTextStream checkout_output(&_checkedOutBooks);
+
+    checkout_output << "BOOK ID" << "," << "BOOK NAME" << "," << "MEMBER ID" << "," << "MEMBER NAME" << "," << "DATE CHECKED OUT" << "," << "DATE DUE" << "," << "RETURN" << "\n";
+    int i=7;
+    int amount = (bookList.size() / 7) - 1;
+    for (int row = 0; row < amount; row++){
+        if (bookList[i] != bookid){
+            checkout_output << bookList[i] << "," << bookList[i+1] << "," << bookList[i+2] << "," << bookList[i+3] << "," << bookList[i+4] << "," << bookList[i+5] << "," << "PushButton" << "\n";
+        }
+        i = i + 7;
+    }
+    _checkedOutBooks.close();
+
+    QMessageBox msgBox;
+    msgBox.setWindowTitle("Return");
+    msgBox.setText("Book Returned Successfully");
+    msgBox.setStandardButtons(QMessageBox::Ok);
+    msgBox.exec();
 
 }
