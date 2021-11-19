@@ -43,7 +43,6 @@ private:
     QStringList membersData;
     QString _username, _password, _fname, _lname, _email, _phone, _id;
     bool _usernameGood, _emailGood;
-
 };
 
 #endif // UPDATEUSERDETAILS_H
