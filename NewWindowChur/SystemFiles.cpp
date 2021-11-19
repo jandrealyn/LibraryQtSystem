@@ -549,13 +549,13 @@ QStringList SystemFiles::CheckUsersOverdueBooks(QString memID)
 }
 
 void SystemFiles::ReturnBook(QString bookid){
-    qDebug() << "Bruh";
     QStringList catalogueData = GetFileData(CSVFiles::_Catalogue);
 
     for (int i = 0; i < catalogueData.size(); i++)
     {
         if (catalogueData[i] == bookid)
         {
+            qDebug() << "catalogueData[i + 4] = " << catalogueData[i + 4];
             catalogueData[i + 4] = QString::number(catalogueData[i + 4].toInt() + 1); // add 1 to book copies
             break;
         }
@@ -585,10 +585,17 @@ void SystemFiles::ReturnBook(QString bookid){
 
     checkout_output << "BOOK ID" << "," << "BOOK NAME" << "," << "MEMBER ID" << "," << "MEMBER NAME" << "," << "DATE CHECKED OUT" << "," << "DATE DUE" << "," << "RETURN" << "\n";
     int i=7;
+    bool h = false;
     int amount = (bookList.size() / 7) - 1;
     for (int row = 0; row < amount; row++){
         if (bookList[i] != bookid){
             checkout_output << bookList[i] << "," << bookList[i+1] << "," << bookList[i+2] << "," << bookList[i+3] << "," << bookList[i+4] << "," << bookList[i+5] << "," << "PushButton" << "\n";
+        }
+        else if(bookList[i] == bookid) {
+            if (h == true){
+                checkout_output << bookList[i] << "," << bookList[i+1] << "," << bookList[i+2] << "," << bookList[i+3] << "," << bookList[i+4] << "," << bookList[i+5] << "," << "PushButton" << "\n";
+            }
+            h = true;
         }
         i = i + 7;
     }

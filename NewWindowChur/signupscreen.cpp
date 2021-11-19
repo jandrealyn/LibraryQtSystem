@@ -50,6 +50,7 @@ void signupscreen::on_Next_clicked(){
     QString email = ui->email->text();//email input
     QString phoneNum = ui->phone->text();//phone input
 
+    // CreateMember gets the users information from the lineEdits and writes it to members.csv - jakob
     SystemFiles::CreateMember(_avatar, fName, Lname, uName, pWord, email, phoneNum);
 
     Signupscreen2 = new signupscreen2(nullptr);
@@ -70,8 +71,6 @@ void signupscreen::on_close_clicked()
     close();
     emit OpenLoginScreen(); // - Jakob
 }
-
-
 
 // By Jakob
 // This function checks the text the users has typed in the username line edit.
