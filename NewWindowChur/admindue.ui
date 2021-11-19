@@ -54,9 +54,9 @@ border-style: inset;
    <widget class="QLabel" name="label">
     <property name="geometry">
      <rect>
-      <x>150</x>
+      <x>190</x>
       <y>50</y>
-      <width>481</width>
+      <width>401</width>
       <height>71</height>
      </rect>
     </property>
@@ -68,7 +68,7 @@ font: 40px;
 </string>
     </property>
     <property name="text">
-     <string>Books Nearing Due Date</string>
+     <string>Checked Out Books</string>
     </property>
    </widget>
    <widget class="QPushButton" name="back">

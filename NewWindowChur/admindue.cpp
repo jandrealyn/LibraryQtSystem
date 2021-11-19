@@ -32,7 +32,7 @@ admindue::admindue(QWidget *parent) :
           ui->adminDue->insertColumn(ui->adminDue->columnCount());
        }
        // We have headers in our CSV file, so I use them to set the labels for the table.
-       ui->adminDue->setHorizontalHeaderLabels({booksData[0], booksData[1], booksData[2], booksData[3], booksData[4], booksData[5], "RETURN"});
+       ui->adminDue->setHorizontalHeaderLabels({booksData[0], booksData[1], booksData[2], booksData[3], booksData[4], booksData[5], booksData[6]});
        ui->adminDue->horizontalHeader()->setSectionResizeMode(0, QHeaderView::Interactive);
        ui->adminDue->horizontalHeader()->setSectionResizeMode(1, QHeaderView::Stretch);
        ui->adminDue->horizontalHeader()->setSectionResizeMode(2, QHeaderView::Stretch);
@@ -46,13 +46,14 @@ admindue::admindue(QWidget *parent) :
            ui->adminDue->insertRow(ui->adminDue->rowCount());
            for (int col = 0; col < 7; col++)
            {
-               if (col == 7){
+               if (col == 6){
                    QWidget* item = new QWidget(ui->adminDue);
                    push[row] = new QPushButton(item);
                    push[row]->setText("Return");
-                   push[row]->setGeometry(2,10,15,10); //Changes the size of the button and the placement
-                   connect(push[row], SIGNAL(clicked()), this, SLOT(returnbook(booksData[i-6])));
+                   push[row]->setGeometry(23,5,50,20); //Changes the size of the button and the placement
+                   connect(push[row], SIGNAL(clicked()), this, SLOT(returnbook(QString(booksData[i-6]))));
                    ui->adminDue->setCellWidget(row, col, item);
+                   i++;
                }
                else {
                    QTableWidgetItem *item = new QTableWidgetItem(QString(booksData[i]));
