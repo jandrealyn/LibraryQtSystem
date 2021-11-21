@@ -10,14 +10,16 @@ ReserveBook::ReserveBook(QWidget *parent, QString memName, QString memID, QStrin
 {
     ui->setupUi(this);
 
+    // Setting information
     _membersName = memName;
     _membersID = memID;
     _bookID = bookID;
     _bookName = bookName;
+
     QDate minimumDate = SystemFiles::FindLastReserveDate(_bookID);
     ui->calendarWidget->setMinimumDate(minimumDate);
     ui->bookNameLabel->setText(_bookName);
-    ui->returnDateLabel->setText("Your selected date + 7 days.");
+    ui->returnDateLabel->setText(minimumDate.addDays(7).toString("dd/MM/yyyy"));
 }
 
 ReserveBook::~ReserveBook()

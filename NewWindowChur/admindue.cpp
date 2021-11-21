@@ -51,12 +51,9 @@ admindue::admindue(QWidget *parent) :
                    push[row] = new QPushButton(item);
                    push[row]->setText("Return");
                    push[row]->setGeometry(23,5,50,20); //Changes the size of the button and the placement
-<<<<<<< Updated upstream
-                   connect(push[row], SIGNAL(clicked()), this, SLOT(returnbook(QString(booksData[i-6]))));
-=======
                    _id = booksData[i-6];
                    connect(push[row], SIGNAL(clicked()), this, SLOT(returnbook()));
->>>>>>> Stashed changes
+                   //connect(push[row], SIGNAL(clicked()), this, SLOT(returnbook(QString(booksData[i-6]))));
                    ui->adminDue->setCellWidget(row, col, item);
                    i++;
                }
@@ -80,8 +77,8 @@ void admindue::on_back_clicked()
     emit ClosedAdminSystem();
 }
 
-void admindue::returnbook(QString id)
+void admindue::returnbook()
 {
-    SystemFiles::ReturnBook(id);
+    SystemFiles::ReturnBook(_id);
 }
 
