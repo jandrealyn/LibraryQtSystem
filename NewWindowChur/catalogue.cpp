@@ -74,9 +74,16 @@ Catalogue::Catalogue(QWidget *parent,
 
     if (!overdueBooks.isEmpty())
     {
-        Overdue* overdueScreen = new Overdue(nullptr, overdueBooks);
+        // Logging a message of the overdue books
+        SystemFiles::LogOverdueBook(_memUser, _memID, overdueBooks);
+
+        // Displaying a window to the user showing their overdue books
+        Overdue* overdueScreen = new Overdue(nullptr, overdueBooks);        
         overdueScreen->exec();
     }
+
+    // This checks if the user has any nearby due dates. It won't log anything if their books aren't due within 2 days.
+    SystemFiles::LogNearbyDueDate(_memUser, _memID);
 
     // Set users details
     QPixmap p(memAvatar);
