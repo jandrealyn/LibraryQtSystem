@@ -15,6 +15,9 @@ public:
     explicit adminaddbook(QWidget *parent = nullptr);
     ~adminaddbook();
 
+signals:
+    void UpdateAdminCatalogue();
+
 private slots:
     void on_confirmadd_clicked();
 

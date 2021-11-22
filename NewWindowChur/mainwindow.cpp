@@ -3,7 +3,6 @@
 #include "mainwindow.h"
 #include "adminhome.h"
 #include "loginscreen.h"
-#include "dialog.h"
 #include "ui_mainwindow.h"
 #include "catalogue.h"
 #include "QMessageBox"

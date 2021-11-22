@@ -2,7 +2,6 @@
 #define LOGINSCREEN_H
 
 #include <QDialog> // the base class of dialog windows
-#include "dialog.h"
 #include "catalogue.h"
 #include "signupscreen.h"
 #include "adminhome.h"

@@ -21,7 +21,6 @@ SOURCES += \
     adminuser.cpp \
     catalogue.cpp \
     checkoutscreen.cpp \
-    dialog.cpp \
     loginscreen.cpp \
     main.cpp \
     mainwindow.cpp \
@@ -45,7 +44,6 @@ HEADERS += \
     adminuser.h \
     catalogue.h \
     checkoutscreen.h \
-    dialog.h \
     loginscreen.h \
     mainwindow.h \
     overdue.h \
@@ -67,7 +65,6 @@ FORMS += \
     adminuser.ui \
     catalogue.ui \
     checkoutscreen.ui \
-    dialog.ui \
     loginscreen.ui \
     mainwindow.ui \
     overdue.ui \

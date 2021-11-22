@@ -3,7 +3,6 @@
 
 #include <QDialog>  // the base class of dialog windows
 #include <QMainWindow>
-#include "dialog.h"
 #include "catalogue.h"
 
 

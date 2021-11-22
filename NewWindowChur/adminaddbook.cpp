@@ -37,6 +37,7 @@ adminaddbook::adminaddbook(QWidget *parent) :
     QPixmap book3(":/images/book-cover.png");
     ui->book3->setPixmap(book3.scaled(60, 60, Qt::KeepAspectRatio));
 
+    connect(this, SIGNAL(UpdateAdminCatalogue()), this, SLOT(UpdateAdminCatalogueSlot()));
 }
 
 adminaddbook::~adminaddbook()
@@ -60,6 +61,7 @@ void adminaddbook::on_confirmadd_clicked()
             QString copies = ui->book_copies_label->text();//password input
 
             SystemFiles::CreateBook(bookimg, title, author, copies);
+            emit UpdateAdminCatalogue();
             close();
         }
         else {
