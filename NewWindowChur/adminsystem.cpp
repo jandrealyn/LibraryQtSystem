@@ -23,15 +23,6 @@ void adminsystem::on_back_clicked()
     emit ClosedAdminHome();
 }
 
-void adminsystem::on_admin_returned_btn_clicked()
-{
-    hide();
-    admin_ret = new adminreturned(nullptr);
-    admin_ret->setWindowFlags(windowFlags() | Qt::WindowMinimizeButtonHint);
-    admin_ret->showNormal();
-    connect(admin_ret, SIGNAL(ClosedAdminSystem()), this, SLOT(AdminSystemClosed()));
-}
-
 void adminsystem::on_admin_due_btn_clicked()
 {
     hide();

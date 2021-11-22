@@ -54,9 +54,9 @@ border-style: inset;
    <widget class="QLabel" name="label">
     <property name="geometry">
      <rect>
-      <x>150</x>
-      <y>90</y>
-      <width>481</width>
+      <x>190</x>
+      <y>50</y>
+      <width>401</width>
       <height>71</height>
      </rect>
     </property>
@@ -68,13 +68,13 @@ font: 40px;
 </string>
     </property>
     <property name="text">
-     <string>Books Nearing Due Date</string>
+     <string>Checked Out Books</string>
     </property>
    </widget>
    <widget class="QPushButton" name="back">
     <property name="geometry">
      <rect>
-      <x>640</x>
+      <x>660</x>
       <y>40</y>
       <width>111</width>
       <height>41</height>
@@ -105,16 +105,27 @@ padding:2px;</string>
       <x>20</x>
       <y>10</y>
       <width>181</width>
-      <height>111</height>
+      <height>71</height>
      </rect>
     </property>
     <property name="text">
      <string>Yoobee Image</string>
     </property>
    </widget>
+   <widget class="QTableWidget" name="adminDue">
+    <property name="geometry">
+     <rect>
+      <x>60</x>
+      <y>150</y>
+      <width>651</width>
+      <height>381</height>
+     </rect>
+    </property>
+   </widget>
    <zorder>back</zorder>
    <zorder>img</zorder>
    <zorder>label</zorder>
+   <zorder>adminDue</zorder>
   </widget>
  </widget>
  <resources/>

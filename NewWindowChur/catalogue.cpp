@@ -184,6 +184,7 @@ Catalogue::Catalogue(QWidget *parent,
     int listIndex = 0;
     int rows = 0;
 
+    // Settings the headers of the tableWidget in the users profile.
     ui->tableWidget_currentBooks->insertColumn(ui->tableWidget_currentBooks->columnCount());
     ui->tableWidget_currentBooks->insertColumn(ui->tableWidget_currentBooks->columnCount());
     ui->tableWidget_currentBooks->insertColumn(ui->tableWidget_currentBooks->columnCount());
@@ -195,24 +196,25 @@ Catalogue::Catalogue(QWidget *parent,
     ui->tableWidget_currentBooks->horizontalHeader()->setSectionResizeMode(3, QHeaderView::Stretch);
     ui->tableWidget_currentBooks->setSelectionMode(QHeaderView::NoSelection);
 
-    // Quick check to see if user exists in the checked out books file
+    // Quick check to see if user exists in the checked out books file. If they do, it means they have a book checked
+    // out and we need to display it.
     if (checkedOutBooksData.indexOf(_memID) > 0)
     {
-        QStringList checkOutBookDetails;
+        QStringList usersCheckedOutBooks;
         for (int i = 0; i < checkedOutBooksData.size(); i++)
         {
             if (column == 2)
             {
                 if (checkedOutBooksData[i] == _memID)
                 {
-                    checkOutBookDetails.append(checkedOutBooksData[i - 1]); // Book Name
-                    checkOutBookDetails.append(checkedOutBooksData[i + 2]); // Book checkout date
-                    checkOutBookDetails.append(checkedOutBooksData[i + 3]); // Book return date
-                    checkOutBookDetails.append("Checkout");
+                    usersCheckedOutBooks.append(checkedOutBooksData[i - 1]); // Book Name
+                    usersCheckedOutBooks.append(checkedOutBooksData[i + 2]); // Book checkout date
+                    usersCheckedOutBooks.append(checkedOutBooksData[i + 3]); // Book return date
+                    usersCheckedOutBooks.append("Checkout");
                 }
                 column++;
             }
-            else if (column == 5)
+            else if (column == 6)
             {
                 column = 0;
             }
@@ -222,21 +224,22 @@ Catalogue::Catalogue(QWidget *parent,
             }
         }
 
-        for (int i = 0; i < checkOutBookDetails.size() / 4; i++)
+        for (int i = 0; i < usersCheckedOutBooks.size() / 4; i++)
         {
             ui->tableWidget_currentBooks->insertRow(ui->tableWidget_currentBooks->rowCount());
             rows++; // We use this in the reservedBooksData section. It allows us to set items in the correct row.
             for (int j = 0; j < 4; j++)
             {
-                QTableWidgetItem *item = new QTableWidgetItem(QString(checkOutBookDetails[listIndex]));
-                item->setFlags(item->flags() ^ Qt::ItemIsEditable); // Makes the item not editable
+                QTableWidgetItem *item = new QTableWidgetItem(QString(usersCheckedOutBooks[listIndex]));
+                item->setFlags(item->flags() ^ Qt::ItemIsEditable); // Makes the item not editable (i know, the naming doesn't make it that obvious)
                 ui->tableWidget_currentBooks->setItem(i, j, item);
                 listIndex++;
             }
         }
     }
 
-    // Quick check to see if user exists in the reserved books file
+    // Quick check to see if user exists in the reserved books file. Same as before, if they exist then it means they have a reserved book on the way
+    // so we need to display it.
     if (reservedBooksData.indexOf(_memID) > 0)
     {
         QStringList reservedBookDetails;
@@ -418,12 +421,6 @@ void Catalogue::on_yourAccount_update_clicked()
     update_ui->exec();
 }
 
-
-void Catalogue::on_yourAccount_updatePic_clicked()
-{
-
-}
-
 // This function is used when a user updates their details or when a user checks out a book.
 // It will update the entire catalogue each time either of those functions happens.
 void Catalogue::update_catalogue()
@@ -521,7 +518,6 @@ void Catalogue::update_catalogue()
 
 void Catalogue::update_usersBooks()
 {
-    qDebug() << "test";
     ui->tableWidget_currentBooks->setRowCount(0);
     // Users checked out books section
     QStringList checkedOutBooksData = SystemFiles::GetFileData(CSVFiles::_CheckedOutBooks);
@@ -547,7 +543,7 @@ void Catalogue::update_usersBooks()
                 }
                 column++;
             }
-            else if (column == 5)
+            else if (column == 6)
             {
                 column = 0;
             }

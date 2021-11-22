@@ -44,7 +44,7 @@ private slots:
 
 private:
     Ui::signupscreen *ui;
-    signupscreen2* Signupscreen2;
+    signupscreen2* Signupscreen2; // liv
     QString _avatar; // jakob
     bool _usernameOk; // jakob
     bool _emailOk; // jakob

@@ -39,10 +39,10 @@ private slots:
     void checkValues();
 
 private:
+    Ui::UpdateUserDetails *ui;
     QStringList membersData;
     QString _username, _password, _fname, _lname, _email, _phone, _id;
     bool _usernameGood, _emailGood;
-    Ui::UpdateUserDetails *ui;
 };
 
 #endif // UPDATEUSERDETAILS_H

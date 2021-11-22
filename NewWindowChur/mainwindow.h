@@ -24,7 +24,7 @@ private slots:
 //    void MainMenuClosed();
     void on_login_clicked(); // - Liv
 
-    void on_searchBar_textChanged(const QString &arg1);
+    void on_searchBar_textChanged(const QString &arg1); // Jakob
 
 private:
     Ui::MainWindow *ui;

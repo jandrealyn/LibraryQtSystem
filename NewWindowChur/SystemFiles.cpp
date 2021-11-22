@@ -1,6 +1,6 @@
 // ------------------------------------------------------------
 //
-// CREATE FILES CLASS
+// SystemFiles CLASS
 // Written by Jakob
 //
 // This class is used to easily acess our system files.
@@ -13,10 +13,12 @@
 // ------------------------------------------------------------
 
 #include "SystemFiles.h"
-#include <QDebug>
 #include <QRandomGenerator>
+#include <QDir>
+#include <QTextStream>
+#include <QMessageBox>
 #include <QDebug>
-#include <QDate>
+
 
 // Defining static variables
 QString SystemFiles::_path = "CSVFiles/";
@@ -24,10 +26,6 @@ QFile SystemFiles::_catalogue(_path + "catalogue.csv");
 QFile SystemFiles::_members(_path + "members.csv");
 QFile SystemFiles::_checkedOutBooks(_path + "checkedoutbooks.csv");
 QFile SystemFiles::_reserveBook(_path + "reserveBook.csv");
-
-SystemFiles::SystemFiles()
-{
-}
 
 void SystemFiles::CreateFilesOnStartUp()
 {
@@ -141,7 +139,7 @@ QStringList SystemFiles::GetFileData(enum CSVFiles file)
         _reserveBook.close();
         break;
     default:
-        qDebug() << "Could not open file.";
+        QMessageBox::warning(NULL, "Error", "Could not get file data.");
         fileData.append("error");
         break;
     }
@@ -299,6 +297,7 @@ void SystemFiles::CheckOutBook(QString bookID, QString bookName, QString memID, 
 
 }
 
+// Overloaded function for reserving a book
 void SystemFiles::CheckOutBook(QString bookID, QString bookName, QString memID, QString memName, QString reserveDate, QString dueDate)
 {
     _reserveBook.open(QIODevice::WriteOnly | QFile::Append | QFile::Text);
@@ -364,6 +363,7 @@ void SystemFiles::EditUser(QStringList userData){
     _members.close();
 }
 
+// Find the last reserve date for a book. This makes sure a user doesn't reserve a book during someone elses reserve date.
 QDate SystemFiles::FindLastReserveDate(QString bookID)
 {
     // We need to check if the book exists in reserved books first
@@ -419,8 +419,8 @@ QDate SystemFiles::FindLastReserveDate(QString bookID)
                 bookCount2++;
                 if (bookCount2 == bookCount1)
                 {
-                    date = QDate::fromString(checkedOutBooks[i+4], "dd/MM/yyyy"); // for some reason i can't read the due date in checked out books
-                    date = date.addDays(7); // so I have to do addDays(7)
+                    date = QDate::fromString(checkedOutBooks[i+5], "dd/MM/yyyy");
+                    //date = date.addDays(7); // so I have to do addDays(7)
                     break;
                 }
             }
@@ -470,13 +470,13 @@ void SystemFiles::CheckReservedBooks()
         if(_reserveBook.open(QIODevice::WriteOnly | QFile::Truncate | QFile::Text)) // Rewriting the reserveBook csv with the books for check out removed.
         {
             QTextStream in(&_reserveBook);
-            int column = 0; // there are 5 columns in the reserved book file
+            int column = 0;
 
             for (int i = 0; i < reservedBooks.size() - booksForCheckOut.size(); i++)
             {
                 if (reservedBooks[i] != booksForCheckOut[i])
                 {
-                    if (column == 5)
+                    if (column == 5) // there are 5 columns in the CSV
                     {
                         column = 0;
                         in << reservedBooks[i] << "\n";
@@ -497,10 +497,10 @@ void SystemFiles::CheckReservedBooks()
             int column = 0;
             for (int i = 0; i < booksForCheckOut.size(); i++)
             {
-                if (column == 5)
+                if (column == 6)
                 {
                     column = 0;
-                    in << booksForCheckOut[i] << "\n";
+                    in << "PushButton" << "\n"; // this used to be [ in << booksForCheckOut[i] << "\n"; but has been changed to PushButton for laras code
                 }
                 else
                 {
@@ -516,6 +516,8 @@ void SystemFiles::CheckReservedBooks()
 // This function checks whether a user has overdue books when they log in.
 // It searches the checkedOutBooks csv for their ID and appends any overdue books to the overdueBooks list.
 // If the user has no overdue books, then it will return an empty list.
+// We do not need to check reserveBook.csv. If a book has met it's overdue date in that file, it would have already
+// been moved to checkedoutbooks.csv
 QStringList SystemFiles::CheckUsersOverdueBooks(QString memID)
 {
     QStringList checkedOutBooksData = GetFileData(CSVFiles::_CheckedOutBooks);
@@ -544,4 +546,65 @@ QStringList SystemFiles::CheckUsersOverdueBooks(QString memID)
     {
         return overdueBooks; // returning an empty list
     }
+}
+
+void SystemFiles::ReturnBook(QString bookid){
+    QStringList catalogueData = GetFileData(CSVFiles::_Catalogue);
+
+    for (int i = 0; i < catalogueData.size(); i++)
+    {
+        if (catalogueData[i] == bookid)
+        {
+            qDebug() << "catalogueData[i + 4] = " << catalogueData[i + 4];
+            catalogueData[i + 4] = QString::number(catalogueData[i + 4].toInt() + 1); // add 1 to book copies
+            break;
+        }
+    }
+    // Once the copy of the book is removed, we need to write it back to the catalogue file.
+    _catalogue.open(QIODevice::WriteOnly | QFile::Truncate | QFile::Text);
+    QTextStream catalogueIn(&_catalogue);
+    int col = 0;
+    for (int i = 0; i < catalogueData.size(); i++)
+    {
+            if (col != 5)
+            {
+                catalogueIn << catalogueData[i] << ",";
+                col++;
+            }
+            else if (col == 5)
+            {
+                catalogueIn << catalogueData[i] << "\n";
+                col = 0;
+            }
+    }
+    _catalogue.close();
+
+    QStringList bookList = GetFileData(CSVFiles::_CheckedOutBooks);
+    _checkedOutBooks.open(QIODevice::WriteOnly| QFile::Truncate | QFile::Text);
+    QTextStream checkout_output(&_checkedOutBooks);
+
+    checkout_output << "BOOK ID" << "," << "BOOK NAME" << "," << "MEMBER ID" << "," << "MEMBER NAME" << "," << "DATE CHECKED OUT" << "," << "DATE DUE" << "," << "RETURN" << "\n";
+    int i=7;
+    bool h = false;
+    int amount = (bookList.size() / 7) - 1;
+    for (int row = 0; row < amount; row++){
+        if (bookList[i] != bookid){
+            checkout_output << bookList[i] << "," << bookList[i+1] << "," << bookList[i+2] << "," << bookList[i+3] << "," << bookList[i+4] << "," << bookList[i+5] << "," << "PushButton" << "\n";
+        }
+        else if(bookList[i] == bookid) {
+            if (h == true){
+                checkout_output << bookList[i] << "," << bookList[i+1] << "," << bookList[i+2] << "," << bookList[i+3] << "," << bookList[i+4] << "," << bookList[i+5] << "," << "PushButton" << "\n";
+            }
+            h = true;
+        }
+        i = i + 7;
+    }
+    _checkedOutBooks.close();
+
+    QMessageBox msgBox;
+    msgBox.setWindowTitle("Return");
+    msgBox.setText("Book Returned Successfully");
+    msgBox.setStandardButtons(QMessageBox::Ok);
+    msgBox.exec();
+
 }

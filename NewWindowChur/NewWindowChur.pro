@@ -17,7 +17,6 @@ SOURCES += \
     adminedituser.cpp \
     adminhome.cpp \
     adminoverdue.cpp \
-    adminreturned.cpp \
     adminsystem.cpp \
     adminuser.cpp \
     catalogue.cpp \
@@ -42,7 +41,6 @@ HEADERS += \
     adminedituser.h \
     adminhome.h \
     adminoverdue.h \
-    adminreturned.h \
     adminsystem.h \
     adminuser.h \
     catalogue.h \
@@ -65,7 +63,6 @@ FORMS += \
     adminedituser.ui \
     adminhome.ui \
     adminoverdue.ui \
-    adminreturned.ui \
     adminsystem.ui \
     adminuser.ui \
     catalogue.ui \
@@ -89,4 +86,5 @@ RESOURCES += \
     images.qrc
 
 DISTFILES += \
-    images/top-books.png
+    images/top-books.png \
+    umlclassdiagrams.qmodel

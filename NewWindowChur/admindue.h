@@ -20,9 +20,11 @@ signals:
 
 private slots:
     void on_back_clicked();
+    void returnbook();
 
 private:
     Ui::admindue *ui;
+    QString _id;
 };
 
 #endif // ADMINDUE_H
