@@ -26,7 +26,7 @@ public:
     ~Catalogue();
 
 signals:
-    void OpenLoginScreen();
+    void OpenMainMenu();
 
 private slots:
     void on_yourAccount_logout_clicked();
