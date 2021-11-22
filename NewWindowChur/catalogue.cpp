@@ -307,7 +307,7 @@ Catalogue::~Catalogue()
 void Catalogue::on_yourAccount_logout_clicked()
 {
     close();
-    emit OpenMainMenu();
+    emit OpenLoginScreen();
 }
 
 // Search bar functionality

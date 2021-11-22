@@ -100,7 +100,7 @@ void loginscreen::on_login_clicked()
             _catalogueWindow = new Catalogue(nullptr, user, pass, memfName, memlName, memEmail, memPhone, memID, memAvatar);
             _catalogueWindow->setWindowFlags(windowFlags() | Qt::WindowMinimizeButtonHint);
             _catalogueWindow->showNormal();
-            connect(_catalogueWindow, SIGNAL(OpenMainMenu()), this, SLOT(LoginScreenOpen()));
+            connect(_catalogueWindow, SIGNAL(OpenLoginScreen()), this, SLOT(LoginScreenOpen()));
         }
         else
         {

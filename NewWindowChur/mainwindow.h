@@ -20,7 +20,7 @@ public:
     ~MainWindow();
 
 private slots:
-    void MainMenuOpen(); // - Liv
+    void MainMenuOpen(); // - Liv(QWidget* parent)
 //    void MainMenuClosed();
     void on_login_clicked(); // - Liv
 
