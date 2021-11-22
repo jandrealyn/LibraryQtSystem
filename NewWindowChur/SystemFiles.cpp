@@ -27,6 +27,11 @@ QFile SystemFiles::_members(_path + "members.csv");
 QFile SystemFiles::_checkedOutBooks(_path + "checkedoutbooks.csv");
 QFile SystemFiles::_reserveBook(_path + "reserveBook.csv");
 
+QString SystemFiles::_logsPath = "SystemLogs/";
+QFile SystemFiles::_nearbyDueDatesLog(_logsPath + "NearbyDueDatesLog.txt");
+QFile SystemFiles::_overdueBooksLog(_logsPath + "OverdueBooksLog.txt");
+QFile SystemFiles::_returnedBooksLog(_logsPath + "ReturnedBooksLog.txt");
+
 void SystemFiles::CreateFilesOnStartUp()
 {
     // Check if the "CSVFiles" folder exists, if not then create it.
@@ -36,6 +41,12 @@ void SystemFiles::CreateFilesOnStartUp()
         QDir().mkdir(_path);
     }
 
+    if (!QDir(_logsPath).exists())
+    {
+        QDir().mkdir(_logsPath);
+    }
+
+    // Checking and creating .csv files
     if (!_catalogue.exists())
     {
         _catalogue.open(QIODevice::WriteOnly | QFile::Text);
@@ -70,6 +81,25 @@ void SystemFiles::CreateFilesOnStartUp()
         QTextStream prebook_output(&_reserveBook);
         prebook_output << "BOOK ID" << "," << "BOOK NAME" << "," << "MEMBER ID" << "," << "MEMBER NAME" << "," << "PREBOOK DATE" << "," << "DATE DUE" << "\n";
         _reserveBook.close();
+    }
+
+    // Checking and creating .txt files
+    if (!_overdueBooksLog.exists())
+    {
+        _overdueBooksLog.open(QIODevice::WriteOnly);
+        _overdueBooksLog.close();
+    }
+
+    if (!_nearbyDueDatesLog.exists())
+    {
+        _nearbyDueDatesLog.open(QIODevice::WriteOnly);
+        _nearbyDueDatesLog.close();
+    }
+
+    if (!_returnedBooksLog.exists())
+    {
+        _returnedBooksLog.open(QIODevice::WriteOnly);
+        _returnedBooksLog.close();
     }
 }
 
@@ -439,7 +469,7 @@ void SystemFiles::CheckReservedBooks()
     QStringList booksForCheckOut;
 
     QString date = QDate::currentDate().toString("dd/MM/yyyy");
-    QDate currDate = QDate::fromString(date);
+    QDate currDate = QDate::fromString(date, "dd/MM/yyyy");
 
     int column = 0;
     for (int i = 6; i < reservedBooks.size(); i++) // loop starts at 6 to skip the headers in the CSV file
@@ -447,7 +477,7 @@ void SystemFiles::CheckReservedBooks()
         if (column == 5)
         {
             column = 0;
-            QDate bookDate = QDate::fromString(reservedBooks[i]);
+            QDate bookDate = QDate::fromString(reservedBooks[i], "dd/MM/yyyy");
             if (currDate > bookDate)
             {
                 booksForCheckOut.append(reservedBooks[i - 5]); // Book ID
@@ -474,7 +504,7 @@ void SystemFiles::CheckReservedBooks()
 
             for (int i = 0; i < reservedBooks.size() - booksForCheckOut.size(); i++)
             {
-                if (reservedBooks[i] != booksForCheckOut[i])
+                if (reservedBooks[i] != booksForCheckOut[i]) // this checks that the current information in reserved books does not equal the books that need to be checked out
                 {
                     if (column == 5) // there are 5 columns in the CSV
                     {
@@ -497,10 +527,10 @@ void SystemFiles::CheckReservedBooks()
             int column = 0;
             for (int i = 0; i < booksForCheckOut.size(); i++)
             {
-                if (column == 6)
+                if (column == 5)
                 {
+                    in << booksForCheckOut[i] << "," << "PushButton" << "\n"; // this used to be [ in << booksForCheckOut[i] << "\n"; but has been changed to PushButton for laras code
                     column = 0;
-                    in << "PushButton" << "\n"; // this used to be [ in << booksForCheckOut[i] << "\n"; but has been changed to PushButton for laras code
                 }
                 else
                 {
@@ -524,7 +554,7 @@ QStringList SystemFiles::CheckUsersOverdueBooks(QString memID)
     QStringList overdueBooks;
 
     QString date = QDate::currentDate().toString("dd/MM/yyyy");
-    QDate currDate = QDate::fromString(date);
+    QDate currDate = QDate::fromString(date, "dd/MM/yyyy");
 
     if (checkedOutBooksData.indexOf(memID) > 0) // If the members ID exists in the the checkedOutBooks file
     {
@@ -532,7 +562,7 @@ QStringList SystemFiles::CheckUsersOverdueBooks(QString memID)
         {
             if (checkedOutBooksData[i] == memID) // Find members ID on the line
             {
-                QDate bookDueDate = QDate::fromString(checkedOutBooksData[i + 3]); // Convert books due date to a QDate from a string
+                QDate bookDueDate = QDate::fromString(checkedOutBooksData[i + 3], "dd/MM/yyyy"); // Convert books due date to a QDate from a string
                 if (currDate > bookDueDate) // Compare the two dates
                 {
                     overdueBooks.append(checkedOutBooksData[i - 1]); // Book name
@@ -540,7 +570,7 @@ QStringList SystemFiles::CheckUsersOverdueBooks(QString memID)
                 }
             }
         }
-        return overdueBooks; // returning a list with data
+        return overdueBooks; // returning a list with data   
     }
     else
     {
@@ -555,7 +585,6 @@ void SystemFiles::ReturnBook(QString bookid){
     {
         if (catalogueData[i] == bookid)
         {
-            qDebug() << "catalogueData[i + 4] = " << catalogueData[i + 4];
             catalogueData[i + 4] = QString::number(catalogueData[i + 4].toInt() + 1); // add 1 to book copies
             break;
         }
@@ -607,4 +636,152 @@ void SystemFiles::ReturnBook(QString bookid){
     msgBox.setStandardButtons(QMessageBox::Ok);
     msgBox.exec();
 
+}
+
+// Function is called in the constructor of catalogue.
+void SystemFiles::LogNearbyDueDate(QString memUser, QString memID)
+{
+    // check for user in checkedOutBooks
+    // check if that book is due within 2 days
+    // if yes, check this hasn't already been logged
+    // if it hasn't, log it
+    // " LOG:2:20pm:22/11/2021: 'USERNAME, ID' has book 'BOOK NAME' due in 'DAYS AMOUNT' "
+
+    QString date = QDate::currentDate().toString("dd/MM/yyyy");
+    QDate currDate = QDate::fromString(date, "dd/MM/yyyy");
+
+    QStringList checkedOutBooksData = GetFileData(CSVFiles::_CheckedOutBooks);
+    QStringList reservedBooksData = GetFileData(CSVFiles::_ReservedBooks);
+    QStringList nearbyDueDatesLogData;
+    QStringList validLogOutput;
+
+    if (_nearbyDueDatesLog.open(QIODevice::ReadOnly))
+        {
+            QTextStream in(&_nearbyDueDatesLog);
+            while(!in.atEnd())
+            {
+                QString line = _nearbyDueDatesLog.readLine().replace("\r\n","");
+                nearbyDueDatesLogData.append(line);
+            }
+        }
+    else
+    {
+        QMessageBox::warning(NULL, "Overdue Books Log Fail", _nearbyDueDatesLog.errorString());
+    }
+     _nearbyDueDatesLog.close();
+
+    // data for checkedOutBooks
+    for (int i = 0; i < checkedOutBooksData.size(); i++)
+    {
+        if (checkedOutBooksData[i] == memID)
+        {
+            QDate bookDueDate = QDate::fromString(checkedOutBooksData[i + 3], "dd/MM/yyyy");
+            if (bookDueDate > currDate)
+            {
+                int daysTo = currDate.daysTo(bookDueDate);
+                if (daysTo < 3) // 'nearby due date' should only include books that are due in 2 days or less
+                {
+                    QString line = "LOG: " + QDate::currentDate().toString() + ": USER \"" + memUser + "\" ID \"" + memID + "\": has book \"" + checkedOutBooksData[i - 1] + "\" due in " + QString::number(daysTo) + " days.";
+                    if (!nearbyDueDatesLogData.contains(line))
+                    {
+                        validLogOutput.append(line);
+                    }
+                }
+            }
+        }
+    }
+
+    //data for reserved books
+    for (int i = 0; i < reservedBooksData.size(); i++)
+    {
+        if (reservedBooksData[i] == memID)
+        {
+            QDate bookDueDate = QDate::fromString(reservedBooksData[i + 3], "dd/MM/yyyy");
+            if (bookDueDate > currDate)
+            {
+                int daysTo = currDate.daysTo(bookDueDate);
+                if (daysTo < 3)
+                {
+
+                    QString line = "LOG: " + QDate::currentDate().toString() + ": USER \"" + memUser + "\" ID \"" + memID + "\": has book \"" + reservedBooksData[i - 1] + "\" due in " + QString::number(daysTo) + " days.";
+                    if (!nearbyDueDatesLogData.contains(line))
+                    {
+                        validLogOutput.append(line);
+                    }
+                }
+            }
+        }
+    }
+
+    if (!validLogOutput.empty())
+    {
+        if(_nearbyDueDatesLog.open(QIODevice::WriteOnly | QIODevice::Append | QFile::Text))
+        {
+            QTextStream in(&_nearbyDueDatesLog);
+            for (int i = 0; i < validLogOutput.size(); i++)
+            {
+                in << validLogOutput[i] << "\n";
+            }
+        }
+        else
+        {
+            QMessageBox::warning(NULL, "Nearby Due Dates Fail", _nearbyDueDatesLog.errorString());
+        }
+    }
+}
+
+void SystemFiles::LogOverdueBook(QString memUser, QString memID, QStringList overdueBooks)
+{
+    // check for user in checkedOutBooks
+    // check if that books duedate is less than the current date
+    // if yes, check this hasn't already been logged
+    // if it hasn't, log it
+    // " LOG:2:20pm:22/11/2021: 'USERNAME, ID' has book 'BOOK NAME' overdue by 'DAYS AMOUNT' "
+
+    QString date = QDate::currentDate().toString("dd/MM/yyyy");
+    QDate currDate = QDate::fromString(date, "dd/MM/yyyy");
+
+    QStringList overdueBooksLogData;
+    if (_overdueBooksLog.open(QIODevice::ReadOnly))
+        {
+            QTextStream in(&_overdueBooksLog);
+            while(!in.atEnd())
+            {
+                QString line = _overdueBooksLog.readLine().replace("\r\n","");
+                overdueBooksLogData.append(line);
+            }
+        }
+    else
+    {
+        QMessageBox::warning(NULL, "Overdue Books Log Fail", _overdueBooksLog.errorString());
+    }
+     _overdueBooksLog.close();
+
+     if (_overdueBooksLog.open(QIODevice::WriteOnly | QFile::Append | QFile::Text))
+     {
+         QTextStream in(&_overdueBooksLog);
+         for (int i = 0; i < overdueBooks.size();)
+         {
+             QDate bookDueDate = QDate::fromString(overdueBooks[i + 1], "dd/MM/yyyy");
+             int daysDiff = bookDueDate.daysTo(currDate);
+
+             QString content = "LOG: " + QDate::currentDate().toString() + ": USER \"" + memUser + "\" ID \"" + memID + "\": has book \"" + overdueBooks[i] + "\" overdue by " + QString::number(daysDiff) + " days.";
+             if (!overdueBooksLogData.contains(content))
+             {
+                in << content << "\n";
+             }
+             i = i + 2;
+         }
+     }
+     else
+     {
+         QMessageBox::warning(NULL, "Overdue Books Log Fail", _overdueBooksLog.errorString());
+     }
+     _overdueBooksLog.close();
+}
+
+void SystemFiles::LogReturnedBook()
+{
+    // once a book has been returned, log the Date, Time, Book ID, User ID, "
+    // " LOG:2:20pm:22/11/2021: 'USERNAME, ID' has returned 'BOOK NAME'. "
 }

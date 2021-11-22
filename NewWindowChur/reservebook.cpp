@@ -17,7 +17,7 @@ ReserveBook::ReserveBook(QWidget *parent, QString memName, QString memID, QStrin
     _bookName = bookName;
 
     QDate minimumDate = SystemFiles::FindLastReserveDate(_bookID);
-    ui->calendarWidget->setMinimumDate(minimumDate);
+    //ui->calendarWidget->setMinimumDate(minimumDate);
     ui->bookNameLabel->setText(_bookName);
     ui->returnDateLabel->setText(minimumDate.addDays(7).toString("dd/MM/yyyy"));
 }
