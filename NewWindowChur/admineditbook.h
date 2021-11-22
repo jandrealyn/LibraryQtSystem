@@ -15,6 +15,9 @@ public:
     explicit admineditbook(QWidget *parent = nullptr, QString bookID = "", QString bookName = "", QString authorName = "", QString copies = "");
     ~admineditbook();
 
+signals:
+    void UpdateAdminCatalogue();
+
 private slots:
     void on_canceledit_clicked();
 

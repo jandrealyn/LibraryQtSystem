@@ -25,6 +25,8 @@ private slots:
 
     void on_addbook_clicked();
 
+    void UpdateAdminCatalogueSlot();
+
 private:
     Ui::admincatalogue *ui;
     admineditbook *adminedit;

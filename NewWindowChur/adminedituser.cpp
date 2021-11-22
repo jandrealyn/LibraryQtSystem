@@ -29,6 +29,8 @@ adminedituser::adminedituser(QWidget *parent, QString id, QString fn, QString ln
     ui->admin_last_user->setText(ln);
     ui->admin_email_user->setText(email);
     ui->admin_phone_user->setText(phn);
+
+    connect(this, SIGNAL(UpdateAdminUser()), this, SLOT(UpdateAdminUserSlot()));
 }
 
 adminedituser::~adminedituser()
@@ -47,6 +49,7 @@ void adminedituser::on_deleteuser_clicked()
 
     if (msgBox.clickedButton()==edit){
             SystemFiles::DeleteUser(_userid);
+            emit UpdateAdminUser();
             close();
             emit exec();
         }
@@ -94,8 +97,8 @@ void adminedituser::on_confimedit_clicked()
                     i++;
                 }
             }
-            //CreateFiles::EditBook(booksData[arraySize+1]);
             SystemFiles::EditUser(userData);
+            emit UpdateAdminUser();
             close();
             emit exec();
         }
