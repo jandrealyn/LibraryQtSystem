@@ -46,8 +46,13 @@ adminuser::adminuser(QWidget *parent) :
            ui->adminUser->horizontalHeader()->setSectionResizeMode(5, QHeaderView::Stretch);
            ui->adminUser->horizontalHeader()->setSectionResizeMode(6, QHeaderView::Stretch);
            ui->adminUser->horizontalHeader()->setSectionResizeMode(7, QHeaderView::Stretch);
-           ui->adminUser->horizontalHeader()->setSectionResizeMode(8, QHeaderView::Stretch);
+           ui->adminUser->horizontalHeader()->setSectionResizeMode(8, QHeaderView::ResizeToContents);
            ui->adminUser->setSelectionMode(QHeaderView::NoSelection);
+           ui->adminUser->verticalHeader()->setSectionResizeMode(QHeaderView::ResizeToContents);
+           //ui->adminUser->setSizeAdjustPolicy(QAbstractScrollArea::AdjustToContents);
+           //ui->adminUser->setSizePolicy(QSizePolicy::Preferred, QSizePolicy::Maximum);
+           ui->adminUser->verticalHeader()->setSectionResizeMode(QHeaderView::Fixed);
+           ui->adminUser->verticalHeader()->setDefaultSectionSize(20);
            // Create the rows of the QTableWidget
            int i = 8;
            int rowCount = (membersData.size() / 7) - 1;
@@ -76,9 +81,9 @@ adminuser::adminuser(QWidget *parent) :
                            QWidget* item = new QWidget(ui->adminUser);
                            push[row] = new QPushButton(item);
                            push[row]->setText("Edit");
-                           push[row]->setStyleSheet("QPushButton{font-size: 12px;}");
-                           push[row]->setGeometry(20,35,60,40); //Changes the size of the button and the placement
-                           admineditu[row] = new adminedituser(NULL, membersData[i-8], membersData[i-6], membersData[i-5], membersData[i-2], membersData[i-1]);
+                         //  push[row]->setStyleSheet("QPushButton{font-size: 12px;}");
+                         //  push[row]->setGeometry(20,35,60,40); //Changes the size of the button and the placement
+                           admineditu[row] = new adminedituser(NULL, membersData[i-7], membersData[i-5], membersData[i-4], membersData[i-1], membersData[i]);
                            admineditu[row]->setWindowTitle("Edit User");
                            connect(admineditu[row], SIGNAL(UpdateAdminUser()), this, SLOT(UpdateAdminUserSlot()));
                            connect(push[row], SIGNAL(clicked()), admineditu[row], SLOT(exec()));
@@ -114,13 +119,11 @@ void adminuser::on_adduser_clicked()
 }
 
 void adminuser::UpdateAdminUserSlot(){
+    QStringList membersData = SystemFiles::GetFileData(CSVFiles::_Members);
     ui->adminUser->setRowCount(0);
     ui->adminUser->setColumnCount(0);
-    QStringList membersData = SystemFiles::GetFileData(CSVFiles::_Members);
 
-        ui->setupUi(this);
-        QPixmap Img(":/images/YoobeeLibraries.png");
-        ui->img->setPixmap(Img.scaled(150, 150, Qt::KeepAspectRatio));
+
         ui->adminUser->setStyleSheet("QHeaderView::section { background-color: rgba(254, 222, 255, 0.3) }");
            // Because we have 9 columns, we insert a column 9 times
            for (int i = 0; i < 9; i++)
