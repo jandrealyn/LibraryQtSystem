@@ -501,10 +501,6 @@ void SystemFiles::CheckReservedBooks()
             QTextStream in(&_reserveBook);
             int column = 0;
 
-            int limit = booksForCheckOut.size(); // need to set a limit of how far through the for loop we can compare reservedBooks and booksForCheckOut
-
-            qDebug() << "limit: " << limit;
-
             // Outputting headers into the reserve book csv
             in << reservedBooks[0] << "," << reservedBooks[1] << "," << reservedBooks[2] << "," << reservedBooks[3] << "," << reservedBooks[4] << "," << reservedBooks[5] << "\n";
 
@@ -684,8 +680,6 @@ void SystemFiles::LogNearbyDueDate(QString memUser, QString memID)
         if (checkedOutBooksData[i] == memID)
         {
             QDate bookDueDate = QDate::fromString(checkedOutBooksData[i + 3], "dd/MM/yyyy");
-            qDebug() << "bookDueDate: " << bookDueDate.toString();
-            qDebug() << "currDate: "<< currDate.toString();
             if (bookDueDate > currDate)
             {
                 int daysTo = currDate.daysTo(bookDueDate);
@@ -707,12 +701,9 @@ void SystemFiles::LogNearbyDueDate(QString memUser, QString memID)
         if (reservedBooksData[i] == memID)
         {
             QDate bookDueDate = QDate::fromString(reservedBooksData[i + 3], "dd/MM/yyyy");
-            qDebug() << "bookDueDate: " << bookDueDate.toString();
-            qDebug() << "currDate: "<< currDate.toString();
             if (bookDueDate > currDate)
             {
                 int daysTo = currDate.daysTo(bookDueDate);
-                qDebug() << "hi there";
                 if (daysTo < 3)
                 {
 
