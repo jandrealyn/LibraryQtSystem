@@ -55,7 +55,7 @@ adminuser::adminuser(QWidget *parent) :
            ui->adminUser->verticalHeader()->setDefaultSectionSize(20);
            // Create the rows of the QTableWidget
            int i = 8;
-           int rowCount = (membersData.size() / 7) - 1;
+           int rowCount = (membersData.size() / 8) - 1;
            QPushButton* push[rowCount];
            adminedituser* admineditu[rowCount];
            for (int row = 0; row < rowCount; row++)
@@ -144,7 +144,7 @@ void adminuser::UpdateAdminUserSlot(){
            ui->adminUser->setSelectionMode(QHeaderView::NoSelection);
            // Create the rows of the QTableWidget
            int i = 8;
-           int rowCount = (membersData.size() / 7) - 1;
+           int rowCount = (membersData.size() / 8) - 1;
            QPushButton* push[rowCount];
            adminedituser* admineditu[rowCount];
            for (int row = 0; row < rowCount; row++)
