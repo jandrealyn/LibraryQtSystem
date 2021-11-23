@@ -501,40 +501,28 @@ void SystemFiles::CheckReservedBooks()
             QTextStream in(&_reserveBook);
             int column = 0;
 
-            int index = 0;
             int limit = booksForCheckOut.size(); // need to set a limit of how far through the for loop we can compare reservedBooks and booksForCheckOut
 
-            for (int i = 0; i < reservedBooks.size() - booksForCheckOut.size(); i++)
+            qDebug() << "limit: " << limit;
+
+            // Outputting headers into the reserve book csv
+            in << reservedBooks[0] << "," << reservedBooks[1] << "," << reservedBooks[2] << "," << reservedBooks[3] << "," << reservedBooks[4] << "," << reservedBooks[5] << "\n";
+
+            // Finding the books that weren't added to booksForCheckOut and writing them to the file again.
+            for (int i = 0; i < reservedBooks.size(); i++)
             {
-                if (index != limit) // We compare whether
+                if (column == 5)
                 {
-                    if (reservedBooks[i] != booksForCheckOut[index]) // this checks that the current information in reserved books does not equal the books that need to be checked out
+                    QDate bookDate = QDate::fromString(reservedBooks[i], "dd/MM/yyyy");
+                    if (currDate < bookDate)
                     {
-                        if (column == 5) // there are 5 columns in the CSV
-                        {
-                            column = 0;
-                            in << reservedBooks[i] << "\n";
-                        }
-                        else
-                        {
-                            in << reservedBooks[i] << ",";
-                            column++;
-                        }
+                        in << reservedBooks[i - 5] << "," << reservedBooks[i - 4] << "," << reservedBooks[i - 3] << "," << reservedBooks[i - 2] << "," << reservedBooks[i - 1] << "," << reservedBooks[i] << "\n";
                     }
-                    index++;
+                    column = 0;
                 }
                 else
                 {
-                    if (column == 5)
-                    {
-                        column = 0;
-                        in << reservedBooks[i] << "\n";
-                    }
-                    else
-                    {
-                        in << reservedBooks[i] << ",";
-                        column++;
-                    }
+                    column++;
                 }
             }
         }
@@ -690,8 +678,6 @@ void SystemFiles::LogNearbyDueDate(QString memUser, QString memID)
     }
      _nearbyDueDatesLog.close();
 
-     qDebug() << "hello";
-
     // data for checkedOutBooks
     for (int i = 0; i < checkedOutBooksData.size(); i++)
     {
@@ -705,7 +691,7 @@ void SystemFiles::LogNearbyDueDate(QString memUser, QString memID)
                 int daysTo = currDate.daysTo(bookDueDate);
                 if (daysTo < 3) // 'nearby due date' should only include books that are due in 2 days or less
                 {
-                    QString line = "LOG: " + QDate::currentDate().toString() + ": USER \"" + memUser + "\" ID \"" + memID + "\": has book \"" + checkedOutBooksData[i - 1] + "\" due in " + QString::number(daysTo) + " days.";
+                    QString line = "LOG: " + QDate::currentDate().toString() + " - " + QTime::currentTime().toString() + ": USER \"" + memUser + "\" ID \"" + memID + "\": has book \"" + checkedOutBooksData[i - 1] + "\" due in " + QString::number(daysTo) + " days.";
                     if (!nearbyDueDatesLogData.contains(line))
                     {
                         validLogOutput.append(line);
@@ -730,7 +716,7 @@ void SystemFiles::LogNearbyDueDate(QString memUser, QString memID)
                 if (daysTo < 3)
                 {
 
-                    QString line = "LOG: " + QTime::currentTime().toString() + " - " + QDate::currentDate().toString() + ": USER \"" + memUser + "\" ID \"" + memID + "\": has book \"" + reservedBooksData[i - 1] + "\" due in " + QString::number(daysTo) + " days.";
+                    QString line = "LOG: " + QDate::currentDate().toString() + " - " + QTime::currentTime().toString() + ": USER \"" + memUser + "\" ID \"" + memID + "\": has book \"" + reservedBooksData[i - 1] + "\" due in " + QString::number(daysTo) + " days.";
                     if (!nearbyDueDatesLogData.contains(line))
                     {
                         validLogOutput.append(line);
@@ -754,6 +740,7 @@ void SystemFiles::LogNearbyDueDate(QString memUser, QString memID)
         {
             QMessageBox::warning(NULL, "Nearby Due Dates Fail", _nearbyDueDatesLog.errorString());
         }
+        _nearbyDueDatesLog.close();
     }
 }
 
