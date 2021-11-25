@@ -102,7 +102,7 @@ adminuser::adminuser(QWidget *parent) :
            }
            qDebug() << row;
        }
-    }
+}
 
 
 adminuser::~adminuser()
@@ -149,7 +149,7 @@ void adminuser::UpdateAdminUserSlot(){
            ui->adminUser->setSelectionMode(QHeaderView::NoSelection);
            // Create the rows of the QTableWidget
            int i = 8;
-           int rowCount = (membersData.size() / 7) - 1;
+           int rowCount = (membersData.size() / 8) - 1;
            QPushButton* push[rowCount];
            adminedituser* admineditu[rowCount];
            for (int row = 0; row < rowCount; row++)
@@ -158,6 +158,7 @@ void adminuser::UpdateAdminUserSlot(){
                for (int col = 0; col < 8; col++)
                {
                    if (membersData[i].contains(":/images")){
+                       qDebug() << "col = " << col;
                        ui->adminUser->verticalHeader()->setSectionResizeMode(row, QHeaderView::Stretch);
                        QWidget* item = new QWidget(ui->adminUser);
                        QString imagePath = membersData[i];
@@ -167,16 +168,18 @@ void adminuser::UpdateAdminUserSlot(){
                        ui->adminUser->setCellWidget(row, col, item);
                    }
                    else if (col == 7){
+                       qDebug() << " col7 == " << col;
                        QTableWidgetItem *item = new QTableWidgetItem(QString(membersData[i]));
                        ui->adminUser->setItem(row, col, item);
                        col++;
                        if (col == 8)
                        {
+                           qDebug() << "col8 == " << col;
                            QWidget* item = new QWidget(ui->adminUser);
                            push[row] = new QPushButton(item);
                            push[row]->setText("Edit");
-                           push[row]->setStyleSheet("QPushButton{font-size: 12px;}");
-                           push[row]->setGeometry(20,35,60,40); //Changes the size of the button and the placement
+                         //  push[row]->setStyleSheet("QPushButton{font-size: 12px;}");
+                         //  push[row]->setGeometry(20,35,60,40); //Changes the size of the button and the placement
                            admineditu[row] = new adminedituser(NULL, membersData[i-7], membersData[i-5], membersData[i-4], membersData[i-1], membersData[i]);
                            admineditu[row]->setWindowTitle("Edit User");
                            connect(admineditu[row], SIGNAL(UpdateAdminUser()), this, SLOT(UpdateAdminUserSlot()));
@@ -185,10 +188,11 @@ void adminuser::UpdateAdminUserSlot(){
                        }
                    }
                    else {
-                    QTableWidgetItem *item = new QTableWidgetItem(QString(membersData[i]));
-                    ui->adminUser->setItem(row, col, item);
+                        QTableWidgetItem *item = new QTableWidgetItem(QString(membersData[i]));
+                        ui->adminUser->setItem(row, col, item);
                    }
                     i++;
                }
+               qDebug() << row;
            }
 }
