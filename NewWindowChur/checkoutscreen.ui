@@ -11,7 +11,12 @@
    </rect>
   </property>
   <property name="windowTitle">
-   <string>Dialog</string>
+   <string>Yoobee Library System | Check Out</string>
+  </property>
+  <property name="windowIcon">
+   <iconset>
+    <normalon>:/images/favicon.ico</normalon>
+   </iconset>
   </property>
   <property name="styleSheet">
    <string notr="true">background-color: rgb(247, 247, 247);

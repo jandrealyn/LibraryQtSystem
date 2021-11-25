@@ -32,6 +32,9 @@ admineditbook::admineditbook(QWidget *parent, QString bookID, QString bookName, 
     ui->book_name_label->setText(bookName);
     ui->book_author_label->setText(authorName);
     ui->book_copies_label->setText(copies);
+
+    connect(this, SIGNAL(UpdateAdminCatalogue()), this, SLOT(UpdateAdminCatalogueSlot()));
+
 }
 
 
@@ -77,6 +80,7 @@ void admineditbook::on_confimedit_clicked()
             }
             //CreateFiles::EditBook(booksData[arraySize+1]);
             SystemFiles::EditBook(booksData);
+            emit UpdateAdminCatalogue();
             close();
             emit exec();
         }
@@ -102,6 +106,7 @@ void admineditbook::on_deletebook_clicked()
 
     if (msgBox.clickedButton()==edit){
             SystemFiles::DeleteBook(_bookID);
+            emit UpdateAdminCatalogue();
             close();
             emit exec();
         }

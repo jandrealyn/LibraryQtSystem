@@ -21,6 +21,7 @@ signals:
 private slots:
     void on_back_clicked();
     void returnbook();
+    void UpdateDue();
 
 private:
     Ui::admindue *ui;

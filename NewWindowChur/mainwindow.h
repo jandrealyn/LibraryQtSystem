@@ -2,7 +2,6 @@
 #define MAINWINDOW_H
 
 #include <QMainWindow>
-#include "dialog.h"
 #include "catalogue.h"
 #include "adminhome.h"
 #include "loginscreen.h"

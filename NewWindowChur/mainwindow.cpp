@@ -3,7 +3,6 @@
 #include "mainwindow.h"
 #include "adminhome.h"
 #include "loginscreen.h"
-#include "dialog.h"
 #include "ui_mainwindow.h"
 #include "catalogue.h"
 #include "QMessageBox"
@@ -144,11 +143,6 @@ void MainWindow::on_searchBar_textChanged(const QString &arg1)
         }
     }
     SystemFiles::_catalogue.close();
-
-    for (int i = 0; i < foundData.size(); i++)
-    {
-        qDebug() << foundData[i];
-    }
 
     // Array control
     const int arraySize = (foundData.size() / 6);

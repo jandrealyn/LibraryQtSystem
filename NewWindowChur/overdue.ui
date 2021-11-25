@@ -7,11 +7,36 @@
     <x>0</x>
     <y>0</y>
     <width>486</width>
-    <height>185</height>
+    <height>245</height>
    </rect>
   </property>
   <property name="windowTitle">
-   <string>Your Overdue Books</string>
+   <string>Yoobee Library System | Overdue Message</string>
+  </property>
+  <property name="windowIcon">
+   <iconset resource="images.qrc">
+    <normaloff>:/images/favicon.ico</normaloff>:/images/favicon.ico</iconset>
+  </property>
+  <property name="styleSheet">
+   <string notr="true">QPushButton {
+color: white;
+background-color: #27a9e3;
+border-radius: 3px;
+padding: 5px;
+}
+
+QPushButton::pressed {
+background-color: rgb(216, 150, 90);
+}
+
+QPushButton::hover {
+background-color: #59c7f7;
+}
+
+QPushButton::disabled {
+color: #ebebeb;
+background-color: #1c7ba6;
+}</string>
   </property>
   <layout class="QVBoxLayout" name="verticalLayout_2">
    <item>
@@ -44,6 +69,18 @@
          <property name="text">
           <string>Got it!</string>
          </property>
+         <property name="checkable">
+          <bool>false</bool>
+         </property>
+         <property name="autoRepeat">
+          <bool>false</bool>
+         </property>
+         <property name="default">
+          <bool>false</bool>
+         </property>
+         <property name="flat">
+          <bool>false</bool>
+         </property>
         </widget>
        </item>
       </layout>
@@ -52,6 +89,8 @@
    </item>
   </layout>
  </widget>
- <resources/>
+ <resources>
+  <include location="images.qrc"/>
+ </resources>
  <connections/>
 </ui>

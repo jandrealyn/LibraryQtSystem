@@ -15,6 +15,9 @@ public:
     explicit adminedituser(QWidget *parent = nullptr, QString id = "", QString firstname = "", QString lastname = "", QString email = "", QString phone = "");
     ~adminedituser();
 
+signals:
+    void UpdateAdminUser();
+
 private slots:
     void on_deleteuser_clicked();
 

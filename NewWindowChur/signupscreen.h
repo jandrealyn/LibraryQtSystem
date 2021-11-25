@@ -3,7 +3,6 @@
 
 #include <QDialog>
 #include <QMainWindow>
-#include "dialog.h"
 #include "catalogue.h"
 #include "signupscreen2.h" // jakob
 
