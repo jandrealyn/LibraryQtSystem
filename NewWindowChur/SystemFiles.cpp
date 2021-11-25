@@ -279,7 +279,7 @@ void SystemFiles::DeleteUser(QString userID){
         }
         i = i + 8;
     }
-    _catalogue.close();
+    _members.close();
 }
 
 void SystemFiles::CheckOutBook(QString bookID, QString bookName, QString memID, QString memName, QString dueDate)

@@ -48,6 +48,7 @@ public:
     static QFile _nearbyDueDatesLog;  // System should log messages in a "due-date" file whenever the due date of their loaned books is nearby.
     static QFile _overdueBooksLog;  // System should log messages in an "overdue" file whenever a book is overdue.
     static QFile _returnedBooksLog; // System should log messages in the "return" file whenever a book is returned.
+
 };
 
 #endif // SYSTEMFILES_H
