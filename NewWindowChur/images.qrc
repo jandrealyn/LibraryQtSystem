@@ -12,5 +12,6 @@
         <file>images/dog-avatar.jpg</file>
         <file>images/jerboa-avatar.jpg</file>
         <file>images/default-avatar.png</file>
+        <file>images/favicon.ico</file>
     </qresource>
 </RCC>

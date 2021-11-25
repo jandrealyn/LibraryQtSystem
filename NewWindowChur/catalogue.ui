@@ -7,7 +7,7 @@
     <x>0</x>
     <y>0</y>
     <width>933</width>
-    <height>579</height>
+    <height>508</height>
    </rect>
   </property>
   <property name="sizePolicy">
@@ -19,6 +19,42 @@
   <property name="windowTitle">
    <string>Yoobee Library System</string>
   </property>
+  <property name="windowIcon">
+   <iconset>
+    <normalon>:/images/favicon.ico</normalon>
+   </iconset>
+  </property>
+  <property name="styleSheet">
+   <string notr="true">*{
+font-family: Century Gothic, sans-serif;
+}
+
+QPushButton{
+color: white;
+padding: 5px;
+background: #27a9e3;
+border-style: outset;
+border-radius: 5px;
+font: bold;
+}
+QPushButton::pressed{
+background-color: rgb(216, 150, 90);
+border-style: inset;
+}
+
+QPushButton::hover {
+background-color: #59c7f7;
+}
+
+QPushButton::disabled {
+color: #ebebeb;
+background-color: #1c7ba6;
+}
+
+QLabel {
+font-size: 12px;
+}</string>
+  </property>
   <layout class="QGridLayout" name="gridLayout">
    <item row="0" column="0">
     <widget class="QTabWidget" name="tabWidget">
@@ -28,7 +64,7 @@
      <property name="currentIndex">
       <number>2</number>
      </property>
-     <widget class="QWidget" name="Home">
+     <widget class="QWidget" name="tab_Home">
       <attribute name="title">
        <string>Home</string>
       </attribute>
@@ -47,7 +83,8 @@
         <widget class="QLabel" name="label_3">
          <property name="font">
           <font>
-           <pointsize>14</pointsize>
+           <family>Century Gothic</family>
+           <pointsize>-1</pointsize>
            <weight>75</weight>
            <bold>true</bold>
           </font>
@@ -61,7 +98,8 @@
         <widget class="QLabel" name="welcomeBack">
          <property name="font">
           <font>
-           <pointsize>14</pointsize>
+           <family>Century Gothic</family>
+           <pointsize>-1</pointsize>
           </font>
          </property>
          <property name="text">
@@ -75,14 +113,14 @@
           <string>&lt;!DOCTYPE HTML PUBLIC &quot;-//W3C//DTD HTML 4.0//EN&quot; &quot;http://www.w3.org/TR/REC-html40/strict.dtd&quot;&gt;
 &lt;html&gt;&lt;head&gt;&lt;meta name=&quot;qrichtext&quot; content=&quot;1&quot; /&gt;&lt;style type=&quot;text/css&quot;&gt;
 p, li { white-space: pre-wrap; }
-&lt;/style&gt;&lt;/head&gt;&lt;body style=&quot; font-family:'MS Shell Dlg 2'; font-size:8.25pt; font-weight:400; font-style:normal;&quot;&gt;
+&lt;/style&gt;&lt;/head&gt;&lt;body style=&quot; font-family:'Century Gothic','sans-serif'; font-size:8.25pt; font-weight:400; font-style:normal;&quot;&gt;
 &lt;p style=&quot; margin-top:0px; margin-bottom:0px; margin-left:0px; margin-right:0px; -qt-block-indent:0; text-indent:0px;&quot;&gt;&lt;img src=&quot;:/images/top-books.png&quot; /&gt;&lt;/p&gt;&lt;/body&gt;&lt;/html&gt;</string>
          </property>
         </widget>
        </item>
       </layout>
      </widget>
-     <widget class="QWidget" name="Test">
+     <widget class="QWidget" name="tab_Catalogue">
       <attribute name="title">
        <string>Catalogue</string>
       </attribute>
@@ -108,7 +146,7 @@ p, li { white-space: pre-wrap; }
             <x>0</x>
             <y>0</y>
             <width>889</width>
-            <height>489</height>
+            <height>413</height>
            </rect>
           </property>
          </widget>
@@ -116,7 +154,7 @@ p, li { white-space: pre-wrap; }
        </item>
       </layout>
      </widget>
-     <widget class="QWidget" name="Account">
+     <widget class="QWidget" name="tab_YourAccount">
       <attribute name="title">
        <string>Your account</string>
       </attribute>
@@ -179,7 +217,8 @@ p, li { white-space: pre-wrap; }
           <widget class="QLabel" name="user_id">
            <property name="font">
             <font>
-             <pointsize>8</pointsize>
+             <family>Century Gothic</family>
+             <pointsize>-1</pointsize>
             </font>
            </property>
            <property name="styleSheet">
@@ -194,7 +233,8 @@ p, li { white-space: pre-wrap; }
           <widget class="QLabel" name="user_email">
            <property name="font">
             <font>
-             <pointsize>8</pointsize>
+             <family>Century Gothic</family>
+             <pointsize>-1</pointsize>
             </font>
            </property>
            <property name="text">
@@ -206,7 +246,8 @@ p, li { white-space: pre-wrap; }
           <widget class="QLabel" name="user_phonenumber">
            <property name="font">
             <font>
-             <pointsize>8</pointsize>
+             <family>Century Gothic</family>
+             <pointsize>-1</pointsize>
             </font>
            </property>
            <property name="styleSheet">
@@ -218,21 +259,40 @@ p, li { white-space: pre-wrap; }
           </widget>
          </item>
          <item>
-          <widget class="QPushButton" name="yourAccount_update">
-           <property name="sizePolicy">
-            <sizepolicy hsizetype="Fixed" vsizetype="Fixed">
-             <horstretch>0</horstretch>
-             <verstretch>0</verstretch>
-            </sizepolicy>
-           </property>
-           <property name="styleSheet">
-            <string notr="true">border-color: rgb(0, 0, 0);
-background-color: rgb(239, 239, 239);</string>
-           </property>
-           <property name="text">
-            <string>Update Details</string>
-           </property>
-          </widget>
+          <layout class="QHBoxLayout" name="horizontalLayout_4">
+           <item>
+            <widget class="QPushButton" name="yourAccount_update">
+             <property name="sizePolicy">
+              <sizepolicy hsizetype="Fixed" vsizetype="Fixed">
+               <horstretch>0</horstretch>
+               <verstretch>0</verstretch>
+              </sizepolicy>
+             </property>
+             <property name="styleSheet">
+              <string notr="true"/>
+             </property>
+             <property name="text">
+              <string>Update Details</string>
+             </property>
+            </widget>
+           </item>
+           <item>
+            <spacer name="horizontalSpacer_5">
+             <property name="orientation">
+              <enum>Qt::Horizontal</enum>
+             </property>
+             <property name="sizeType">
+              <enum>QSizePolicy::MinimumExpanding</enum>
+             </property>
+             <property name="sizeHint" stdset="0">
+              <size>
+               <width>40</width>
+               <height>20</height>
+              </size>
+             </property>
+            </spacer>
+           </item>
+          </layout>
          </item>
         </layout>
        </item>
@@ -263,17 +323,43 @@ background-color: rgb(239, 239, 239);</string>
         </widget>
        </item>
        <item>
-        <widget class="QPushButton" name="yourAccount_logout">
-         <property name="sizePolicy">
-          <sizepolicy hsizetype="Fixed" vsizetype="Fixed">
-           <horstretch>0</horstretch>
-           <verstretch>0</verstretch>
-          </sizepolicy>
+        <layout class="QHBoxLayout" name="horizontalLayout_3">
+         <property name="sizeConstraint">
+          <enum>QLayout::SetDefaultConstraint</enum>
          </property>
-         <property name="text">
-          <string>Log out</string>
-         </property>
-        </widget>
+         <item>
+          <widget class="QPushButton" name="yourAccount_logout">
+           <property name="sizePolicy">
+            <sizepolicy hsizetype="Fixed" vsizetype="Fixed">
+             <horstretch>0</horstretch>
+             <verstretch>0</verstretch>
+            </sizepolicy>
+           </property>
+           <property name="styleSheet">
+            <string notr="true"/>
+           </property>
+           <property name="text">
+            <string>Log out</string>
+           </property>
+          </widget>
+         </item>
+         <item>
+          <spacer name="horizontalSpacer_2">
+           <property name="orientation">
+            <enum>Qt::Horizontal</enum>
+           </property>
+           <property name="sizeType">
+            <enum>QSizePolicy::MinimumExpanding</enum>
+           </property>
+           <property name="sizeHint" stdset="0">
+            <size>
+             <width>40</width>
+             <height>20</height>
+            </size>
+           </property>
+          </spacer>
+         </item>
+        </layout>
        </item>
       </layout>
      </widget>
@@ -281,9 +367,6 @@ background-color: rgb(239, 239, 239);</string>
    </item>
   </layout>
  </widget>
- <tabstops>
-  <tabstop>yourAccount_logout</tabstop>
- </tabstops>
  <resources>
   <include location="images.qrc"/>
  </resources>

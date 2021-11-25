@@ -49,37 +49,61 @@ void SystemFiles::CreateFilesOnStartUp()
     // Checking and creating .csv files
     if (!_catalogue.exists())
     {
-        _catalogue.open(QIODevice::WriteOnly | QFile::Text);
-        QTextStream catalogue_output(&_catalogue);
-        catalogue_output << "BOOK ID" << "," << "IMAGE" << "," << "BOOK NAME" << "," << "AUTHOR" << "," << "COPIES" << "," << "EDIT BOOK" << "\n";
-        catalogue_output << "Book6969" << "," << ":/images/jerboa-avatar.jpg" << "," << "Jerboa Book" << "," << "Jakob Frederikson" << "," << "0" << "," << "PushButton" << "\n";
-        catalogue_output << "Book0342" << "," << ":/images/blue-book.jpg" << "," << "This is a book" << "," << "Author" << "," << "10" << "," << "PushButton" << "\n";
-        catalogue_output << "Book3163" << "," <<  ":/images/book-cover.png" << "," << "Cool Book" << "," << "Authorz" << "," << "10" << "," << "PushButton" << "\n";
-        catalogue_output << "Book3164" << "," <<  ":/images/cat-avatar.jpg" << "," << "Swag" << "," << "Lawl" << "," << "1" << "," << "PushButton" << "\n";
+        if(_catalogue.open(QIODevice::WriteOnly | QFile::Text))
+        {
+            QTextStream catalogue_output(&_catalogue);
+            catalogue_output << "BOOK ID" << "," << "IMAGE" << "," << "BOOK NAME" << "," << "AUTHOR" << "," << "COPIES" << "," << "EDIT BOOK" << "\n";
+            catalogue_output << "Book6969" << "," << ":/images/jerboa-avatar.jpg" << "," << "Jerboa Book" << "," << "Jakob Frederikson" << "," << "0" << "," << "PushButton" << "\n";
+            catalogue_output << "Book0342" << "," << ":/images/blue-book.jpg" << "," << "This is a book" << "," << "Author" << "," << "10" << "," << "PushButton" << "\n";
+            catalogue_output << "Book3163" << "," <<  ":/images/book-cover.png" << "," << "Cool Book" << "," << "Authorz" << "," << "10" << "," << "PushButton" << "\n";
+            catalogue_output << "Book3164" << "," <<  ":/images/cat-avatar.jpg" << "," << "Swag" << "," << "Lawl" << "," << "1" << "," << "PushButton" << "\n";
+        }
+        else
+        {
+            QMessageBox::warning(NULL, "Could not open catalogue.csv", _catalogue.errorString());
+        }
         _catalogue.close();
     }
 
     if (!_members.exists())
     {
-        _members.open(QIODevice::WriteOnly | QFile::Text);
-        QTextStream members_output(&_members);
-        members_output << "ID" << "," << "PROFILE PICTURE" << "," << "FIRST NAME" << "," << "LAST NAME" << "," << "USERNAME" << "," << "PASSWORD" << "," << "EMAIL" << "," << "PHONE NUM" << "\n";
+       if(_members.open(QIODevice::WriteOnly | QFile::Text))
+       {
+           QTextStream members_output(&_members);
+           members_output << "ID" << "," << "PROFILE PICTURE" << "," << "FIRST NAME" << "," << "LAST NAME" << "," << "USERNAME" << "," << "PASSWORD" << "," << "EMAIL" << "," << "PHONE NUM" << "\n";
+       }
+       else
+       {
+           QMessageBox::warning(NULL, "Could not open members.csv", _members.errorString());
+       }
         _members.close();
     }
 
     if (!_checkedOutBooks.exists())
     {
-        _checkedOutBooks.open(QIODevice::WriteOnly | QFile::Text);
-        QTextStream checkout_output(&_checkedOutBooks);
-        checkout_output << "BOOK ID" << "," << "BOOK NAME" << "," << "MEMBER ID" << "," << "MEMBER NAME" << "," << "DATE CHECKED OUT" << "," << "DATE DUE" << "," << "RETURN" << "\n";
+        if(_checkedOutBooks.open(QIODevice::WriteOnly | QFile::Text))
+        {
+            QTextStream checkout_output(&_checkedOutBooks);
+            checkout_output << "BOOK ID" << "," << "BOOK NAME" << "," << "MEMBER ID" << "," << "MEMBER NAME" << "," << "DATE CHECKED OUT" << "," << "DATE DUE" << "," << "RETURN" << "\n";
+        }
+        else
+        {
+            QMessageBox::warning(NULL, "Could not open checkedOutBooks.csv", _checkedOutBooks.errorString());
+        }
         _checkedOutBooks.close();
     }
 
     if (!_reserveBook.exists())
     {
-        _reserveBook.open(QIODevice::WriteOnly | QFile::Text);
-        QTextStream prebook_output(&_reserveBook);
-        prebook_output << "BOOK ID" << "," << "BOOK NAME" << "," << "MEMBER ID" << "," << "MEMBER NAME" << "," << "PREBOOK DATE" << "," << "DATE DUE" << "\n";
+        if(_reserveBook.open(QIODevice::WriteOnly | QFile::Text))
+        {
+            QTextStream prebook_output(&_reserveBook);
+            prebook_output << "BOOK ID" << "," << "BOOK NAME" << "," << "MEMBER ID" << "," << "MEMBER NAME" << "," << "PREBOOK DATE" << "," << "DATE DUE" << "\n";
+        }
+        else
+        {
+            QMessageBox::warning(NULL, "Could not open reserveBook.csv", _reserveBook.errorString());
+        }
         _reserveBook.close();
     }
 
@@ -103,6 +127,7 @@ void SystemFiles::CreateFilesOnStartUp()
     }
 }
 
+// This function will return a QStringList of everything inside a specific file.
 QStringList SystemFiles::GetFileData(enum CSVFiles file)
 {
     QStringList fileData;
@@ -110,20 +135,21 @@ QStringList SystemFiles::GetFileData(enum CSVFiles file)
     {
     case CSVFiles::_Catalogue:
         if (_catalogue.open(QIODevice::ReadOnly))
+        {
+            QTextStream in(&_catalogue);
+            while(!in.atEnd())
             {
-                QTextStream in(&_catalogue);
-                while(!in.atEnd())
-                {
-                    QString line = _catalogue.readLine().replace("\r\n","");
-                    fileData.append(line.split(','));
-                }
+                QString line = _catalogue.readLine().replace("\r\n","");
+                fileData.append(line.split(','));
             }
-            else
-            {
-                return fileData;
-            }
-            _catalogue.close();
-            break;
+        }
+        else
+        {
+            QMessageBox::warning(NULL, "Could not open catalogue.csv", _catalogue.errorString());
+            return fileData;
+        }
+        _catalogue.close();
+        break;
     case CSVFiles::_Members:
         if (_members.open(QIODevice::ReadOnly))
         {
@@ -136,6 +162,7 @@ QStringList SystemFiles::GetFileData(enum CSVFiles file)
         }
         else
         {
+            QMessageBox::warning(NULL, "Could not open members.csv", _members.errorString());
             return fileData;
         }
         _members.close();
@@ -152,6 +179,7 @@ QStringList SystemFiles::GetFileData(enum CSVFiles file)
         }
         else
         {
+            QMessageBox::warning(NULL, "Could not open checkedOutBooks.csv", _checkedOutBooks.errorString());
             return fileData;
         }
         _checkedOutBooks.close();
@@ -165,6 +193,10 @@ QStringList SystemFiles::GetFileData(enum CSVFiles file)
                 QString line = _reserveBook.readLine().replace("\r\n","");
                 fileData.append(line.split(','));
             }
+        }
+        else
+        {
+            QMessageBox::warning(NULL, "Could not open reserveBook.csv", _reserveBook.errorString());
         }
         _reserveBook.close();
         break;
@@ -212,7 +244,6 @@ void SystemFiles::CreateMember(QString avatar, QString fName, QString lName, QSt
 }
 
 //Lara 3:)
-
 void SystemFiles::CreateBook(QString bookimg, QString title, QString author, QString copies)
 {
     // Generate the members ID
@@ -245,7 +276,6 @@ void SystemFiles::CreateBook(QString bookimg, QString title, QString author, QSt
 }
 
 //lARA cODE :))))
-
 void SystemFiles::DeleteBook(QString bookID){
 
     QStringList bookList = GetFileData(CSVFiles::_Catalogue);
@@ -264,6 +294,7 @@ void SystemFiles::DeleteBook(QString bookID){
     _catalogue.close();
 }
 
+// Lara's code
 void SystemFiles::DeleteUser(QString userID){
 
     QStringList userList = GetFileData(CSVFiles::_Members);
@@ -282,14 +313,21 @@ void SystemFiles::DeleteUser(QString userID){
     _members.close();
 }
 
+// Function is called in the checkoutscreen.cpp file once a user confirms they want to check out their book.
 void SystemFiles::CheckOutBook(QString bookID, QString bookName, QString memID, QString memName, QString dueDate)
 {
     QString currentDate = QDate::currentDate().toString("dd/MM/yyyy");
 
     // Output the details of the checkout to checkedOutBooks file
-    _checkedOutBooks.open(QIODevice::WriteOnly | QFile::Append | QFile::Text);
-    QTextStream in(&_checkedOutBooks);
-    in << bookID << "," << bookName << "," << memID << "," << memName << "," << currentDate << "," << dueDate << "," << "PushButton" << "\n";
+    if(_checkedOutBooks.open(QIODevice::WriteOnly | QFile::Append | QFile::Text))
+    {
+        QTextStream in(&_checkedOutBooks);
+        in << bookID << "," << bookName << "," << memID << "," << memName << "," << currentDate << "," << dueDate << "," << "PushButton" << "\n";
+    }
+    else
+    {
+        QMessageBox::warning(NULL, "Unable to open checkedOutBooks.csv", _checkedOutBooks.errorString());
+    }
     _checkedOutBooks.close();
 
     // We now need to remove a copy of the book as a user has checked it out.
@@ -303,39 +341,49 @@ void SystemFiles::CheckOutBook(QString bookID, QString bookName, QString memID, 
             break;
         }
     }
+
     // Once the copy of the book is removed, we need to write it back to the catalogue file.
-    _catalogue.open(QIODevice::WriteOnly | QFile::Truncate | QFile::Text);
-    QTextStream catalogueIn(&_catalogue);
-    int col = 0;
-    for (int i = 0; i < catalogueData.size(); i++)
+    if(_catalogue.open(QIODevice::WriteOnly | QFile::Truncate | QFile::Text))
     {
-            if (col != 5)
-            {
-                catalogueIn << catalogueData[i] << ",";
-                col++;
-            }
-            else if (col == 5)
-            {
-                catalogueIn << catalogueData[i] << "\n";
-                col = 0;
-            }
+        QTextStream catalogueIn(&_catalogue);
+        int col = 0;
+        for (int i = 0; i < catalogueData.size(); i++)
+        {
+                if (col != 5)
+                {
+                    catalogueIn << catalogueData[i] << ",";
+                    col++;
+                }
+                else if (col == 5)
+                {
+                    catalogueIn << catalogueData[i] << "\n";
+                    col = 0;
+                }
+        }
+    }
+    else
+    {
+        QMessageBox::warning(NULL, "Unable to open catalogue.csv", _catalogue.errorString());
     }
     _catalogue.close();
-
-    // Now that we wrote that into the catalogue file, we need to update the catalogue page with the correct information.
-    // 'Correct information' being that the copies of the book has gone down by one.
-
 }
 
 // Overloaded function for reserving a book
 void SystemFiles::CheckOutBook(QString bookID, QString bookName, QString memID, QString memName, QString reserveDate, QString dueDate)
 {
-    _reserveBook.open(QIODevice::WriteOnly | QFile::Append | QFile::Text);
-    QTextStream in(&_reserveBook);
-    in << bookID << "," << bookName << "," << memID << "," << memName << "," << reserveDate << "," << dueDate << "\n";
+    if(_reserveBook.open(QIODevice::WriteOnly | QFile::Append | QFile::Text))
+    {
+        QTextStream in(&_reserveBook);
+        in << bookID << "," << bookName << "," << memID << "," << memName << "," << reserveDate << "," << dueDate << "\n";
+    }
+    else
+    {
+       QMessageBox::warning(NULL, "Unable to open reserveBook.csv", _reserveBook.errorString()); // Displaying error message if unable to open file.
+    }
     _reserveBook.close();
 }
 
+// Function is called in the UpdateUserDetails class once a user has confirmed they want to update their details.
 void SystemFiles::UpdateMemberDetails(QStringList membersData)
 {
     int col = 0;
@@ -365,8 +413,8 @@ void SystemFiles::UpdateMemberDetails(QStringList membersData)
     _members.close();
 }
 
-//gansa
-
+// Lara's code
+// gansa
 void SystemFiles::EditBook(QStringList bookData){
     _catalogue.open(QIODevice::WriteOnly| QFile::Truncate | QFile::Text);
     QTextStream catalogue_output(&_catalogue);
@@ -380,6 +428,7 @@ void SystemFiles::EditBook(QStringList bookData){
     _catalogue.close();
 }
 
+// Lara's code
 void SystemFiles::EditUser(QStringList userData){
     _members.open(QIODevice::WriteOnly| QFile::Truncate | QFile::Text);
     QTextStream member_output(&_members);
@@ -402,7 +451,6 @@ QDate SystemFiles::FindLastReserveDate(QString bookID)
     QStringList reservedBooks = GetFileData(CSVFiles::_ReservedBooks);
 
     QDate date;
-    QString minimumDate;
     int bookCount1 = 0;
     int bookCount2 = 0; // Multiple people may have reserved the same book
                         // In this case, we need to find the last known spot in the CSV of the reserved book.
@@ -582,6 +630,7 @@ QStringList SystemFiles::CheckUsersOverdueBooks(QString memID)
     }
 }
 
+// Lara's code
 void SystemFiles::ReturnBook(QString bookid){
     QStringList catalogueData = GetFileData(CSVFiles::_Catalogue);
 
@@ -593,44 +642,58 @@ void SystemFiles::ReturnBook(QString bookid){
             break;
         }
     }
+
     // Once the copy of the book is removed, we need to write it back to the catalogue file.
-    _catalogue.open(QIODevice::WriteOnly | QFile::Truncate | QFile::Text);
-    QTextStream catalogueIn(&_catalogue);
-    int col = 0;
-    for (int i = 0; i < catalogueData.size(); i++)
+    if(_catalogue.open(QIODevice::WriteOnly | QFile::Truncate | QFile::Text))
     {
-            if (col != 5)
-            {
-                catalogueIn << catalogueData[i] << ",";
-                col++;
-            }
-            else if (col == 5)
-            {
-                catalogueIn << catalogueData[i] << "\n";
-                col = 0;
-            }
+        QTextStream catalogueIn(&_catalogue);
+        int col = 0;
+        for (int i = 0; i < catalogueData.size(); i++)
+        {
+                if (col != 5)
+                {
+                    catalogueIn << catalogueData[i] << ",";
+                    col++;
+                }
+                else if (col == 5)
+                {
+                    catalogueIn << catalogueData[i] << "\n";
+                    col = 0;
+                }
+        }
+    }
+    else
+    {
+        QMessageBox::warning(NULL, "Unable to open checkedoutbooks.csv", _catalogue.errorString());
     }
     _catalogue.close();
 
     QStringList bookList = GetFileData(CSVFiles::_CheckedOutBooks);
-    _checkedOutBooks.open(QIODevice::WriteOnly| QFile::Truncate | QFile::Text);
-    QTextStream checkout_output(&_checkedOutBooks);
 
-    checkout_output << "BOOK ID" << "," << "BOOK NAME" << "," << "MEMBER ID" << "," << "MEMBER NAME" << "," << "DATE CHECKED OUT" << "," << "DATE DUE" << "," << "RETURN" << "\n";
-    int i=7;
-    bool h = false;
-    int amount = (bookList.size() / 7) - 1;
-    for (int row = 0; row < amount; row++){
-        if (bookList[i] != bookid){
-            checkout_output << bookList[i] << "," << bookList[i+1] << "," << bookList[i+2] << "," << bookList[i+3] << "," << bookList[i+4] << "," << bookList[i+5] << "," << "PushButton" << "\n";
-        }
-        else if(bookList[i] == bookid) {
-            if (h == true){
+    if(_checkedOutBooks.open(QIODevice::WriteOnly| QFile::Truncate | QFile::Text))
+    {
+        QTextStream checkout_output(&_checkedOutBooks);
+
+        checkout_output << "BOOK ID" << "," << "BOOK NAME" << "," << "MEMBER ID" << "," << "MEMBER NAME" << "," << "DATE CHECKED OUT" << "," << "DATE DUE" << "," << "RETURN" << "\n";
+        int i=7;
+        bool h = false;
+        int amount = (bookList.size() / 7) - 1;
+        for (int row = 0; row < amount; row++){
+            if (bookList[i] != bookid){
                 checkout_output << bookList[i] << "," << bookList[i+1] << "," << bookList[i+2] << "," << bookList[i+3] << "," << bookList[i+4] << "," << bookList[i+5] << "," << "PushButton" << "\n";
             }
-            h = true;
+            else if(bookList[i] == bookid) {
+                if (h == true){
+                    checkout_output << bookList[i] << "," << bookList[i+1] << "," << bookList[i+2] << "," << bookList[i+3] << "," << bookList[i+4] << "," << bookList[i+5] << "," << "PushButton" << "\n";
+                }
+                h = true;
+            }
+            i = i + 7;
         }
-        i = i + 7;
+    }
+    else
+    {
+        QMessageBox::warning(NULL, "Unable to open checkedoutbooks.csv", _checkedOutBooks.errorString());
     }
     _checkedOutBooks.close();
 
@@ -656,7 +719,7 @@ void SystemFiles::LogNearbyDueDate(QString memUser, QString memID)
 
     QStringList checkedOutBooksData = GetFileData(CSVFiles::_CheckedOutBooks);
     QStringList reservedBooksData = GetFileData(CSVFiles::_ReservedBooks);
-    QStringList nearbyDueDatesLogData;
+    QVector<QString> nearbyDueDatesLogData;
     QStringList validLogOutput;
 
     if (_nearbyDueDatesLog.open(QIODevice::ReadOnly))
@@ -746,7 +809,7 @@ void SystemFiles::LogOverdueBook(QString memUser, QString memID, QStringList ove
     QString date = QDate::currentDate().toString("dd/MM/yyyy");
     QDate currDate = QDate::fromString(date, "dd/MM/yyyy");
 
-    QStringList overdueBooksLogData;
+    QVector<QString> overdueBooksLogData; // Qt told me to use a QVector here instead of a QList, so I'm just doing that. It works fine though.
     if (_overdueBooksLog.open(QIODevice::ReadOnly))
         {
             QTextStream in(&_overdueBooksLog);
