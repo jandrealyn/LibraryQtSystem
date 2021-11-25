@@ -11,7 +11,11 @@
    </rect>
   </property>
   <property name="windowTitle">
-   <string>Dialog</string>
+   <string>Yoobee Library System | Admin | Add a book</string>
+  </property>
+  <property name="windowIcon">
+   <iconset resource="images.qrc">
+    <normaloff>:/images/favicon.ico</normaloff>:/images/favicon.ico</iconset>
   </property>
   <property name="styleSheet">
    <string notr="true">background-color: white;</string>
@@ -286,6 +290,8 @@ padding:2px;</string>
    </item>
   </layout>
  </widget>
- <resources/>
+ <resources>
+  <include location="images.qrc"/>
+ </resources>
  <connections/>
 </ui>
