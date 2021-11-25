@@ -3,6 +3,8 @@
 #include "QCheckBox"
 #include "SystemFiles.h"
 #include <QWidget>
+#include <QIntValidator>
+#include <QValidator>
 #include <QDebug>
 #include <QDialog>
 #include <QFile>
@@ -45,8 +47,16 @@ adminaddbook::~adminaddbook()
     delete ui;
 }
 
+
+
+
 void adminaddbook::on_confirmadd_clicked()
 {
+    QValidator *validator = new QIntValidator(0, 20, this);
+
+    // the edit lineedit will only accept integers between 0 and 20
+    ui->book_copies_label->setValidator(validator);
+
     if (!ui->book_name_label->text().isEmpty() && !ui->book_author_label->text().isEmpty() && !ui->book_copies_label->text().isEmpty() && !bookimg.isEmpty()){
         QMessageBox msgBox;
         msgBox.setWindowTitle(tr("Edit Book"));
