@@ -40,31 +40,36 @@ adminoverdue::adminoverdue(QWidget *parent) :
        ui->adminOverdue->setSelectionMode(QHeaderView::NoSelection);
        // Create the rows of the QTableWidget
        int i = 7;
+       int h = 0;
        int rowCount = (booksData.size() / 7) - 1;
        for (int row = 0; row < rowCount; row++)
        {
            QDate bookDueDate = QDate::fromString(booksData[i + 5], "dd/MM/yyyy");
+           qDebug() << booksData[i+5];
            if (currDate > bookDueDate){
+               qDebug() << "inserting row for " << booksData[i+5];
             ui->adminOverdue->insertRow(ui->adminOverdue->rowCount()); //Inserting rows into the table widget
-
             for (int col = 0; col < 7; col++)
             {
-                if (currDate > bookDueDate) {
-                    if (col == 6) {
-                        i++; //Skipping push button
+                  if (col == 6){
+                      i++; //Skipping push button
                      }
                      else {
-                        QTableWidgetItem *item = new QTableWidgetItem(QString(booksData[i])); //Sets item from the book list into the table widget
-                        ui->adminOverdue->setItem(row, col, item);
-                        i++;
-                     }
+                      qDebug() << "inserting" << booksData[i];
+                          QTableWidgetItem *item = new QTableWidgetItem(QString(booksData[i])); //Sets item from the book list into the table widget
+                          ui->adminOverdue->setItem((row - h), col, item);
+                         i++;
+                      }
+
                 }
-              }
            }
            else {
-               i = i + 7; //Skips everything that isnt apart of an overdue book
+               i = i + 7;
+               h = h + 1;
            }
-     }
+
+       }
+
 }
 
 adminoverdue::~adminoverdue()
