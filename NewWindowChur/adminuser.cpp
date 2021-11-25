@@ -64,6 +64,39 @@ adminuser::adminuser(QWidget *parent) :
            ui->adminUser->insertRow(ui->adminUser->rowCount());
            for (int col = 0; col < 8; col++)
            {
+<<<<<<< HEAD
+              ui->adminUser->insertColumn(ui->adminUser->columnCount());
+           }
+           // We have headers in our CSV file, so I use them to set the labels for the table.
+           ui->adminUser->setHorizontalHeaderLabels({membersData[0], membersData[1], membersData[2], membersData[3], membersData[4], membersData[5], membersData[6], membersData[7], "EDIT USER"});
+           ui->adminUser->horizontalHeader()->setSectionResizeMode(0, QHeaderView::ResizeToContents);
+           ui->adminUser->horizontalHeader()->setSectionResizeMode(1, QHeaderView::Stretch);
+           ui->adminUser->horizontalHeader()->setSectionResizeMode(2, QHeaderView::Stretch);
+           ui->adminUser->horizontalHeader()->setSectionResizeMode(3, QHeaderView::Stretch);
+           ui->adminUser->horizontalHeader()->setSectionResizeMode(4, QHeaderView::Stretch);
+           ui->adminUser->horizontalHeader()->setSectionResizeMode(5, QHeaderView::Stretch);
+           ui->adminUser->horizontalHeader()->setSectionResizeMode(6, QHeaderView::Stretch);
+           ui->adminUser->horizontalHeader()->setSectionResizeMode(7, QHeaderView::Stretch);
+           ui->adminUser->horizontalHeader()->setSectionResizeMode(8, QHeaderView::ResizeToContents);
+           ui->adminUser->setSelectionMode(QHeaderView::NoSelection);
+           ui->adminUser->verticalHeader()->setSectionResizeMode(QHeaderView::ResizeToContents);
+           //ui->adminUser->setSizeAdjustPolicy(QAbstractScrollArea::AdjustToContents);
+           //ui->adminUser->setSizePolicy(QSizePolicy::Preferred, QSizePolicy::Maximum);
+           ui->adminUser->verticalHeader()->setSectionResizeMode(QHeaderView::Fixed);
+           ui->adminUser->verticalHeader()->setDefaultSectionSize(20);
+           // Create the rows of the QTableWidget
+           int i = 8;
+           int rowCount = (membersData.size() / 8) - 1;
+           QPushButton* push[rowCount];
+           adminedituser* admineditu[rowCount];
+           for (int row = 0; row < rowCount; row++)
+           {
+               ui->adminUser->insertRow(ui->adminUser->rowCount());
+               for (int col = 0; col < 8; col++)
+               {
+                   if (membersData[i].contains(":/images")){
+                       ui->adminUser->verticalHeader()->setSectionResizeMode(row, QHeaderView::Stretch);
+=======
                if (membersData[i].contains(":/images")){
                    qDebug() << "col = " << col;
                    ui->adminUser->verticalHeader()->setSectionResizeMode(row, QHeaderView::Stretch);
@@ -82,6 +115,7 @@ adminuser::adminuser(QWidget *parent) :
                    if (col == 8)
                    {
                        qDebug() << "col8 == " << col;
+>>>>>>> dev
                        QWidget* item = new QWidget(ui->adminUser);
                        push[row] = new QPushButton(item);
                        push[row]->setText("Edit");
@@ -149,7 +183,7 @@ void adminuser::UpdateAdminUserSlot(){
            ui->adminUser->setSelectionMode(QHeaderView::NoSelection);
            // Create the rows of the QTableWidget
            int i = 8;
-           int rowCount = (membersData.size() / 7) - 1;
+           int rowCount = (membersData.size() / 8) - 1;
            QPushButton* push[rowCount];
            adminedituser* admineditu[rowCount];
            for (int row = 0; row < rowCount; row++)
