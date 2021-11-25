@@ -26,7 +26,7 @@
       <string notr="true"/>
      </property>
      <property name="currentIndex">
-      <number>0</number>
+      <number>2</number>
      </property>
      <widget class="QWidget" name="Home">
       <attribute name="title">
@@ -107,8 +107,8 @@ p, li { white-space: pre-wrap; }
            <rect>
             <x>0</x>
             <y>0</y>
-            <width>881</width>
-            <height>475</height>
+            <width>889</width>
+            <height>489</height>
            </rect>
           </property>
          </widget>
