@@ -105,10 +105,27 @@ void admineditbook::on_deletebook_clicked()
     msgBox.exec();
 
     if (msgBox.clickedButton()==edit){
-            SystemFiles::DeleteBook(_bookID);
-            emit UpdateAdminCatalogue();
-            close();
-            emit exec();
+            QStringList booksData = SystemFiles::GetFileData(CSVFiles::_CheckedOutBooks);
+            int rowCount = (booksData.size() / 6) - 1;
+            int i = 6;
+            bool checked = false;
+            for (int row = 0; row < rowCount; row++)
+            {
+                for (int col = 0; col < 6; col++)
+                {
+                    if (booksData[i] == _bookID){
+                        QMessageBox::warning(this, tr("Deleting Book"), tr("A user has this book checked out, cannot delete!"), QMessageBox::Close);
+                        checked = true;
+                    }
+                    i++;
+                }
+            }
+            if (checked == false){
+                SystemFiles::DeleteBook(_bookID);
+                emit UpdateAdminCatalogue();
+                close();
+                emit exec();
+            }
         }
 
     else {
