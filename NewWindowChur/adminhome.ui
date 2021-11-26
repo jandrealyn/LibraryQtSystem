@@ -18,6 +18,9 @@
     <normalon>:/images/favicon.ico</normalon>
    </iconset>
   </property>
+  <property name="styleSheet">
+   <string notr="true"/>
+  </property>
   <widget class="QFrame" name="gridFrame_2">
    <property name="geometry">
     <rect>
@@ -59,29 +62,38 @@ border-style: inset;
    <widget class="QWidget" name="verticalLayoutWidget">
     <property name="geometry">
      <rect>
-      <x>200</x>
-      <y>180</y>
-      <width>331</width>
-      <height>271</height>
+      <x>180</x>
+      <y>160</y>
+      <width>371</width>
+      <height>321</height>
      </rect>
     </property>
     <layout class="QVBoxLayout" name="verticalLayout">
      <item>
       <widget class="QPushButton" name="admin_catalogue_btn">
        <property name="styleSheet">
-        <string notr="true">background-color: rgb(255, 255, 255);
-font-family: sans-serif;
-border-width: 1px;
+        <string notr="true">*{
+font-family: Century Gothic, sans-serif;
+font-size: 15px;
+}
 
-border-color: black;
-
-border-radius: 10px;
-
+QPushButton{
+color: white;
+padding: 15px;
+background: #27a9e3;
 border-style: outset;
+border-radius: 10px;
+font: bold;
+}
+QPushButton::pressed{
+background-color: rgb(216, 150, 90);
+border-style: inset;
+}
 
-font: 14px;
-
-padding: 10px;</string>
+QPushButton::hover {
+background-color: #59c7f7;
+}
+</string>
        </property>
        <property name="text">
         <string>View Catalogue</string>
@@ -91,19 +103,28 @@ padding: 10px;</string>
      <item>
       <widget class="QPushButton" name="admin_user_btn">
        <property name="styleSheet">
-        <string notr="true">background-color: rgb(255, 255, 255);
+        <string notr="true">*{
+font-family: Century Gothic, sans-serif;
+font-size: 15px;
+}
 
-border-width: 1px;
-
-border-color: black;
-
-border-radius: 10px;
-
+QPushButton{
+color: white;
+padding: 15px;
+background: #27a9e3;
 border-style: outset;
+border-radius: 10px;
+font: bold;
+}
+QPushButton::pressed{
+background-color: rgb(216, 150, 90);
+border-style: inset;
+}
 
-font: 14px;
-
-padding: 10px;</string>
+QPushButton::hover {
+background-color: #59c7f7;
+}
+</string>
        </property>
        <property name="text">
         <string>View User Information</string>
@@ -113,19 +134,28 @@ padding: 10px;</string>
      <item>
       <widget class="QPushButton" name="admin_system_btn">
        <property name="styleSheet">
-        <string notr="true">background-color: rgb(255, 255, 255);
+        <string notr="true">*{
+font-family: Century Gothic, sans-serif;
+font-size: 15px;
+}
 
-border-width: 1px;
-
-border-color: black;
-
-border-radius: 10px;
-
+QPushButton{
+color: white;
+padding: 15px;
+background: #27a9e3;
 border-style: outset;
+border-radius: 10px;
+font: bold;
+}
+QPushButton::pressed{
+background-color: rgb(216, 150, 90);
+border-style: inset;
+}
 
-font: 14px;
-
-padding: 10px;</string>
+QPushButton::hover {
+background-color: #59c7f7;
+}
+</string>
        </property>
        <property name="text">
         <string>System Log</string>
@@ -138,7 +168,7 @@ padding: 10px;</string>
     <property name="geometry">
      <rect>
       <x>250</x>
-      <y>80</y>
+      <y>60</y>
       <width>231</width>
       <height>71</height>
      </rect>
@@ -164,19 +194,28 @@ font: 34px;
      </rect>
     </property>
     <property name="styleSheet">
-     <string notr="true">background-color: rgb(255, 255, 255);
+     <string notr="true">*{
+font-family: Century Gothic, sans-serif;
+font-size: 15px;
+}
 
-border-width: 1px;
-
-border-color: black;
-
-border-radius: 10px;
-
+QPushButton{
+color: white;
+padding: 10px;
+background: #27a9e3;
 border-style: outset;
+border-radius: 10px;
+font: bold;
+}
+QPushButton::pressed{
+background-color: rgb(216, 150, 90);
+border-style: inset;
+}
 
-font: 14px;
-
-padding:2px;</string>
+QPushButton::hover {
+background-color: #59c7f7;
+}
+</string>
     </property>
     <property name="text">
      <string>Log Out</string>
@@ -185,10 +224,10 @@ padding:2px;</string>
    <widget class="QLabel" name="img">
     <property name="geometry">
      <rect>
-      <x>30</x>
+      <x>20</x>
       <y>20</y>
-      <width>181</width>
-      <height>131</height>
+      <width>191</width>
+      <height>101</height>
      </rect>
     </property>
     <property name="text">

@@ -58,29 +58,38 @@ border-style: inset;
    <widget class="QWidget" name="verticalLayoutWidget">
     <property name="geometry">
      <rect>
-      <x>200</x>
-      <y>180</y>
-      <width>371</width>
-      <height>271</height>
+      <x>160</x>
+      <y>100</y>
+      <width>421</width>
+      <height>321</height>
      </rect>
     </property>
     <layout class="QVBoxLayout" name="verticalLayout">
      <item>
       <widget class="QPushButton" name="admin_due_btn">
        <property name="styleSheet">
-        <string notr="true">background-color: rgb(255, 255, 255);
+        <string notr="true">*{
+font-family: Century Gothic, sans-serif;
+font-size: 15px;
+}
 
-border-width: 1px;
-
-border-color: black;
-
-border-radius: 10px;
-
+QPushButton{
+color: white;
+padding: 15px;
+background: #27a9e3;
 border-style: outset;
+border-radius: 10px;
+font: bold;
+}
+QPushButton::pressed{
+background-color: rgb(216, 150, 90);
+border-style: inset;
+}
 
-font: 14px;
-
-padding: 20px;</string>
+QPushButton::hover {
+background-color: #59c7f7;
+}
+</string>
        </property>
        <property name="text">
         <string>Checked Out Books</string>
@@ -90,19 +99,28 @@ padding: 20px;</string>
      <item>
       <widget class="QPushButton" name="admin_overdue_btn">
        <property name="styleSheet">
-        <string notr="true">background-color: rgb(255, 255, 255);
+        <string notr="true">*{
+font-family: Century Gothic, sans-serif;
+font-size: 15px;
+}
 
-border-width: 1px;
-
-border-color: black;
-
-border-radius: 10px;
-
+QPushButton{
+color: white;
+padding: 15px;
+background: #27a9e3;
 border-style: outset;
+border-radius: 10px;
+font: bold;
+}
+QPushButton::pressed{
+background-color: rgb(216, 150, 90);
+border-style: inset;
+}
 
-font: 14px;
-
-padding: 20px;</string>
+QPushButton::hover {
+background-color: #59c7f7;
+}
+</string>
        </property>
        <property name="text">
         <string>Overdue Books</string>
@@ -114,8 +132,8 @@ padding: 20px;</string>
    <widget class="QLabel" name="label">
     <property name="geometry">
      <rect>
-      <x>280</x>
-      <y>60</y>
+      <x>270</x>
+      <y>40</y>
       <width>221</width>
       <height>71</height>
      </rect>
@@ -141,19 +159,28 @@ font: 40px;
      </rect>
     </property>
     <property name="styleSheet">
-     <string notr="true">background-color: rgb(255, 255, 255);
+     <string notr="true">*{
+font-family: Century Gothic, sans-serif;
+font-size: 15px;
+}
 
-border-width: 1px;
-
-border-color: black;
-
-border-radius: 10px;
-
+QPushButton{
+color: white;
+padding: 10px;
+background: #27a9e3;
 border-style: outset;
+border-radius: 10px;
+font: bold;
+}
+QPushButton::pressed{
+background-color: rgb(216, 150, 90);
+border-style: inset;
+}
 
-font: 14px;
-
-padding:2px;</string>
+QPushButton::hover {
+background-color: #59c7f7;
+}
+</string>
     </property>
     <property name="text">
      <string>Back</string>
@@ -165,7 +192,7 @@ padding:2px;</string>
       <x>20</x>
       <y>10</y>
       <width>181</width>
-      <height>111</height>
+      <height>91</height>
      </rect>
     </property>
     <property name="text">

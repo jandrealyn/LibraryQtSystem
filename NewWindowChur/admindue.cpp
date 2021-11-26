@@ -41,6 +41,7 @@ admindue::admindue(QWidget *parent) :
        int i = 7;
        int rowCount = (booksData.size() / 7) - 1;
        QPushButton* push[rowCount];
+       adminreturn* ret[rowCount];
        for (int row = 0; row < rowCount; row++)
        {
            ui->adminDue->insertRow(ui->adminDue->rowCount());
@@ -51,8 +52,10 @@ admindue::admindue(QWidget *parent) :
                    push[row] = new QPushButton(item);
                    push[row]->setText("Return");
                    push[row]->setGeometry(23,5,50,20); //Changes the size of the button and the placement
-                   _id = booksData[i-6];
-                   connect(push[row], SIGNAL(clicked()), this, SLOT(returnbook()));
+                   ret[row] = new adminreturn(NULL, booksData[i-6], booksData[i-5], booksData[i-3]);
+                   ret[row]->setWindowTitle("Return book");
+                   connect(ret[row], SIGNAL(UpdateAdminReturn()), this, SLOT(UpdateAdminReturnSlot()));
+                   connect(push[row], SIGNAL(clicked()), ret[row], SLOT(exec()));
                    ui->adminDue->setCellWidget(row, col, item);
                    i++;
                }
@@ -76,13 +79,8 @@ void admindue::on_back_clicked()
     emit ClosedAdminSystem();
 }
 
-void admindue::returnbook()
-{
-    SystemFiles::ReturnBook(_id);
-    UpdateDue();
-}
 
-void admindue::UpdateDue(){
+void admindue::UpdateAdminReturnSlot(){
     QPixmap Img(":/images/YoobeeLibraries.png");
     ui->img->setPixmap(Img.scaled(150, 150, Qt::KeepAspectRatio));
     ui->adminDue->setRowCount(0);
@@ -107,6 +105,7 @@ void admindue::UpdateDue(){
        int i = 7;
        int rowCount = (booksData.size() / 7) - 1;
        QPushButton* push[rowCount];
+       adminreturn* ret[rowCount];
        for (int row = 0; row < rowCount; row++)
        {
            ui->adminDue->insertRow(ui->adminDue->rowCount());
@@ -117,8 +116,10 @@ void admindue::UpdateDue(){
                    push[row] = new QPushButton(item);
                    push[row]->setText("Return");
                    push[row]->setGeometry(23,5,50,20); //Changes the size of the button and the placement
-                   _id =  booksData[i-6];
-                   connect(push[row], SIGNAL(clicked()), this, SLOT(returnbook(_id)));
+                   ret[row] = new adminreturn(NULL, booksData[i-6], booksData[i-5], booksData[i-3]);
+                   ret[row]->setWindowTitle("Return book");
+                   connect(ret[row], SIGNAL(UpdateAdminReturn()), this, SLOT(UpdateAdminReturnSlot()));
+                   connect(push[row], SIGNAL(clicked()), ret[row], SLOT(exec()));
                    ui->adminDue->setCellWidget(row, col, item);
                    i++;
                }
