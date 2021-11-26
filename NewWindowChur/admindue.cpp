@@ -80,7 +80,6 @@ void admindue::returnbook()
 {
     SystemFiles::ReturnBook(_id);
     UpdateDue();
-
 }
 
 void admindue::UpdateDue(){

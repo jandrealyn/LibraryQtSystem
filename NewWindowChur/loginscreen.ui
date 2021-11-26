@@ -11,7 +11,12 @@
    </rect>
   </property>
   <property name="windowTitle">
-   <string>Dialog</string>
+   <string>Yoobe Library System | Login</string>
+  </property>
+  <property name="windowIcon">
+   <iconset>
+    <normalon>:/images/favicon.ico</normalon>
+   </iconset>
   </property>
   <widget class="QFrame" name="gridFrame_3">
    <property name="geometry">

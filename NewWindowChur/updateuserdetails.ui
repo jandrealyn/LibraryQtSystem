@@ -6,24 +6,71 @@
    <rect>
     <x>0</x>
     <y>0</y>
-    <width>568</width>
-    <height>398</height>
+    <width>583</width>
+    <height>312</height>
    </rect>
   </property>
+  <property name="sizePolicy">
+   <sizepolicy hsizetype="Fixed" vsizetype="Fixed">
+    <horstretch>0</horstretch>
+    <verstretch>0</verstretch>
+   </sizepolicy>
+  </property>
   <property name="windowTitle">
-   <string>Dialog</string>
+   <string>Yoobee Library System | Update account</string>
+  </property>
+  <property name="windowIcon">
+   <iconset>
+    <normalon>:/images/favicon.ico</normalon>
+   </iconset>
+  </property>
+  <property name="windowOpacity">
+   <double>1.000000000000000</double>
   </property>
   <property name="styleSheet">
-   <string notr="true"/>
+   <string notr="true">QLineEdit {
+padding: 1px;
+color: black;
+background-color: white;
+border: 1px solid gray;
+border-radius: 10px;
+font: 12pt;
+}
+
+QLineEdit::disabled {
+color: gray;
+}
+
+QPushButton {
+color: white;
+background-color: #27a9e3;
+border-radius: 3px;
+padding: 5px;
+}
+
+QPushButton::pressed {
+background-color: rgb(216, 150, 90);
+}
+
+QPushButton::hover {
+background-color: #59c7f7;
+}
+
+QPushButton::disabled {
+color: #ebebeb;
+background-color: #1c7ba6;
+}</string>
   </property>
   <layout class="QVBoxLayout" name="verticalLayout">
    <item>
     <layout class="QHBoxLayout" name="horizontalLayout_3">
      <item>
       <widget class="QLabel" name="label_7">
+       <property name="toolTipDuration">
+        <number>0</number>
+       </property>
        <property name="styleSheet">
-        <string notr="true">font: 24pt &quot;Poppins&quot;;
-</string>
+        <string notr="true">font: 22px;</string>
        </property>
        <property name="text">
         <string>Edit personal details</string>
@@ -59,8 +106,10 @@
        <item>
         <widget class="QLineEdit" name="lineEdit_password">
          <property name="styleSheet">
-          <string notr="true">background-color: rgb(255, 255, 255);
-font: 12pt &quot;Poppins&quot;;</string>
+          <string notr="true"/>
+         </property>
+         <property name="placeholderText">
+          <string>Enter a new password</string>
          </property>
         </widget>
        </item>
@@ -89,8 +138,10 @@ font: 12pt &quot;Poppins&quot;;</string>
      <item row="2" column="1">
       <widget class="QLineEdit" name="lineEdit_firstname">
        <property name="styleSheet">
-        <string notr="true">background-color: rgb(255, 255, 255);
-font: 12pt &quot;Poppins&quot;;</string>
+        <string notr="true"/>
+       </property>
+       <property name="placeholderText">
+        <string>Enter a new first name</string>
        </property>
       </widget>
      </item>
@@ -107,8 +158,10 @@ font: 12pt &quot;Poppins&quot;;</string>
      <item row="3" column="1">
       <widget class="QLineEdit" name="lineEdit_lastname">
        <property name="styleSheet">
-        <string notr="true">background-color: rgb(255, 255, 255);
-font: 12pt &quot;Poppins&quot;;</string>
+        <string notr="true"/>
+       </property>
+       <property name="placeholderText">
+        <string>Enter a new last name</string>
        </property>
       </widget>
      </item>
@@ -135,8 +188,10 @@ font: 12pt &quot;Poppins&quot;;</string>
      <item row="5" column="1">
       <widget class="QLineEdit" name="lineEdit_phone">
        <property name="styleSheet">
-        <string notr="true">background-color: rgb(255, 255, 255);
-font: 12pt &quot;Poppins&quot;;</string>
+        <string notr="true"/>
+       </property>
+       <property name="placeholderText">
+        <string>Enter a new phone number</string>
        </property>
       </widget>
      </item>
@@ -153,8 +208,7 @@ font: 12pt &quot;Poppins&quot;;</string>
      <item row="6" column="1">
       <widget class="QLineEdit" name="lineEdit_userid">
        <property name="styleSheet">
-        <string notr="true">background-color: rgb(255, 255, 255);
-font: 12pt &quot;Poppins&quot;;</string>
+        <string notr="true"/>
        </property>
        <property name="text">
         <string/>
@@ -169,8 +223,16 @@ font: 12pt &quot;Poppins&quot;;</string>
        <item>
         <widget class="QLineEdit" name="lineEdit_username">
          <property name="styleSheet">
-          <string notr="true">background-color: rgb(255, 255, 255);
-font: 12pt &quot;Poppins&quot;;</string>
+          <string notr="true"/>
+         </property>
+         <property name="dragEnabled">
+          <bool>false</bool>
+         </property>
+         <property name="placeholderText">
+          <string>Enter a new username</string>
+         </property>
+         <property name="clearButtonEnabled">
+          <bool>false</bool>
          </property>
         </widget>
        </item>
@@ -188,8 +250,10 @@ font: 12pt &quot;Poppins&quot;;</string>
        <item>
         <widget class="QLineEdit" name="lineEdit_email">
          <property name="styleSheet">
-          <string notr="true">background-color: rgb(255, 255, 255);
-font: 12pt &quot;Poppins&quot;;</string>
+          <string notr="true"/>
+         </property>
+         <property name="placeholderText">
+          <string>Enter a new email</string>
          </property>
         </widget>
        </item>
@@ -215,14 +279,7 @@ font: 12pt &quot;Poppins&quot;;</string>
         </sizepolicy>
        </property>
        <property name="styleSheet">
-        <string notr="true">QPushButton {
-	background-color: rgb(216, 193, 58);
-	border-radius: 3px;
-}
-
-QPushButton::pressed {
-	background-color: rgb(216, 150, 90);
-}</string>
+        <string notr="true"/>
        </property>
        <property name="text">
         <string>Confirm Changes</string>
@@ -238,14 +295,7 @@ QPushButton::pressed {
         </sizepolicy>
        </property>
        <property name="styleSheet">
-        <string notr="true">QPushButton {
-	background-color: rgb(216, 193, 58);
-	border-radius: 3px;
-}
-
-QPushButton::pressed {
-	background-color: rgb(216, 150, 90);
-}</string>
+        <string notr="true"/>
        </property>
        <property name="text">
         <string>Cancel</string>

@@ -11,7 +11,12 @@
    </rect>
   </property>
   <property name="windowTitle">
-   <string>Dialog</string>
+   <string>Yoobee Library System | Admin | Overdue Books</string>
+  </property>
+  <property name="windowIcon">
+   <iconset>
+    <normalon>:/images/favicon.ico</normalon>
+   </iconset>
   </property>
   <widget class="QFrame" name="gridFrame_2">
    <property name="geometry">

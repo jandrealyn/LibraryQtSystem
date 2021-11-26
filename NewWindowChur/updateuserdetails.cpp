@@ -145,17 +145,26 @@ void UpdateUserDetails::on_lineEdit_username_textChanged(const QString &arg1)
     }
     else
     {
-        if (membersData.indexOf(arg1) > 0)
+        if (arg1 != "")
+        {
+            if (membersData.indexOf(arg1) > 0) // If the username already exists
+            {
+                QPixmap p(":/images/username-taken.png");
+                ui->usernamePic->setPixmap(p.scaled(15,15, Qt::KeepAspectRatio));
+                _usernameGood = false;
+            }
+            else // If the new username doesn't exist already
+            {
+                QPixmap p(":/images/username-ok.png");
+                ui->usernamePic->setPixmap(p.scaled(15,15, Qt::KeepAspectRatio));
+                _usernameGood = true;
+            }
+        }
+        else // If the line is empty, we don't allow the user to continue
         {
             QPixmap p(":/images/username-taken.png");
             ui->usernamePic->setPixmap(p.scaled(15,15, Qt::KeepAspectRatio));
             _usernameGood = false;
-        }
-        else
-        {
-            QPixmap p(":/images/username-ok.png");
-            ui->usernamePic->setPixmap(p.scaled(15,15, Qt::KeepAspectRatio));
-            _usernameGood = true;
         }
     }
 }
@@ -170,17 +179,26 @@ void UpdateUserDetails::on_lineEdit_email_textChanged(const QString &arg1)
     }
     else
     {
-        if (membersData.indexOf(arg1) > 0)
+        if (arg1 != "")
+        {
+            if (membersData.indexOf(arg1) > 0)
+            {
+                QPixmap p(":/images/username-taken.png");
+                ui->emailPic->setPixmap(p.scaled(15,15, Qt::KeepAspectRatio));
+                _emailGood = false;
+            }
+            else
+            {
+                QPixmap p(":/images/username-ok.png");
+                ui->emailPic->setPixmap(p.scaled(15,15, Qt::KeepAspectRatio));
+                _emailGood = true;
+            }
+        }
+        else
         {
             QPixmap p(":/images/username-taken.png");
             ui->emailPic->setPixmap(p.scaled(15,15, Qt::KeepAspectRatio));
             _emailGood = false;
-        }
-        else
-        {
-            QPixmap p(":/images/username-ok.png");
-            ui->emailPic->setPixmap(p.scaled(15,15, Qt::KeepAspectRatio));
-            _emailGood = true;
         }
     }
 }

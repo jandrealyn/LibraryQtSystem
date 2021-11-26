@@ -7,25 +7,29 @@
 // to show the current books the library is holding, has
 // evolved into the users home screen once they've logged in.
 //
-// It holds different screens in seperate tabs for easy
-// maneuverability. It includes the Home tab, Catalogue tab,
-// and Your account tab. Each tab has it's own buttons and
-// functionality.
+// It holds different screens in seperate tabs (QTabWidget) for
+// easy maneuverability. It includes the Home tab,
+// Catalogue tab, and the Account tab. Each tab has it's
+// own buttons and functionality. Most of the set up for these
+// tabs are done in the Catalogue constructor.
 //
 // HOME TAB:
-// A home screen that displays any new books recently added
-// within the last two days. It may also hold any updates
-// an admin wants to write for every user to see.
+// A home screen that displays a place holder image. This was
+// originally supposed to be an area where the user can see
+// any newly added books or updates that a library admin may
+// want to show to their users. Because of time, it may be
+// left with just a placeholder image.
 //
 // CATALOGUE TAB:
-// Displays all books with a search bar. User can look for
-// a book and click checkout, which will open a dialog window
-// from "checkoutscreen.cpp".
+// Displays all books in the catalogue.csv file along with
+// a working search bar. Users can look for a book and click
+// checkout, which will open a QDialog window from
+// "checkoutscreen.h".
 //
 // YOUR ACCOUNT TAB:
 // The user can view their account details, picture or logout
 // from the home screen. They may also update anything to do
-// with their account/
+// with their account, apart from their picture at the moment.
 //
 // ------------------------------------------------------------
 
@@ -59,7 +63,17 @@ Catalogue::Catalogue(QWidget *parent,
 {
     ui->setupUi(this);
 
-    // Setting private variables
+    // -----------------------------------------------------------------
+    //                                                                 |
+    //              SETTING PRIVATE VARIABLES AND LABELS               |
+    //                                                                 |
+    // -----------------------------------------------------------------
+    //                                                                 |
+    // The private variables are used later in several functions. The  |
+    // labels are used just to display the users information on the    |
+    // home screen and their Account screen.                           |
+    //                                                                 |
+    // -----------------------------------------------------------------
     _memUser = memUser;
     _memPass = memPass;
     _memfName = memfName;
@@ -69,8 +83,36 @@ Catalogue::Catalogue(QWidget *parent,
     _memID = memID;
     _memAvatar = memAvatar;
 
+    // Setting users details (which are QLabels)
+    QPixmap p(memAvatar);
+    ui->profile_picture->setPixmap(p.scaled(120,120));
+    ui->welcomeBack->setText("Welcome back, " + _memfName);
+
+    ui->user_name->setText(_memfName);
+    ui->user_email->setText("<b>Email:</b> " + _memEmail);
+    ui->user_phonenumber->setText("<b>Phone:</b> " + _memPhone);
+    ui->user_id->setText("<b>Your ID:</b> " + _memID);
+
+    // -----------------------------------------------------------------
+    //                                                                 |
+    //           CHECKING OVERDUE BOOKS / NEARBY DUE DATES             |
+    //                                                                 |
+    // -----------------------------------------------------------------
+    //                                                                 |
+    // Checking if the user has any overdue books. If they do, then we |
+    // need to write a log of what books are overdue. We then display  |
+    // a window to the user showing them their overdue books.          |
+    //                                                                 |
+    // Afterwards, we check if the user has any books near to their    |
+    // due date (if the books is 2 or less days till the due date).    |
+    // If yes, a log is written of any of the books that may be near   |
+    // their due date. We don't currently display a window to the user |
+    // showing them their due dates.                                   |
+    //                                                                 |
+    // -----------------------------------------------------------------
+
     // Check if user has any overdue books as they login
-    QStringList overdueBooks = SystemFiles::CheckUsersOverdueBooks(_memID); // we need to show them: book name, book return date, current date
+    QStringList overdueBooks = SystemFiles::CheckUsersOverdueBooks(_memID);
 
     if (!overdueBooks.isEmpty())
     {
@@ -85,106 +127,70 @@ Catalogue::Catalogue(QWidget *parent,
     // This checks if the user has any nearby due dates. It won't log anything if their books aren't due within 2 days.
     SystemFiles::LogNearbyDueDate(_memUser, _memID);
 
-    // Set users details
-    QPixmap p(memAvatar);
-    ui->profile_picture->setPixmap(p.scaled(120,120));
-    ui->welcomeBack->setText("Welcome back, " + _memfName);
+    // -----------------------------------------------------------------
+    //                                                                 |
+    //                        LIBRARY CATALOGUE                        |
+    //                                                                 |
+    // -----------------------------------------------------------------
+    //                                                                 |
+    // This function displays the catalogue under the "Catalogue" tab  |
+    // once a user has logged in. It uses layouts as a way to group    |
+    // together the books elements and assigns a button and checkout   |
+    // screen for each book displayed.                                 |
+    //                                                                 |
+    // I use a function for this because of how messy the code got in  |
+    // this constructor and because we need to use that code twice.    |
+    // Once right now, and then again whenever a user checks out a     |
+    // book (copies need to -1, so we update the UI).                  |
+    //                                                                 |
+    // I also set the style sheet for the dynamically created          |
+    // push buttons located in display_catalogue() and the search      |
+    // bar function.                                                   |
+    //                                                                 |
+    // -----------------------------------------------------------------
+    pushButtonStyleSheet = "*{ "
+            "font-family: Century Gothic, sans-serif;"
+            "}"
 
-    ui->user_name->setText(_memfName);
-    ui->user_email->setText("<b>Email:</b> " + _memEmail);
-    ui->user_phonenumber->setText("<b>Phone:</b> " + _memPhone);
-    ui->user_id->setText("<b>Your ID:</b> " + _memID);
+            "QPushButton{"
+            "color: white;"
+            "padding: 5px;"
+            "background: #27a9e3;"
+            "border-style: outset;"
+            "border-radius: 5px;"
+            "font: bold;"
+            "}"
+            "QPushButton::pressed{"
+            "background-color: rgb(216, 150, 90);"
+            "border-style: inset;"
+            "}"
 
-    // Array control
-    QStringList catalogue = SystemFiles::GetFileData(CSVFiles::_Catalogue);
-    const int arraySize = (catalogue.size() / 6) - 1;
+            "QPushButton::hover {"
+            "background-color: #59c7f7;"
+            "}"
 
-    // LAYOUTS
-    QGroupBox* groupBox = new QGroupBox;
-    QFormLayout* formLayout = new QFormLayout();
-    groupBox->setLayout(formLayout);
+            "QPushButton::disabled {"
+            "color: #ebebeb;"
+            "background-color: #1c7ba6;"
+            "}";
+    display_catalogue();
 
-    QFrame* lines1[arraySize];
-    QFrame* lines2[arraySize];
-    QLabel* bookImage[arraySize];
-    QLabel* bookName[arraySize];
-    QLabel* bookAuthor[arraySize];
-    QLabel* bookCopies[arraySize];
-    QPushButton* checkoutButton[arraySize];
-    CheckOutScreen* checkoutScreen[arraySize];
-
-    int t = 6;
-    // Initalize all widgets
-    for (int row = 0; row < arraySize; row++)
-    {
-        // Book image
-        QString imagePath = catalogue[t + 1]; // Skip the first spot of the list because it's the ID
-        QPixmap p(imagePath);
-        bookImage[row] = new QLabel;
-        bookImage[row]->setPixmap(p.scaled(90, 120));
-
-        // Book name
-        bookName[row] = new QLabel;
-        bookName[row]->setText("Book name: " + catalogue[t + 2]);
-
-        // Book author
-        bookAuthor[row] = new QLabel;
-        bookAuthor[row]->setText("Author: " + catalogue[t + 3]);
-
-        // Book copies
-        bookCopies[row] = new QLabel;
-        bookCopies[row]->setText("Copies: " + catalogue[t + 4]);
-
-        // Checkout button
-        const QSize btnSize = QSize(80, 25);
-        checkoutButton[row] = new QPushButton;
-        checkoutButton[row]->setText("Checkout");
-        checkoutButton[row]->setFixedSize(btnSize);
-        checkoutButton[row]->setStyleSheet("QPushButton { border: 1px solid black; }"
-                                           "QPushButton:pressed { border-color: #e7e7e7; background-color: #f4f4f4; }");
-
-        // Sending Book ID, Book Name, Member ID, Member Name, Date through CheckOutScreen constructor.
-        checkoutScreen[row] = new CheckOutScreen(NULL, _memfName, memID, catalogue[t], catalogue[t + 2], catalogue[t + 3], catalogue[t + 4]);
-        checkoutScreen[row]->setWindowTitle("Checkout a book");
-        connect(checkoutButton[row], SIGNAL(clicked()), checkoutScreen[row], SLOT(exec()));
-        connect(checkoutScreen[row], SIGNAL(UpdateUsersCurrentBooks()), this, SLOT(update_usersBooks()));
-
-        // Horizontal Lines
-        lines1[row] = new QFrame();
-        lines1[row]->setLineWidth(1);
-        lines1[row]->setFrameShape(QFrame::HLine);
-        lines1[row]->setFrameShadow(QFrame::Sunken);
-
-        lines2[row] = new QFrame();
-        lines2[row]->setLineWidth(1);
-        lines2[row]->setFrameShape(QFrame::HLine);
-        lines2[row]->setFrameShadow(QFrame::Sunken);
-
-        t = t + 6;
-    }
-
-    // Add all of the widgets into the layouts
-    for (int row = 0; row < arraySize; row++)
-    {
-        formLayout->setWidget(row, QFormLayout::LabelRole, bookImage[row]);
-
-        QVBoxLayout* verticalLayout = new QVBoxLayout();
-        formLayout->setLayout(row, QFormLayout::FieldRole, verticalLayout);
-
-        verticalLayout->addWidget(lines1[row]);
-        verticalLayout->addWidget(bookName[row]);
-        verticalLayout->addWidget(bookAuthor[row]);
-        verticalLayout->addWidget(bookCopies[row]);
-        verticalLayout->addWidget(checkoutButton[row]);
-        verticalLayout->addWidget(lines2[row]);
-        formLayout->setContentsMargins(10, 5, 0, 20);
-        formLayout->setVerticalSpacing(30);
-    }
-
-    ui->scrollArea->setWidget(groupBox);
-    groupBox->setStyleSheet("background-color: white;");
-
-    // Users checked out books section
+    // -----------------------------------------------------------------
+    //                                                                 |
+    //                     USERS CHECKED OUT BOOKS                     |
+    //                                                                 |
+    // -----------------------------------------------------------------
+    //                                                                 |
+    // The chunk of code starting under this comment is the users      |
+    // checked out books section. To find it in the program, it will   |
+    // be located in the "Account" tab after you log in. It checks for |
+    // the users ID in the checkedOutBooks.csv and the                 |
+    // reservedBook.csv. If it find the users ID, then it means that   |
+    // they have a book checked out or a book reserved. It grabs that  |
+    // line of information, puts it into a QStringList, then displays  |
+    // the information in a QTableWidget.                              |
+    //                                                                 |
+    // -----------------------------------------------------------------
     QStringList checkedOutBooksData = SystemFiles::GetFileData(CSVFiles::_CheckedOutBooks);
     QStringList reservedBooksData = SystemFiles::GetFileData(CSVFiles::_ReservedBooks);
     int column = 0;
@@ -196,7 +202,7 @@ Catalogue::Catalogue(QWidget *parent,
     ui->tableWidget_currentBooks->insertColumn(ui->tableWidget_currentBooks->columnCount());
     ui->tableWidget_currentBooks->insertColumn(ui->tableWidget_currentBooks->columnCount());
     ui->tableWidget_currentBooks->insertColumn(ui->tableWidget_currentBooks->columnCount());
-    ui->tableWidget_currentBooks->setHorizontalHeaderLabels({"Book Name", "Date Checked Out/Booked", "Return By", "Checkout or Reserve"});
+    ui->tableWidget_currentBooks->setHorizontalHeaderLabels({"Book Name", "Date Checked Out/Reserved", "Return By", "Checkout or Reserve"});
     ui->tableWidget_currentBooks->horizontalHeader()->setSectionResizeMode(0, QHeaderView::Stretch);
     ui->tableWidget_currentBooks->horizontalHeader()->setSectionResizeMode(1, QHeaderView::Stretch);
     ui->tableWidget_currentBooks->horizontalHeader()->setSectionResizeMode(2, QHeaderView::Stretch);
@@ -217,7 +223,7 @@ Catalogue::Catalogue(QWidget *parent,
                     usersCheckedOutBooks.append(checkedOutBooksData[i - 1]); // Book Name
                     usersCheckedOutBooks.append(checkedOutBooksData[i + 2]); // Book checkout date
                     usersCheckedOutBooks.append(checkedOutBooksData[i + 3]); // Book return date
-                    usersCheckedOutBooks.append("Checkout");
+                    usersCheckedOutBooks.append("Checkout");                 // Since the user currently has it checked out, we also append "Checkout".
                 }
                 column++;
             }
@@ -323,7 +329,7 @@ void Catalogue::on_searchBar_textChanged(const QString &arg1)
             QString line = SystemFiles::_catalogue.readLine().replace("\r\n","");
             if (line != "BOOK ID,IMAGE,BOOK NAME,AUTHOR,COPIES,EDIT BOOK") // These are the headers of the CSV file. This just skips over it.
             {
-                if (line.toLower().contains(arg1.toLower()))
+                if (line.contains(arg1, Qt::CaseSensitive))
                 {
                     foundData.append(line.split(','));
                 }
@@ -376,8 +382,7 @@ void Catalogue::on_searchBar_textChanged(const QString &arg1)
         checkoutButton[row] = new QPushButton;
         checkoutButton[row]->setText("Checkout");
         checkoutButton[row]->setFixedSize(btnSize);
-        checkoutButton[row]->setStyleSheet("QPushButton { border: 1px solid black; }"
-                                           "QPushButton:pressed { border-color: #e7e7e7; background-color: #f4f4f4; }");
+        checkoutButton[row]->setStyleSheet(pushButtonStyleSheet);
 
         // Sending Book ID, Book Name, Member ID, Member Name, Date through CheckOutScreen constructor.
         checkoutScreen[row] = new CheckOutScreen(NULL, _memfName, _memID, foundData[t], foundData[t + 2], foundData[t + 3], foundData[t + 4]);
@@ -421,9 +426,9 @@ void Catalogue::on_searchBar_textChanged(const QString &arg1)
     groupBox->setStyleSheet("background-color: white;");
 }
 
+// This button is located in the Account page.
 void Catalogue::on_yourAccount_update_clicked()
 {
-
     update_ui = new UpdateUserDetails(this, _memUser, _memPass, _memfName, _memlName, _memEmail, _memPhone, _memID);
     update_ui->exec();
 }
@@ -432,95 +437,7 @@ void Catalogue::on_yourAccount_update_clicked()
 // It will update the entire catalogue each time either of those functions happens.
 void Catalogue::update_catalogue()
 {
-    // Catalogue update
-    // Array control
-    QStringList catalogue = SystemFiles::GetFileData(CSVFiles::_Catalogue);
-    const int arraySize = (catalogue.size() / 6) - 1;
-
-    // LAYOUTS
-    QGroupBox* groupBox = new QGroupBox;
-    QFormLayout* formLayout = new QFormLayout();
-    groupBox->setLayout(formLayout);
-
-    QFrame* lines1[arraySize];
-    QFrame* lines2[arraySize];
-    QLabel* bookImage[arraySize];
-    QLabel* bookName[arraySize];
-    QLabel* bookAuthor[arraySize];
-    QLabel* bookCopies[arraySize];
-    QPushButton* checkoutButton[arraySize];
-    CheckOutScreen* checkoutScreen[arraySize];
-
-    int t = 6;
-    // Initalize all widgets
-    for (int row = 0; row < arraySize; row++)
-    {
-        // Book image
-        QString imagePath = catalogue[t + 1]; // Skip the first spot of the list because it's the ID
-        QPixmap p(imagePath);
-        bookImage[row] = new QLabel;
-        bookImage[row]->setPixmap(p.scaled(90, 120));
-
-        // Book name
-        bookName[row] = new QLabel;
-        bookName[row]->setText("Book name: " + catalogue[t + 2]);
-
-        // Book author
-        bookAuthor[row] = new QLabel;
-        bookAuthor[row]->setText("Author: " + catalogue[t + 3]);
-
-        // Book copies
-        bookCopies[row] = new QLabel;
-        bookCopies[row]->setText("Copies: " + catalogue[t + 4]);
-
-        // Checkout button
-        const QSize btnSize = QSize(80, 25);
-        checkoutButton[row] = new QPushButton;
-        checkoutButton[row]->setText("Checkout");
-        checkoutButton[row]->setFixedSize(btnSize);
-        checkoutButton[row]->setStyleSheet("QPushButton { border: 1px solid black; }"
-                                           "QPushButton:pressed { border-color: #e7e7e7; background-color: #f4f4f4; }");
-
-        // Sending Book ID, Book Name, Member ID, Member Name, Date through CheckOutScreen constructor.
-        checkoutScreen[row] = new CheckOutScreen(NULL, _memfName, _memID, catalogue[t], catalogue[t + 2], catalogue[t + 3], catalogue[t + 4]);
-        checkoutScreen[row]->setWindowTitle("Checkout a book");
-        connect(checkoutButton[row], SIGNAL(clicked()), checkoutScreen[row], SLOT(exec()));
-        connect(checkoutScreen[row], SIGNAL(UpdateUsersCurrentBooks()), this, SLOT(update_usersBooks()));
-
-        // Horizontal Lines
-        lines1[row] = new QFrame();
-        lines1[row]->setLineWidth(1);
-        lines1[row]->setFrameShape(QFrame::HLine);
-        lines1[row]->setFrameShadow(QFrame::Sunken);
-
-        lines2[row] = new QFrame();
-        lines2[row]->setLineWidth(1);
-        lines2[row]->setFrameShape(QFrame::HLine);
-        lines2[row]->setFrameShadow(QFrame::Sunken);
-
-        t = t + 6;
-    }
-
-    // Add all of the widgets into the layouts
-    for (int row = 0; row < arraySize; row++)
-    {
-        formLayout->setWidget(row, QFormLayout::LabelRole, bookImage[row]);
-
-        QVBoxLayout* verticalLayout = new QVBoxLayout();
-        formLayout->setLayout(row, QFormLayout::FieldRole, verticalLayout);
-
-        verticalLayout->addWidget(lines1[row]);
-        verticalLayout->addWidget(bookName[row]);
-        verticalLayout->addWidget(bookAuthor[row]);
-        verticalLayout->addWidget(bookCopies[row]);
-        verticalLayout->addWidget(checkoutButton[row]);
-        verticalLayout->addWidget(lines2[row]);
-        formLayout->setContentsMargins(10, 5, 0, 20);
-        formLayout->setVerticalSpacing(30);
-    }
-
-    ui->scrollArea->setWidget(groupBox);
-    groupBox->setStyleSheet("background-color: white;");
+    display_catalogue();
 }
 
 void Catalogue::update_usersBooks()
@@ -615,5 +532,98 @@ void Catalogue::update_usersBooks()
             rows++;
         }
     }
+}
+
+// Reads catalogue.csv and displays all of its content
+void Catalogue::display_catalogue()
+{
+    // Array control
+    QStringList catalogue = SystemFiles::GetFileData(CSVFiles::_Catalogue);
+    const int arraySize = (catalogue.size() / 6) - 1;
+
+    // LAYOUTS
+    QGroupBox* groupBox = new QGroupBox;
+    QFormLayout* formLayout = new QFormLayout();
+    groupBox->setLayout(formLayout);
+
+    QFrame* lines1[arraySize];
+    QFrame* lines2[arraySize];
+    QLabel* bookImage[arraySize];
+    QLabel* bookName[arraySize];
+    QLabel* bookAuthor[arraySize];
+    QLabel* bookCopies[arraySize];
+    QPushButton* checkoutButton[arraySize];
+    CheckOutScreen* checkoutScreen[arraySize];
+
+    int t = 6;
+    // Initalize all widgets
+    for (int row = 0; row < arraySize; row++)
+    {
+        // Book image
+        QString imagePath = catalogue[t + 1]; // Skip the first spot of the list because it's the ID
+        QPixmap p(imagePath);
+        bookImage[row] = new QLabel;
+        bookImage[row]->setPixmap(p.scaled(90, 120));
+
+        // Book name
+        bookName[row] = new QLabel;
+        bookName[row]->setText("Book name: " + catalogue[t + 2]);
+
+        // Book author
+        bookAuthor[row] = new QLabel;
+        bookAuthor[row]->setText("Author: " + catalogue[t + 3]);
+
+        // Book copies
+        bookCopies[row] = new QLabel;
+        bookCopies[row]->setText("Copies: " + catalogue[t + 4]);
+
+        // Checkout button
+        const QSize btnSize = QSize(80, 25);
+        checkoutButton[row] = new QPushButton;
+        checkoutButton[row]->setText("Checkout");
+        checkoutButton[row]->setFixedSize(btnSize);
+        checkoutButton[row]->setStyleSheet(pushButtonStyleSheet);
+
+        // Sending Book ID, Book Name, Member ID, Member Name, Date through CheckOutScreen constructor.
+        checkoutScreen[row] = new CheckOutScreen(NULL, _memfName, _memID, catalogue[t], catalogue[t + 2], catalogue[t + 3], catalogue[t + 4]);
+        checkoutScreen[row]->setWindowTitle("Checkout a book");
+        connect(checkoutButton[row], SIGNAL(clicked()), checkoutScreen[row], SLOT(exec()));
+        connect(checkoutScreen[row], SIGNAL(UpdateCatalogue()), this, SLOT(update_catalogue()));
+        connect(checkoutScreen[row], SIGNAL(UpdateUsersCurrentBooks()), this, SLOT(update_usersBooks()));
+
+        // Horizontal Lines
+        lines1[row] = new QFrame();
+        lines1[row]->setLineWidth(1);
+        lines1[row]->setFrameShape(QFrame::HLine);
+        lines1[row]->setFrameShadow(QFrame::Sunken);
+
+        lines2[row] = new QFrame();
+        lines2[row]->setLineWidth(1);
+        lines2[row]->setFrameShape(QFrame::HLine);
+        lines2[row]->setFrameShadow(QFrame::Sunken);
+
+        t = t + 6;
+    }
+
+    // Add all of the widgets into the layouts
+    for (int row = 0; row < arraySize; row++)
+    {
+        formLayout->setWidget(row, QFormLayout::LabelRole, bookImage[row]);
+
+        QVBoxLayout* verticalLayout = new QVBoxLayout();
+        formLayout->setLayout(row, QFormLayout::FieldRole, verticalLayout);
+
+        verticalLayout->addWidget(lines1[row]);
+        verticalLayout->addWidget(bookName[row]);
+        verticalLayout->addWidget(bookAuthor[row]);
+        verticalLayout->addWidget(bookCopies[row]);
+        verticalLayout->addWidget(checkoutButton[row]);
+        verticalLayout->addWidget(lines2[row]);
+        formLayout->setContentsMargins(10, 5, 0, 20);
+        formLayout->setVerticalSpacing(30);
+    }
+
+    ui->scrollArea->setWidget(groupBox);
+    groupBox->setStyleSheet("background-color: white;");
 }
 

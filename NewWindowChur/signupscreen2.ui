@@ -11,7 +11,12 @@
    </rect>
   </property>
   <property name="windowTitle">
-   <string>Dialog</string>
+   <string>Yoobee Library System | Sign Up Complete</string>
+  </property>
+  <property name="windowIcon">
+   <iconset>
+    <normalon>:/images/favicon.ico</normalon>
+   </iconset>
   </property>
   <widget class="QFrame" name="gridFrame_2">
    <property name="geometry">
@@ -40,14 +45,26 @@ font-size: 18px;
 border-style: outset;
 border-radius: 10px;
 }
+
 QPushButton{
-background: #ced1d8;
+color: white;
+padding: 5px;
+background: #27a9e3;
 border-style: outset;
 border-radius: 5px;
 }
-QPushButton:pressed{
-background-color: rgb(224, 0, 0);
+QPushButton::pressed{
+background-color: rgb(216, 150, 90);
 border-style: inset;
+}
+
+QPushButton::hover {
+background-color: #59c7f7;
+}
+
+QPushButton::disabled {
+color: #ebebeb;
+background-color: #1c7ba6;
 }
 </string>
    </property>
@@ -77,16 +94,7 @@ border-style: inset;
      </rect>
     </property>
     <property name="styleSheet">
-     <string notr="true">QPushButton
-{
-  color: white;
-  background-color: #27a9e3;
-  border-width: 0px;
-  border-radius: 3px;
-}
-hover:
-
-QPushButton:hover { background-color: #66c011; }</string>
+     <string notr="true"/>
     </property>
     <property name="text">
      <string>Close</string>
@@ -168,16 +176,7 @@ QLineEdit { border-radius: 3px; }</string>
      </rect>
     </property>
     <property name="styleSheet">
-     <string notr="true">QPushButton
-{
-  color: white;
-  background-color: #27a9e3;
-  border-width: 0px;
-  border-radius: 3px;
-}
-hover:
-
-QPushButton:hover { background-color: #66c011; }</string>
+     <string notr="true"/>
     </property>
     <property name="text">
      <string>Done</string>

@@ -144,11 +144,6 @@ void MainWindow::on_searchBar_textChanged(const QString &arg1)
     }
     SystemFiles::_catalogue.close();
 
-    for (int i = 0; i < foundData.size(); i++)
-    {
-        qDebug() << foundData[i];
-    }
-
     // Array control
     const int arraySize = (foundData.size() / 6);
 
