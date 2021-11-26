@@ -37,6 +37,7 @@ border-style: outset;
 border-radius: 5px;
 font: bold;
 }
+
 QPushButton::pressed{
 background-color: rgb(216, 150, 90);
 border-style: inset;
