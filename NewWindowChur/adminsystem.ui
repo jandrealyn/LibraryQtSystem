@@ -58,8 +58,8 @@ border-style: inset;
    <widget class="QWidget" name="verticalLayoutWidget">
     <property name="geometry">
      <rect>
-      <x>160</x>
-      <y>100</y>
+      <x>170</x>
+      <y>120</y>
       <width>421</width>
       <height>321</height>
      </rect>
