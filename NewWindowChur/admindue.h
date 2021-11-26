@@ -2,6 +2,7 @@
 #define ADMINDUE_H
 
 #include <QDialog>
+#include "adminreturn.h"
 
 namespace Ui {
 class admindue;
@@ -20,11 +21,11 @@ signals:
 
 private slots:
     void on_back_clicked();
-    void returnbook();
-    void UpdateDue();
+    void UpdateAdminReturnSlot();
 
 private:
     Ui::admindue *ui;
+    adminreturn* ret;
     QString _id;
 };
 

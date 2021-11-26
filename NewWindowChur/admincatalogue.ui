@@ -86,19 +86,28 @@ font: 28px;
      </rect>
     </property>
     <property name="styleSheet">
-     <string notr="true">background-color: rgb(255, 255, 255);
+     <string notr="true">*{
+font-family: Century Gothic, sans-serif;
+font-size: 15px;
+}
 
-border-width: 1px;
-
-border-color: black;
-
-border-radius: 10px;
-
+QPushButton{
+color: white;
+padding: 10px;
+background: #27a9e3;
 border-style: outset;
+border-radius: 10px;
+font: bold;
+}
+QPushButton::pressed{
+background-color: rgb(216, 150, 90);
+border-style: inset;
+}
 
-font: 14px;
-
-padding:2px;</string>
+QPushButton::hover {
+background-color: #59c7f7;
+}
+</string>
     </property>
     <property name="text">
      <string>Back</string>
@@ -110,7 +119,7 @@ padding:2px;</string>
       <x>20</x>
       <y>10</y>
       <width>181</width>
-      <height>111</height>
+      <height>101</height>
      </rect>
     </property>
     <property name="text">
