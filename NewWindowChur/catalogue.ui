@@ -6,8 +6,8 @@
    <rect>
     <x>0</x>
     <y>0</y>
-    <width>933</width>
-    <height>508</height>
+    <width>992</width>
+    <height>641</height>
    </rect>
   </property>
   <property name="sizePolicy">
@@ -147,7 +147,7 @@ p, li { white-space: pre-wrap; }
             <x>0</x>
             <y>0</y>
             <width>889</width>
-            <height>413</height>
+            <height>546</height>
            </rect>
           </property>
          </widget>
