@@ -61,7 +61,9 @@ void ReserveBook::on_confirmReserve_clicked()
 {
     // Creating the message box asking the user to confirm the reservation before continuing
     QMessageBox* confirmCheckout = new QMessageBox(nullptr);
-    confirmCheckout->setWindowTitle("Checkout Confirmation");
+    confirmCheckout->setWindowTitle("Yoobee Library System | Reservation Confirmation");
+    confirmCheckout->setWindowIcon(QIcon(":/images/favicon.ico"));
+    confirmCheckout->setIcon(QMessageBox::Question);
     confirmCheckout->setText("Are you sure you want to checkout this book?");
     confirmCheckout->setStandardButtons(QMessageBox::Yes | QMessageBox::Cancel);
     confirmCheckout->setDefaultButton(QMessageBox::Yes);
@@ -74,11 +76,18 @@ void ReserveBook::on_confirmReserve_clicked()
     switch(result)
     {
     case QMessageBox::Yes:
+    {
+        delete(confirmCheckout);
         SystemFiles::CheckOutBook(_bookID, _bookName, _membersID, _membersName, reserveDate, dueDate); //ReserveBook()
-        QMessageBox::information(this, "Reservation success", "You have successfully placed a reservation for " + _bookName + "!");
+        QMessageBox* confirmed = new QMessageBox(nullptr);
+        confirmed->setWindowTitle("Yoobee Library System | Reservation Confirmed");
+        confirmed->setWindowIcon(QIcon(":/images/favicon.ico"));
+        confirmed->setText("You have successfully placed a reservation for " + _bookName + "!");
+        confirmed->exec();
         close();
         emit ReserveScreenClosed();
         emit Res_UpdateUsersCurrentBooks();
+    }
         break;
     case QMessageBox::Cancel:
         confirmCheckout->close();
