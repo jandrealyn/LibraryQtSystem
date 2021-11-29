@@ -7,7 +7,7 @@
 // clash with other users existing details (such as username
 // and email).
 //
-// I've opted not to let the user change their ID, but the can
+// I've opted not to let the user change their ID, but they can
 // still view it anyway.
 //
 // ------------------------------------------------------------
@@ -142,6 +142,12 @@ void UpdateUserDetails::on_lineEdit_username_textChanged(const QString &arg1)
         QPixmap p(":/images/username-ok.png");
         ui->usernamePic->setPixmap(p.scaled(15,15, Qt::KeepAspectRatio));
         _usernameGood = true;
+    }
+    else if (arg1 == "admin")
+    {
+        QPixmap p(":/images/username-taken.png");
+        ui->usernamePic->setPixmap(p.scaled(15,15, Qt::KeepAspectRatio));
+        _usernameGood = false;
     }
     else
     {

@@ -387,7 +387,7 @@ void Catalogue::on_searchBar_textChanged(const QString &arg1)
         // Sending Book ID, Book Name, Member ID, Member Name, Date through CheckOutScreen constructor.
         checkoutScreen[row] = new CheckOutScreen(NULL, _memfName, _memID, foundData[t], foundData[t + 2], foundData[t + 3], foundData[t + 4]);
         connect(checkoutButton[row], SIGNAL(clicked()), checkoutScreen[row], SLOT(exec()));
-        connect(checkoutScreen[row], SIGNAL(UpdateCatalogue()), this, SLOT(update_catalogue()));
+        connect(checkoutScreen[row], SIGNAL(UpdateCatalogue()), this, SLOT(display_catalogue()));
         connect(checkoutScreen[row], SIGNAL(UpdateUsersCurrentBooks()), this, SLOT(update_usersBooks()));
 
         // Horizontal Lines

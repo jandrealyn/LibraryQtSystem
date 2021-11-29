@@ -1,3 +1,21 @@
+// ------------------------------------------------------------
+//
+// RESERVE BOOK SCREEN
+// Written by Jakob
+//
+// The Reserve book screen is opened when a user clicks checkout
+// on a book with 0 copies. The main functionality of this screen
+// is through the Calendar Widget.
+//
+// Once a user confirms they want to confirm a book, we write
+// all the necessary information into the reserveBook.csv.
+//
+// There is a function in main that moves reserved books into
+// the checkedOutBooks file once they have met the date the user
+// chose to check them out.
+//
+// ------------------------------------------------------------
+
 #include "reservebook.h"
 #include "ui_reservebook.h"
 #include "SystemFiles.h"
@@ -34,12 +52,10 @@ void ReserveBook::on_cancel_clicked()
     emit ReserveScreenClosed();
 }
 
-
 void ReserveBook::on_calendarWidget_clicked(const QDate &date)
 {
     ui->returnDateLabel->setText(date.addDays(7).toString("dd/MM/yyyy"));
 }
-
 
 void ReserveBook::on_confirmReserve_clicked()
 {
@@ -70,4 +86,3 @@ void ReserveBook::on_confirmReserve_clicked()
     default: break;
     }
 }
-

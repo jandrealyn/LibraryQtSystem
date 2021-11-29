@@ -31,10 +31,10 @@ signupscreen::signupscreen(QWidget *parent) :
     connect(ui->pup_avatar, SIGNAL(toggled(bool)), this, SLOT(checkValues()));
     connect(ui->jerboa_avatar, SIGNAL(toggled(bool)), this, SLOT(checkValues()));
     connect(ui->no_avatar, SIGNAL(toggled(bool)), this, SLOT(checkValues()));
-    connect(ui->firstname, SIGNAL(textChanged()), this, SLOT(checkValues()));
-    connect(ui->lastname, SIGNAL(textChanged()), this, SLOT(checkValues()));
-    connect(ui->Password, SIGNAL(textChanged()), this, SLOT(checkValues()));
-    connect(ui->phone, SIGNAL(textChanged()), this, SLOT(checkValues()));
+    connect(ui->firstname, SIGNAL(textChanged(QString)), this, SLOT(checkValues()));
+    connect(ui->lastname, SIGNAL(textChanged(QString)), this, SLOT(checkValues()));
+    connect(ui->Password, SIGNAL(textChanged(QString)), this, SLOT(checkValues()));
+    connect(ui->phone, SIGNAL(textChanged(QString)), this, SLOT(checkValues()));
 }
 
 signupscreen::~signupscreen()
@@ -74,7 +74,7 @@ void signupscreen::on_close_clicked()
 
 // By Jakob
 // This function checks the text the users has typed in the username line edit.
-// It will set _usernameOk to true if the email is not taken already.
+// It will set _usernameOk to true if the username is not taken already.
 void signupscreen::on_Username_textChanged(const QString &arg1)
 {
     int index = _membersList.indexOf(arg1);
@@ -83,6 +83,15 @@ void signupscreen::on_Username_textChanged(const QString &arg1)
     {
         ui->usernamecheckImg->setPixmap(QPixmap());
         ui->usernameCheckText->setText("");
+        _usernameOk = false;
+    }
+    else if (arg1 == "admin")
+    {
+        QPixmap p(":/images/username-taken.png");
+        ui->usernamecheckImg->setPixmap(p.scaled(15,15, Qt::KeepAspectRatio));
+        ui->usernameCheckText->setText("Username not allowed");
+        _usernameOk = false;
+        qDebug() << "username = " << _usernameOk;
     }
     else if (index < 0)
     {
@@ -98,6 +107,7 @@ void signupscreen::on_Username_textChanged(const QString &arg1)
         ui->usernameCheckText->setText("Username taken");
         _usernameOk = false;
     }
+    checkValues();
 }
 
 // By Jakob
@@ -111,6 +121,7 @@ void signupscreen::on_email_textChanged(const QString &arg1)
     {
         ui->emailCheckImg->setPixmap(QPixmap());
         ui->emailCheckText->setText("");
+        _emailOk = false;
     }
     else if (index < 0)
     {
@@ -126,6 +137,7 @@ void signupscreen::on_email_textChanged(const QString &arg1)
         ui->emailCheckText->setText("Email taken");
         _emailOk = false;
     }
+    checkValues();
 }
 
 void signupscreen::on_cat_avatar_toggled(bool checked)
@@ -155,7 +167,7 @@ void signupscreen::on_jerboa_avatar_toggled(bool checked)
     }
 }
 
-void signupscreen::on_radioButton_toggled(bool checked)
+void signupscreen::on_no_avatar_toggled(bool checked)
 {
     if (checked)
     {
@@ -174,10 +186,15 @@ void signupscreen::checkValues()
         if (!ui->firstname->text().isEmpty() &&
             !ui->lastname->text().isEmpty() &&
             !ui->Password->text().isEmpty() &&
+            !ui->phone->text().isEmpty() &&
             _usernameOk &&
             _emailOk)
         {
             ui->Next->setEnabled(true);
+        }
+        else
+        {
+            ui->Next->setEnabled(false);
         }
     }
     else

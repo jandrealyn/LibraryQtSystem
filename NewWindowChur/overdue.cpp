@@ -1,3 +1,16 @@
+// ------------------------------------------------------------
+//
+// OVERDUE SCREEN
+// Written by Jakob
+//
+// This screen is displayed after a check in the Catalogue
+// constructor. If we found the user has any overdue books,
+// we send that data through with this screens constructor.
+// We then output the lists contents into a QTableWidget and
+// let the user know that they have overdue books.
+//
+// ------------------------------------------------------------
+
 #include "overdue.h"
 #include "ui_overdue.h"
 
