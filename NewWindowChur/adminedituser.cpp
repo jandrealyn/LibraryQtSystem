@@ -24,13 +24,13 @@ adminedituser::adminedituser(QWidget *parent, QString id, QString fn, QString ln
     ui->img->setPixmap(Img.scaled(100, 100, Qt::KeepAspectRatio));
 
 
-    _userid = id;
+    _userid = id; //Sets our variables that were passed from admin user screen
     ui->admin_first_user->setText(fn);
     ui->admin_last_user->setText(ln);
     ui->admin_email_user->setText(email);
     ui->admin_phone_user->setText(phn);
 
-    connect(this, SIGNAL(UpdateAdminUser()), this, SLOT(UpdateAdminUserSlot()));
+    connect(this, SIGNAL(UpdateAdminUser()), this, SLOT(UpdateAdminUserSlot())); //Connects this screen with update admin user
 }
 
 adminedituser::~adminedituser()
@@ -40,7 +40,7 @@ adminedituser::~adminedituser()
 
 void adminedituser::on_deleteuser_clicked()
 {
-    QMessageBox msgBox;
+    QMessageBox msgBox; //Checks if admin would like to delete
     msgBox.setWindowTitle(tr("Delete User"));
     msgBox.setText(tr("Proceed with deleting user?"));
     QAbstractButton* edit = msgBox.addButton(tr("Yes"), QMessageBox::YesRole);
@@ -48,8 +48,8 @@ void adminedituser::on_deleteuser_clicked()
     msgBox.exec();
 
     if (msgBox.clickedButton()==edit){
-            SystemFiles::DeleteUser(_userid);
-            emit UpdateAdminUser();
+            SystemFiles::DeleteUser(_userid); //Replaces all users in file except this user
+            emit UpdateAdminUser(); //Updates admin user table
             close();
             emit exec();
         }
@@ -63,13 +63,13 @@ void adminedituser::on_deleteuser_clicked()
 void adminedituser::on_canceledit_clicked()
 {
     close();
-    emit exec();
+    emit exec(); //Closes window
 }
 
 
 void adminedituser::on_confimedit_clicked()
 {
-    QMessageBox msgBox;
+    QMessageBox msgBox; //Checks if admin would like to continue
     msgBox.setWindowTitle(tr("Edit User"));
     msgBox.setText(tr("Proceed with editing User?"));
     QAbstractButton* edit = msgBox.addButton(tr("Yes"), QMessageBox::YesRole);
@@ -97,8 +97,8 @@ void adminedituser::on_confimedit_clicked()
                     i++;
                 }
             }
-            SystemFiles::EditUser(userData);
-            emit UpdateAdminUser();
+            SystemFiles::EditUser(userData); //Replaces all data with the new row
+            emit UpdateAdminUser(); //Updates admin user table
             close();
             emit exec();
         }

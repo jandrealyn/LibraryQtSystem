@@ -26,14 +26,14 @@ admineditbook::admineditbook(QWidget *parent, QString bookID, QString bookName, 
     QPixmap Img(":/images/YoobeeLibraries.png");
     ui->img->setPixmap(Img.scaled(100, 100, Qt::KeepAspectRatio));
 
-    _bookID = bookID;
+    _bookID = bookID; //Setting our variables that were passed from admin catalogue
     _bookName = bookName;
 
     ui->book_name_label->setText(bookName);
     ui->book_author_label->setText(authorName);
     ui->book_copies_label->setText(copies);
 
-    connect(this, SIGNAL(UpdateAdminCatalogue()), this, SLOT(UpdateAdminCatalogueSlot()));
+    connect(this, SIGNAL(UpdateAdminCatalogue()), this, SLOT(UpdateAdminCatalogueSlot())); //Connecting update admin catalogue to this screen
 
 }
 
@@ -46,13 +46,13 @@ admineditbook::~admineditbook()
 void admineditbook::on_canceledit_clicked()
 {
     close();
-    emit exec();
+    emit exec(); //Cancel edit closes the window
 }
 
 
 void admineditbook::on_confimedit_clicked()
 {
-    QMessageBox msgBox;
+    QMessageBox msgBox; //Sends out message box checking if the admin would like to continue
     msgBox.setWindowTitle(tr("Edit Book"));
     msgBox.setText(tr("Proceed with editing book?"));
     QAbstractButton* edit = msgBox.addButton(tr("Yes"), QMessageBox::YesRole);
@@ -60,6 +60,7 @@ void admineditbook::on_confimedit_clicked()
     msgBox.exec();
 
     if (msgBox.clickedButton()==edit){
+            //
             QStringList booksData = SystemFiles::GetFileData(CSVFiles::_Catalogue);
             int rowCount = (booksData.size() / 6) - 1;
             int i = 6;
@@ -78,11 +79,10 @@ void admineditbook::on_confimedit_clicked()
                     i++;
                 }
             }
-            //CreateFiles::EditBook(booksData[arraySize+1]);
-            SystemFiles::EditBook(booksData);
-            emit UpdateAdminCatalogue();
+            SystemFiles::EditBook(booksData); //Book is replaced with the new edited one in system files
+            emit UpdateAdminCatalogue(); //Admin catalogue is updated with new book
             close();
-            emit exec();
+            emit exec(); //Closes edit screen
         }
 
     else {
@@ -97,7 +97,7 @@ void admineditbook::on_confimedit_clicked()
 
 void admineditbook::on_deletebook_clicked()
 {
-    QMessageBox msgBox;
+    QMessageBox msgBox; //Sends out message box checking if the admin would like to continue
     msgBox.setWindowTitle(tr("Delete Book"));
     msgBox.setText(tr("Proceed with deleting book?"));
     QAbstractButton* edit = msgBox.addButton(tr("Yes"), QMessageBox::YesRole);
@@ -121,8 +121,8 @@ void admineditbook::on_deletebook_clicked()
                 }
             }
             if (checked == false){
-                SystemFiles::DeleteBook(_bookID);
-                emit UpdateAdminCatalogue();
+                SystemFiles::DeleteBook(_bookID); //Replaces the books in the file without this book
+                emit UpdateAdminCatalogue(); //Updates admin catalogue
                 close();
                 emit exec();
             }
