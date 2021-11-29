@@ -35,7 +35,7 @@ private slots:
     void on_yourAccount_update_clicked();
     //void on_home_clicked(); // liv
 
-    void update_catalogue();
+    //void update_catalogue();
     void display_catalogue();
 
     void update_usersBooks();
