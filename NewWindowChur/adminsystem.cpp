@@ -20,9 +20,10 @@ adminsystem::~adminsystem()
 void adminsystem::on_back_clicked()
 {
     close();
-    emit ClosedAdminHome();
+    emit ClosedAdminHome(); //Closes this screen, re-opens home
 }
 
+//Opens admin checked out books and closes this screen
 void adminsystem::on_admin_due_btn_clicked()
 {
     hide();
@@ -32,7 +33,7 @@ void adminsystem::on_admin_due_btn_clicked()
     connect(admin_due, SIGNAL(ClosedAdminSystem()), this, SLOT(AdminSystemClosed()));
 }
 
-
+//Opens admin overdue books and closes this screen
 void adminsystem::on_admin_overdue_btn_clicked()
 {
     hide();
