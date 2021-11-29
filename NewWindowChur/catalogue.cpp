@@ -433,12 +433,12 @@ void Catalogue::on_yourAccount_update_clicked()
     update_ui->exec();
 }
 
-// This function is used when a user updates their details or when a user checks out a book.
-// It will update the entire catalogue each time either of those functions happens.
-void Catalogue::update_catalogue()
-{
-    display_catalogue();
-}
+//// This function is used when a user updates their details or when a user checks out a book.
+//// It will update the entire catalogue each time either of those functions happens.
+//void Catalogue::update_catalogue()
+//{
+//    display_catalogue();
+//}
 
 void Catalogue::update_usersBooks()
 {
@@ -538,8 +538,8 @@ void Catalogue::update_usersBooks()
 void Catalogue::display_catalogue()
 {
     // Array control
-    QStringList catalogue = SystemFiles::GetFileData(CSVFiles::_Catalogue);
-    const int arraySize = (catalogue.size() / 6) - 1;
+    QStringList catalogueData = SystemFiles::GetFileData(CSVFiles::_Catalogue);
+    const int arraySize = (catalogueData.size() / 6) - 1;
 
     // LAYOUTS
     QGroupBox* groupBox = new QGroupBox;
@@ -560,22 +560,22 @@ void Catalogue::display_catalogue()
     for (int row = 0; row < arraySize; row++)
     {
         // Book image
-        QString imagePath = catalogue[t + 1]; // Skip the first spot of the list because it's the ID
+        QString imagePath = catalogueData[t + 1]; // Skip the first spot of the list because it's the ID
         QPixmap p(imagePath);
         bookImage[row] = new QLabel;
-        bookImage[row]->setPixmap(p.scaled(90, 120));
+        bookImage[row]->setPixmap(p.scaled(90, 120, Qt::IgnoreAspectRatio, Qt::FastTransformation));
 
         // Book name
         bookName[row] = new QLabel;
-        bookName[row]->setText("Book name: " + catalogue[t + 2]);
+        bookName[row]->setText("Book name: " + catalogueData[t + 2]);
 
         // Book author
         bookAuthor[row] = new QLabel;
-        bookAuthor[row]->setText("Author: " + catalogue[t + 3]);
+        bookAuthor[row]->setText("Author: " + catalogueData[t + 3]);
 
         // Book copies
         bookCopies[row] = new QLabel;
-        bookCopies[row]->setText("Copies: " + catalogue[t + 4]);
+        bookCopies[row]->setText("Copies: " + catalogueData[t + 4]);
 
         // Checkout button
         const QSize btnSize = QSize(80, 25);
@@ -585,10 +585,10 @@ void Catalogue::display_catalogue()
         checkoutButton[row]->setStyleSheet(pushButtonStyleSheet);
 
         // Sending Book ID, Book Name, Member ID, Member Name, Date through CheckOutScreen constructor.
-        checkoutScreen[row] = new CheckOutScreen(NULL, _memfName, _memID, catalogue[t], catalogue[t + 2], catalogue[t + 3], catalogue[t + 4]);
+        checkoutScreen[row] = new CheckOutScreen(NULL, _memfName, _memID, catalogueData[t], catalogueData[t + 2], catalogueData[t + 3], catalogueData[t + 4]);
         checkoutScreen[row]->setWindowTitle("Checkout a book");
         connect(checkoutButton[row], SIGNAL(clicked()), checkoutScreen[row], SLOT(exec()));
-        connect(checkoutScreen[row], SIGNAL(UpdateCatalogue()), this, SLOT(update_catalogue()));
+        connect(checkoutScreen[row], SIGNAL(UpdateCatalogue()), this, SLOT(display_catalogue()));
         connect(checkoutScreen[row], SIGNAL(UpdateUsersCurrentBooks()), this, SLOT(update_usersBooks()));
 
         // Horizontal Lines

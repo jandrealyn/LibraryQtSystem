@@ -53,10 +53,10 @@ void SystemFiles::CreateFilesOnStartUp()
         {
             QTextStream catalogue_output(&_catalogue);
             catalogue_output << "BOOK ID" << "," << "IMAGE" << "," << "BOOK NAME" << "," << "AUTHOR" << "," << "COPIES" << "," << "EDIT BOOK" << "\n";
-            catalogue_output << "Book6969" << "," << ":/images/jerboa-avatar.jpg" << "," << "Jerboa Book" << "," << "Jakob Frederikson" << "," << "0" << "," << "PushButton" << "\n";
-            catalogue_output << "Book0342" << "," << ":/images/blue-book.jpg" << "," << "This is a book" << "," << "Author" << "," << "10" << "," << "PushButton" << "\n";
-            catalogue_output << "Book3163" << "," <<  ":/images/book-cover.png" << "," << "Cool Book" << "," << "Authorz" << "," << "10" << "," << "PushButton" << "\n";
-            catalogue_output << "Book3164" << "," <<  ":/images/cat-avatar.jpg" << "," << "Swag" << "," << "Lawl" << "," << "1" << "," << "PushButton" << "\n";
+            catalogue_output << "Book6969" << "," << ":/images/getting-started-with-Qt.jpg" << "," << "Getting Started with Qt 5" << "," << "Benjamin Baka" << "," << "3" << "," << "PushButton" << "\n";
+            catalogue_output << "Book0342" << "," << ":/images/the-bfg.jpg" << "," << "The BFG" << "," << "Roald Dahl" << "," << "10" << "," << "PushButton" << "\n";
+            catalogue_output << "Book3163" << "," <<  ":/images/the-lightning-thief.jpg" << "," << "Percy Jackson and the Lightning Thief" << "," << "Rick Riordan" << "," << "6" << "," << "PushButton" << "\n";
+            catalogue_output << "Book3164" << "," <<  ":/images/game-of-thrones.jpg" << "," << "A Game Of Thrones" << "," << "Geroge R. R. Martin" << "," << "1" << "," << "PushButton" << "\n";
         }
         else
         {
