@@ -59,7 +59,9 @@ void CheckOutScreen::on_cancel_clicked()
 void CheckOutScreen::on_checkoutNow_clicked()
 {
     QMessageBox* confirmCheckout = new QMessageBox(nullptr);
-    confirmCheckout->setWindowTitle("Checkout Confirmation");
+    confirmCheckout->setWindowTitle("Yoobe Library System | Checkout Confirmation");
+    confirmCheckout->setIcon(QMessageBox::Question);
+    confirmCheckout->setWindowIcon(QIcon(":/images/favicon.ico"));
     confirmCheckout->setText("Are you sure you want to checkout this book?");
     confirmCheckout->setStandardButtons(QMessageBox::Yes | QMessageBox::Cancel);
     confirmCheckout->setDefaultButton(QMessageBox::Yes);
@@ -69,10 +71,12 @@ void CheckOutScreen::on_checkoutNow_clicked()
     {
     case QMessageBox::Yes:
     {
+        delete(confirmCheckout);
         QString dueDate = QDate::currentDate().addDays(7).toString("dd/MM/yyyy");
         SystemFiles::CheckOutBook(_bookID, _bookName, _membersID, _membersName, dueDate);
         QMessageBox* confirmed = new QMessageBox(nullptr);
-        confirmed->setWindowTitle("Checkout Confirmed");
+        confirmed->setWindowTitle("Yoobe Library System | Checkout Confirmed");
+        confirmed->setWindowIcon(QIcon(":/images/favicon.ico"));
         confirmed->setText("You have successfully checked out " + _bookName + "!<br> "
                            "Please return by " + dueDate);
         emit UpdateUsersCurrentBooks();

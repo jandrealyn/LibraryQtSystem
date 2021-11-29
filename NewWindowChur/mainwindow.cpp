@@ -135,7 +135,7 @@ void MainWindow::on_searchBar_textChanged(const QString &arg1)
             QString line = SystemFiles::_catalogue.readLine().replace("\r\n","");
             if (line != "BOOK ID,IMAGE,BOOK NAME,AUTHOR,COPIES,EDIT BOOK") // These are the headers of the CSV file. This just skips over it.
             {
-                if (line.toLower().contains(arg1.toLower()))
+                if (line.contains(arg1, Qt::CaseInsensitive))
                 {
                     foundData.append(line.split(','));
                 }
