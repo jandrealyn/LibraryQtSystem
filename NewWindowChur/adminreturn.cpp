@@ -23,12 +23,12 @@ adminreturn::adminreturn(QWidget *parent, QString bookID, QString bookName, QStr
     QPixmap Img(":/images/YoobeeLibraries.png");
     ui->img->setPixmap(Img.scaled(100, 100, Qt::KeepAspectRatio));
 
-    id = bookID;
+    id = bookID; //Setting variables passed form admin checked out screen
 
     ui->return_name->setText(bookName);
     ui->return_member->setText(memberName);
 
-    connect(this, SIGNAL(UpdateAdminReturn()), this, SLOT(UpdateAdminReturnSlot()));
+    connect(this, SIGNAL(UpdateAdminReturn()), this, SLOT(UpdateAdminReturnSlot())); //Connects this screen with update admin return
 }
 
 adminreturn::~adminreturn()
@@ -38,16 +38,16 @@ adminreturn::~adminreturn()
 
 void adminreturn::on_yesreturn_clicked()
 {
-    SystemFiles::ReturnBook(id);
+    SystemFiles::ReturnBook(id); //Deletes book from checked out file and adds a copy onto the catalogue file book
     emit UpdateAdminReturn();
     close();
-    emit exec();
+    emit exec(); //Closes this screen
 }
 
 
 void adminreturn::on_noreturn_clicked()
 {
     close();
-    emit exec();
+    emit exec(); //Closes this screen
 }
 

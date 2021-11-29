@@ -27,7 +27,7 @@ adminaddbook::adminaddbook(QWidget *parent) :
 {
     ui->setupUi(this);
 
-    QPixmap Img(":/images/YoobeeLibraries.png");
+    QPixmap Img(":/images/YoobeeLibraries.png"); //Sets the default images for the admin to choose for the book
     ui->img->setPixmap(Img.scaled(100, 100, Qt::KeepAspectRatio));
 
     QPixmap book1(":/images/blue-book.jpg");
@@ -39,7 +39,7 @@ adminaddbook::adminaddbook(QWidget *parent) :
     QPixmap book3(":/images/book-cover.png");
     ui->book3->setPixmap(book3.scaled(60, 60, Qt::KeepAspectRatio));
 
-    connect(this, SIGNAL(UpdateAdminCatalogue()), this, SLOT(UpdateAdminCatalogueSlot()));
+    connect(this, SIGNAL(UpdateAdminCatalogue()), this, SLOT(UpdateAdminCatalogueSlot())); //Updates admin catalogue when a new book is added
 }
 
 adminaddbook::~adminaddbook()
@@ -54,11 +54,11 @@ void adminaddbook::on_confirmadd_clicked()
 {
     QValidator *validator = new QIntValidator(0, 20, this);
 
-    // the edit lineedit will only accept integers between 0 and 20
+    // the book copies lineedit will only accept integers between 0 and 20
     ui->book_copies_label->setValidator(validator);
 
     if (!ui->book_name_label->text().isEmpty() && !ui->book_author_label->text().isEmpty() && !ui->book_copies_label->text().isEmpty() && !bookimg.isEmpty()){
-        QMessageBox msgBox;
+        QMessageBox msgBox; //Creating a message box to see if the admin would like to continue
         msgBox.setWindowTitle(tr("Edit Book"));
         msgBox.setText(tr("Proceed with adding book?"));
         QAbstractButton* add = msgBox.addButton(tr("Yes"), QMessageBox::YesRole);
@@ -79,7 +79,7 @@ void adminaddbook::on_confirmadd_clicked()
         }
     }
     else {
-        QMessageBox msgBox;
+        QMessageBox msgBox; // Warning box shows up if all information has not been filled out
         msgBox.setWindowTitle(tr("Warning"));
         msgBox.setText(tr("Please fill out all information on the book"));
         msgBox.addButton(tr("Okay"), QMessageBox::RejectRole);
@@ -104,12 +104,16 @@ void adminaddbook::on_bookone_toggled(bool checked)
 
 void adminaddbook::on_booktwo_toggled(bool checked)
 {
-    bookimg = ":/images/berserk.jpg";
+    if (checked){
+        bookimg = ":/images/berserk.jpg";
+    }
 }
 
 
 void adminaddbook::on_bookthree_toggled(bool checked)
 {
-    bookimg = ":/images/book-cover.png";
+    if (checked){
+        bookimg = ":/images/book-cover.png";
+    }
 }
 

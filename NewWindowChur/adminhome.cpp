@@ -20,6 +20,7 @@ adminhome::~adminhome()
     delete ui;
 }
 
+//Open admin catalogue and closes this screen
 void adminhome::on_admin_catalogue_btn_clicked()
 {
     hide();
@@ -29,7 +30,7 @@ void adminhome::on_admin_catalogue_btn_clicked()
     connect(admin_cat, SIGNAL(ClosedAdminHome()), this, SLOT(AdminHomeClosed()));
 }
 
-
+//Opens admin user and closes this screen
 void adminhome::on_admin_user_btn_clicked()
 {
     hide();
@@ -39,7 +40,7 @@ void adminhome::on_admin_user_btn_clicked()
     connect(admin_use, SIGNAL(ClosedAdminHome()), this, SLOT(AdminHomeClosed()));
 }
 
-
+//Opens admin system and closes this screen
 void adminhome::on_admin_system_btn_clicked()
 {
     hide();
@@ -49,7 +50,7 @@ void adminhome::on_admin_system_btn_clicked()
     connect(admin_sys, SIGNAL(ClosedAdminHome()), this, SLOT(AdminHomeClosed()));
 }
 
-
+//Logs out of admin and goes back to log in
 void adminhome::on_logout_clicked()
 {
     close();
