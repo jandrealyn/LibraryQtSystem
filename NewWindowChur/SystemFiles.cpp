@@ -848,8 +848,47 @@ void SystemFiles::LogOverdueBook(QString memUser, QString memID, QStringList ove
      _overdueBooksLog.close();
 }
 
-void SystemFiles::LogReturnedBook()
+
+// Lara returning books, yep
+
+void SystemFiles::LogReturnedBook(QString bookID, QString bookN, QString userID, QString userN)
 {
     // once a book has been returned, log the Date, Time, Book ID, User ID, "
     // " LOG:2:20pm:22/11/2021: 'USERNAME, ID' has returned 'BOOK NAME'. "
+
+    QString date = QDate::currentDate().toString("dd/MM/yyyy");
+    QDate currDate = QDate::fromString(date, "dd/MM/yyyy");
+
+    QVector<QString> returnedBooksLogData;
+    if (_returnedBooksLog.open(QIODevice::ReadOnly))
+        {
+            QTextStream in(&_returnedBooksLog);
+            while(!in.atEnd())
+            {
+                QString line = _returnedBooksLog.readLine().replace("\r\n","");
+                returnedBooksLogData.append(line);
+            }
+        }
+    else
+    {
+        QMessageBox::warning(NULL, "Returned Books Log Fail", _returnedBooksLog.errorString());
+    }
+     _returnedBooksLog.close();
+
+
+     if (_returnedBooksLog.open(QIODevice::WriteOnly | QFile::Append | QFile::Text))
+     {
+         QTextStream in(&_returnedBooksLog);
+
+             QString content = "LOG: " + QTime::currentTime().toString() + " - " + QDate::currentDate().toString() + ": USER \"" + userN + "\" ID \"" + userID + "\": has returned BOOK: \"" + bookN + "\" BOOK ID: " + bookID ;
+             if (!returnedBooksLogData.contains(content))
+             {
+                in << content << "\n";
+             }
+         }
+     else
+     {
+         QMessageBox::warning(NULL, "Returned Books Log Fail", _returnedBooksLog.errorString());
+     }
+     _returnedBooksLog.close();
 }

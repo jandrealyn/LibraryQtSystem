@@ -92,7 +92,7 @@ background-color: #59c7f7;
 </string>
        </property>
        <property name="text">
-        <string>Checked Out Books</string>
+        <string>All Checked Out Books</string>
        </property>
       </widget>
      </item>
@@ -132,9 +132,9 @@ background-color: #59c7f7;
    <widget class="QLabel" name="label">
     <property name="geometry">
      <rect>
-      <x>270</x>
-      <y>40</y>
-      <width>221</width>
+      <x>190</x>
+      <y>30</y>
+      <width>391</width>
       <height>71</height>
      </rect>
     </property>
@@ -146,7 +146,7 @@ font: 40px;
 </string>
     </property>
     <property name="text">
-     <string>System Log</string>
+     <string>Checked Out Books</string>
     </property>
    </widget>
    <widget class="QPushButton" name="back">
@@ -189,7 +189,7 @@ background-color: #59c7f7;
    <widget class="QLabel" name="img">
     <property name="geometry">
      <rect>
-      <x>20</x>
+      <x>10</x>
       <y>10</y>
       <width>181</width>
       <height>91</height>

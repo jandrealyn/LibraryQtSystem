@@ -12,7 +12,7 @@ class adminreturn : public QDialog
     Q_OBJECT
 
 public:
-    explicit adminreturn(QWidget *parent = nullptr, QString bookID = "", QString bookName = "", QString memberName = "");
+    explicit adminreturn(QWidget *parent = nullptr, QString bookID = "", QString bookName = "", QString memberName = "", QString memberID = "");
     ~adminreturn();
 
 signals:
@@ -25,7 +25,7 @@ private slots:
 
 private:
     Ui::adminreturn *ui;
-    QString id;
+    QString id, userid, bookn, usern;
 };
 
 #endif // ADMINRETURN_H

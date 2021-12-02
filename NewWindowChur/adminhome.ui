@@ -158,7 +158,7 @@ background-color: #59c7f7;
 </string>
        </property>
        <property name="text">
-        <string>System Log</string>
+        <string>Checked Out Books</string>
        </property>
       </widget>
      </item>
