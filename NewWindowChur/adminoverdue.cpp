@@ -47,10 +47,8 @@ adminoverdue::adminoverdue(QWidget *parent) :
        int rowCount = (booksData.size() / 7) - 1;
        for (int row = 0; row < rowCount; row++)
        {
-           QDate bookDueDate = QDate::fromString(booksData[i + 5], "dd/MM/yyyy"); //Setting our book due date as the date from the file
-
+           QDate bookDueDate = QDate::fromString(booksData[i+5], "dd/MM/yyyy"); //Setting our book due date as the date from the file
            if (currDate > bookDueDate){
-               qDebug() << "inserting" << booksData[i+5];
             ui->adminOverdue->insertRow(ui->adminOverdue->rowCount()); //Inserting rows into the table widget if current date is greater than due date
             for (int col = 0; col < 7; col++)
             {
@@ -66,7 +64,6 @@ adminoverdue::adminoverdue(QWidget *parent) :
                 }
            }
            else {
-               qDebug() << "skipping" << booksData[i+5];
                i = i + 7; //All items skipped
                h = h + 1; //Row has passed
            }

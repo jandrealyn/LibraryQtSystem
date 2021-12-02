@@ -15,7 +15,7 @@
 #include <QGroupBox>
 #include <QPushButton>
 
-adminreturn::adminreturn(QWidget *parent, QString bookID, QString bookName, QString memberName) :
+adminreturn::adminreturn(QWidget *parent, QString bookID, QString bookName, QString memberName, QString memberID) :
     QDialog(parent),
     ui(new Ui::adminreturn)
 {
@@ -24,6 +24,9 @@ adminreturn::adminreturn(QWidget *parent, QString bookID, QString bookName, QStr
     ui->img->setPixmap(Img.scaled(100, 100, Qt::KeepAspectRatio));
 
     id = bookID; //Setting variables passed form admin checked out screen
+    userid = memberID;
+    usern = memberName;
+    bookn = bookName;
 
     ui->return_name->setText(bookName);
     ui->return_member->setText(memberName);
@@ -39,6 +42,7 @@ adminreturn::~adminreturn()
 void adminreturn::on_yesreturn_clicked()
 {
     SystemFiles::ReturnBook(id); //Deletes book from checked out file and adds a copy onto the catalogue file book
+    SystemFiles::LogReturnedBook(id, bookn, userid, usern);
     emit UpdateAdminReturn();
     close();
     emit exec(); //Closes this screen

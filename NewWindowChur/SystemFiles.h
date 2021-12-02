@@ -34,7 +34,7 @@ public:
     static void ReturnBook(QString bookid);
     static void LogNearbyDueDate(QString memUser, QString memID);
     static void LogOverdueBook(QString memUser, QString memID, QStringList overdueBooks);
-    static void LogReturnedBook();
+    static void LogReturnedBook(QString bookID, QString bookN, QString userID, QString userN);
 
     // Functional files (used for reading and writing data, all .csv files)
     static QString _path;

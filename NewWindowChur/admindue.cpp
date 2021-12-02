@@ -75,7 +75,7 @@ void admindue::UpdateAdminReturnSlot(){
                    push[row] = new QPushButton(item);
                    push[row]->setText("Return");
                    push[row]->setGeometry(23,5,50,20); //Changes the size of the button and the placement
-                   ret[row] = new adminreturn(NULL, booksData[i-6], booksData[i-5], booksData[i-3]);
+                   ret[row] = new adminreturn(NULL, booksData[i-6], booksData[i-5], booksData[i-3], booksData[i-4]);
                    ret[row]->setWindowTitle("Return book");
                    connect(ret[row], SIGNAL(UpdateAdminReturn()), this, SLOT(UpdateAdminReturnSlot()));
                    connect(push[row], SIGNAL(clicked()), ret[row], SLOT(exec()));
