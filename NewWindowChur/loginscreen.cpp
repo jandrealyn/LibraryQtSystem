@@ -25,11 +25,37 @@ loginscreen::loginscreen(QWidget *parent) :
    QPixmap Img(":/images/YoobeeLibraries.png"); // - liv
    ui->img_2->setPixmap(Img.scaled(150, 150, Qt::KeepAspectRatio)); // - liv
 
+   // Checking if the remember me file has any username and password saved
+   if (SystemFiles::_rememberMeLog.size() != 0)
+   {
+       QStringList rememberMeData;
+       SystemFiles::_rememberMeLog.open(QIODevice::ReadOnly);
+       QTextStream in(&SystemFiles::_rememberMeLog);
+       while(!in.atEnd())
+       {
+           rememberMeData.append(in.readLine());
+       }
+       SystemFiles::_rememberMeLog.close();
+
+       ui->username_input->setText(rememberMeData[0]);
+       ui->password_input->setText(rememberMeData[1]);
+       ui->checkBox_rememberMe->setCheckState(Qt::CheckState::Checked); // makes it so the user doesn't have to click remember me every time they log in.
+   }
+
    connect(ui->password_input, SIGNAL(returnPressed()), this, SLOT(on_login_clicked()));
+
+   setAttribute(Qt::WA_DeleteOnClose); // This makes it so that the deconstructor is called whenever this screen is closed :) - Jakob
 }
 
 loginscreen::~loginscreen()
 {
+    // Code by Jakob
+    // This makes sure that when a user closes this window, we're still able to remember their login if they want.
+    if (ui->checkBox_rememberMe->isChecked())
+        SystemFiles::RememberUser(ui->username_input->text(), ui->username_input->text());
+    else
+        SystemFiles::ClearRememberUser();
+
     delete ui;
 }
 
@@ -39,7 +65,6 @@ void loginscreen::on_login_clicked()
     QString user = ui->username_input->text(); //Username Input  // - liv
     QString pass = ui->password_input->text(); //password input // - liv
 
-    // Code by Jakob
     if (user == "admin" && pass == "cs106")
     {
         // By lara
@@ -51,6 +76,7 @@ void loginscreen::on_login_clicked()
     }
     else
     {
+        // Code by Jakob
         // Checking if the inputs exist in the members file
         QStringList membersData = SystemFiles::GetFileData(CSVFiles::_Members);
 
@@ -95,7 +121,15 @@ void loginscreen::on_login_clicked()
             QString memID = membersData[usernameIndex - 4];
             QString memAvatar = membersData[usernameIndex - 3];
 
+            // Checking if they want their login details saved
+            if (ui->checkBox_rememberMe->isChecked())
+                SystemFiles::RememberUser(ui->username_input->text(), ui->username_input->text());
+            else
+                SystemFiles::ClearRememberUser();
+
+            // Hiding the MainWindow to open the catalogue window
             hide();
+
             // CALL YOUR DIALOG WINDOWS WITH (nullptr) SO THAT THEY HAVE A TASKBAR ICON
             _catalogueWindow = new Catalogue(nullptr, user, pass, memfName, memlName, memEmail, memPhone, memID, memAvatar);
             _catalogueWindow->setWindowFlags(windowFlags() | Qt::WindowMinimizeButtonHint);
@@ -128,7 +162,7 @@ void loginscreen::LoginScreenOpen(){ //liv
     show();
 }
 
-// This was function was made after alpha testing.
+// This function was made after alpha testing.
 // We found that some of our users may want to login right after creating a user.
 void loginscreen::LoginThroughSignup(QString uName, QString pWord)
 {

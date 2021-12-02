@@ -114,4 +114,3 @@ RESOURCES += \
 
 DISTFILES += \
     images/top-books.png \
-    umlclassdiagrams.qmodel

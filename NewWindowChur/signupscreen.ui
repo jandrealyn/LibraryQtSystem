@@ -175,7 +175,7 @@ background-color: #1c7ba6;
    <widget class="QWidget" name="layoutWidget">
     <property name="geometry">
      <rect>
-      <x>130</x>
+      <x>140</x>
       <y>120</y>
       <width>531</width>
       <height>161</height>
@@ -212,7 +212,7 @@ background-color: #1c7ba6;
      <item row="1" column="2">
       <widget class="QRadioButton" name="jerboa_avatar">
        <property name="text">
-        <string>Jerboa Boi</string>
+        <string>Jerboa</string>
        </property>
       </widget>
      </item>
