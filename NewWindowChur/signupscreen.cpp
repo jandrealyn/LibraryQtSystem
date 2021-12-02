@@ -7,6 +7,7 @@
 #include <QDebug> //is a class that provides an output stream for debugging information
 #include <QPushButton>//is a widget which executes an action when a user clicks on it.
 #include <QInputDialog>
+#include <QRegExpValidator> // jakob
 #include "SystemFiles.h"
 using namespace std;
 
@@ -24,17 +25,27 @@ signupscreen::signupscreen(QWidget *parent) :
     ui->Next->setEnabled(false); // Jakob
 
     // Jakob
+    _avatarSelected = false;
+    _usernameOk = false;
+    _emailOk = false;
     _membersList = SystemFiles::GetFileData(CSVFiles::_Members);
 
     // Jakob - this bit of code disables the next button until all field have values
     connect(ui->cat_avatar, SIGNAL(toggled(bool)), this, SLOT(checkValues()));
     connect(ui->pup_avatar, SIGNAL(toggled(bool)), this, SLOT(checkValues()));
     connect(ui->jerboa_avatar, SIGNAL(toggled(bool)), this, SLOT(checkValues()));
-    connect(ui->no_avatar, SIGNAL(toggled(bool)), this, SLOT(checkValues()));
+    //connect(ui->no_avatar, SIGNAL(toggled(bool)), this, SLOT(checkValues()));
     connect(ui->firstname, SIGNAL(textChanged(QString)), this, SLOT(checkValues()));
     connect(ui->lastname, SIGNAL(textChanged(QString)), this, SLOT(checkValues()));
     connect(ui->Password, SIGNAL(textChanged(QString)), this, SLOT(checkValues()));
     connect(ui->phone, SIGNAL(textChanged(QString)), this, SLOT(checkValues()));
+
+    // Setting vaidators for Line Edits - these make sure random symbols or numbers aren't put where they're not meant to.
+    ui->firstname->setValidator(new QRegExpValidator(QRegExp("[A-Za-z]{0,30}"), this));
+    ui->lastname->setValidator(new QRegExpValidator(QRegExp("[A-Za-z]{0,30}"), this));
+    ui->Username->setValidator(new QRegExpValidator(QRegExp("[A-Za-z0-9]{0,30}"), this));
+    ui->phone->setValidator(new QRegExpValidator(QRegExp("[0-9]{0,10}"), this));
+    // Don't kow how to check for a real email, so just leaving it at the moment.
 }
 
 signupscreen::~signupscreen()
@@ -50,16 +61,25 @@ void signupscreen::on_Next_clicked(){
     QString email = ui->email->text();//email input
     QString phoneNum = ui->phone->text();//phone input
 
+    if (!_avatarSelected)
+    {
+        _avatar = ":/images/default-avatar.png";
+    }
+
     // CreateMember gets the users information from the lineEdits and writes it to members.csv - jakob
     SystemFiles::CreateMember(_avatar, fName, Lname, uName, pWord, email, phoneNum);
 
-    Signupscreen2 = new signupscreen2(nullptr);
-    Signupscreen2->setWindowFlags(windowFlags() | Qt::WindowMinimizeButtonHint);
-    Signupscreen2->show();
-    connect(Signupscreen2, SIGNAL(OpenLoginScreen()), this, SLOT(on_close_clicked()));
-    close();
-}
+    on_close_clicked();
+    emit LoginOnNextClicked(uName, pWord); // Logs user in instantly
 
+    // Jakob here - from Alpha testing we found that users got confused when we displayed Signupscreen2
+    // We're removing this page now to remove the confusion.
+//    Signupscreen2 = new signupscreen2(nullptr);
+//    Signupscreen2->setWindowFlags(windowFlags() | Qt::WindowMinimizeButtonHint);
+//    Signupscreen2->show();
+//    connect(Signupscreen2, SIGNAL(OpenLoginScreen()), this, SLOT(on_close_clicked()));
+//    close();
+}
 
 void signupscreen::Signupclosed()
 {
@@ -167,35 +187,28 @@ void signupscreen::on_jerboa_avatar_toggled(bool checked)
     }
 }
 
-void signupscreen::on_no_avatar_toggled(bool checked)
-{
-    if (checked)
-    {
-        _avatar = ":/images/default-avatar.png";
-        _avatarSelected = true;
-    }
-}
+//void signupscreen::on_no_avatar_toggled(bool checked)
+//{
+//    if (checked)
+//    {
+//        _avatar = ":/images/default-avatar.png";
+//        _avatarSelected = true;
+//    }
+//}
 
 // By Jakob
 // Checks if all the necessary info has been made to create a user.
 // If everything is all good, it enables the "create user" button
 void signupscreen::checkValues()
 {
-    if (_avatarSelected)
+    if (!ui->firstname->text().isEmpty() &&
+        !ui->lastname->text().isEmpty() &&
+        !ui->Password->text().isEmpty() &&
+        !ui->phone->text().isEmpty() &&
+        _usernameOk &&
+        _emailOk)
     {
-        if (!ui->firstname->text().isEmpty() &&
-            !ui->lastname->text().isEmpty() &&
-            !ui->Password->text().isEmpty() &&
-            !ui->phone->text().isEmpty() &&
-            _usernameOk &&
-            _emailOk)
-        {
-            ui->Next->setEnabled(true);
-        }
-        else
-        {
-            ui->Next->setEnabled(false);
-        }
+        ui->Next->setEnabled(true);
     }
     else
     {

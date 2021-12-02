@@ -13,6 +13,11 @@
 // own buttons and functionality. Most of the set up for these
 // tabs are done in the Catalogue constructor.
 //
+// TAB DECORATION:
+// The tabs are decorated on the catalogue.ui page. You can
+// implement a StyleSheet for the QTabWidget itself and also
+// incorporate icons that way as well.
+//
 // HOME TAB:
 // A home screen that displays a place holder image. This was
 // originally supposed to be an area where the user can see

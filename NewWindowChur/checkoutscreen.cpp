@@ -84,6 +84,7 @@ void CheckOutScreen::on_checkoutNow_clicked()
         emit UpdateCheckOutScreenSignal();
         confirmed->exec();
     }
+        close();
         break;
     case QMessageBox::Cancel:
         confirmCheckout->close();
@@ -129,4 +130,5 @@ void CheckOutScreen::on_reserve_clicked()
     _reserveBook->showNormal();
     connect(_reserveBook, SIGNAL(ReserveScreenClosed()), this, SLOT(OpenCheckOutScreen()));
     connect(_reserveBook, SIGNAL(Res_UpdateUsersCurrentBooks()), this, SLOT(Res_UpdateUsersCurrentBooks_Emitted()));
+    connect(_reserveBook, SIGNAL(CloseCheckOutScreen()), this, SLOT(on_cancel_clicked()));
 }

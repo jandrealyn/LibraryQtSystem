@@ -17,5 +17,8 @@
         <file>images/the-lightning-thief.jpg</file>
         <file>images/the-bfg.jpg</file>
         <file>images/getting-started-with-Qt.jpg</file>
+        <file>images/tab-account-icon.png</file>
+        <file>images/tab-catalogue-icon.png</file>
+        <file>images/tab-home-icon.png</file>
     </qresource>
 </RCC>

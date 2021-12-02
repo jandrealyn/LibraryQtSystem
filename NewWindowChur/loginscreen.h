@@ -23,6 +23,7 @@ private slots:
     void on_Create_clicked(); // - Liv
     void on_close_clicked(); // - Liv
     void LoginScreenOpen(); // - Liv
+    void LoginThroughSignup(QString uName, QString pWord);
 
 private:
     Ui::loginscreen *ui;

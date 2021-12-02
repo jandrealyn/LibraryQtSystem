@@ -59,13 +59,32 @@ font-size: 12px;
   <layout class="QGridLayout" name="gridLayout">
    <item row="0" column="0">
     <widget class="QTabWidget" name="tabWidget">
+     <property name="sizePolicy">
+      <sizepolicy hsizetype="Expanding" vsizetype="Expanding">
+       <horstretch>0</horstretch>
+       <verstretch>0</verstretch>
+      </sizepolicy>
+     </property>
      <property name="styleSheet">
-      <string notr="true"/>
+      <string notr="true">QTabBar::tab {
+height: 50px;
+width: 120px;
+}</string>
      </property>
      <property name="currentIndex">
-      <number>2</number>
+      <number>0</number>
+     </property>
+     <property name="iconSize">
+      <size>
+       <width>16</width>
+       <height>16</height>
+      </size>
      </property>
      <widget class="QWidget" name="tab_Home">
+      <attribute name="icon">
+       <iconset resource="images.qrc">
+        <normaloff>:/images/tab-home-icon.png</normaloff>:/images/tab-home-icon.png</iconset>
+      </attribute>
       <attribute name="title">
        <string>Home</string>
       </attribute>
@@ -122,6 +141,10 @@ p, li { white-space: pre-wrap; }
       </layout>
      </widget>
      <widget class="QWidget" name="tab_Catalogue">
+      <attribute name="icon">
+       <iconset resource="images.qrc">
+        <normaloff>:/images/tab-catalogue-icon.png</normaloff>:/images/tab-catalogue-icon.png</iconset>
+      </attribute>
       <attribute name="title">
        <string>Catalogue</string>
       </attribute>
@@ -147,7 +170,7 @@ p, li { white-space: pre-wrap; }
             <x>0</x>
             <y>0</y>
             <width>1229</width>
-            <height>546</height>
+            <height>520</height>
            </rect>
           </property>
          </widget>
@@ -156,6 +179,10 @@ p, li { white-space: pre-wrap; }
       </layout>
      </widget>
      <widget class="QWidget" name="tab_YourAccount">
+      <attribute name="icon">
+       <iconset resource="images.qrc">
+        <normaloff>:/images/tab-account-icon.png</normaloff>:/images/tab-account-icon.png</iconset>
+      </attribute>
       <attribute name="title">
        <string>Your account</string>
       </attribute>
