@@ -7,7 +7,10 @@
 #include <QDebug> //is a class that provides an output stream for debugging information
 #include <QPushButton>//is a widget which executes an action when a user clicks on it.
 #include <QInputDialog>
-#include <QRegExpValidator> // jakob
+//#include <QRegExpValidator> // Jakob: this is not compatible with later versions of Qt.
+                              // Instead, we're using QRegularExpression and QRegularExpressionValidator
+#include <QRegularExpression>
+#include <QRegularExpressionValidator>
 #include "SystemFiles.h"
 using namespace std;
 
@@ -34,17 +37,17 @@ signupscreen::signupscreen(QWidget *parent) :
     connect(ui->cat_avatar, SIGNAL(toggled(bool)), this, SLOT(checkValues()));
     connect(ui->pup_avatar, SIGNAL(toggled(bool)), this, SLOT(checkValues()));
     connect(ui->jerboa_avatar, SIGNAL(toggled(bool)), this, SLOT(checkValues()));
-    //connect(ui->no_avatar, SIGNAL(toggled(bool)), this, SLOT(checkValues()));
+    //connect(ui->no_avatar, SIGNAL(toggled(bool)), this, SLOT(checkValues()));    // the default avatar is now set when a user doesn't select an avatar during the signup process
     connect(ui->firstname, SIGNAL(textChanged(QString)), this, SLOT(checkValues()));
     connect(ui->lastname, SIGNAL(textChanged(QString)), this, SLOT(checkValues()));
     connect(ui->Password, SIGNAL(textChanged(QString)), this, SLOT(checkValues()));
     connect(ui->phone, SIGNAL(textChanged(QString)), this, SLOT(checkValues()));
 
     // Setting vaidators for Line Edits - these make sure random symbols or numbers aren't put where they're not meant to.
-    ui->firstname->setValidator(new QRegExpValidator(QRegExp("[A-Za-z]{0,30}"), this));
-    ui->lastname->setValidator(new QRegExpValidator(QRegExp("[A-Za-z]{0,30}"), this));
-    ui->Username->setValidator(new QRegExpValidator(QRegExp("[A-Za-z0-9]{0,30}"), this));
-    ui->phone->setValidator(new QRegExpValidator(QRegExp("[0-9]{0,10}"), this));
+    ui->firstname->setValidator(new QRegularExpressionValidator(QRegularExpression("[A-Z a-z]{0,30}"), this));
+    ui->lastname->setValidator(new QRegularExpressionValidator(QRegularExpression("[A-Z a-z]{0,30}"), this));
+    ui->Username->setValidator(new QRegularExpressionValidator(QRegularExpression("[A-Za-z0-9]{0,30}"), this));
+    ui->phone->setValidator(new QRegularExpressionValidator(QRegularExpression("[0-9]{0,10}"), this));
     // Don't kow how to check for a real email, so just leaving it at the moment.
 }
 

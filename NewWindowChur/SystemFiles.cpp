@@ -31,6 +31,7 @@ QString SystemFiles::_logsPath = "SystemLogs/";
 QFile SystemFiles::_nearbyDueDatesLog(_logsPath + "NearbyDueDatesLog.txt");
 QFile SystemFiles::_overdueBooksLog(_logsPath + "OverdueBooksLog.txt");
 QFile SystemFiles::_returnedBooksLog(_logsPath + "ReturnedBooksLog.txt");
+QFile SystemFiles::_rememberMeLog(_logsPath + "RememberMeLog.txt");
 
 void SystemFiles::CreateFilesOnStartUp()
 {
@@ -124,6 +125,12 @@ void SystemFiles::CreateFilesOnStartUp()
     {
         _returnedBooksLog.open(QIODevice::WriteOnly);
         _returnedBooksLog.close();
+    }
+
+    if (!_rememberMeLog.exists())
+    {
+        _rememberMeLog.open(QIODevice::WriteOnly);
+        _rememberMeLog.close();
     }
 }
 
@@ -834,7 +841,7 @@ void SystemFiles::LogOverdueBook(QString memUser, QString memID, QStringList ove
              int daysDiff = bookDueDate.daysTo(currDate);
 
              QString content = "LOG: " + QTime::currentTime().toString() + " - " + QDate::currentDate().toString() + ": USER \"" + memUser + "\" ID \"" + memID + "\": has book \"" + overdueBooks[i] + "\" overdue by " + QString::number(daysDiff) + " days.";
-             if (!overdueBooksLogData.contains(content))
+             if (!overdueBooksLogData.contains(content, Qt::CaseInsensitive)) // checking that we're not outputting duplicates
              {
                 in << content << "\n";
              }
@@ -850,14 +857,13 @@ void SystemFiles::LogOverdueBook(QString memUser, QString memID, QStringList ove
 
 
 // Lara returning books, yep
-
 void SystemFiles::LogReturnedBook(QString bookID, QString bookN, QString userID, QString userN)
 {
     // once a book has been returned, log the Date, Time, Book ID, User ID, "
     // " LOG:2:20pm:22/11/2021: 'USERNAME, ID' has returned 'BOOK NAME'. "
 
-    QString date = QDate::currentDate().toString("dd/MM/yyyy");
-    QDate currDate = QDate::fromString(date, "dd/MM/yyyy");
+//    QString date = QDate::currentDate().toString("dd/MM/yyyy");
+//    QDate currDate = QDate::fromString(date, "dd/MM/yyyy"); // - Jakob: commenting this out because it's not used at all
 
     QVector<QString> returnedBooksLogData;
     if (_returnedBooksLog.open(QIODevice::ReadOnly))
@@ -881,7 +887,7 @@ void SystemFiles::LogReturnedBook(QString bookID, QString bookN, QString userID,
          QTextStream in(&_returnedBooksLog);
 
              QString content = "LOG: " + QTime::currentTime().toString() + " - " + QDate::currentDate().toString() + ": USER \"" + userN + "\" ID \"" + userID + "\": has returned BOOK: \"" + bookN + "\" BOOK ID: " + bookID ;
-             if (!returnedBooksLogData.contains(content))
+             if (!returnedBooksLogData.contains(content, Qt::CaseInsensitive))
              {
                 in << content << "\n";
              }
@@ -891,4 +897,69 @@ void SystemFiles::LogReturnedBook(QString bookID, QString bookN, QString userID,
          QMessageBox::warning(NULL, "Returned Books Log Fail", _returnedBooksLog.errorString());
      }
      _returnedBooksLog.close();
+}
+
+// Saving a users username and password for the next time they use the program.
+void SystemFiles::RememberUser(QString username, QString password)
+{
+    bool IsANewUser = false;
+
+    if (_rememberMeLog.size() == 0) // If no users are saved yet
+    {
+        _rememberMeLog.open(QIODevice::WriteOnly | QFile::Text);
+        QTextStream in(&_rememberMeLog);
+        in << username << "\n" << password;
+        _rememberMeLog.close();
+    }
+    else // If there's already a user saved in the file
+    {
+        if (_rememberMeLog.open(QIODevice::ReadOnly))
+        {
+            QTextStream readFile(&_rememberMeLog);
+            while(!readFile.atEnd())
+            {
+                QString line = readFile.readLine().replace("\r\n","");
+                if (!line.contains(username, Qt::CaseInsensitive)) // Check that we're not writing the same details back into the file.
+                                                                   // Also, we're only checking the username so we can break after the first loop.
+                {
+                    IsANewUser = true;
+                    break;
+                }
+                else
+                {
+                    IsANewUser = false; // if it's not a new user, we don't need to do anything apart from just close the file.
+                    break;
+                }
+            }
+
+            if (IsANewUser) // If it's a new user that's clicked remember me, we write their details to the file.
+            {
+                _rememberMeLog.close();
+                _rememberMeLog.open(QIODevice::WriteOnly | QFile::Truncate | QFile::Text);
+                QTextStream in(&_rememberMeLog);
+                in << username << "\n" << password;
+                _rememberMeLog.close();
+            }
+
+            _rememberMeLog.close();
+        }
+        else
+        {
+            QMessageBox::warning(NULL, "Remember Me Log Fail", _rememberMeLog.errorString());
+        }
+    }
+}
+
+// Clearing the remember me file for when the remember me checkbox is unchecked.
+void SystemFiles::ClearRememberUser()
+{
+    if (_rememberMeLog.open(QIODevice::WriteOnly | QFile::Truncate))
+    {
+        // Clears the file just by opening it.
+    }
+    else
+    {
+        QMessageBox::warning(NULL, "Remember Me Log Fail", _rememberMeLog.errorString());
+    }
+    _rememberMeLog.close();
 }

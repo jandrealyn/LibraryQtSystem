@@ -126,9 +126,9 @@ QPushButton:hover { background-color: #66c011; }</string>
     <property name="geometry">
      <rect>
       <x>310</x>
-      <y>240</y>
+      <y>241</y>
       <width>221</width>
-      <height>136</height>
+      <height>162</height>
      </rect>
     </property>
     <layout class="QVBoxLayout" name="verticalLayout_2">
@@ -181,6 +181,13 @@ QPushButton:hover { background-color: #66c011; }</string>
        </property>
        <property name="text">
         <string>Login</string>
+       </property>
+      </widget>
+     </item>
+     <item>
+      <widget class="QCheckBox" name="checkBox_rememberMe">
+       <property name="text">
+        <string>Remember me</string>
        </property>
       </widget>
      </item>
