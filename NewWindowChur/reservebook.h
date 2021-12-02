@@ -18,6 +18,7 @@ public:
 signals:
     void ReserveScreenClosed();
     void Res_UpdateUsersCurrentBooks();
+    void CloseCheckOutScreen();
 
 private slots:
     void on_cancel_clicked();

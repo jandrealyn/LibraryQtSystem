@@ -20,6 +20,7 @@ public:
 
 signals:
     void OpenLoginScreen();
+    void LoginOnNextClicked(QString uName, QString pWord); // Jakob
 
 private slots:
     void on_Next_clicked(); //function - for when the user clicks "next" button - Liv
@@ -37,7 +38,7 @@ private slots:
                                                        //        |
     void on_jerboa_avatar_toggled(bool checked);       //        |
                                                        //        |
-    void on_no_avatar_toggled(bool checked);           //        |
+    //void on_no_avatar_toggled(bool checked);         //        |
                                                        //        |
     void checkValues();                                // --------
 
