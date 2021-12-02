@@ -85,8 +85,10 @@ void ReserveBook::on_confirmReserve_clicked()
         confirmed->setText("You have successfully placed a reservation for " + _bookName + "!");
         confirmed->exec();
         close();
+
         emit ReserveScreenClosed();
         emit Res_UpdateUsersCurrentBooks();
+        emit CloseCheckOutScreen(); // this makes sure we close both reserve screen and checkoutscreen
     }
         break;
     case QMessageBox::Cancel:

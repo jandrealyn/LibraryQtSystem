@@ -5,7 +5,7 @@
 #include <QDate>
 #include <QFile>
 
-// Enum used in GetFileData function
+// Enum is used in GetFileData function
 enum CSVFiles
 {
     _Catalogue = 0,
@@ -35,6 +35,8 @@ public:
     static void LogNearbyDueDate(QString memUser, QString memID);
     static void LogOverdueBook(QString memUser, QString memID, QStringList overdueBooks);
     static void LogReturnedBook(QString bookID, QString bookN, QString userID, QString userN);
+    static void RememberUser(QString username, QString password);
+    static void ClearRememberUser();
 
     // Functional files (used for reading and writing data, all .csv files)
     static QString _path;
@@ -44,10 +46,13 @@ public:
     static QFile _reserveBook;
 
     // Log files (used for checking information on the system, all .txt files)
-    static QString _logsPath;  // Logs will be kept in this folder.
-    static QFile _nearbyDueDatesLog;  // System should log messages in a "due-date" file whenever the due date of their loaned books is nearby.
-    static QFile _overdueBooksLog;  // System should log messages in an "overdue" file whenever a book is overdue.
-    static QFile _returnedBooksLog; // System should log messages in the "return" file whenever a book is returned.
+    static QString _logsPath;        // Logs will be kept in this folder.
+    static QFile _nearbyDueDatesLog; // System should log messages in a "due-date" file whenever the due date of their loaned books is nearby.
+    static QFile _overdueBooksLog;   // System should log messages in an "overdue" file whenever a book is overdue.
+    static QFile _returnedBooksLog;  // System should log messages in the "return" file whenever a book is returned.
+
+
+    static QFile _rememberMeLog;     // System will log the username and password in this file when a user checks remember me on the login screen.
 
 };
 
