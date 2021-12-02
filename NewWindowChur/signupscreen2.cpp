@@ -24,8 +24,6 @@ signupscreen2::signupscreen2(QWidget *parent) :
     ui->img->setPixmap(Img.scaled(150, 150, Qt::KeepAspectRatio)); // - liv
 
     // Jakob - Dsiplaying users ID and First name
-    //test
-    //test
     QStringList membersList = SystemFiles::GetFileData(CSVFiles::_Members); // Get the data from the members file
     int lastSpotInFile = membersList.size(); // This gets the last spot in the membersList
     QString memberID = membersList[lastSpotInFile - 8]; // The user id is 6 columns away from the last spot, so we subtract it by 7
@@ -33,7 +31,6 @@ signupscreen2::signupscreen2(QWidget *parent) :
     ui->user_id->setText(memberID); // Here we are just setting the text on the the page to be the ID and name that we just got
     ui->user_name->setText(memberName);
     ui->user_id->setEnabled(false); // This makes it so a user can't edit the line
-    //test
 }
 signupscreen2::~signupscreen2()
 {

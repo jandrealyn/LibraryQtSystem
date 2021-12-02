@@ -35,7 +35,8 @@ private slots:
     void on_yourAccount_update_clicked();
     //void on_home_clicked(); // liv
 
-    void update_catalogue();
+    //void update_catalogue();
+    void display_catalogue();
 
     void update_usersBooks();
 
@@ -46,7 +47,7 @@ private:
     UpdateUserDetails* update_ui;
     QString _memUser, _memPass, _memfName, _memlName, _memEmail, _memPhone, _memID, _memAvatar;
 
-    void display_catalogue();
+
 };
 
 #endif // CATALOGUE_H

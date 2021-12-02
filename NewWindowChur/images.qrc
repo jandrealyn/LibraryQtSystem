@@ -13,5 +13,9 @@
         <file>images/jerboa-avatar.jpg</file>
         <file>images/default-avatar.png</file>
         <file>images/favicon.ico</file>
+        <file>images/game-of-thrones.jpg</file>
+        <file>images/the-lightning-thief.jpg</file>
+        <file>images/the-bfg.jpg</file>
+        <file>images/getting-started-with-Qt.jpg</file>
     </qresource>
 </RCC>

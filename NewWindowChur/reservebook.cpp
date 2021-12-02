@@ -1,3 +1,21 @@
+// ------------------------------------------------------------
+//
+// RESERVE BOOK SCREEN
+// Written by Jakob
+//
+// The Reserve book screen is opened when a user clicks checkout
+// on a book with 0 copies. The main functionality of this screen
+// is through the Calendar Widget.
+//
+// Once a user confirms they want to confirm a book, we write
+// all the necessary information into the reserveBook.csv.
+//
+// There is a function in main that moves reserved books into
+// the checkedOutBooks file once they have met the date the user
+// chose to check them out.
+//
+// ------------------------------------------------------------
+
 #include "reservebook.h"
 #include "ui_reservebook.h"
 #include "SystemFiles.h"
@@ -34,18 +52,18 @@ void ReserveBook::on_cancel_clicked()
     emit ReserveScreenClosed();
 }
 
-
 void ReserveBook::on_calendarWidget_clicked(const QDate &date)
 {
     ui->returnDateLabel->setText(date.addDays(7).toString("dd/MM/yyyy"));
 }
 
-
 void ReserveBook::on_confirmReserve_clicked()
 {
     // Creating the message box asking the user to confirm the reservation before continuing
     QMessageBox* confirmCheckout = new QMessageBox(nullptr);
-    confirmCheckout->setWindowTitle("Checkout Confirmation");
+    confirmCheckout->setWindowTitle("Yoobee Library System | Reservation Confirmation");
+    confirmCheckout->setWindowIcon(QIcon(":/images/favicon.ico"));
+    confirmCheckout->setIcon(QMessageBox::Question);
     confirmCheckout->setText("Are you sure you want to checkout this book?");
     confirmCheckout->setStandardButtons(QMessageBox::Yes | QMessageBox::Cancel);
     confirmCheckout->setDefaultButton(QMessageBox::Yes);
@@ -58,11 +76,18 @@ void ReserveBook::on_confirmReserve_clicked()
     switch(result)
     {
     case QMessageBox::Yes:
+    {
+        delete(confirmCheckout);
         SystemFiles::CheckOutBook(_bookID, _bookName, _membersID, _membersName, reserveDate, dueDate); //ReserveBook()
-        QMessageBox::information(this, "Reservation success", "You have successfully placed a reservation for " + _bookName + "!");
+        QMessageBox* confirmed = new QMessageBox(nullptr);
+        confirmed->setWindowTitle("Yoobee Library System | Reservation Confirmed");
+        confirmed->setWindowIcon(QIcon(":/images/favicon.ico"));
+        confirmed->setText("You have successfully placed a reservation for " + _bookName + "!");
+        confirmed->exec();
         close();
         emit ReserveScreenClosed();
         emit Res_UpdateUsersCurrentBooks();
+    }
         break;
     case QMessageBox::Cancel:
         confirmCheckout->close();
@@ -70,4 +95,3 @@ void ReserveBook::on_confirmReserve_clicked()
     default: break;
     }
 }
-
