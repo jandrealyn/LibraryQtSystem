@@ -7,7 +7,7 @@
     <x>0</x>
     <y>0</y>
     <width>1273</width>
-    <height>641</height>
+    <height>704</height>
    </rect>
   </property>
   <property name="sizePolicy">
@@ -170,7 +170,7 @@ p, li { white-space: pre-wrap; }
             <x>0</x>
             <y>0</y>
             <width>1229</width>
-            <height>520</height>
+            <height>583</height>
            </rect>
           </property>
          </widget>

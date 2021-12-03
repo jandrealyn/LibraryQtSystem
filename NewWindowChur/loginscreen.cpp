@@ -42,8 +42,7 @@ loginscreen::loginscreen(QWidget *parent) :
        ui->checkBox_rememberMe->setCheckState(Qt::CheckState::Checked); // makes it so the user doesn't have to click remember me every time they log in.
    }
 
-   connect(ui->password_input, SIGNAL(returnPressed()), this, SLOT(on_login_clicked()));
-
+   ui->login->setDefault(true);
    setAttribute(Qt::WA_DeleteOnClose); // This makes it so that the deconstructor is called whenever this screen is closed :) - Jakob
 }
 
@@ -128,7 +127,7 @@ void loginscreen::on_login_clicked()
 //                SystemFiles::ClearRememberUser();
 
             // Hiding the MainWindow to open the catalogue window
-            close();
+            hide();
 
             // CALL YOUR DIALOG WINDOWS WITH (nullptr) SO THAT THEY HAVE A TASKBAR ICON
             _catalogueWindow = new Catalogue(nullptr, user, pass, memfName, memlName, memEmail, memPhone, memID, memAvatar);

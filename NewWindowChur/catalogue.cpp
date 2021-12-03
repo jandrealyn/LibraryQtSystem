@@ -372,11 +372,11 @@ void Catalogue::on_searchBar_textChanged(const QString &arg1)
 
         // Book name
         bookName[row] = new QLabel;
-        bookName[row]->setText("Book name: " + foundData[t + 2]);
+        bookName[row]->setText(foundData[t + 2]);
 
         // Book authour
         bookAuthor[row] = new QLabel;
-        bookAuthor[row]->setText("Author: " + foundData[t + 3]);
+        bookAuthor[row]->setText(foundData[t + 3]);
 
         // Book copies
         bookCopies[row] = new QLabel;
@@ -572,11 +572,11 @@ void Catalogue::display_catalogue()
 
         // Book name
         bookName[row] = new QLabel;
-        bookName[row]->setText("Book name: " + catalogueData[t + 2]);
+        bookName[row]->setText(catalogueData[t + 2]);
 
         // Book author
         bookAuthor[row] = new QLabel;
-        bookAuthor[row]->setText("Author: " + catalogueData[t + 3]);
+        bookAuthor[row]->setText(catalogueData[t + 3]);
 
         // Book copies
         bookCopies[row] = new QLabel;
