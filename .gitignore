@@ -1,9 +1,3 @@
-build-NewWindowChur-Desktop_Qt_6_1_3_MinGW_64_bit-Debug
-build-NewWindowChur-Desktop_Qt_5_12_11_MinGW_64_bit-Debug
-build-NewWindowChur-Desktop_Qt_6_2_0_MinGW_64_bit-Debug
-build-NewWindowChur-Desktop_Qt_6_2_1_MinGW_64_bit-Debug
-build-NewWindowChur-Desktop_Qt_5_12_11_MinGW_64_bit-Debug
-
-NewWindowChur/*.pro.user*
-
-*.user
+#ignores any of the build folders for our progam
+**build-YoobeeLibrarySystem-*
+*.zip
