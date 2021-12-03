@@ -2,13 +2,9 @@
 #define MAINWINDOW_H
 
 #include <QMainWindow>
-<<<<<<< HEAD
 #include "catalogue.h"
 #include "adminhome.h"
 #include "loginscreen.h"
-=======
-#include "dialog.h"
->>>>>>> parent of bb486ec... Add files via upload
 
 QT_BEGIN_NAMESPACE
 namespace Ui { class MainWindow; }
@@ -23,7 +19,6 @@ public:
     ~MainWindow();
 
 private slots:
-<<<<<<< HEAD
     void MainMenuOpen(); // - Liv
 //    void MainMenuClosed();
     void on_login_clicked(); // - Liv
@@ -36,12 +31,5 @@ private:
     adminhome * _adminWindow; // - Liv
     loginscreen *_loginWindow; // - Liv
 
-=======
-    void on_pushButton_clicked();
-
-private:
-    Ui::MainWindow *ui;
-    Dialog *window;
->>>>>>> parent of bb486ec... Add files via upload
 };
 #endif // MAINWINDOW_H
