@@ -122,13 +122,13 @@ void loginscreen::on_login_clicked()
             QString memAvatar = membersData[usernameIndex - 3];
 
             // Checking if they want their login details saved
-            if (ui->checkBox_rememberMe->isChecked())
-                SystemFiles::RememberUser(ui->username_input->text(), ui->username_input->text());
-            else
-                SystemFiles::ClearRememberUser();
+//            if (ui->checkBox_rememberMe->isChecked())
+//                SystemFiles::RememberUser(ui->username_input->text(), ui->username_input->text());
+//            else
+//                SystemFiles::ClearRememberUser();
 
             // Hiding the MainWindow to open the catalogue window
-            hide();
+            close();
 
             // CALL YOUR DIALOG WINDOWS WITH (nullptr) SO THAT THEY HAVE A TASKBAR ICON
             _catalogueWindow = new Catalogue(nullptr, user, pass, memfName, memlName, memEmail, memPhone, memID, memAvatar);
