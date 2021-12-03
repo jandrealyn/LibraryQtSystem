@@ -1,0 +1,220 @@
+<?xml version="1.0" encoding="UTF-8"?>
+<ui version="4.0">
+ <class>adminadduser</class>
+ <widget class="QDialog" name="adminadduser">
+  <property name="geometry">
+   <rect>
+    <x>0</x>
+    <y>0</y>
+    <width>731</width>
+    <height>540</height>
+   </rect>
+  </property>
+  <property name="windowTitle">
+   <string>Dialog</string>
+  </property>
+  <widget class="QFrame" name="gridFrame_2">
+   <property name="geometry">
+    <rect>
+     <x>0</x>
+     <y>0</y>
+     <width>731</width>
+     <height>541</height>
+    </rect>
+   </property>
+   <property name="styleSheet">
+    <string notr="true">*{
+background: rgb(255, 255, 255);
+fontsize: 15px;
+font-family: Century Gothic, sans-serif;
+}
+
+QFrame{
+border: solid 10px rgba(0, 0, 0);
+}
+
+QLineEdit{
+color: #8d98a1;
+background-color: #d3d3d3;
+font-size: 18px;
+border-style: outset;
+border-radius: 10px;
+}
+QPushButton{
+background: #ced1d8;
+border-style: outset;
+border-radius: 5px;
+}
+QPushButton:pressed{
+background-color: rgb(77, 77, 77);
+border-style: inset;
+}
+</string>
+   </property>
+   <widget class="QLabel" name="label_2">
+    <property name="geometry">
+     <rect>
+      <x>80</x>
+      <y>120</y>
+      <width>41</width>
+      <height>31</height>
+     </rect>
+    </property>
+    <property name="styleSheet">
+     <string notr="true">font-size: 20px</string>
+    </property>
+    <property name="text">
+     <string>Title:</string>
+    </property>
+   </widget>
+   <widget class="QLabel" name="label_4">
+    <property name="geometry">
+     <rect>
+      <x>50</x>
+      <y>220</y>
+      <width>91</width>
+      <height>31</height>
+     </rect>
+    </property>
+    <property name="styleSheet">
+     <string notr="true">font-size: 20px</string>
+    </property>
+    <property name="text">
+     <string>Copies:</string>
+    </property>
+   </widget>
+   <widget class="QLabel" name="label">
+    <property name="geometry">
+     <rect>
+      <x>280</x>
+      <y>30</y>
+      <width>151</width>
+      <height>51</height>
+     </rect>
+    </property>
+    <property name="styleSheet">
+     <string notr="true">font-size: 34px</string>
+    </property>
+    <property name="text">
+     <string>Add User</string>
+    </property>
+   </widget>
+   <widget class="QPushButton" name="canceledit">
+    <property name="geometry">
+     <rect>
+      <x>520</x>
+      <y>440</y>
+      <width>121</width>
+      <height>51</height>
+     </rect>
+    </property>
+    <property name="text">
+     <string>Cancel</string>
+    </property>
+   </widget>
+   <widget class="QLabel" name="label_3">
+    <property name="geometry">
+     <rect>
+      <x>50</x>
+      <y>170</y>
+      <width>91</width>
+      <height>31</height>
+     </rect>
+    </property>
+    <property name="styleSheet">
+     <string notr="true">font-size: 20px</string>
+    </property>
+    <property name="text">
+     <string>Author:</string>
+    </property>
+   </widget>
+   <widget class="QPushButton" name="confimedit">
+    <property name="geometry">
+     <rect>
+      <x>300</x>
+      <y>440</y>
+      <width>121</width>
+      <height>51</height>
+     </rect>
+    </property>
+    <property name="text">
+     <string>Confirm Changes</string>
+    </property>
+   </widget>
+   <widget class="QLabel" name="label_5">
+    <property name="geometry">
+     <rect>
+      <x>30</x>
+      <y>350</y>
+      <width>71</width>
+      <height>31</height>
+     </rect>
+    </property>
+    <property name="styleSheet">
+     <string notr="true">font-size: 20px</string>
+    </property>
+    <property name="text">
+     <string>Image:</string>
+    </property>
+   </widget>
+   <widget class="QLineEdit" name="book_name_label">
+    <property name="geometry">
+     <rect>
+      <x>130</x>
+      <y>120</y>
+      <width>281</width>
+      <height>31</height>
+     </rect>
+    </property>
+   </widget>
+   <widget class="QLineEdit" name="book_author_label">
+    <property name="geometry">
+     <rect>
+      <x>130</x>
+      <y>170</y>
+      <width>281</width>
+      <height>31</height>
+     </rect>
+    </property>
+   </widget>
+   <widget class="QLineEdit" name="book_copies_label">
+    <property name="geometry">
+     <rect>
+      <x>130</x>
+      <y>220</y>
+      <width>281</width>
+      <height>31</height>
+     </rect>
+    </property>
+   </widget>
+   <widget class="QLabel" name="img">
+    <property name="geometry">
+     <rect>
+      <x>10</x>
+      <y>10</y>
+      <width>161</width>
+      <height>81</height>
+     </rect>
+    </property>
+    <property name="text">
+     <string>yoobee image</string>
+    </property>
+   </widget>
+   <widget class="QPushButton" name="deletebook">
+    <property name="geometry">
+     <rect>
+      <x>80</x>
+      <y>440</y>
+      <width>121</width>
+      <height>51</height>
+     </rect>
+    </property>
+    <property name="text">
+     <string>Delete Book</string>
+    </property>
+   </widget>
+  </widget>
+ </widget>
+ <resources/>
+ <connections/>
+</ui>

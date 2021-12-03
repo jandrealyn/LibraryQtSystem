@@ -1,3 +1,4 @@
+<<<<<<< HEAD
 <?xml version="1.0" encoding="UTF-8"?>
 <ui version="4.0">
  <class>adminsystem</class>
@@ -195,3 +196,213 @@ padding:2px;</string>
  <resources/>
  <connections/>
 </ui>
+=======
+<?xml version="1.0" encoding="UTF-8"?>
+<ui version="4.0">
+ <class>adminsystem</class>
+ <widget class="QDialog" name="adminsystem">
+  <property name="geometry">
+   <rect>
+    <x>0</x>
+    <y>0</y>
+    <width>800</width>
+    <height>562</height>
+   </rect>
+  </property>
+  <property name="windowTitle">
+   <string>Yoobee Library System | Admin | System Logs</string>
+  </property>
+  <property name="windowIcon">
+   <iconset resource="images.qrc">
+    <normaloff>:/images/favicon.ico</normaloff>:/images/favicon.ico</iconset>
+  </property>
+  <widget class="QFrame" name="gridFrame_2">
+   <property name="geometry">
+    <rect>
+     <x>0</x>
+     <y>0</y>
+     <width>801</width>
+     <height>561</height>
+    </rect>
+   </property>
+   <property name="styleSheet">
+    <string notr="true">*{
+background: rgb(255, 255, 255);
+fontsize: 15px;
+font-family: Century Gothic, sans-serif;
+}
+
+QFrame{
+border: solid 10px rgba(0, 0, 0);
+}
+
+QLineEdit{
+color: #8d98a1;
+background-color: #d3d3d3;
+font-size: 18px;
+border-style: outset;
+border-radius: 10px;
+}
+QPushButton{
+background: #ced1d8;
+border-style: outset;
+border-radius: 5px;
+}
+QPushButton:pressed{
+background-color: rgb(77, 77, 77);
+border-style: inset;
+}
+</string>
+   </property>
+   <widget class="QWidget" name="verticalLayoutWidget">
+    <property name="geometry">
+     <rect>
+      <x>170</x>
+      <y>120</y>
+      <width>421</width>
+      <height>321</height>
+     </rect>
+    </property>
+    <layout class="QVBoxLayout" name="verticalLayout">
+     <item>
+      <widget class="QPushButton" name="admin_due_btn">
+       <property name="styleSheet">
+        <string notr="true">*{
+font-family: Century Gothic, sans-serif;
+font-size: 15px;
+}
+
+QPushButton{
+color: white;
+padding: 15px;
+background: #27a9e3;
+border-style: outset;
+border-radius: 10px;
+font: bold;
+}
+QPushButton::pressed{
+background-color: rgb(216, 150, 90);
+border-style: inset;
+}
+
+QPushButton::hover {
+background-color: #59c7f7;
+}
+</string>
+       </property>
+       <property name="text">
+        <string>All Checked Out Books</string>
+       </property>
+      </widget>
+     </item>
+     <item>
+      <widget class="QPushButton" name="admin_overdue_btn">
+       <property name="styleSheet">
+        <string notr="true">*{
+font-family: Century Gothic, sans-serif;
+font-size: 15px;
+}
+
+QPushButton{
+color: white;
+padding: 15px;
+background: #27a9e3;
+border-style: outset;
+border-radius: 10px;
+font: bold;
+}
+QPushButton::pressed{
+background-color: rgb(216, 150, 90);
+border-style: inset;
+}
+
+QPushButton::hover {
+background-color: #59c7f7;
+}
+</string>
+       </property>
+       <property name="text">
+        <string>Overdue Books</string>
+       </property>
+      </widget>
+     </item>
+    </layout>
+   </widget>
+   <widget class="QLabel" name="label">
+    <property name="geometry">
+     <rect>
+      <x>190</x>
+      <y>30</y>
+      <width>391</width>
+      <height>71</height>
+     </rect>
+    </property>
+    <property name="styleSheet">
+     <string notr="true">
+
+font: 40px;
+
+</string>
+    </property>
+    <property name="text">
+     <string>Checked Out Books</string>
+    </property>
+   </widget>
+   <widget class="QPushButton" name="back">
+    <property name="geometry">
+     <rect>
+      <x>640</x>
+      <y>40</y>
+      <width>111</width>
+      <height>41</height>
+     </rect>
+    </property>
+    <property name="styleSheet">
+     <string notr="true">*{
+font-family: Century Gothic, sans-serif;
+font-size: 15px;
+}
+
+QPushButton{
+color: white;
+padding: 10px;
+background: #27a9e3;
+border-style: outset;
+border-radius: 10px;
+font: bold;
+}
+QPushButton::pressed{
+background-color: rgb(216, 150, 90);
+border-style: inset;
+}
+
+QPushButton::hover {
+background-color: #59c7f7;
+}
+</string>
+    </property>
+    <property name="text">
+     <string>Back</string>
+    </property>
+   </widget>
+   <widget class="QLabel" name="img">
+    <property name="geometry">
+     <rect>
+      <x>10</x>
+      <y>10</y>
+      <width>181</width>
+      <height>91</height>
+     </rect>
+    </property>
+    <property name="text">
+     <string>Yoobee Image</string>
+    </property>
+   </widget>
+  </widget>
+ </widget>
+ <resources>
+  <include location="images.qrc"/>
+ </resources>
+ <connections/>
+</ui>
+>>>>>>> 80cf8e3d315ab6dd1b1f1dcc9d041668d3846653
