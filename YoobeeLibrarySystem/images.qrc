@@ -4,7 +4,6 @@
         <file>images/book-cover.png</file>
         <file>images/blue-book.jpg</file>
         <file>images/YoobeeLibraries.png</file>
-        <file>images/top-books.png</file>
         <file>images/berserk.jpg</file>
         <file>images/username-ok.png</file>
         <file>images/username-taken.png</file>
@@ -20,5 +19,6 @@
         <file>images/tab-account-icon.png</file>
         <file>images/tab-catalogue-icon.png</file>
         <file>images/tab-home-icon.png</file>
+        <file>images/top-books.png</file>
     </qresource>
 </RCC>
