@@ -196,6 +196,10 @@ QPushButton:hover { background-color: #66c011; }</string>
   </widget>
  </widget>
  <tabstops>
+  <tabstop>username_input</tabstop>
+  <tabstop>password_input</tabstop>
+  <tabstop>login</tabstop>
+  <tabstop>checkBox_rememberMe</tabstop>
   <tabstop>Create</tabstop>
   <tabstop>close</tabstop>
  </tabstops>
