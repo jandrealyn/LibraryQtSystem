@@ -841,7 +841,7 @@ void SystemFiles::LogOverdueBook(QString memUser, QString memID, QStringList ove
              int daysDiff = bookDueDate.daysTo(currDate);
 
              QString content = "LOG: " + QTime::currentTime().toString() + " - " + QDate::currentDate().toString() + ": USER \"" + memUser + "\" ID \"" + memID + "\": has book \"" + overdueBooks[i] + "\" overdue by " + QString::number(daysDiff) + " days.";
-             if (!overdueBooksLogData.contains(content, Qt::CaseInsensitive)) // checking that we're not outputting duplicates
+             if (!overdueBooksLogData.contains(content)) // checking that we're not outputting duplicates
              {
                 in << content << "\n";
              }
@@ -887,7 +887,7 @@ void SystemFiles::LogReturnedBook(QString bookID, QString bookN, QString userID,
          QTextStream in(&_returnedBooksLog);
 
              QString content = "LOG: " + QTime::currentTime().toString() + " - " + QDate::currentDate().toString() + ": USER \"" + userN + "\" ID \"" + userID + "\": has returned BOOK: \"" + bookN + "\" BOOK ID: " + bookID ;
-             if (!returnedBooksLogData.contains(content, Qt::CaseInsensitive))
+             if (!returnedBooksLogData.contains(content))
              {
                 in << content << "\n";
              }
