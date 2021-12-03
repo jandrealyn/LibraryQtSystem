@@ -1,3 +1,4 @@
+<<<<<<< HEAD
 //including modules
 
 #include "mainwindow.h"
@@ -21,11 +22,22 @@
 */
 
 //Livs code
+=======
+#include "mainwindow.h"
+#include "dialog.h"
+#include "ui_mainwindow.h"
+#include "QMessageBox"
+#include "QCheckBox"
+#include <QDebug>
+
+
+>>>>>>> parent of bb486ec... Add files via upload
 MainWindow::MainWindow(QWidget *parent)
     : QMainWindow(parent)
     , ui(new Ui::MainWindow)
 {
     ui->setupUi(this);
+<<<<<<< HEAD
     QPixmap Img(":/images/YoobeeLibraries.png");
     ui->img->setPixmap(Img.scaled(150, 150, Qt::KeepAspectRatio));
 
@@ -102,6 +114,9 @@ MainWindow::MainWindow(QWidget *parent)
 
     ui->scrollArea->setWidget(groupBox);
     groupBox->setStyleSheet("background-color: white;");
+=======
+
+>>>>>>> parent of bb486ec... Add files via upload
 }
 
 MainWindow::~MainWindow()
@@ -109,6 +124,7 @@ MainWindow::~MainWindow()
     delete ui;
 }
 
+<<<<<<< HEAD
 void MainWindow::on_login_clicked(){
     hide();
     _loginWindow = new loginscreen(nullptr);
@@ -214,5 +230,24 @@ void MainWindow::on_searchBar_textChanged(const QString &arg1)
 
     ui->scrollArea->setWidget(groupBox);
     groupBox->setStyleSheet("background-color: white;");
+=======
+
+void MainWindow::on_pushButton_clicked()
+{
+    QString user = ui->lineEditUser->text();
+    QString pass = ui->lineEditPass->text();
+
+    if(user == "test" && pass == "test"){
+        window = new Dialog(this);
+        window->show();
+    }
+    else {
+        QMessageBox::warning(this, "Login", "Unsucessful, try again.");
+    }
+
+   // window = new Dialog(this);
+    // window->show();
+
+>>>>>>> parent of bb486ec... Add files via upload
 }
 
