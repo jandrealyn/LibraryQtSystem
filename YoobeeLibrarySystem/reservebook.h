@@ -30,6 +30,7 @@ private slots:
 private:
     Ui::ReserveBook *ui;
     QString _membersID, _membersName, _bookID, _bookName;
+    //
 };
 
 #endif // RESERVEBOOK_H

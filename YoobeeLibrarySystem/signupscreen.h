@@ -50,6 +50,7 @@ private:
     bool _emailOk; // jakob
     bool _avatarSelected; // jakob
     QStringList _membersList; // jakob
+    //
 };
 
 #endif // SIGNUPSCREEN_H

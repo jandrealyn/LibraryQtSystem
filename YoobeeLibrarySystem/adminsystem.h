@@ -33,7 +33,7 @@ private:
     Ui::adminsystem *ui;
     admindue* admin_due;
     adminoverdue* admin_overdue;
-
+    //
 };
 
 #endif // ADMINSYSTEM_H

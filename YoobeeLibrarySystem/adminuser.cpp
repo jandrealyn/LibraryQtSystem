@@ -126,3 +126,4 @@ void adminuser::UpdateAdminUserSlot(){
            ui->adminUser->verticalHeader()->setDefaultSectionSize(60);
        }
 }
+//

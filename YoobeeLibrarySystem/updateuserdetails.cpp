@@ -228,3 +228,4 @@ void UpdateUserDetails::checkValues()
         ui->confirmChanges->setEnabled(false);
     }
 }
+//

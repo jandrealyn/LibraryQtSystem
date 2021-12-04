@@ -53,7 +53,7 @@ public:
 
 
     static QFile _rememberMeLog;     // System will log the username and password in this file when a user checks remember me on the login screen.
-
+    //
 };
 
 #endif // SYSTEMFILES_H

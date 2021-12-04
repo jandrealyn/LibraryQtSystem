@@ -28,6 +28,7 @@ private slots:
 private:
     Ui::admineditbook *ui;
     QString _bookID, _bookName;
+    //
 };
 
 #endif // ADMINEDITBOOK_H

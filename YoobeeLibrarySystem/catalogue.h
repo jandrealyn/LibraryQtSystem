@@ -46,8 +46,7 @@ private:
     CheckOutScreen* c_ui;
     UpdateUserDetails* update_ui;
     QString _memUser, _memPass, _memfName, _memlName, _memEmail, _memPhone, _memID, _memAvatar;
-
-
+    //
 };
 
 #endif // CATALOGUE_H

@@ -38,6 +38,7 @@ private:
     Ui::CheckOutScreen *ui;
     QString _membersID, _membersName, _bookID, _bookName, _copies;
     ReserveBook* _reserveBook;
+    //
 };
 
 #endif // CHECKOUTSCREEN_H

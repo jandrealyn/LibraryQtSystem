@@ -23,6 +23,7 @@ private slots:
 
 private:
     Ui::adminoverdue *ui;
+    //
 };
 
 #endif // ADMINOVERDUE_H

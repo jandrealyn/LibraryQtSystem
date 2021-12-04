@@ -27,6 +27,7 @@ private:
     Ui::admindue *ui;
     adminreturn* ret;
     QString _id;
+    //
 };
 
 #endif // ADMINDUE_H

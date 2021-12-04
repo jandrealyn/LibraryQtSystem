@@ -132,3 +132,4 @@ void admineditbook::on_deletebook_clicked()
     //if no clicked
     }
 }
+//

@@ -132,3 +132,4 @@ void CheckOutScreen::on_reserve_clicked()
     connect(_reserveBook, SIGNAL(Res_UpdateUsersCurrentBooks()), this, SLOT(Res_UpdateUsersCurrentBooks_Emitted()));
     connect(_reserveBook, SIGNAL(CloseCheckOutScreen()), this, SLOT(on_cancel_clicked()));
 }
+//

@@ -47,4 +47,4 @@ void adminsystem::AdminSystemClosed()
 {
     show();
 }
-
+//

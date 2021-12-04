@@ -31,6 +31,7 @@ private:
     Ui::admincatalogue *ui;
     admineditbook *adminedit;
     adminaddbook *adminadd;
+    //
 };
 
 #endif // ADMINCATALOGUE_H

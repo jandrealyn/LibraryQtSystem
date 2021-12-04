@@ -632,3 +632,4 @@ void Catalogue::display_catalogue()
     groupBox->setStyleSheet("background-color: white;");
 }
 
+//
