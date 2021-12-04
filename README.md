@@ -1,7 +1,8 @@
 # LibraryCuties
 
-Our final project for first year BSE. Project by Lara, Jakob and Olivia.
+Our final project for first year BSE. Project by Lara, Jakob and Olivia of Yoobee's Wellington campus.
 
-## How to install the Yoobee Library System
-##### First off, prerequisites
-The Yoobee Library system was developed in Qt 4.15.0 with Qmake. Make sure you install Qt first with Qt 4 compatibility.
+## Yoobee Library System Prerequisites
+- Make sure you Qt installed with compatibility for Qt 4.
+- We haven't tested if our project can build on MacOS, so if you want to be safe, use at least a win32 operating system.
+- 
