@@ -1,11 +1,11 @@
 #include "mainwindow.h"
-#include "createfiles.h"
-#include "catalogue.h"
+#include "SystemFiles.h"
 #include <QApplication>
-//testing github
+
 int main(int argc, char *argv[])
 {
-    CreateFiles::CreateFilesOnStartUp();
+    SystemFiles::CreateFilesOnStartUp();
+    SystemFiles::CheckReservedBooks();
 
     QApplication a(argc, argv);
     MainWindow w;
