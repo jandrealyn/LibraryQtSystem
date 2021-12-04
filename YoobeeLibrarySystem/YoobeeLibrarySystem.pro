@@ -53,7 +53,8 @@ HEADERS += \
     signupscreen.h \
     signupscreen2.h \
     updateuserdetails.h \
-    updateuserpicture.h
+    updateuserpicture.h \
+    version.h
 
 FORMS += \
     adminaddbook.ui \
