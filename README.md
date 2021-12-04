@@ -16,4 +16,4 @@ Yoobee Colleges, Wellington Campus
 - Navigate to where you extracted the ZIP files contents
 - Keep going through the folder until you find YoobeeLibrarySystem.pro
 - Double click the .pro folder and it should open up our project
-- Press ctrl + r to run the program, and you should be done!
+- Press ctrl + r or click the green arrow near the bottom left to run the program, and you should be done!
