@@ -1,0 +1,24 @@
+<RCC>
+    <qresource prefix="/">
+        <file>images/yoobee-logo.png</file>
+        <file>images/book-cover.png</file>
+        <file>images/blue-book.jpg</file>
+        <file>images/YoobeeLibraries.png</file>
+        <file>images/berserk.jpg</file>
+        <file>images/username-ok.png</file>
+        <file>images/username-taken.png</file>
+        <file>images/cat-avatar.jpg</file>
+        <file>images/dog-avatar.jpg</file>
+        <file>images/jerboa-avatar.jpg</file>
+        <file>images/default-avatar.png</file>
+        <file>images/favicon.ico</file>
+        <file>images/game-of-thrones.jpg</file>
+        <file>images/the-lightning-thief.jpg</file>
+        <file>images/the-bfg.jpg</file>
+        <file>images/getting-started-with-Qt.jpg</file>
+        <file>images/tab-account-icon.png</file>
+        <file>images/tab-catalogue-icon.png</file>
+        <file>images/tab-home-icon.png</file>
+        <file>images/top-books.png</file>
+    </qresource>
+</RCC>
