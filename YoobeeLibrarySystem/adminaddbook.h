@@ -33,6 +33,7 @@ private:
     Ui::adminaddbook *ui;
     QString bookimg; // jakob // jakob
     bool bookadded;
+    //
 };
 
 #endif // ADMINADDBOOK_H

@@ -217,3 +217,4 @@ void MainWindow::on_searchBar_textChanged(const QString &arg1)
     groupBox->setStyleSheet("background-color: white;");
 }
 
+//

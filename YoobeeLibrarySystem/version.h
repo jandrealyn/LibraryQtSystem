@@ -21,5 +21,6 @@
 #define VER_PRODUCTNAME_STR         "Yoobee Library System"
 
 #define VER_COMPANYDOMAIN_STR       "yoobee.ac.nz"
+//
 
 #endif // VERSION_H

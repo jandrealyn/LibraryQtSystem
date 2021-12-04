@@ -40,6 +40,7 @@ private:
     admincatalogue *admin_cat;
     adminuser *admin_use;
     adminsystem *admin_sys;
+    //
 };
 
 #endif // ADMINHOME_H

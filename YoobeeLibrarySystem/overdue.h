@@ -20,6 +20,7 @@ private slots:
 
 private:
     Ui::Overdue *ui;
+    //
 };
 
 #endif // OVERDUE_H

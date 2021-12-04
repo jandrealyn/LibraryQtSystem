@@ -30,6 +30,6 @@ private:
     Catalogue *_catalogueWindow; // - Liv
     adminhome * _adminWindow; // - Liv
     loginscreen *_loginWindow; // - Liv
-
+    //
 };
 #endif // MAINWINDOW_H

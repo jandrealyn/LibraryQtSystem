@@ -33,6 +33,7 @@ private:
     adminhome * _adminWindow; //pointer to the admin window // - Liv
 
     QString _user, _pass; // Jakob: using these for the remember me functionality
+    //
 };
 
 #endif // LOGINSCREEN_H

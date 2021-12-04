@@ -26,6 +26,7 @@ private slots:
 private:
     Ui::adminreturn *ui;
     QString id, userid, bookn, usern;
+    //
 };
 
 #endif // ADMINRETURN_H

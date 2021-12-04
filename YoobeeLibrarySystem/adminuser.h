@@ -31,6 +31,7 @@ private:
     Ui::adminuser *ui;
     adminedituser* admineditu;
     signupscreen* _signup;
+    //
 };
 
 #endif // ADMINUSER_H

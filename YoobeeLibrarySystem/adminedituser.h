@@ -28,6 +28,7 @@ private slots:
 private:
     Ui::adminedituser *ui;
     QString _userid;
+    //
 };
 
 #endif // ADMINEDITUSER_H

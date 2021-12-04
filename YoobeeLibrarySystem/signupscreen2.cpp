@@ -46,4 +46,4 @@ void signupscreen2::on_close_clicked(){ //function for - when the user clicks cl
     emit OpenLoginScreen();
 }
 
-
+//

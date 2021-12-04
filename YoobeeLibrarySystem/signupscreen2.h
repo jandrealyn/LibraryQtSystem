@@ -27,7 +27,7 @@ private slots:
 private:
     Ui::signupscreen2 *ui; // - Liv
     signupscreen2 *Signup; // - Liv
-
+    //
 };
 
 #endif // SIGNUPSCREEN2_H
