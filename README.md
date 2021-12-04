@@ -8,7 +8,10 @@ Our final project for first year BSE. Project by Lara, Jakob and Olivia of Yoobe
 ### How to install
 - Click the green "Code" button, and click "Download ZIP", install it somewhere on your computer.
 - Once the .zip file is installed, extract the contents and then open the "YoobeeLibrarySystemRelease" folder
-- Double click on the YoobeeLibrarySystem.exe near the bottom of the file, and it should open a window that looks like this:
+- Scroll to the bottom of the folder to find YoobeeLibrarySystem.exe
+- Double click on the the .exe file
+- You will have likely been told that windows has protected your PC, this is understandable since we're just students, not a known publisher. Click "More info" and then the "Run anyway" button.
+- You should now have opened the Yoobee Library System, and it should look something like this!
 ![Image of the YoobeeLibrarySystem home screen](https://user-images.githubusercontent.com/63636667/144690367-5d333c81-3879-42e3-b156-df3daadf7fb7.png)
 
 From there, you can mess around and use the program however you'd like. 
