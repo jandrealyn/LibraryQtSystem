@@ -17,3 +17,6 @@ Yoobee Colleges, Wellington Campus
 - Keep going through the folder until you find YoobeeLibrarySystem.pro
 - Double click the .pro folder and it should open up our project
 - Press ctrl + r or click the green arrow near the bottom left to run the program, and you should be done!
+
+##### One thing to note
+Our program contains books, icons and images that we do not own. We do not claim the rights to any of them.
